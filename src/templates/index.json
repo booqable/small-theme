@@ -1,0 +1,25 @@
+{
+  "name": "Home",
+  "sections": {
+    "example": {
+      "type": "example",
+      "blocks": {
+        "block-id": {
+          "type": "block-id",
+          "settings": {
+          },
+          "disabled": null
+        }
+      },
+      "block_order": [
+        "block-id"
+      ],
+      "settings": {
+      },
+      "disabled": null
+    }
+  },
+  "order": [
+    "example"
+  ]
+}

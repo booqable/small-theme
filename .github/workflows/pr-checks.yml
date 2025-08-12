@@ -1,0 +1,71 @@
+name: PR Checks
+
+on:
+  pull_request:
+    branches: [ main, develop ]
+
+jobs:
+  code-quality:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout repository
+      uses: actions/checkout@v4
+
+    - name: Setup Node.js
+      uses: actions/setup-node@v4
+      with:
+        node-version: '20.x'
+        cache: 'npm'
+
+    - name: Install dependencies
+      run: npm ci
+
+    - name: Run SCSS linter
+      run: npm run lint:scss
+      continue-on-error: true
+      id: scss-lint
+
+    - name: Run JavaScript linter
+      run: npm run lint:js
+      continue-on-error: true
+      id: js-lint
+
+    - name: Test build process
+      run: npm run build
+      id: build-test
+
+    - name: Check file structure
+      run: |
+        echo "Checking source structure..."
+        find src -type f -name "*.scss" -o -name "*.js" -o -name "*.liquid" -o -name "*.json" | head -10
+        echo "Checking output structure..."
+        find assets config layout sections snippets templates -type f 2>/dev/null | head -10 || echo "No output files found"
+
+    - name: Comment PR with results
+      uses: actions/github-script@v7
+      if: always()
+      with:
+        script: |
+          const scssResult = '${{ steps.scss-lint.outcome }}';
+          const jsResult = '${{ steps.js-lint.outcome }}';
+          const buildResult = '${{ steps.build-test.outcome }}';
+
+          let comment = '## 🔍 Code Quality Report\n\n';
+          comment += `- **SCSS Linting**: ${scssResult === 'success' ? '✅ Passed' : '❌ Failed'}\n`;
+          comment += `- **JavaScript Linting**: ${jsResult === 'success' ? '✅ Passed' : '❌ Failed'}\n`;
+          comment += `- **Build Process**: ${buildResult === 'success' ? '✅ Passed' : '❌ Failed'}\n\n`;
+
+          if (scssResult === 'failure' || jsResult === 'failure') {
+            comment += '⚠️ Please fix linting errors before merging.\n';
+            comment += 'Run `npm run lint:fix` to auto-fix common issues.';
+          } else if (buildResult === 'success') {
+            comment += '🎉 All checks passed! Ready for review.';
+          }
+
+          github.rest.issues.createComment({
+            issue_number: context.issue.number,
+            owner: context.repo.owner,
+            repo: context.repo.repo,
+            body: comment
+          });

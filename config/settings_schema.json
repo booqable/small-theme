@@ -1,0 +1,37 @@
+[
+  {
+    "name": "theme_info",
+    "theme_name": "Small",
+    "theme_version": "0.1.0",
+    "theme_author": "Booqable"
+  },
+  {
+    "name": "Buttons",
+    "settings": [
+      {
+        "type": "paragraph",
+        "content": "Adjust the button design throughout your website"
+      },
+      {
+        "type": "header",
+        "content": "Corners"
+      },
+      {
+        "type": "select",
+        "label": "Button corners",
+        "id": "button_corners",
+        "options": [
+          {
+            "value": "square",
+            "label": "Square"
+          },
+          {
+            "value": "rounded",
+            "label": "Rounded"
+          }
+        ],
+        "default": "square"
+      }
+    ]
+  }
+]

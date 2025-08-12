@@ -1,0 +1,15 @@
+{
+  "current": {
+    "button_corners": "square",
+    "sections": {
+      "header": {
+        "type": "header",
+        "blocks": {},
+        "block_order": [],
+        "settings": {
+        },
+        "disabled": null
+      }
+    }
+  }
+}

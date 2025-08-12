@@ -1,0 +1,43 @@
+{
+  "name": "small-theme",
+  "version": "1.0.0",
+  "description": "Booqable theme with comprehensive build system",
+  "private": true,
+  "scripts": {
+    "build:scss": "sass src/scss:assets --style=compressed --no-source-map",
+    "build:js": "cpx 'src/js/**/*' assets --clean",
+    "build:images": "imagemin 'src/images/**/*' --out-dir=assets",
+    "build:liquid": "npm run copy:config && npm run copy:layout && npm run copy:sections && npm run copy:snippets && npm run copy:templates",
+    "copy:config": "cpx 'src/config/**/*' config --clean",
+    "copy:layout": "cpx 'src/layout/**/*' layout --clean",
+    "copy:sections": "cpx 'src/sections/**/*' sections --clean",
+    "copy:snippets": "cpx 'src/snippets/**/*' snippets --clean",
+    "copy:templates": "cpx 'src/templates/**/*' templates --clean",
+    "build": "npm run build:scss && npm run build:js && npm run build:images && npm run build:liquid",
+    "watch:scss": "sass src/scss:assets --watch --style=compressed --no-source-map",
+    "watch:js": "cpx 'src/js/**/*' assets --watch",
+    "watch:images": "cpx 'src/images/**/*' assets --watch",
+    "watch:liquid": "npm run watch:config & npm run watch:layout & npm run watch:sections & npm run watch:snippets & npm run watch:templates",
+    "watch:config": "cpx 'src/config/**/*' config --watch",
+    "watch:layout": "cpx 'src/layout/**/*' layout --watch",
+    "watch:sections": "cpx 'src/sections/**/*' sections --watch",
+    "watch:snippets": "cpx 'src/snippets/**/*' snippets --watch",
+    "watch:templates": "cpx 'src/templates/**/*' templates --watch",
+    "watch": "npm run watch:scss & npm run watch:js & npm run watch:images & npm run watch:liquid",
+    "dev": "npm run clean && npm run build && npm run watch",
+    "clean": "rm -rf assets/* config/* layout/* sections/* snippets/* templates/*",
+    "lint:scss": "stylelint 'src/scss/**/*.scss'",
+    "lint:js": "eslint 'src/js/**/*.js'",
+    "lint": "npm run lint:scss && npm run lint:js",
+    "lint:fix": "npm run lint:scss -- --fix && npm run lint:js -- --fix"
+  },
+  "devDependencies": {
+    "sass": "^1.77.0",
+    "cpx": "^1.5.0",
+    "imagemin-cli": "^7.0.0",
+    "stylelint": "^16.0.0",
+    "stylelint-config-standard-scss": "^13.0.0",
+    "eslint": "^9.28.0",
+    "@eslint/js": "^9.28.0"
+  }
+}
