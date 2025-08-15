@@ -63,5 +63,8 @@
     </footer>
 
     {{ content_for_body }}
+
+    {% comment %} Critical JavaScript files {% endcomment %}
+    <script src='{{ 'example.js' | asset_url }}' defer></script>
   </body>
 </html>
