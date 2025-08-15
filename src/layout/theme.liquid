@@ -26,7 +26,7 @@
 
     {%- for css_file in css_files -%}
       {%- assign css_url = css_file | asset_url -%}
-      <link rel="preload" href="{{ css_url }}" as="style">
+      <link rel="preload" href="{{ css_url }}" as="style" onload="this.onload=null;this.rel='stylesheet'" >
       <link rel="stylesheet" href="{{ css_url }}"{% if css_file == 'critical.css' %} data-optimize="critical"{% endif %} media="all" onload="this.media='all'">
     {%- endfor -%}
 
