@@ -32,7 +32,7 @@ small-theme/
 │   │   └── _helpers/             # Mixins and utilities
 │   │       └── _mixins.scss      # Responsive mixins
 │   ├── js/                       # JavaScript files → assets/
-│   │   └── main.js            # Example JS file
+│   │   └── main.js               # Common JS file
 │   ├── images/                   # Images → assets/ (optimized)
 │   ├── config/                   # Theme configuration → config/
 │   │   ├── settings_data.json
