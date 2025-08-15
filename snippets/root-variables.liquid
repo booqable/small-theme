@@ -1,0 +1,80 @@
+<style>
+  {% for scheme in settings.color_schemes %}
+
+  {%- assign scheme_classes = scheme_classes | append: ', .color-' | append: scheme.id -%}
+
+  {% if forloop.first %}
+  :root,
+  {% endif %}
+  .color-{{ scheme.id }} {
+    --background-accent:     {{ scheme.settings.background_accent }};
+    --background-primary:    {{ scheme.settings.background }};
+    --color-accent:          {{ scheme.settings.color_accent }};
+    --color-border:          {{ scheme.settings.color_primary | append: '26' }};
+    --color-outline:         {{ scheme.settings.color_accent_outline }};
+    --color-placeholder:     {{ scheme.settings.color_primary | append: '80' }};
+    --color-primary:         {{ scheme.settings.color_primary }};
+    --color-secondary:       {{ scheme.settings.color_secondary }};
+  }
+  {% endfor %}
+
+  :root {
+    {% case settings.corner_radius %}
+      {%- when 'square' -%}
+        --border-radius:  0;
+      {%- when 'rounded' -%}
+        --border-radius:  8px;
+      {%- when 'fully_round' -%}
+        --border-radius:  50px;
+    {% endcase %}
+    {% case settings.button_corners %}
+      {%- when 'square' -%}
+        --border-radius-button:  0;
+      {%- when 'rounded' -%}
+        --border-radius-button:  8px;
+      {%- when 'fully_round' -%}
+        --border-radius-button:  50px;
+    {% endcase %}
+    --font-body:             "{{ settings.font_body.family | default: Roboto }}", {{ settings.font_body.fallback_families | default: sans-serif }};
+    --font-heading:          "{{ settings.font_heading.family | default: Nippo }}", {{ settings.font_heading.fallback_families | default: sans-serif }};
+    --font-tagline:          "{{ settings.font_tagline.family | default: Roboto }}", {{ settings.font_tagline.fallback_families | default: sans-serif }};
+    --font-height-xs:        {{ settings.font_height_xs | default: "1" }};
+    --font-height-sm:        {{ settings.font_height_sm | default: "1.2" }};
+    --font-height-md:        {{ settings.font_height_md | default: "1.3333" }};
+    --font-height-lg:        {{ settings.font_height_lg | default: "1.4" }};
+    --font-height-xl:        {{ settings.font_height_xl | default: "1.5" }};
+    --font-size-base:        {{ settings.font_size_base | append: "px" | default: "16px" }};
+    --font-size-button:      {{ settings.button_font_size | append: "px" | default: "16px" }};
+    --font-size-h1:          {{ settings.font_size_h1 | append: "px" | default: "80px" }};
+    --font-size-h2:          {{ settings.font_size_h2 | append: "px" | default: "56px" }};
+    --font-size-h3:          {{ settings.font_size_h3 | append: "px" | default: "40px" }};
+    --font-size-h4:          {{ settings.font_size_h4 | append: "px" | default: "32px" }};
+    --font-size-h5:          {{ settings.font_size_h5 | append: "px" | default: "24px" }};
+    --font-size-h6:          {{ settings.font_size_h6 | append: "px" | default: "20px" }};
+    --font-size-tagline:     {{ settings.font_size_tagline | append: "px" | default: "18px" }};
+    --font-weight-button:    {{ settings.button_font_weight | default: "400" }};
+    --font-weight-h1:        {{ settings.font_weight_h1 | default: "400" }};
+    --font-weight-h2:        {{ settings.font_weight_h2 | default: "400" }};
+    --font-weight-h3:        {{ settings.font_weight_h3 | default: "400" }};
+    --font-weight-headers:   {{ settings.font_weight_headers | default: "400" }};
+    --font-weight-light:     {{ settings.font_weight_light | default: "300" }};
+    --font-weight-regular:   {{ settings.font_weight_regular | default: "400" }};
+    --font-weight-medium:    {{ settings.font_weight_medium | default: "500" }};
+    --font-weight-semibold:  {{ settings.font_weight_semibold | default: "600" }};
+    --font-weight-bold:      {{ settings.font_weight_bold | default: "700" }};
+    --font-weight-extrabold: {{ settings.font_weight_extrabold | default: "800" }};
+    {% case settings.button_size %}
+      {%- when 'sm' -%}
+        --padding-button:        8px 12px;
+      {%- when 'md' -%}
+        --padding-button:        10px 16px;
+      {%- when 'xl' -%}
+        --padding-button:        12px 20px;
+    {% endcase %}
+    {% if settings.transition_duration == "0" or settings.transition_duration == blank %}
+      --transition-duration: 0.3s;
+    {% else %}
+      --transition-duration: {{ settings.transition_duration | append: "s" }};
+    {% endif %}
+  }
+</style>

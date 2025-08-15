@@ -16,7 +16,7 @@ A performance-optimized Booqable theme with comprehensive build system featuring
 
 ```
 small-theme/
-├── src/                    # Source files (edit these)
+├── src/                   # Source files (edit these)
 │   ├── scss/              # SCSS files → assets/
 │   │   ├── style.scss     # Main stylesheet
 │   │   └── components/    # Component styles
@@ -105,8 +105,8 @@ The theme supports modular CSS architecture with automatic splitting:
 
 ```
 src/scss/
-├── style.scss              # Main entry point
-├── _variables.scss         # Colors, fonts, breakpoints
+├── style.scss             # Main entry point
+├── _variables.scss        # Colors, fonts, breakpoints
 ├── _mixins.scss           # Reusable mixins
 ├── components/
 │   ├── hero.scss          # Component-specific styles
@@ -162,7 +162,7 @@ Images are automatically optimized and copied with preserved directory structure
 
 ```
 src/images/
-├── hero.jpg                    → assets/hero.jpg
+├── hero.jpg                   → assets/hero.jpg
 ├── components/
 │   ├── slider.jpg             → assets/components/slider.jpg
 │   └── modal-bg.jpg           → assets/components/modal-bg.jpg
@@ -188,25 +188,25 @@ All Booqable theme files preserve subdirectory structure during compilation:
 ```
 src/
 ├── config/
-│   ├── settings.json              → config/settings.json
+│   ├── settings.json             → config/settings.json
 │   └── components/
 │       └── theme-config.json     → config/components/theme-config.json
 ├── layout/
-│   ├── theme.liquid               → layout/theme.liquid
+│   ├── theme.liquid              → layout/theme.liquid
 │   └── components/
-│       └── header.liquid          → layout/components/header.liquid
+│       └── header.liquid         → layout/components/header.liquid
 ├── sections/
-│   ├── hero.liquid                → sections/hero.liquid
+│   ├── hero.liquid               → sections/hero.liquid
 │   └── components/
-│       └── hero-banner.liquid     → sections/components/hero-banner.liquid
+│       └── hero-banner.liqid     → sections/components/hero-banner.liquid
 ├── snippets/
-│   ├── hero-inner.liquid          → snippets/hero-inner.liquid
+│   ├── hero-inner.liquid         → snippets/hero-inner.liquid
 │   └── components/
-│       └── button.liquid          → snippets/components/button.liquid
+│       └── button.liquid         → snippets/components/button.liquid
 └── templates/
-    ├── home.json                  → templates/home.json
+    ├── home.json                 → templates/home.json
     └── components/
-        └── product-card.json      → templates/components/product-card.json
+        └── product-card.jsn      → templates/components/product-card.json
 ```
 
 ## Technologies Used

@@ -1,0 +1,54 @@
+{%- comment -%}
+  A fonts snippet that collects, filters and preloads fonts.
+{%- endcomment -%}
+
+{%- assign fonts = '' -%}
+{%- assign separator = '|FONT_SEP|' -%}
+{%- assign font_body = settings.font_body -%}
+{%- assign font_heading = settings.font_heading -%}
+{%- assign font_tagline = settings.font_tagline -%}
+
+{%- if font_heading != blank -%}
+  {%- assign heading_path = font_heading.path -%}
+
+  {%- unless fonts contains heading_path -%}
+    {%- if fonts == '' -%}
+      {%- assign fonts = heading_path -%}
+    {%- else -%}
+      {%- assign fonts = fonts | append: separator | append: heading_path -%}
+    {%- endif -%}
+  {%- endunless -%}
+{%- endif -%}
+
+{%- if font_body != blank -%}
+  {%- assign body_path = font_body.path -%}
+
+  {%- unless fonts contains body_path -%}
+    {%- if fonts == '' -%}
+      {%- assign fonts = body_path -%}
+    {%- else -%}
+      {%- assign fonts = fonts | append: separator | append: body_path -%}
+    {%- endif -%}
+  {%- endunless -%}
+{%- endif -%}
+
+{%- if font_tagline != blank -%}
+  {%- assign tagline_path = font_tagline.path -%}
+
+  {%- unless fonts contains tagline_path -%}
+    {%- if fonts == '' -%}
+      {%- assign fonts = tagline_path -%}
+    {%- else -%}
+      {%- assign fonts = fonts | append: separator | append: tagline_path -%}
+    {%- endif -%}
+  {%- endunless -%}
+{%- endif -%}
+
+{%- if fonts != '' -%}
+  {%- assign paths = fonts | split: separator -%}
+
+  {%- for path in paths -%}
+    <link rel="preload" as="style" href="{{ path }}" crossorigin>
+    <link rel="stylesheet" href="{{ path }}" media="print" onload="this.media='all'">
+  {%- endfor -%}
+{%- endif -%}

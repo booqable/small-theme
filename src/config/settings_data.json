@@ -1,6 +1,68 @@
 {
   "current": {
     "button_corners": "square",
+    "button_font_size": 18,
+    "button_font_weight": "700",
+    "button_size": "md",
+    "color_schemes": {
+      "set-1": {
+        "type": "color_scheme",
+        "settings": {
+          "background": "#FFFFFF",
+          "background_accent": "#82B42B",
+          "color_accent": "#CBCAA7",
+          "color_accent_outline": "#82B42B",
+          "color_primary": "#150402",
+          "color_secondary": "#000000"
+        }
+      },
+      "set-2": {
+        "type": "color_scheme",
+        "settings": {
+          "background": "#150402",
+          "background_accent": "#82B42B",
+          "color_accent": "#CBCAA7",
+          "color_accent_outline": "#82B42B",
+          "color_primary": "#FFFFFF",
+          "color_secondary": "#CBCAA7"
+        }
+      },
+      "set-3": {
+        "type": "color_scheme",
+        "settings": {
+          "background": "#F5F5F5",
+          "background_accent": "#82B42B",
+          "color_accent": "#CBCAA7",
+          "color_accent_outline": "#82B42B",
+          "color_primary": "#150402",
+          "color_secondary": "#000000"
+        }
+      },
+      "set-4": {
+        "type": "color_scheme",
+        "settings": {
+          "background": "#82B42B",
+          "background_accent": "#150402",
+          "color_accent": "#FFFFFF",
+          "color_accent_outline": "#CBCAA7",
+          "color_primary": "#150402",
+          "color_secondary": "#CBCAA7"
+        }
+      }
+    },
+    "corner_radius": "square",
+    "font_body": "Roboto",
+    "font_heading": "Chakra Petch",
+    "font_tagline": "Roboto",
+    "font_size_base": 18,
+    "font_size_h1": 80,
+    "font_size_h2": 56,
+    "font_size_h3": 40,
+    "font_size_tagline": 16,
+    "font_weight_h1": "700",
+    "font_weight_h2": "700",
+    "font_weight_h3": "700",
+    "font_weight_headers": "700",
     "sections": {
       "header": {
         "type": "header",
@@ -10,6 +72,7 @@
         },
         "disabled": null
       }
-    }
+    },
+    "transition_duration": "0.3"
   }
 }

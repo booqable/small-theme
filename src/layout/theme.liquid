@@ -1,27 +1,67 @@
 <!DOCTYPE html>
 <html>
-<head>
-  <meta charset="UTF-8">
-  <meta http-equiv="X-UA-Compatible" content="IE=edge">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+  <head>
+    {% comment %} Base metadata {% endcomment %}
+    {%- render 'page-base-meta',
+        brand_color: branding_color,
+        canonical_url: canonical_url,
+        page_description: page_description,
+        page_title: page_title,
+        settings: settings,
+        is_local_env: local_env?,
+        shop: shop
+    -%}
 
-  {{ content_for_header }}
-</head>
-<body>
-  <header></header>
+    {% comment %} Resource hints for performance {% endcomment %}
+    {%- render 'page-resource-hints' -%}
 
-  <main>
-    <h1>Welcome to My Theme</h1>
-    <h2>Welcome to My Theme 2</h2>
-    <p>This is the main content area of the theme.</p>
+    {% comment %} Preload fonts {% endcomment %}
+    {%- render 'fonts', settings: settings -%}
 
-    {{ content_for_layout }}
-  </main>
+    {% comment %} Load root variables {% endcomment %}
+    {%- render 'root-variables', settings: settings -%}
 
-  <footer>
-    <p>&copy; 2025 Small theme</p>
-  </footer>
+    {% comment %} Async CSS loading with resource hints {% endcomment %}
+    {%- assign css_files = "critical.css, styles.css" | split: ", " -%}
 
-  {{ content_for_body }}
-</body>
+    {%- for css_file in css_files -%}
+      {%- assign css_url = css_file | asset_url -%}
+      <link rel="preload" href="{{ css_url }}" as="style">
+      <link rel="stylesheet" href="{{ css_url }}"{% if css_file == 'critical.css' %} data-optimize="critical"{% endif %} media="all" onload="this.media='all'">
+    {%- endfor -%}
+
+    {{ sections_assets }}
+    {{ content_for_header }}
+
+    {%- render 'page-social-share-meta',
+        canonical_url: canonical_url,
+        locale: locale,
+        image_url: page_meta_image_url,
+        image_alt: page_meta_image_alt,
+        page_description: page_description,
+        page_title: page_title,
+        product: product,
+        shop: shop
+    -%}
+
+    {% comment %} Enhanced performance monitoring {% endcomment %}
+    {%- render 'page-performance-monitoring' -%}
+  </head>
+  <body>
+    <header></header>
+
+    <main>
+      <h1>Welcome to My Theme</h1>
+      <h2>Welcome to My Theme 2</h2>
+      <p>This is the main content area of the theme.</p>
+
+      {{ content_for_layout }}
+    </main>
+
+    <footer>
+      <p>&copy; 2025 Small theme</p>
+    </footer>
+
+    {{ content_for_body }}
+  </body>
 </html>

@@ -1,0 +1,37 @@
+// Button component styles
+@use '../variables' as *;
+
+.btn {
+  font-family: $font-family-body;
+  font-size: $font-size-button;
+  font-weight: $font-weight-button;
+  padding: $padding-button;
+  margin: 0;
+  color: currentcolor;
+  background: none;
+  text-decoration: none;
+  border: 1px solid transparent;
+  border-radius: $border-radius-button;
+  cursor: pointer;
+  display: inline-flex;
+  justify-content: center;
+  align-items: center;
+  line-height: $font-height-sm;
+  transition: all $transition-duration $transition-function;
+
+  &:hover {
+    opacity: 0.8;
+  }
+
+  &--primary {
+    border-color: $background-accent;
+    background-color: $background-accent;
+    color: $color-accent;
+  }
+
+  &--outline {
+    border-color: currentcolor;
+    background-color: transparent;
+    color: currentcolor;
+  }
+}
