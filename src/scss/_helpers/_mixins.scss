@@ -1,0 +1,86 @@
+@use '../variables' as *;
+@use 'sass:map';
+
+// Breakpoint map for easier iteration
+$breakpoints: (
+  xs: $breakpoint-xs,
+  sm: $breakpoint-sm,
+  md: $breakpoint-md,
+  lg: $breakpoint-lg,
+  xl: $breakpoint-xl,
+  xxl: $breakpoint-xxl
+);
+
+// Media query mixins
+@mixin media-up($breakpoint) {
+  @if map.has-key($breakpoints, $breakpoint) {
+    @media (min-width: #{map.get($breakpoints, $breakpoint)}) {
+      @content;
+    }
+  } @else {
+    @media (min-width: #{$breakpoint}) {
+      @content;
+    }
+  }
+}
+
+@mixin media-down($breakpoint) {
+  @if map.has-key($breakpoints, $breakpoint) {
+    @media (max-width: #{map.get($breakpoints, $breakpoint) - 1px}) {
+      @content;
+    }
+  } @else {
+    @media (max-width: #{$breakpoint - 1px}) {
+      @content;
+    }
+  }
+}
+
+@mixin media-between($lower, $upper) {
+  $min: null;
+  $max: null;
+
+  @if map.has-key($breakpoints, $lower) {
+    $min: map.get($breakpoints, $lower);
+  } @else {
+    $min: $lower;
+  }
+
+  @if map.has-key($breakpoints, $upper) {
+    $max: map.get($breakpoints, $upper) - 1px;
+  } @else {
+    $max: $upper - 1px;
+  }
+
+  @media (min-width: #{$min}) and (max-width: #{$max}) {
+    @content;
+  }
+}
+
+@mixin media-only($breakpoint) {
+  @if $breakpoint == xs {
+    @include media-down(sm) {
+      @content;
+    }
+  } @else if $breakpoint == sm {
+    @include media-between(sm, md) {
+      @content;
+    }
+  } @else if $breakpoint == md {
+    @include media-between(md, lg) {
+      @content;
+    }
+  } @else if $breakpoint == lg {
+    @include media-between(lg, xl) {
+      @content;
+    }
+  } @else if $breakpoint == xl {
+    @include media-between(xl, xxl) {
+      @content;
+    }
+  } @else if $breakpoint == xxl {
+    @include media-up(xxl) {
+      @content;
+    }
+  }
+}

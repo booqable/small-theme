@@ -6,6 +6,20 @@
     "theme_author": "Booqable"
   },
   {
+    "name": "Animation",
+    "settings": [
+      {
+        "type": "number",
+        "id": "transition_duration",
+        "label": "Duration",
+        "min": 0,
+        "max": 10,
+        "default": 0.3,
+        "info": "Unit is seconds. Leave blank to use default duration of 0.3s. Min: 0, max: 10"
+      }
+    ]
+  },
+  {
     "name": "Buttons",
     "settings": [
       {
@@ -14,11 +28,35 @@
       },
       {
         "type": "header",
-        "content": "Corners"
+        "content": "Design"
+      },
+      {
+        "type": "paragraph",
+        "content": "Colors are inherited from the Color schemes"
       },
       {
         "type": "select",
-        "label": "Button corners",
+        "label": "Size",
+        "id": "button_size",
+        "options": [
+          {
+            "value": "sm",
+            "label": "Small"
+          },
+          {
+            "value": "md",
+            "label": "Medium"
+          },
+          {
+            "value": "lg",
+            "label": "Large"
+          }
+        ],
+        "default": "md"
+      },
+      {
+        "type": "select",
+        "label": "Corners",
         "id": "button_corners",
         "options": [
           {
@@ -28,9 +66,392 @@
           {
             "value": "rounded",
             "label": "Rounded"
+          },
+          {
+            "value": "fully_round",
+            "label": "Fully round"
           }
         ],
         "default": "square"
+      },
+      {
+        "type": "header",
+        "content": "Label"
+      },
+      {
+        "type": "paragraph",
+        "content": "Font family is inherited from the Body font"
+      },
+      {
+        "type": "range",
+        "id": "button_font_size",
+        "label": "Size",
+        "min": 12,
+        "max": 20,
+        "step": 1,
+        "default": 18,
+        "unit": "px"
+      },
+      {
+        "type": "select",
+        "id": "button_font_weight",
+        "label": "Weight",
+        "options": [
+          {
+            "value": "300",
+            "label": "Light"
+          },
+          {
+            "value": "400",
+            "label": "Regular"
+          },
+          {
+            "value": "500",
+            "label": "Medium"
+          },
+          {
+            "value": "600",
+            "label": "Semibold"
+          },
+          {
+            "value": "700",
+            "label": "Bold"
+          },
+          {
+            "value": "800",
+            "label": "Extrabold"
+          }
+        ],
+        "default": "700"
+      }
+    ]
+  },
+  {
+    "name": "Color Schemes",
+    "type": "color_scheme_group",
+    "settings": [
+      {
+        "type": "color_scheme_group",
+        "id": "color_schemes",
+        "definition": [
+          {
+            "type": "color",
+            "id": "background",
+            "label": "Background color",
+            "default": "#FFFFFF"
+          },
+          {
+            "type": "color",
+            "id": "color_primary",
+            "label": "Primary text",
+            "default": "#150402"
+          },
+          {
+            "type": "color",
+            "id": "color_secondary",
+            "label": "Secondary text",
+            "default": "#000000"
+          },
+          {
+            "type": "color",
+            "id": "background_accent",
+            "label": "Accent background",
+            "default": "#82B42B"
+          },
+          {
+            "type": "color",
+            "id": "color_accent",
+            "label": "Accent text",
+            "default": "#CBCAA7"
+          },
+          {
+            "type": "color",
+            "id": "color_accent_outline",
+            "label": "Accent outline",
+            "default": "#82B42B"
+          }
+        ],
+        "role": {
+          "background": "background",
+          "label": "color_primary"
+        }
+      }
+    ]
+  },
+  {
+    "name": "Styling",
+    "settings": [
+      {
+        "type": "header",
+        "content": "Element corners"
+      },
+      {
+        "type": "paragraph",
+        "content": "Make rounded corners of elements (sections, blocks, images, etc.)"
+      },
+      {
+        "type": "select",
+        "id": "corner_radius",
+        "label": "Radius",
+        "options": [
+          {
+            "value": "square",
+            "label": "Square"
+          },
+          {
+            "value": "rounded",
+            "label": "Rounded"
+          },
+          {
+            "value": "fully_round",
+            "label": "Fully round"
+          }
+        ],
+        "default": "square"
+      },
+      {
+        "type": "header",
+        "content": "Icons"
+      },
+      {
+        "type": "paragraph",
+        "content": "The icons' style used throughout the theme (e.g., 'Phone' and 'Clock' in the Top bar section)"
+      },
+      {
+        "type": "select",
+        "id": "icon_style",
+        "label": "Style",
+        "options": [
+          {
+            "value": "filled",
+            "label": "Filled"
+          },
+          {
+            "value": "outline",
+            "label": "Outlined"
+          }
+        ],
+        "default": "outline"
+      }
+    ]
+  },
+  {
+    "name": "Typography",
+    "settings": [
+      {
+        "type": "header",
+        "content": "Font family"
+      },
+      {
+        "type": "font_picker",
+        "id": "font_heading",
+        "label": "Heading",
+        "info": "Font used for headings",
+        "default": "Chakra Petch"
+      },
+      {
+        "type": "font_picker",
+        "id": "font_body",
+        "label": "Body",
+        "info": "Font used for texts",
+        "default": "Roboto"
+      },
+      {
+        "type": "font_picker",
+        "id": "font_tagline",
+        "label": "Tagline",
+        "info": "Font used for taglines",
+        "default": "Roboto"
+      },
+      {
+        "type": "header",
+        "content": "Font sizes"
+      },
+      {
+        "type": "range",
+        "id": "font_size_h1",
+        "label": "Heading 1",
+        "min": 60,
+        "max": 100,
+        "step": 1,
+        "default": 80,
+        "unit": "px"
+      },
+      {
+        "type": "range",
+        "id": "font_size_h2",
+        "label": "Heading 2",
+        "min": 36,
+        "max": 76,
+        "step": 1,
+        "default": 56,
+        "unit": "px"
+      },
+      {
+        "type": "range",
+        "id": "font_size_h3",
+        "label": "Heading 3",
+        "min": 25,
+        "max": 55,
+        "step": 1,
+        "default": 40,
+        "unit": "px"
+      },
+      {
+        "type": "range",
+        "id": "font_size_tagline",
+        "label": "Tagline",
+        "min": 14,
+        "max": 24,
+        "step": 1,
+        "default": 16,
+        "unit": "px"
+      },
+      {
+        "type": "range",
+        "id": "font_size_base",
+        "label": "Main text",
+        "min": 14,
+        "max": 24,
+        "step": 1,
+        "default": 18,
+        "unit": "px"
+      },
+      {
+        "type": "header",
+        "content": "Font weights"
+      },
+      {
+        "type": "paragraph",
+        "content": "Some fonts don't use a full list of weight options"
+      },
+      {
+        "type": "select",
+        "id": "font_weight_h1",
+        "label": "Heading 1",
+        "options": [
+          {
+            "value": "300",
+            "label": "Light"
+          },
+          {
+            "value": "400",
+            "label": "Regular"
+          },
+          {
+            "value": "500",
+            "label": "Medium"
+          },
+          {
+            "value": "600",
+            "label": "Semibold"
+          },
+          {
+            "value": "700",
+            "label": "Bold"
+          },
+          {
+            "value": "800",
+            "label": "Extrabold"
+          }
+        ],
+        "default": "500"
+      },
+      {
+        "type": "select",
+        "id": "font_weight_h2",
+        "label": "Heading 2",
+        "options": [
+          {
+            "value": "300",
+            "label": "Light"
+          },
+          {
+            "value": "400",
+            "label": "Regular"
+          },
+          {
+            "value": "500",
+            "label": "Medium"
+          },
+          {
+            "value": "600",
+            "label": "Semibold"
+          },
+          {
+            "value": "700",
+            "label": "Bold"
+          },
+          {
+            "value": "800",
+            "label": "Extrabold"
+          }
+        ],
+        "default": "500"
+      },
+      {
+        "type": "select",
+        "id": "font_weight_h3",
+        "label": "Heading 3",
+        "options": [
+          {
+            "value": "300",
+            "label": "Light"
+          },
+          {
+            "value": "400",
+            "label": "Regular"
+          },
+          {
+            "value": "500",
+            "label": "Medium"
+          },
+          {
+            "value": "600",
+            "label": "Semibold"
+          },
+          {
+            "value": "700",
+            "label": "Bold"
+          },
+          {
+            "value": "800",
+            "label": "Extrabold"
+          }
+        ],
+        "default": "500"
+      },
+      {
+        "type": "select",
+        "id": "font_weight_headers",
+        "label": "Headings 4-6",
+        "options": [
+          {
+            "value": "300",
+            "label": "Light"
+          },
+          {
+            "value": "400",
+            "label": "Regular"
+          },
+          {
+            "value": "500",
+            "label": "Medium"
+          },
+          {
+            "value": "600",
+            "label": "Semibold"
+          },
+          {
+            "value": "700",
+            "label": "Bold"
+          },
+          {
+            "value": "800",
+            "label": "Extrabold"
+          }
+        ],
+        "default": "500"
       }
     ]
   }

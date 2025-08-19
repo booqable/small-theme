@@ -1,0 +1,22 @@
+#main {
+  > section {
+    /* Stretch the only section to the footer */
+    &:last-child {
+      display: flex;
+      flex-direction: column;
+      flex-grow: 1;
+
+      > [class*="__wrapper"],
+      > [class^="__wrapper"] {
+        flex-grow: 1;
+      }
+    }
+  }
+
+  /* Don't stretch the only section to the bottom in the preview section app */
+  &:has(section:only-child) {
+    .preview-app & {
+      display: block;
+    }
+  }
+}

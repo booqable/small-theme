@@ -1,0 +1,69 @@
+// Theme Variables
+
+// Breakpoints
+$breakpoint-xs: 480px;
+$breakpoint-sm: 768px;
+$breakpoint-md: 992px;
+$breakpoint-lg: 1280px;
+$breakpoint-xl: 1440px;
+$breakpoint-xxl: 1920px;
+
+// Colors
+$background-accent: var(--background-accent);
+$background-primary: var(--background-primary, #fff);
+$color-accent: var(--color-accent);
+$color-border: var(--color-border);
+$color-outline: var(--color-outline);
+$color-primary: var(--color-primary, #000);
+$color-placeholder: var(--color-placeholder);
+$color-secondary: var(--color-secondary);
+
+// Fonts
+$font-family-body: var(--font-body);
+$font-family-heading: var(--font-heading);
+$font-family-tagline: var(--font-tagline);
+
+// Sizes
+$max-width: 1920px;
+$horizontal-padding: 80px;
+$horizontal-padding-mobile: 16px;
+$font-size-base: var(--font-size-base);
+$font-size-button: var(--font-size-button);
+$font-size-h1: var(--font-size-h1);
+$font-size-h2: var(--font-size-h2);
+$font-size-h3: var(--font-size-h3);
+$font-size-h4: var(--font-size-h4);
+$font-size-h5: var(--font-size-h5);
+$font-size-h6: var(--font-size-h6);
+$font-size-tagline: var(--font-size-tagline);
+
+// Line heights
+$font-height-xs: var(--font-height-xs);
+$font-height-sm: var(--font-height-sm);
+$font-height-md: var(--font-height-md);
+$font-height-lg: var(--font-height-lg);
+$font-height-xl: var(--font-height-xl);
+
+// Weights
+$font-weight-button: var(--font-weight-button);
+$font-weight-h1: var(--font-weight-h1);
+$font-weight-h2: var(--font-weight-h2);
+$font-weight-h3: var(--font-weight-h3);
+$font-weight-headers: var(--font-weight-headers);
+$font-weight-light: var(--font-weight-light);
+$font-weight-regular: var(--font-weight-regular);
+$font-weight-medium: var(--font-weight-medium);
+$font-weight-semibold: var(--font-weight-semibold);
+$font-weight-bold: var(--font-weight-bold);
+$font-weight-extrabold: var(--font-weight-extrabold);
+
+// Spacing
+$padding-button: var(--padding-button);
+
+// Border radius
+$border-radius: var(--border-radius);
+$border-radius-button: var(--border-radius-button);
+
+// Transition
+$transition-duration: var(--transition-duration);
+$transition-function: ease-in-out;

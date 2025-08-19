@@ -5,36 +5,50 @@ A performance-optimized Booqable theme with comprehensive build system featuring
 ## Features
 
 - **SCSS Support**: Write modular, maintainable styles with Sass
+- **Responsive Design**: Built-in breakpoint mixins for consistent responsive behavior
 - **JavaScript Bundling**: Organize JS files with automatic copying
 - **Image Optimization**: Automatic image compression and optimization
 - **Liquid Template Management**: Structured development workflow for all Booqable components
 - **Performance Optimized**: CSS splitting and modular architecture for faster loading
 - **Watch Mode**: Real-time compilation during development
+- **Code Quality**: Comprehensive linting with auto-fix capabilities
 - **Clean Build Process**: Automated build pipeline for all assets
 
 ## Project Structure
 
 ```
 small-theme/
-├── src/                    # Source files (edit these)
-│   ├── scss/              # SCSS files → assets/
-│   │   ├── style.scss     # Main stylesheet
-│   │   └── components/    # Component styles
-│   ├── js/                # JavaScript files → assets/
-│   │   ├── main.js        # Main JS entry point
-│   │   └── components/    # Component scripts
-│   ├── images/            # Images → assets/ (optimized)
-│   ├── config/            # Theme configuration → config/
-│   ├── layout/            # Theme layouts → layout/
-│   ├── sections/          # Theme sections → sections/
-│   ├── snippets/          # Theme snippets → snippets/
-│   └── templates/         # Theme templates → templates/
-├── assets/                # Compiled assets (auto-generated)
-├── config/                # Theme config (auto-generated)
-├── layout/                # Theme layout (auto-generated)
-├── sections/              # Theme sections (auto-generated)
-├── snippets/              # Theme snippets (auto-generated)
-└── templates/             # Theme templates (auto-generated)
+├── src/                          # Source files (edit these)
+│   ├── scss/                     # SCSS files → assets/
+│   │   ├── styles.scss           # Main stylesheet entry point
+│   │   ├── _variables.scss       # Theme variables & breakpoints
+│   │   ├── _base/                # Base styles
+│   │   │   ├── _base.scss        # Base layout styles
+│   │   │   ├── _forms.scss       # Form elements
+│   │   │   ├── _typography.scss  # Typography styles
+│   │   │   └── _rx.scss          # Rich content styles
+│   │   ├── _components/          # Component styles
+│   │   │   └── _button.scss      # Button components
+│   │   └── _helpers/             # Mixins and utilities
+│   │       └── _mixins.scss      # Responsive mixins
+│   ├── js/                       # JavaScript files → assets/
+│   │   └── main.js               # Common JS file
+│   ├── images/                   # Images → assets/ (optimized)
+│   ├── config/                   # Theme configuration → config/
+│   │   ├── settings_data.json
+│   │   └── settings_schema.json
+│   ├── layout/                   # Theme layouts → layout/
+│   │   └── theme.liquid
+│   ├── sections/                 # Theme sections → sections/
+│   ├── snippets/                 # Theme snippets → snippets/
+│   └── templates/                # Theme templates → templates/
+│       └── index.json
+├── assets/                       # Compiled assets (auto-generated)
+├── config/                       # Theme config (auto-generated)
+├── layout/                       # Theme layout (auto-generated)
+├── sections/                     # Theme sections (auto-generated)
+├── snippets/                     # Theme snippets (auto-generated)
+└── templates/                    # Theme templates (auto-generated)
 ```
 
 ## Getting Started
@@ -97,64 +111,126 @@ npm run build
 - `npm run lint` - Run all linters
 - `npm run lint:fix` - Run all linters with auto-fix
 
+## Responsive Design
+
+The theme includes powerful responsive mixins for consistent breakpoint handling:
+
+### Breakpoint Variables
+```scss
+$breakpoint-xs: 480px;
+$breakpoint-sm: 768px;
+$breakpoint-md: 992px;
+$breakpoint-lg: 1280px;
+$breakpoint-xl: 1440px;
+$breakpoint-xxl: 1920px;
+```
+
+### Usage Examples
+```scss
+.container {
+  width: 100%;
+  padding: 1rem;
+
+  // Mobile-first approach: styles apply from sm breakpoint and up
+  @include media-up(sm) {
+    max-width: 540px;
+    margin: 0 auto;
+  }
+
+  // Only applies to tablets (md breakpoint only)
+  @include media-only(md) {
+    padding: 2rem;
+  }
+
+  // Desktop and up
+  @include media-up(lg) {
+    max-width: 960px;
+  }
+
+  // Between md and lg breakpoints only
+  @include media-between(md, lg) {
+    background: #f5f5f5;
+    border-radius: 8px;
+  }
+
+  // Hide on small screens (below sm breakpoint)
+  @include media-down(sm) {
+    display: none;
+  }
+}
+```
+
+### Available Mixins
+- `media-up(breakpoint)` - Min-width media query
+- `media-down(breakpoint)` - Max-width media query
+- `media-only(breakpoint)` - Target specific breakpoint range
+- `media-between(lower, upper)` - Between two breakpoints
+
 ## CSS Architecture
 
-The theme supports modular CSS architecture with automatic splitting:
+The theme supports modular CSS architecture:
 
 ### SCSS Organization
 
 ```
 src/scss/
-├── style.scss              # Main entry point
-├── _variables.scss         # Colors, fonts, breakpoints
-├── _mixins.scss           # Reusable mixins
-├── components/
-│   ├── hero.scss          # Component-specific styles
-│   └── navigation.scss
-└── pages/
-    └── home.scss          # Page-specific styles
+├── styles.scss            # Main entry point
+├── _variables.scss        # Colors, fonts, breakpoints
+├── _base/                 # Foundation styles
+│   ├── _base.scss         # Base layout and resets
+│   ├── _forms.scss        # Form elements and inputs
+│   ├── _typography.scss   # Typography styles
+│   └── _rx.scss           # Rich content styles
+├── _components/           # Components
+│   └── _button.scss       # Button component styles
+└── _helpers/              # Utilities and mixins
+    └── _mixins.scss       # Responsive breakpoint mixins
 ```
 
 ### Performance Benefits
 
-- **Critical CSS Loading**: Load above-the-fold styles first
-- **Component-based Organization**: Better maintainability
-- **Selective Loading**: Load only required styles per page
-- **Better Caching**: Unchanged components stay cached
+- **Modular Architecture**: Better maintainability and organization
+- **Variable System**: Consistent theming with CSS custom properties
+- **Responsive Mixins**: Consistent breakpoint handling across components
+- **Build Optimization**: Compressed CSS output for production
 
-### CSS Splitting Example
+### CSS Output Example
 
-Files compile with preserved directory structure:
+Main stylesheet compiles to compressed CSS:
 
-- `src/scss/style.scss` → `assets/style.css`
-- `src/scss/components/hero.scss` → `assets/components/hero.css`
-- `src/scss/pages/home.scss` → `assets/pages/home.css`
+- `src/scss/styles.scss` → `assets/styles.css`
 
 Reference in Liquid templates:
 
 ```liquid
-{{ 'style.css' | asset_url | stylesheet_tag }}
+{{ 'styles.css' | asset_url | stylesheet_tag }}
 {{ 'components/hero.css' | asset_url | stylesheet_tag }}
 {{ 'pages/home.css' | asset_url | stylesheet_tag }}
 ```
 
 ## JavaScript Architecture
 
-Organize JavaScript with the same modular approach:
+Organize JavaScript with a modular approach:
 
 ```
 src/js/
-├── main.js               # Main entry point
-├── components/
-│   ├── slider.js         # Component scripts
-│   └── modal.js
-└── utils/
-    └── helpers.js        # Utility functions
+├── main.js               # Common JavaScript code
+├── components/           # Component-specific scripts
+│   ├── slider.js         # Slider functionality
+│   └── modal.js          # Modal components
+└── utils/                # Utility functions
+    └── helpers.js        # Helper functions
 ```
 
-Files compile to:
-- `src/js/main.js` → `assets/main.js`
+Files are copied with preserved directory structure:
+- `src/js/example.js` → `assets/example.js`
 - `src/js/components/slider.js` → `assets/components/slider.js`
+
+Reference in Liquid templates:
+```liquid
+{{ 'example.js' | asset_url | script_tag }}
+{{ 'components/slider.js' | asset_url | script_tag }}
+```
 
 ## Image Optimization
 
@@ -162,13 +238,13 @@ Images are automatically optimized and copied with preserved directory structure
 
 ```
 src/images/
-├── hero.jpg                    → assets/hero.jpg
+├── hero.jpg                → assets/hero.jpg
 ├── components/
-│   ├── slider.jpg             → assets/components/slider.jpg
-│   └── modal-bg.jpg           → assets/components/modal-bg.jpg
+│   ├── slider.jpg          → assets/components/slider.jpg
+│   └── modal-bg.jpg        → assets/components/modal-bg.jpg
 └── pages/
     └── home/
-        └── banner.jpg         → assets/pages/home/banner.jpg
+        └── banner.jpg      → assets/pages/home/banner.jpg
 ```
 
 The build process compresses images while maintaining quality and subdirectory organization.
@@ -177,37 +253,34 @@ The build process compresses images while maintaining quality and subdirectory o
 
 The build system handles same-named files in different directories correctly:
 
-- `src/scss/style.scss` and `src/scss/components/style.scss` both compile
-- Output: `assets/style.css` and `assets/components/style.css`
+- `src/scss/styles.scss` and `src/scss/components/styles.scss` both compile
+- Output: `assets/styles.css` and `assets/components/styles.css`
 - No conflicts, both files coexist
 
 ## Liquid Template Development
 
 All Booqable theme files preserve subdirectory structure during compilation:
 
+### Current Project Structure
 ```
 src/
-├── config/
-│   ├── settings.json              → config/settings.json
-│   └── components/
-│       └── theme-config.json     → config/components/theme-config.json
-├── layout/
-│   ├── theme.liquid               → layout/theme.liquid
-│   └── components/
-│       └── header.liquid          → layout/components/header.liquid
-├── sections/
-│   ├── hero.liquid                → sections/hero.liquid
-│   └── components/
-│       └── hero-banner.liquid     → sections/components/hero-banner.liquid
-├── snippets/
-│   ├── hero-inner.liquid          → snippets/hero-inner.liquid
-│   └── components/
-│       └── button.liquid          → snippets/components/button.liquid
-└── templates/
-    ├── home.json                  → templates/home.json
-    └── components/
-        └── product-card.json      → templates/components/product-card.json
+├── config/                         # Theme configuration
+│   ├── settings_data.json          → config/settings_data.json
+│   └── settings_schema.json        → config/settings_schema.json
+├── layout/                         # Theme layouts
+│   └── theme.liquid                → layout/theme.liquid
+├── sections/                       # Theme sections (add your sections here)
+│   └── hero.liquid                 → sections/hero.liquid
+├── snippets/                       # Reusable snippets
+│   ├── fonts.liquid                → snippets/fonts.liquid
+└── templates/                      # Page templates
+    └── index.json                  → templates/index.json
 ```
+
+### Theme Configuration Files
+- `settings_data.json`: Current theme settings and values
+- `settings_schema.json`: Theme customization options and controls
+- Includes configurations for typography, colors, buttons, and styling options
 
 ## Technologies Used
 
@@ -220,23 +293,36 @@ src/
 
 ## Code Quality
 
-The project includes comprehensive linting setup with strict formatting and architecture rules:
+The project includes comprehensive linting setup for maintaining code quality:
 
 ### SCSS Linting (Stylelint)
-- **Indentation**: 2 spaces enforced
-- **BEM Naming**: Enforces kebab-case with BEM notation (`.component__element--modifier`)
-- **Selector Hierarchy**: Simple to complex selector progression
-- **Nesting Control**: Max 8 levels deep with proper `&` usage
-- **Color Standards**: Hex codes required, no named colors
-- **Specificity Limits**: Prevents overly complex selectors
-- Auto-fix capability for formatting issues
+- **Base Configuration**: Uses `stylelint-config-standard-scss`
+- **Relaxed Rules**: Configured for existing codebase compatibility
+- **Focus Areas**: Syntax errors, duplicate selectors, font-family duplicates
+- **Auto-fix**: Run `npm run lint:fix` to automatically fix formatting issues
+- **No Breaking Changes**: Rules adapted to work with current architecture
 
 ### JavaScript Linting (ESLint v9)
-- **Modern Flat Config**: Uses `eslint.config.mjs` format
-- **ES2021 Features**: Full modern JavaScript support
-- **Consistent Style**: 2-space indentation, single quotes, no semicolons
-- **Browser Globals**: Pre-configured for web development
-- Auto-fix capability for formatting issues
+- **Modern Standards**: ES2021 features supported
+- **Style Guidelines**:
+  - Single quotes enforced (`'string'` not `"string"`)
+  - No semicolons required
+  - 2-space indentation
+- **Console Statements**: Allowed with explicit disable comments
+- **Auto-fix**: Run `npm run lint:fix` to automatically fix formatting issues
+
+### Running Linters
+```bash
+# Run all linters
+npm run lint
+
+# Run individual linters
+npm run lint:scss
+npm run lint:js
+
+# Auto-fix issues where possible
+npm run lint:fix
+```
 
 ## Development Workflow
 

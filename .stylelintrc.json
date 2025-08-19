@@ -1,25 +1,3 @@
 {
-  "extends": ["stylelint-config-standard-scss"],
-  "rules": {
-    "indentation": 2,
-    "color-named": "never",
-    "declaration-no-important": true,
-    "rule-empty-line-before": ["always", {
-      "except": ["first-nested"],
-      "ignore": ["after-comment"]
-    }],
-    "selector-class-pattern": [
-      "^[a-z]([a-z0-9-]+)?(__([a-z0-9]+-?)+)?(--([a-z0-9]+-?)+){0,2}$",
-      {
-        "message": "Expected class selector to be kebab-case with optional BEM notation."
-      }
-    ],
-    "selector-max-specificity": "0,3,2",
-    "selector-max-compound-selectors": 4,
-    "selector-max-type": 2,
-    "selector-max-universal": 1,
-    "max-nesting-depth": 8,
-    "selector-nested-pattern": "^&",
-    "scss/selector-no-redundant-nesting-selector": true
-  }
+  "extends": ["stylelint-config-standard-scss"]
 }

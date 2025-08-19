@@ -1,0 +1,448 @@
+// Import variables
+@use '../variables' as *;
+
+.bq-content {
+  &.rx-content {
+    font-family: $font-family-body;
+    line-height: $font-height-lg;
+    font-size: inherit;
+
+    b,
+    strong {
+      font-weight: $font-weight-semibold;
+    }
+
+    a {
+      color: $color-outline;
+      transition: color $transition-duration $transition-function;
+
+      h1 &,
+      h2 &,
+      h3 &,
+      h4 &,
+      h5 &,
+      h6 & {
+        text-decoration: none;
+        color: $color-outline;
+      }
+
+      &:hover {
+        opacity: 0.8;
+
+        h1 &,
+        h2 &,
+        h3 &,
+        h4 &,
+        h5 &,
+        h6 & {
+          opacity: 0.8;
+        }
+      }
+    }
+
+    ul {
+      list-style: disc;
+      margin-left: 26px;
+
+      + * {
+        margin-top: 16px;
+      }
+    }
+
+    ol {
+      list-style: decimal;
+      margin-left: 26px;
+
+      + * {
+        margin-top: 16px;
+      }
+    }
+
+    li {
+      font-size: 16px;
+      line-height: $font-height-lg;
+
+      li {
+        font-size: 1em;
+      }
+    }
+
+    h1,
+    h2,
+    h3,
+    h4,
+    h5,
+    h6 {
+      font-family: $font-family-heading;
+      font-size: 16px;
+      font-weight: $font-weight-headers;
+      line-height: $font-height-lg;
+      text-rendering: optimizelegibility;
+      letter-spacing: 0;
+      color: $color-primary;
+
+      + * {
+        margin-top: 12px;
+      }
+    }
+
+    h1 {
+      font-size: $font-size-h1;
+      font-weight: $font-weight-h1;
+      line-height: $font-height-sm;
+
+      b,
+      strong {
+        font-family: inherit;
+        font-weight: calc($font-weight-h1 + 200);
+      }
+
+      &:last-child {
+        margin-bottom: 0;
+      }
+    }
+
+    h2 {
+      font-size: $font-size-h2;
+      font-weight: $font-weight-h2;
+      line-height: $font-height-sm;
+
+      b,
+      strong {
+        font-family: inherit;
+        font-weight: calc($font-weight-h2 + 200);
+      }
+
+      h1 + &,
+      p + &,
+      dl + &,
+      pre + &,
+      address + &,
+      table + &,
+      blockquote + &,
+      ol + &,
+      ul + & {
+        margin-top: 24px;
+      }
+
+      &:last-child {
+        margin-bottom: 0;
+      }
+    }
+
+    h3 {
+      font-size: $font-size-h3;
+      font-weight: $font-weight-h3;
+      line-height: $font-height-sm;
+
+      b,
+      strong {
+        font-family: inherit;
+        font-weight: calc($font-weight-h3 + 200);
+      }
+
+      h2 + &,
+      p + &,
+      dl + &,
+      pre + &,
+      address + &,
+      table + &,
+      blockquote + &,
+      ol + &,
+      ul + & {
+        margin-top: 24px;
+      }
+
+      &:last-child {
+        margin-bottom: 0;
+      }
+    }
+
+    h4 {
+      h3 + &,
+      p + &,
+      dl + &,
+      pre + &,
+      address + &,
+      table + &,
+      blockquote + &,
+      ol + &,
+      ul + & {
+        margin-top: 24px;
+      }
+    }
+
+    h5 {
+      h4 + &,
+      p + &,
+      dl + &,
+      pre + &,
+      address + &,
+      table + &,
+      blockquote + &,
+      ol + &,
+      ul + & {
+        margin-top: 24px;
+      }
+    }
+
+    h6 {
+      h5 + &,
+      p + &,
+      dl + &,
+      pre + &,
+      address + &,
+      table + &,
+      blockquote + &,
+      ol + &,
+      ul + & {
+        margin-top: 24px;
+      }
+    }
+
+    h4,
+    h5,
+    h6 {
+      b,
+      strong {
+        font-family: inherit;
+        font-weight: calc($font-weight-headers + 200);
+      }
+    }
+
+    table {
+      border-collapse: collapse;
+      border-spacing: 0;
+      width: 100%;
+      empty-cells: show;
+
+      + * {
+        margin-top: 16px;
+      }
+    }
+
+    td,
+    th {
+      text-align: left;
+      vertical-align: top;
+      font-size: 95%;
+      line-height: $font-height-lg;
+      padding: 0.75em;
+      border: 1px solid $color-border;
+    }
+
+    th {
+      font-weight: normal;
+
+      thead & {
+        font-weight: $font-weight-bold;
+      }
+    }
+
+    dl {
+      + * {
+        margin-top: 16px;
+      }
+    }
+
+    dt {
+      font-weight: $font-weight-bold;
+      font-size: 16px;
+      line-height: $font-height-lg;
+    }
+
+    dd {
+      font-size: 16px;
+      line-height: $font-height-lg;
+
+      + dt {
+        margin-top: 0.25em;
+      }
+    }
+
+    address {
+      font-style: normal;
+
+      + * {
+        margin-top: 16px;
+      }
+    }
+
+    dfn,
+    abbr,
+    time,
+    small,
+    var,
+    samp,
+    kbd,
+    code {
+      font-size: 16px;
+    }
+
+    dfn[title],
+    abbr[title] {
+      letter-spacing: .01em;
+      text-transform: uppercase;
+      text-decoration: none;
+      cursor: help;
+      border-bottom: 1px dotted $color-border;
+      border-top-color: $color-border;
+    }
+
+    sup,
+    sub {
+      font-size: 75%;
+      line-height: 0;
+      margin-left: 2px;
+    }
+
+    sub {
+      vertical-align: sub;
+    }
+
+    sup {
+      vertical-align: super;
+    }
+
+    var,
+    code,
+    kbd,
+    samp {
+      display: inline-block;
+      font-family: SFMono-Regular, Consolas, "Liberation Mono", Menlo, Courier, monospace;
+      font-style: normal;
+      line-height: 1;
+      vertical-align: baseline;
+    }
+
+    samp,
+    kbd,
+    code {
+      border-radius: $border-radius;
+    }
+
+    kbd {
+      padding: .2em .4em;
+      border: 1px solid $color-border;
+    }
+
+    code {
+      position: relative;
+      top: -1px;
+      border: 1px solid transparent;
+      padding: .2em .4em;
+    }
+
+    p {
+      font-size: inherit;
+      line-height: $font-height-lg;
+
+      + * {
+        margin-top: 16px;
+      }
+    }
+
+    cite {
+      font-style: italic;
+      font-size: 20px;
+      font-weight: $font-weight-semibold;
+
+      small,
+      b,
+      strong {
+        font-style: normal;
+      }
+    }
+
+    blockquote {
+      font-style: normal;
+      font-weight: normal;
+      padding: 0;
+      background: transparent;
+
+      p {
+        font-size: 125%;
+        line-height: $font-height-lg;
+
+        + p {
+          margin-top: 4px;
+        }
+
+      }
+
+      cite {
+        text-align: left;
+        font-style: normal;
+      }
+
+      + * {
+        margin-top: 16px;
+      }
+    }
+
+    caption {
+      text-align: left;
+      font-style: normal;
+    }
+
+    hr {
+      position: relative;
+      line-height: 1;
+      background: none;
+      border: none;
+      text-align: left;
+      margin-top: 1em;
+      margin-bottom: 1em;
+      height: 10px;
+
+      &::before {
+        content: '';
+        position: absolute;
+        top: 50%;
+        width: 100%;
+        max-width: 100%;
+        margin-top: -0.5px;
+        border-top-width: 1px;
+        border-top-style: solid;
+      }
+    }
+
+    div {
+      + * {
+        margin-top: 24px;
+      }
+    }
+
+    pre {
+      overflow: auto;
+      white-space: pre;
+      font-family: SFMono-Regular, Consolas, "Liberation Mono", Menlo, Courier, monospace;
+      font-size: 90%;
+      line-height: $font-height-lg;
+      padding: 1em;
+      background: $color-placeholder;
+
+      code {
+        padding: 0;
+        border: 0;
+        background: none;
+        font-size: 100%;
+        display: block;
+        line-height: inherit;
+      }
+
+      + * {
+        margin-top: 16px;
+      }
+    }
+
+    .embed-responsive {
+      position: relative;
+      padding: 0;
+      margin: 0;
+      padding-bottom: 56.25%;
+      padding-top: 25px;
+      height: 0;
+    }
+  }
+}
