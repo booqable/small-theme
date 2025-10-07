@@ -5,7 +5,9 @@
   "private": true,
   "scripts": {
     "build:scss": "sass src/scss:assets --style=compressed --no-source-map",
-    "build:js": "cpx 'src/js/**/*' assets",
+    "build:js": "npm run minify:js && npm run copy:js:utils",
+    "minify:js": "find src/js -name '*.js' -not -path '*/utils/*' -exec sh -c 'terser \"$1\" --compress --mangle --output \"assets/$(basename \"$1\")\"' _ {} \\;",
+    "copy:js:utils": "cpx 'src/js/utils/**/*' assets/utils",
     "build:images": "imagemin 'src/images/**/*' --out-dir=assets",
     "build:svg": "cpx 'src/svg/**/*' snippets",
     "build:liquid": "npm run copy:config && npm run copy:layout && npm run copy:sections && npm run copy:snippets && npm run copy:templates",
@@ -36,6 +38,7 @@
   },
   "devDependencies": {
     "sass": "^1.77.0",
+    "terser": "^5.19.0",
     "cpx": "^1.5.0",
     "imagemin-cli": "^7.0.0",
     "stylelint": "^16.0.0",
