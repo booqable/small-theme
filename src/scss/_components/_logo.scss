@@ -1,0 +1,34 @@
+// Import variables
+@use '../variables' as *;
+
+// Import mixins
+@use '../_helpers/mixins' as *;
+
+.logo {
+  position: relative;
+
+  &__image {
+    display: flex;
+    align-items: center;
+    max-height: 64px;
+    max-width: 200px;
+    width: auto;
+
+    &-holder {
+      &--floated {
+        position: absolute;
+        top: 50%;
+        left: 0;
+        transform: translateY(-50%);
+      }
+    }
+  }
+
+  &__text {
+    font-size: 24px;
+    line-height: $font-height-md;
+    font-weight: $font-weight-semibold;
+    margin: 0;
+    color: currentcolor;
+  }
+}

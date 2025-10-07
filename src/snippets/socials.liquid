@@ -1,0 +1,60 @@
+{%- comment -%}
+
+  This snippet is used for rendering the social networks icons
+
+  Usage:
+
+  {%- render 'socials', settings: settings -%}
+
+{%- endcomment -%}
+
+{%- assign class = 'social-networks' -%}
+{%- assign names = 'instagram, tiktok, facebook, x, linkedin, youtube, vimeo, pinterest, snapchat, tumblr' | split: ', ' -%}
+
+{%- capture links_arr -%}
+  {{- settings.social_instagram -}},
+  {{- settings.social_tiktok -}},
+  {{- settings.social_facebook -}},
+  {{- settings.social_x -}},
+  {{- settings.social_linkedin -}},
+  {{- settings.social_youtube -}},
+  {{- settings.social_vimeo -}},
+  {{- settings.social_pinterest -}},
+  {{- settings.social_snapchat -}},
+  {{- settings.social_tumblr }}
+{%- endcapture -%}
+
+{%- assign links = links_arr | split: ',' -%}
+
+{%- if links.size > 0 -%}
+  <ul class="{{- class -}}">
+    {%- for link in links -%}
+      {%- if link != blank -%}
+        {%- assign current_name = '' -%}
+
+        {%- for name in names -%}
+          {%- if link contains name -%}
+            {%- assign current_name = name -%}
+            {%- break -%}
+          {%- endif -%}
+        {%- endfor -%}
+
+        {%- assign icon_class = current_name -%}
+
+        {%- if current_name == 'facebook' -%}
+          {%- assign icon_class = current_name | append: '-f' -%}
+        {%- endif -%}
+        {%- if current_name == 'x' -%}
+          {%- assign icon_class = current_name | append: '-twitter' -%}
+        {%- endif -%}
+
+        <li class="{{- class -}}__item">
+          <a class="{{- class -}}__link" href="{{ link }}" title="{{ current_name | capitalize }} link" target="_blank">
+            <i class="fa-brands fa-{{- icon_class -}}"></i>
+          </a>
+        </li>
+      {%- endif -%}
+    {%- endfor -%}
+  </ul>
+{%- endif -%}
+

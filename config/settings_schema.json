@@ -236,6 +236,127 @@
     ]
   },
   {
+    "name": "Social media",
+    "settings": [
+      {
+        "type": "header",
+        "content": "Sizes"
+      },
+      {
+        "type": "select",
+        "id": "social_icon_size",
+        "label": "Size",
+        "options": [
+          {
+            "value": "sm",
+            "label": "Small"
+          },
+          {
+            "value": "md",
+            "label": "Medium"
+          },
+          {
+            "value": "lg",
+            "label": "Large"
+          }
+        ],
+        "default": "md"
+      },
+      {
+        "type": "select",
+        "id": "social_icon_spacing",
+        "label": "Spacing",
+        "options": [
+          {
+            "value": "sm",
+            "label": "Small"
+          },
+          {
+            "value": "md",
+            "label": "Medium"
+          },
+          {
+            "value": "lg",
+            "label": "Large"
+          }
+        ],
+        "default": "md"
+      },
+      {
+        "type": "header",
+        "content": "Links"
+      },
+      {
+        "type": "paragraph",
+        "content": "Note: Leave the field blank if you don't want to use the social network"
+      },
+      {
+        "type": "text",
+        "id": "social_facebook",
+        "label": "Facebook",
+        "default": "https://facebook.com/",
+        "info": "Example: https://facebook.com/booqable"
+      },
+      {
+        "type": "text",
+        "id": "social_instagram",
+        "label": "Instagram",
+        "default": "https://instagram.com/",
+        "info": "Example: https://instagram.com/booqable"
+      },
+      {
+        "type": "text",
+        "id": "social_x",
+        "label": "X (ex. Twitter)",
+        "default": "https://x.com/",
+        "info": "Example: https://x.com/booqable"
+      },
+      {
+        "type": "text",
+        "id": "social_linkedin",
+        "label": "Linkedin",
+        "default": "https://linkedin.com/",
+        "info": "Example: https://www.linkedin.com/company/booqable"
+      },
+      {
+        "type": "text",
+        "id": "social_pinterest",
+        "label": "Pinterest",
+        "info": "Example: https://pinterest.com/booqable"
+      },
+      {
+        "type": "text",
+        "id": "social_tiktok",
+        "label": "TikTok",
+        "info": "Example: https://tiktok.com/@booqable"
+      },
+      {
+        "type": "text",
+        "id": "social_tumblr",
+        "label": "Tumblr",
+        "info": "Example: https://booqable.tumblr.com"
+      },
+      {
+        "type": "text",
+        "id": "social_snapchat",
+        "label": "Snapchat",
+        "info": "Example: https://snapchat.com/add/booqable"
+      },
+      {
+        "type": "text",
+        "id": "social_youtube",
+        "label": "YouTube",
+        "info": "Example: https://youtube.com/booqable"
+      },
+      {
+        "type": "text",
+        "id": "social_vimeo",
+        "label": "Vimeo",
+        "info": "Example: https://vimeo.com/booqable"
+      }
+    ]
+  },
+  {
     "name": "Typography",
     "settings": [
       {

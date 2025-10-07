@@ -22,7 +22,7 @@
     {%- render 'root-variables', settings: settings -%}
 
     {% comment %} Async CSS loading with resource hints {% endcomment %}
-    {%- assign css_files = "critical.css, styles.css" | split: ", " -%}
+    {%- assign css_files = "critical.css, styles.css, header.css" | split: ", " -%}
 
     {%- for css_file in css_files -%}
       {%- assign css_url = css_file | asset_url -%}
@@ -48,7 +48,9 @@
     {%- render 'page-performance-monitoring' -%}
   </head>
   <body>
-    <header></header>
+    <header class="header">
+      {% section 'header' %}
+    </header>
 
     <main>
       <h1>Welcome to My Theme</h1>
@@ -65,6 +67,6 @@
     {{ content_for_body }}
 
     {% comment %} Critical JavaScript files {% endcomment %}
-    <script src='{{ 'example.js' | asset_url }}' defer></script>
+    <script src='{{ 'main.js' | asset_url }}' defer></script>
   </body>
 </html>

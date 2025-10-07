@@ -84,3 +84,17 @@ $breakpoints: (
     }
   }
 }
+
+// Hover mixin using :hover pseudo-class
+@mixin hover {
+  &:hover {
+    @content;
+  }
+}
+
+// Reduced motion mixin for accessibility
+@mixin reduced-motion {
+  @media (prefers-reduced-motion: reduce) {
+    @content;
+  }
+}

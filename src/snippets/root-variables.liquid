@@ -10,9 +10,7 @@
     --background-accent:     {{ scheme.settings.background_accent }};
     --background-primary:    {{ scheme.settings.background }};
     --color-accent:          {{ scheme.settings.color_accent }};
-    --color-border:          {{ scheme.settings.color_primary | append: '26' }};
     --color-outline:         {{ scheme.settings.color_accent_outline }};
-    --color-placeholder:     {{ scheme.settings.color_primary | append: '80' }};
     --color-primary:         {{ scheme.settings.color_primary }};
     --color-secondary:       {{ scheme.settings.color_secondary }};
   }
@@ -21,19 +19,29 @@
   :root {
     {% case settings.corner_radius %}
       {%- when 'square' -%}
-        --border-radius:  0;
+        --border-radius: 0;
       {%- when 'rounded' -%}
-        --border-radius:  8px;
+        --border-radius: 8px;
       {%- when 'fully_round' -%}
-        --border-radius:  50px;
+        --border-radius: 50px;
     {% endcase %}
     {% case settings.button_corners %}
       {%- when 'square' -%}
-        --border-radius-button:  0;
+        --button-border-radius: 0;
       {%- when 'rounded' -%}
-        --border-radius-button:  8px;
+        --button-border-radius: 8px;
       {%- when 'fully_round' -%}
-        --border-radius-button:  50px;
+        --button-border-radius: 50px;
+    {% endcase %}
+    --button-height: 40px;
+    --button-width: 40px;
+    {% case settings.button_size %}
+      {%- when 'sm' -%}
+        --button-padding: 5px 12px;
+      {%- when 'md' -%}
+        --button-padding: 5px 16px;
+      {%- when 'xl' -%}
+        --button-padding: 5px 20px;
     {% endcase %}
     --font-body:             "{{ settings.font_body.family | default: Roboto }}", {{ settings.font_body.fallback_families | default: sans-serif }};
     --font-heading:          "{{ settings.font_heading.family | default: Nippo }}", {{ settings.font_heading.fallback_families | default: sans-serif }};
@@ -63,18 +71,29 @@
     --font-weight-semibold:  {{ settings.font_weight_semibold | default: "600" }};
     --font-weight-bold:      {{ settings.font_weight_bold | default: "700" }};
     --font-weight-extrabold: {{ settings.font_weight_extrabold | default: "800" }};
-    {% case settings.button_size %}
+    {%- case settings.social_icon_size -%}
       {%- when 'sm' -%}
-        --padding-button:        8px 12px;
+        --social-size: 18px;
       {%- when 'md' -%}
-        --padding-button:        10px 16px;
-      {%- when 'xl' -%}
-        --padding-button:        12px 20px;
-    {% endcase %}
+        --social-size: 21px;
+      {%- when 'lg' -%}
+        --social-size: 24px;
+    {%- endcase -%}
+
+    {%- case settings.social_icon_spacing -%}
+      {%- when 'sm' -%}
+        --social-icon-spacing: 5px;
+      {%- when 'md' -%}
+        --social-icon-spacing: 7px;
+      {%- when 'lg' -%}
+        --social-icon-spacing: 9px;
+    {%- endcase -%}
+
     {% if settings.transition_duration == "0" or settings.transition_duration == blank %}
       --transition-duration: 0.3s;
     {% else %}
       --transition-duration: {{ settings.transition_duration | append: "s" }};
     {% endif %}
+    --transition-function: ease-in-out;
   }
 </style>

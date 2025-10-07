@@ -11,11 +11,12 @@ $breakpoint-xxl: 1920px;
 // Colors
 $background-accent: var(--background-accent);
 $background-primary: var(--background-primary, #fff);
+$background-shadow: color-mix(in srgb, var(--color-primary) 55%, transparent);
 $color-accent: var(--color-accent);
-$color-border: var(--color-border);
+$color-border: color-mix(in srgb, var(--color-primary) 15%, transparent);
 $color-outline: var(--color-outline);
+$color-placeholder: color-mix(in srgb, var(--color-primary) 50%, transparent);
 $color-primary: var(--color-primary, #000);
-$color-placeholder: var(--color-placeholder);
 $color-secondary: var(--color-secondary);
 
 // Fonts
@@ -24,9 +25,6 @@ $font-family-heading: var(--font-heading);
 $font-family-tagline: var(--font-tagline);
 
 // Sizes
-$max-width: 1920px;
-$horizontal-padding: 80px;
-$horizontal-padding-mobile: 16px;
 $font-size-base: var(--font-size-base);
 $font-size-button: var(--font-size-button);
 $font-size-h1: var(--font-size-h1);
@@ -36,13 +34,17 @@ $font-size-h4: var(--font-size-h4);
 $font-size-h5: var(--font-size-h5);
 $font-size-h6: var(--font-size-h6);
 $font-size-tagline: var(--font-size-tagline);
+$header-height: var(--header-height);
+$horizontal-padding: 80px;
+$horizontal-padding-mobile: 16px;
+$max-width: 1920px;
 
 // Line heights
-$font-height-xs: var(--font-height-xs);
-$font-height-sm: var(--font-height-sm);
-$font-height-md: var(--font-height-md);
-$font-height-lg: var(--font-height-lg);
-$font-height-xl: var(--font-height-xl);
+$font-height-xs: 1;
+$font-height-sm: 1.25;
+$font-height-md: 1.3333;
+$font-height-lg: 1.4;
+$font-height-xl: 1.5;
 
 // Weights
 $font-weight-button: var(--font-weight-button);
@@ -57,13 +59,16 @@ $font-weight-semibold: var(--font-weight-semibold);
 $font-weight-bold: var(--font-weight-bold);
 $font-weight-extrabold: var(--font-weight-extrabold);
 
-// Spacing
-$padding-button: var(--padding-button);
-
 // Border radius
 $border-radius: var(--border-radius);
-$border-radius-button: var(--border-radius-button);
+
+// Buttons
+$button-border-radius: var(--button-border-radius);
+$button-background: color-mix(in srgb, var(--color-primary) 15%, transparent);
+$button-padding: var(--button-padding);
+$button-height: var(--button-height);
+$button-width: var(--button-width);
 
 // Transition
 $transition-duration: var(--transition-duration);
-$transition-function: ease-in-out;
+$transition-function: var(--transition-function);

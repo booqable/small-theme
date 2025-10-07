@@ -7,7 +7,7 @@
 // Import styles
 @use '_base/forms' as *;
 @use '_base/typography' as *;
-
+@use '_components/logo' as *;
 
 *,
 *::before,
@@ -28,6 +28,7 @@ html {
 body {
   display: flex;
   flex-direction: column;
+  position: relative;
   color: $color-primary;
   background: $background-primary;
   margin: 0;
