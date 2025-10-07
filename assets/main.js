@@ -6,6 +6,11 @@
  *
  */
 
+import {
+  frameSequence,
+  onReady
+} from 'utils.js'
+
 const MainConfig = {
   selector: {
     doc: document.documentElement
@@ -16,20 +21,22 @@ const MainConfig = {
 }
 
 const MainDOM = {
-  setClassLoaded () {
-    requestAnimationFrame(() => {
-      MainConfig.selector.doc.classList.add(MainConfig.modifier.loaded)
+  setClassLoaded() {
+    const read = () => ({
+      doc: MainConfig.selector.doc,
+      modifier: MainConfig.modifier.loaded
     })
+
+    const write = (data) => {
+      data.doc.classList.add(data.modifier)
+    }
+
+    frameSequence(read, write)
   }
 }
 
 const initMain = () => {
   MainDOM.setClassLoaded()
-  return true
 }
 
-if (document.readyState === 'loading') {
-  document.addEventListener('DOMContentLoaded', initMain, { once: true })
-} else {
-  initMain()
-}
+onReady(initMain)

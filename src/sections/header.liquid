@@ -124,19 +124,6 @@
 {%- endcapture -%}
 {% comment %} CSS variables end {% endcomment %}
 
-{%- if show_mini_cart -%}
-  {%- capture element_mini_cart -%}
-    <div class="{{- class -}}__cart">
-      {% comment %} CSS variables start {% endcomment %}
-      {%- render 'css-mini-cart-button' -%}
-      {% comment %} CSS variables end {% endcomment %}
-
-      {{- cart_button -}}
-      <i class="fa-regular fa-spinner-third fa-spin"></i>
-    </div>
-  {%- endcapture -%}
-{%- endif -%}
-
 {%- for block in section.blocks -%}
   {%- case block.type -%}
     {%- when 'logo' -%}
@@ -222,7 +209,16 @@
       {{- element_logo -}}
       {{- element_app_desktop -}}
       {{- element_search -}}
-      {{- element_mini_cart -}}
+      {%- if show_mini_cart -%}
+        <div class="{{- class -}}__cart">
+          {% comment %} CSS variables start {% endcomment %}
+          {%- render 'css-mini-cart-button' -%}
+          {% comment %} CSS variables end {% endcomment %}
+
+          {{- cart_button -}}
+          <i class="fa-regular fa-spinner-third fa-spin"></i>
+        </div>
+      {%- endif -%}
       {%- if show_button_desktop -%}
         {{- element_button -}}
       {%- endif -%}

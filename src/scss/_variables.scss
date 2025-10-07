@@ -34,7 +34,7 @@ $font-size-h4: var(--font-size-h4);
 $font-size-h5: var(--font-size-h5);
 $font-size-h6: var(--font-size-h6);
 $font-size-tagline: var(--font-size-tagline);
-$header-height: var(--header-height);
+$header-height: var(--header-height, 65px);
 $horizontal-padding: 80px;
 $horizontal-padding-mobile: 16px;
 $max-width: 1920px;
