@@ -1,1 +1,1 @@
-import{frameSequence,onReady}from"utils.js";const MainConfig={selector:{doc:document.documentElement},modifier:{loaded:"loaded"}},MainDOM={setClassLoaded(){frameSequence(()=>({doc:MainConfig.selector.doc,modifier:MainConfig.modifier.loaded}),e=>{e.doc.classList.add(e.modifier)})}},initMain=()=>{MainDOM.setClassLoaded()};onReady(initMain);
+import{frameSequence as o,onReady as d}from"utils.js";const e={selector:{o:document.documentElement},i:{loaded:"loaded"}},s={t(){o(()=>({o:e.selector.o,i:e.i.loaded}),o=>{o.o.classList.add(o.i)})}},i=()=>{s.t()};d(i);

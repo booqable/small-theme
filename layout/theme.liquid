@@ -19,7 +19,7 @@
     {%- render 'fonts', settings: settings -%}
 
     {% comment %} Load root variables {% endcomment %}
-    {%- render 'root-variables', settings: settings -%}
+    {%- render 'css-root-variables', settings: settings -%}
 
     {% comment %} Async CSS loading with resource hints {% endcomment %}
     {%- assign css_files = "critical.css, styles.css, header.css" | split: ", " -%}
