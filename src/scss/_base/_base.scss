@@ -1,3 +1,60 @@
+// Import variables
+@use '../variables' as *;
+
+// Import mixins
+@use '../_helpers/mixins' as *;
+
+html {
+  &:has(#header-opener-menu:checked),
+  &:has(#header-opener-search:checked) {
+    @include media-down(md) {
+      overflow: clip;
+    }
+  }
+}
+
+body {
+  --overlay-transition-duration: #{$transition-duration};
+  --overlay-transition-delay: 50ms;
+  --overlay-visibility: hidden;
+
+  &::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100%;
+    z-index: -1;
+    pointer-events: none;
+    background: $background-shadow;
+    visibility: var(--overlay-visibility);
+    transition: visibility var(--overlay-transition-duration) var(--overlay-transition-delay) $transition-function;
+  }
+
+  &:has(#header-opener-menu:checked),
+  &:has(#header-opener-search:checked) {
+    @include media-down(md) {
+      overflow: clip;
+    }
+
+    &::before {
+      --overlay-transition-duration: 0s;
+      --overlay-transition-delay: 0s;
+      --overlay-visibility: visible;
+    }
+  }
+
+  &:has(.menu__item.has-dropdown:hover) {
+    /* stylelint-disable-next-line */
+    &::before {
+      --overlay-transition-duration: 0s;
+      --overlay-transition-delay: 0s;
+      --overlay-visibility: visible;
+    }
+  }
+}
+
 #main {
   > section {
     /* Stretch the only section to the footer */

@@ -1,0 +1,581 @@
+{%- assign app                       = section.blocks | where: "type", "app" | first -%}
+{%- assign block_id                  = '' -%}
+{%- assign color_scheme              = section.settings.color_scheme -%}
+{%- assign header_outline            = section.settings.header_outline -%}
+{%- assign menu_alignment_horizontal = '' -%}
+{%- assign menu_alignment_vertical   = '' -%}
+{%- assign menu_opener_position      = '' -%}
+{%- assign padding_bottom_desktop    = section.settings.padding_bottom_desktop -%}
+{%- assign padding_bottom_mobile     = section.settings.padding_bottom_mobile -%}
+{%- assign padding_top_desktop       = section.settings.padding_top_desktop -%}
+{%- assign padding_top_mobile        = section.settings.padding_top_mobile -%}
+{%- assign section_type              = section.type -%}
+{%- assign show_button_desktop       = '' -%}
+{%- assign show_button_mobile        = '' -%}
+{%- assign show_transparency         = section.settings.show_transparency -%}
+{%- assign sticky_header             = section.settings.sticky_header -%}
+
+{%- for block in section.blocks -%}
+  {%- case block.type -%}
+    {%- when 'menu' -%}
+      {%- assign block_id                  = block.id -%}
+      {%- assign menu_alignment_horizontal = block.settings.menu_alignment_horizontal -%}
+      {%- assign menu_alignment_vertical   = block.settings.menu_alignment_vertical -%}
+      {%- assign menu_opener_position      = block.settings.menu_opener_position -%}
+
+    {%- when 'button' -%}
+      {%- assign button_label        = block.settings.button_label -%}
+      {%- assign button_url          = block.settings.button_url -%}
+      {%- assign show_button_desktop = block.settings.show_button_desktop -%}
+      {%- assign show_button_mobile  = block.settings.show_button_mobile -%}
+
+      {%- if button_label != blank and button_url != blank -%}
+        {%- capture element_button -%}
+          {%- render 'button'
+              button_label: button_label,
+              button_type: 'primary',
+              button_url: button_url,
+              section_type: section_type
+          -%}
+        {%- endcapture -%}
+      {%- endif -%}
+  {%- endcase -%}
+{%- endfor -%}
+
+{%- if app -%}
+  {%- capture element_app_desktop -%}
+    <div class="header__app">
+      {%- render 'app', block: app, section: section, size: "desktop" -%}
+    </div>
+  {%- endcapture -%}
+{%- endif -%}
+
+{% comment %} CSS variables start {% endcomment %}
+{%- capture variables -%}
+  {%- case padding_bottom_desktop -%}
+    {%- when 'md' -%}
+      --padding-bottom-desktop: 16px;
+    {%- when 'lg' -%}
+      --padding-bottom-desktop: 20px;
+  {%- endcase -%}
+
+  {%- case padding_bottom_mobile -%}
+    {%- when 'md' -%}
+      --padding-bottom-mobile: 16px;
+    {%- when 'lg' -%}
+      --padding-bottom-mobile: 20px;
+  {%- endcase -%}
+
+  {%- case padding_top_desktop -%}
+    {%- when 'md' -%}
+      --padding-top-desktop: 16px;
+    {%- when 'lg' -%}
+      --padding-top-desktop: 20px;
+  {%- endcase -%}
+
+  {%- case padding_top_mobile -%}
+    {%- when 'md' -%}
+      --padding-top-mobile: 16px;
+    {%- when 'lg' -%}
+      --padding-top-mobile: 20px;
+  {%- endcase -%}
+
+  {%- if menu_opener_position == 'left' -%}
+    --menu-indent-mobile: 0 20px 0 0;
+    --order-app-mobile: 3;
+    --order-button-mobile: 6;
+    --order-cart-mobile: 5;
+    --order-logo-mobile: 2;
+    --order-menu-mobile: 1;
+    --order-search-mobile: 4;
+  {%- else -%}
+    --menu-indent-mobile: 0 0 0 8px;
+  {%- endif -%}
+
+  {%- if menu_alignment_vertical == 'top' -%}
+    --logo-growth-desktop: 0;
+    --menu-growth-desktop: 1;
+    --menu-border-width-desktop: 0;
+    --menu-bottom-border-top-width-desktop: 0;
+    --menu-bottom-padding-top-desktop: 0;
+    --menu-bottom-width-desktop: auto;
+    --menu-margin-x-desktop: auto;
+    --menu-indent-desktop: 0 20px;
+    --order-app-desktop: 3;
+    --order-button-desktop: 6;
+    --order-cart-desktop: 5;
+    --order-logo-desktop: 1;
+    --order-menu-desktop: 2;
+    --order-search-desktop: 4;
+  {%- else -%}
+    --menu-bottom-border-top-width-desktop: 100vw;
+    {%- if header_outline == "bordered" -%}
+      --menu-bottom-margin-desktop: {% if padding_bottom_desktop == 'lg' %}20px{% elsif padding_bottom_desktop == 'md' %}16px{% else %}12px{% endif %};
+      --menu-bottom-border-top-width-desktop: calc(100% + var(--menu-bottom-margin-desktop) * 2);
+    {%- endif -%}
+    --menu-bottom-padding-top-desktop: {% if padding_bottom_desktop == 'lg' %}20px{% elsif padding_bottom_desktop == 'md' %}16px{% else %}12px{% endif %} 0 0;
+    --menu-margin-x-desktop: -22px;
+    --menu-indent-desktop: {% if padding_bottom_desktop == 'lg' %}20px{% elsif padding_bottom_desktop == 'md' %}16px{% else %}12px{% endif %} 0 0;
+  {%- endif -%}
+
+  {%- if menu_alignment_horizontal == 'left' -%}
+    --menu-horizontal-position-desktop: flex-start;
+  {%- elsif menu_alignment_horizontal == 'right' -%}
+    --menu-horizontal-position-desktop: flex-end;
+  {%- endif -%}
+{%- endcapture -%}
+{% comment %} CSS variables end {% endcomment %}
+
+{%- for block in section.blocks -%}
+  {%- case block.type -%}
+    {%- when 'logo' -%}
+      {%- capture element_logo -%}
+        {%- assign logo         = block.settings.logo_image -%}
+        {%- assign logo_floated = block.settings.logo_image_floated -%}
+        {%- assign logo_title   = block.settings.logo_custom_title -%}
+        {%- assign svg          = block.settings.logo_svg -%}
+        {%- assign svg_floated  = block.settings.logo_svg_floated -%}
+
+        {%- render 'logo'
+            logo: logo,
+            logo_floated: logo_floated,
+            logo_title: logo_title,
+            loading: 'eager',
+            routes: routes,
+            section_type: section_type,
+            shop: shop,
+            svg: svg,
+            svg_floated: svg_floated,
+            transparency: show_transparency
+        -%}
+      {%- endcapture -%}
+
+    {%- when 'menu' -%}
+      {%- assign menu            = block.settings.menu -%}
+      {%- assign menu_back_label = block.settings.menu_back_label -%}
+
+      {%- if menu != blank -%}
+        {%- if app -%}
+          {%- capture element_app_mobile -%}
+            <div class="header__app">
+              {%- render 'app', block: app, section: section, size: "mobile" -%}
+            </div>
+          {%- endcapture -%}
+        {%- endif -%}
+
+        {%- capture element_menu_content -%}
+          {%- if show_button_mobile -%}
+            {{- element_button -}}
+          {%- endif -%}
+          {{- element_app_mobile -}}
+        {%- endcapture -%}
+
+        {%- capture element_menu -%}
+          {%- render 'menu'
+              content: element_menu_content,
+              menu: menu,
+              menu_back_label: menu_back_label,
+              menu_id: block_id,
+              menu_levels: 3,
+              section_type: section_type,
+              settings: settings
+          -%}
+        {%- endcapture -%}
+      {%- endif -%}
+
+    {%- when 'search' -%}
+      {%- assign show_search = block.settings.show_search -%}
+
+      {%- if show_search -%}
+        {%- capture element_search -%}
+          {%- assign search_closer_label = block.settings.search_closer_label -%}
+          {%- assign search_placeholder  = block.settings.search_placeholder -%}
+
+          {%- render 'search',
+              closer_label: search_closer_label,
+              placeholder: search_placeholder,
+              routes: routes,
+              section_type: section_type
+          -%}
+        {%- endcapture -%}
+      {%- endif -%}
+
+  {%- endcase -%}
+{%- endfor -%}
+
+<div
+  class="header__inner{% if sticky_header %} header__inner--sticky{% endif %}{% unless show_transparency %} header__inner--background{% endunless %} header__inner--padding-top header__inner--padding-bottom color-{{- color_scheme.id -}}"
+  {% if variables != blank %} style="{{- variables | escape -}}"{%- endif -%}
+>
+  <div class="header__container container">
+    <div class="header__content{% if header_outline == 'bordered' %} header__content--outlined{%- endif -%}">
+      {{- element_menu -}}
+      {{- element_logo -}}
+      {{- element_app_desktop -}}
+      {{- element_search -}}
+      {%- if show_mini_cart -%}
+        <div class="header__cart">
+          {% comment %} CSS variables start {% endcomment %}
+          {%- render 'css-mini-cart-button' -%}
+          {% comment %} CSS variables end {% endcomment %}
+
+          {{- cart_button -}}
+          <i class="fa-regular fa-spinner-third fa-spin"></i>
+        </div>
+      {%- endif -%}
+      {%- if show_button_desktop -%}
+        {{- element_button -}}
+      {%- endif -%}
+    </div>
+  </div>
+</div>
+
+{% schema %}
+  {
+    "name": "Header",
+    "tag": "section",
+    "class": "header__wrapper",
+    "templates": [],
+    "layout": true,
+    "settings": [
+      {
+        "type": "header",
+        "content": "General settings"
+      },
+      {
+        "type": "checkbox",
+        "id": "sticky_header",
+        "default": true,
+        "label": "Stick to top"
+      },
+      {
+        "type": "checkbox",
+        "id": "show_transparency",
+        "default": true,
+        "label": "Use transparent background"
+      },
+      {
+        "type": "color_scheme",
+        "id": "color_scheme",
+        "label": "Color scheme",
+        "default": "set-1"
+      },
+      {
+        "type": "header",
+        "content": "Desktop settings"
+      },
+      {
+        "type": "select",
+        "id": "padding_top_desktop",
+        "label": "Padding top",
+        "options": [
+          {
+            "value": "sm",
+            "label": "Small"
+          },
+          {
+            "value": "md",
+            "label": "Medium"
+          },
+          {
+            "value": "lg",
+            "label": "Large"
+          }
+        ],
+        "default": "large"
+      },
+      {
+        "type": "select",
+        "id": "padding_bottom_desktop",
+        "label": "Padding bottom",
+        "options": [
+          {
+            "value": "sm",
+            "label": "Small"
+          },
+          {
+            "value": "md",
+            "label": "Medium"
+          },
+          {
+            "value": "lg",
+            "label": "Large"
+          }
+        ],
+        "default": "large"
+      },
+      {
+        "type": "select",
+        "id": "header_outline",
+        "label": "Header outline",
+        "options": [
+          {
+            "value": "none",
+            "label": "None"
+          },
+          {
+            "value": "bordered",
+            "label": "Bordered"
+          }
+        ],
+        "default": "none"
+      },
+      {
+        "type": "header",
+        "content": "Mobile settings"
+      },
+      {
+        "type": "select",
+        "id": "padding_top_mobile",
+        "label": "Padding top",
+        "options": [
+          {
+            "value": "sm",
+            "label": "Small"
+          },
+          {
+            "value": "md",
+            "label": "Medium"
+          },
+          {
+            "value": "lg",
+            "label": "Large"
+          }
+        ],
+        "default": "medium"
+      },
+      {
+        "type": "select",
+        "id": "padding_bottom_mobile",
+        "label": "Padding bottom",
+        "options": [
+          {
+            "value": "sm",
+            "label": "Small"
+          },
+          {
+            "value": "md",
+            "label": "Medium"
+          },
+          {
+            "value": "lg",
+            "label": "Large"
+          }
+        ],
+        "default": "medium"
+      }
+    ],
+    "blocks": [
+      {
+        "type": "logo",
+        "name": "Logo",
+        "limit": 1,
+        "settings": [
+          {
+            "type": "header",
+            "content": "General settings"
+          },
+          {
+            "type": "textarea",
+            "id": "logo_svg",
+            "label": "SVG logo"
+          },
+          {
+            "type": "image_picker",
+            "id": "logo_image",
+            "label": "Image logo",
+            "info": "Displayed if no SVG code is added"
+          },
+          {
+            "type": "header",
+            "content": "Optional settings"
+          },
+          {
+            "type": "paragraph",
+            "content": "Displayed if header background is transparent"
+          },
+          {
+            "type": "textarea",
+            "id": "logo_svg_floated",
+            "label": "SVG logo"
+          },
+          {
+            "type": "image_picker",
+            "id": "logo_image_floated",
+            "label": "Image logo",
+            "info": "Displayed if no SVG code is added"
+          },
+          {
+            "type": "header",
+            "content": "Alternative settings"
+          },
+          {
+            "type": "paragraph",
+            "content": "Displayed when no logo is added"
+          },
+          {
+            "type": "text",
+            "id": "logo_custom_title",
+            "label": "Site title"
+          }
+        ]
+      },
+      {
+        "type": "menu",
+        "name": "Menu",
+        "limit": 1,
+        "settings": [
+          {
+            "type": "header",
+            "content": "General settings"
+          },
+          {
+            "type": "menu",
+            "id": "menu",
+            "label": "Menu",
+            "default": "main-menu"
+          },
+          {
+            "type": "header",
+            "content": "Desktop settings"
+          },
+          {
+            "type": "select",
+            "id": "menu_alignment_horizontal",
+            "label": "Horizontal position",
+            "options": [
+              {
+                "value": "left",
+                "label": "Left"
+              },
+              {
+                "value": "center",
+                "label": "Center"
+              },
+              {
+                "value": "right",
+                "label": "Right"
+              }
+            ],
+            "default": "center"
+          },
+          {
+            "type": "select",
+            "id": "menu_alignment_vertical",
+            "label": "Vertical alignment",
+            "options": [
+              {
+                "value": "top",
+                "label": "Top"
+              },
+              {
+                "value": "bottom",
+                "label": "Bottom"
+              }
+            ],
+            "default": "top"
+          },
+          {
+            "type": "header",
+            "content": "Mobile settings"
+          },
+          {
+            "type": "select",
+            "id": "menu_opener_position",
+            "label": "Opener position",
+            "options": [
+              {
+                "value": "left",
+                "label": "Left"
+              },
+              {
+                "value": "right",
+                "label": "Right"
+              }
+            ],
+            "default": "left"
+          },
+          {
+            "type": "text",
+            "id": "menu_back_label",
+            "label": "'Back' button label"
+          }
+        ]
+      },
+      {
+        "type": "search",
+        "name": "Search",
+        "limit": 1,
+        "settings": [
+          {
+            "type": "header",
+            "content": "General settings"
+          },
+          {
+            "type": "checkbox",
+            "id": "show_search",
+            "default": true,
+            "label": "Show search"
+          },
+          {
+            "type": "text",
+            "id": "search_closer_label",
+            "label": "'Close' button label",
+            "default": "Close"
+          },
+          {
+            "type": "text",
+            "id": "search_placeholder",
+            "label": "Placeholder",
+            "default": "Search"
+          }
+        ]
+      },
+      {
+        "type": "button",
+        "name": "Button",
+        "limit": 1,
+        "settings": [
+          {
+            "type": "header",
+            "content": "General settings"
+          },
+          {
+            "type": "text",
+            "id": "button_label",
+            "label": "Label",
+            "default": "Contact us"
+          },
+          {
+            "type": "url",
+            "id": "button_url",
+            "label": "URL"
+          },
+          {
+            "type": "header",
+            "content": "Desktop settings"
+          },
+          {
+            "type": "checkbox",
+            "id": "show_button_desktop",
+            "label": "Show/hide button",
+            "default": true
+          },
+          {
+            "type": "header",
+            "content": "Mobile settings"
+          },
+          {
+            "type": "checkbox",
+            "id": "show_button_mobile",
+            "label": "Show/hide button",
+            "default": true
+          }
+        ]
+      },
+      {
+        "type": "@app"
+      }
+    ]
+  }
+{% endschema %}

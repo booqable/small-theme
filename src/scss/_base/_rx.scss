@@ -1,6 +1,9 @@
 // Import variables
 @use '../variables' as *;
 
+// Import mixins
+@use '../_helpers/mixins' as *;
+
 .bq-content {
   &.rx-content {
     font-family: $font-family-body;
@@ -26,7 +29,7 @@
         color: $color-outline;
       }
 
-      &:hover {
+      @include hover {
         opacity: 0.8;
 
         h1 &,

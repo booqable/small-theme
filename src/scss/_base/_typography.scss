@@ -1,6 +1,9 @@
 // Import variables
 @use '../variables' as *;
 
+// Import mixins
+@use '../_helpers/mixins' as *;
+
 h1, h2, h3, h4, h5, h6, .h1, .h2, .h3, .h4, .h5, .h6 {
   font-family: $font-family-heading;
   font-weight: $font-weight-headers;
@@ -81,15 +84,17 @@ strong {
 }
 
 a {
+  --link-color: inherit;
+
   display: inline-block;
   vertical-align: top;
   background: none;
-  color: inherit;
+  color: var(--link-color);
   text-decoration: none;
   transition: all $transition-duration $transition-function;
 
-  &:hover {
-    opacity: 0.8;
+  @include hover {
+    --link-color: #{$color-outline};
   }
 }
 
@@ -148,6 +153,9 @@ hr {
   overflow: visible;
 }
 
-.fa, .far {
+.fa, .far,
+[class^='fa-'],
+[class*='fa-'] {
   color: currentcolor;
+  transition: all $transition-duration $transition-function;
 }

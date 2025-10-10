@@ -1,0 +1,1 @@
+import{frameSequence as o,onReady as d}from"utils.js";const e={selector:{o:document.documentElement},i:{loaded:"loaded"}},s={t(){o(()=>({o:e.selector.o,i:e.i.loaded}),o=>{o.o.classList.add(o.i)})}},i=()=>{s.t()};d(i);

@@ -1,0 +1,48 @@
+{%- comment -%}
+  This snippet renders a search form with a toggleable input field.
+
+  Parameters:
+  - closer_label: label for the 'Close search' button in the search form
+  - routes: the routes object
+  - search_placeholder: placeholder text for the search input (default is 'Search...')
+  - section_type: the section type where the search is included (e.g. 'header', 'footer')
+
+  Required parameters:
+  - routes
+  - section_type
+
+  Usage:
+
+  {%- render 'search',
+      closer_label: closer_label,
+      placeholder: search_placeholder,
+      routes: routes,
+      section_type: section.type
+  -%}
+{%- endcomment -%}
+
+<div class="search {{ section_type -}}__search">
+  <input type="checkbox" id="{{- section_type -}}-opener-search" style="display: none">
+  <label class="search__opener" for="{{- section_type -}}-opener-search">
+    {%- render 'icon-search' -%}
+  </label>
+
+  <div class="search__holder" style="display: none">
+    <div class="search__wrapper">
+      <form id="search" action="{{ routes.search_url }}" role="search">
+        <div class="search__input-wrapper">
+          <i class="search__icon">
+            {%- render 'icon-search' -%}
+          </i>
+          <input type="search" name="q" class="search__input"{% if placeholder != blank %} placeholder="{{- placeholder -}}"{%- endif -%}>
+        </div>
+        <span class="search__reset"></span>
+      </form>
+
+      <label for="{{- section_type -}}-opener-search" class="search__closer">
+        {%- if closer_label != blank -%}<span class="search__closer-label">{{- closer_label -}}</span>{%- endif -%}
+        <span class="search__closer-icon"></span>
+      </label>
+    </div>
+  </div>
+</div>

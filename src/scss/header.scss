@@ -1,0 +1,226 @@
+// Import variables
+@use 'variables' as *;
+
+// Import mixins
+@use '_helpers/mixins' as *;
+
+// Import components
+@use '_components/menu' as *;
+@use '_components/search' as *;
+
+.header {
+  --header-background: transparent;
+  --header-border-color: #{$color-border};
+  --header-btn-display: none;
+  --header-content-gap: 8px;
+  --header-logo-visibility: visible;
+  --header-position: static;
+  --header-transition-duration: #{$transition-duration};
+  --header-transition-delay: #{$transition-duration};
+
+  z-index: 1;
+  position: var(--header-position);
+  top: 0;
+  left: 0;
+  right: 0;
+
+  @include media-up(md) {
+    --header-btn-display: block;
+  }
+
+  &__inner {
+    --header-logo-grow: 1;
+    --header-menu-grow: 0;
+    --header-menu-bottom-padding: 0;
+    --header-menu-indent: var(--menu-indent-mobile);
+    --header-padding-bottom: var(--padding-bottom-mobile, 12px);
+    --header-padding-top: var(--padding-top-mobile, 12px);
+    --header-order-app: var(--order-app-mobile, 2);
+    --header-order-button: var(--order-button-mobile, 6);
+    --header-order-cart: var(--order-cart-mobile, 4);
+    --header-order-logo: var(--order-logo-mobile, 1);
+    --header-order-menu: var(--order-menu-mobile, 5);
+    --header-order-search: var(--order-search-mobile, 3);
+
+    color: $color-primary;
+    background: var(--header-background);
+    border-bottom: 1px solid var(--header-border-color);
+    transition: background var(--header-transition-duration) var(--header-transition-delay) $transition-function,
+      border var(--header-transition-duration) var(--header-transition-delay) $transition-function,
+      padding $transition-duration $transition-function;
+
+    @include media-up(md) {
+      --header-logo-grow: var(--logo-growth-desktop, 1);
+      --header-menu-grow: var(--menu-growth-desktop, 1);
+      --header-menu-bottom-padding: var(--menu-bottom-padding-top-desktop);
+      --header-menu-bottom-border-top-width: var(--menu-bottom-border-top-width-desktop, 100%);
+      --header-menu-indent: var(--menu-indent-desktop);
+      --header-padding-bottom: var(--padding-bottom-desktop, 12px);
+      --header-padding-top: var(--padding-top-desktop, 12px);
+      --header-order-app: var(--order-app-desktop, 2);
+      --header-order-button: var(--order-button-desktop, 5);
+      --header-order-cart: var(--order-cart-desktop, 4);
+      --header-order-logo: var(--order-logo-desktop, 1);
+      --header-order-menu: var(--order-menu-desktop, 6);
+      --header-order-search: var(--order-search-desktop, 3);
+    }
+
+    &--padding-top {
+      padding-top: var(--header-padding-top);
+    }
+
+    &--padding-bottom {
+      padding-bottom: var(--header-padding-bottom);
+    }
+
+    &--background {
+      background: $background-primary;
+    }
+  }
+
+  &__content {
+    display: flex;
+    justify-content: space-between;
+    align-items: stretch;
+
+    @include media-up(md) {
+      flex-wrap: wrap;
+    }
+
+    &--outlined {
+      @include media-up(md) {
+        border: 1px solid $color-border;
+        border-radius: $border-radius;
+        padding: var(--header-padding-top) var(--header-padding-bottom) var(--header-padding-bottom);
+        margin: calc(-1 * var(--header-padding-top)) 0 calc(-1 * var(--header-padding-bottom));
+      }
+    }
+  }
+
+  &__menu {
+    flex: var(--header-menu-grow) 1 auto;
+    order: var(--header-order-menu);
+    margin: var(--header-menu-indent);
+
+    @include media-up(md) {
+      width: var(--menu-bottom-width-desktop, 100%);
+      position: relative;
+      padding: var(--header-menu-bottom-padding);
+    }
+
+    &::before {
+      @include media-up(md) {
+        content: "";
+        display: block;
+        width: calc(var(--header-menu-bottom-border-top-width));
+        height: var(--menu-border-width-desktop, 1px);
+        margin: 0;
+        position: absolute;
+        left: 50%;
+        top: 0;
+        transform: translateX(-50%);
+        background: $color-border;
+      }
+    }
+  }
+
+  &__logo {
+    flex: var(--header-logo-grow) 1 auto;
+    order: var(--header-order-logo);
+    padding-right: 16px;
+
+    &-image {
+      &-holder {
+        transition: all var(--header-transition-duration) var(--header-transition-delay) $transition-function;
+        visibility: var(--header-logo-visibility);
+      }
+    }
+  }
+
+  &__search {
+    flex: 0 1 auto;
+    order: var(--header-order-search);
+    padding-left: var(--header-content-gap);
+  }
+
+  &__cart {
+    order: var(--header-order-cart);
+    flex: 0 1 auto;
+    padding-left: var(--header-content-gap);
+  }
+
+  &__btn {
+    &-wrapper {
+      flex: 0 1 auto;
+      display: var(--header-btn-display);
+
+      @include media-up(md) {
+        order: var(--header-order-button);
+        padding-left: var(--header-content-gap);
+      }
+    }
+  }
+
+  &:has(.header__inner--sticky) {
+    --header-position: sticky;
+  }
+
+  &:has(.header__content--outlined) {
+    --header-border-color: transparent;
+  }
+
+  &:not(&:has(.header__inner--background)) {
+    --header-border-color: transparent;
+    --header-position: absolute;
+
+    .header__logo-image-holder {
+      --header-logo-visibility: hidden;
+
+      &--floated {
+        --header-logo-visibility: visible;
+      }
+
+      &:only-child {
+        --header-logo-visibility: visible;
+      }
+    }
+
+    &:has(.header__inner--sticky) {
+      --header-position: fixed;
+    }
+  }
+
+  &:has(.menu__item.has-dropdown:hover),
+  &:has(#header-opener-menu:checked),
+  &:has(#header-opener-search:checked){
+    --header-border-color: #{$color-border};
+    --header-transition-duration: 0s;
+    --header-transition-delay: 0s;
+
+    .header__inner {
+      --header-background: #{$background-primary};
+      --header-transition-duration: 0s;
+      --header-transition-delay: 0s;
+
+      .header__logo-image-holder {
+        --header-logo-visibility: visible;
+
+        &--floated {
+          --header-logo-visibility: hidden;
+
+          /* stylelint-disable-next-line */
+          &:only-child {
+            --header-logo-visibility: visible;
+          }
+        }
+      }
+    }
+
+    /* stylelint-disable-next-line */
+    &:has(.header__content--outlined) {
+      @include media-up(md) {
+        --header-border-color: transparent;
+      }
+    }
+  }
+}
