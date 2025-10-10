@@ -3,26 +3,31 @@
   This snippet renders a menu with support for dropdowns
 
   Parameters:
+  - content: additional content to include below the menu items (default is empty)
   - menu: the navigation menu object to render
   - menu_back_label: label for the 'Back' button in mobile dropdowns (default is 'link.title')
+  - menu_id: unique ID for the menu instance (e.g. block.id)
   - menu_levels: number of menu nested dropdown menus to display (max. 3 levels)
-  - section_class: a CSS class prefix for styling the menu
+  - section_type: the section type where the menu is included (e.g. 'header', 'footer')
   - settings: theme settings
   - socials: social links to include at the bottom of the mobile menu (default is true)
   - use_opener: whether to include a menu opener on mobile, e.g. hamburger button to open menu (default is true)
 
   Required parameters:
   - menu
-  - section_class
+  - menu_id
+  - section_type
   - settings
 
   Usage:
 
   {%- render 'menu',
+      content: element_menu_content,
       menu: main_menu,
       menu_back_label: 'Go back',
+      menu_id: block.id,
       menu_levels: number,
-      section_class: 'your-class',
+      section_type: section.type,
       settings: settings,
       socials: false,
       use_opener: false
@@ -32,12 +37,11 @@
 {%- assign menu = menu | default: '' -%}
 
 {%- if menu != blank -%}
-  {%- assign class = 'menu' -%}
-  {%- assign content = content | default: '' -%}
+  {%- assign content     = content | default: '' -%}
   {%- assign menu_levels = menu_levels | default: 1 -%}
-  {%- assign menu_items = menu.items -%}
-  {%- assign socials = socials | default: true -%}
-  {%- assign use_opener = use_opener | default: true -%}
+  {%- assign menu_items  = menu.items -%}
+  {%- assign socials     = socials | default: true -%}
+  {%- assign use_opener  = use_opener | default: true -%}
 
   {%- capture icon_arrow -%}
     <i class="menu__item-icon">
@@ -45,84 +49,84 @@
     </i>
   {%- endcapture -%}
 
-  <div id="{{- section_class -}}-{{- class -}}" class="{{- section_class -}}__{{ class }} {{ class }}">
+  <div class="menu {{ section_type -}}__menu" id="{{- section_type -}}-{{- menu_id -}}">
     {%- if use_opener -%}
-      <input type="checkbox" id="{{- section_class -}}-{{- class -}}-opener" style="display: none;">
-      <label for="{{- section_class -}}-{{- class -}}-opener" class="{{- section_class -}}__{{ class }}-opener {{ class }}__opener">
+      <input id="{{- section_type -}}-opener-{{- menu_id -}}" type="checkbox" style="display: none;">
+      <label class="menu__opener {{ section_type -}}__menu-opener" for="{{- section_type -}}-opener-{{- menu_id -}}">
         <span></span>
       </label>
     {%- endif -%}
 
-    <nav class="{{- section_class -}}__{{ class }}-nav {{ class }}__nav" style="display: none;">
-      <div class="{{- class -}}__wrapper">
-        <ul class="{{- class -}}__list">
+    <nav class="menu__nav {{ section_type -}}__menu-nav" style="display: none;">
+      <div class="menu__wrapper">
+        <ul class="menu__list">
           {%- for link in menu_items -%}
             {%- assign link_count = link.items_count -%}
             {%- assign link_index = forloop.index -%}
             {%- assign link_items = link.items -%}
             {%- assign link_title = link.title -%}
-            {%- assign link_url = link.url -%}
+            {%- assign link_url   = link.url -%}
 
             {%- if link != blank -%}
-              <li class="{{- class -}}__item{% if link_count > 0 and menu_levels > 1 %} has-dropdown{%- endif -%}">
+              <li class="menu__item{% if link_count > 0 and menu_levels > 1 %} has-dropdown{%- endif -%}">
 
                 {%- if link_count > 0 and menu_levels > 1 -%}
-                  <input type="checkbox" id="{{- section_class -}}-dropdown-{{- class -}}-trigger-{{- link_index -}}" style="display: none;">
-                  <label for="{{- section_class -}}-dropdown-{{- class -}}-trigger-{{- link_index -}}" class="{{- class -}}__dropdown-opener">
+                  <input id="{{- section_type -}}-dropdown-trigger-{{- menu_id -}}{{- link_index -}}" type="checkbox" style="display: none;">
+                  <label class="menu__dropdown-opener" for="{{- section_type -}}-dropdown-trigger-{{- menu_id -}}{{- link_index -}}">
                     {{- icon_arrow -}}
                   </label>
                 {%- endif -%}
 
-                <a href="{{ link_url }}" class="{{- class -}}__link">
+                <a class="menu__link" href="{{ link_url }}">
                   {{- link_title -}}
                 </a>
 
                 {%- if link_count > 0 and menu_levels > 1 -%}
-                  <div class="{{- class -}}__dropdown" style="display: none;">
-                    <div class="{{- class -}}__dropdown-wrapper">
+                  <div class="menu__dropdown" style="display: none;">
+                    <div class="menu__dropdown-wrapper">
 
-                      <label for="{{- section_class -}}-dropdown-{{- class -}}-trigger-{{- link_index -}}" class="{{- class -}}__dropdown-opener">
+                      <label class="menu__dropdown-opener" for="{{- section_type -}}-dropdown-trigger-{{- menu_id -}}{{- link_index -}}">
                         {{- icon_arrow -}}
                         {{- menu_back_label | default: link_title -}}
                       </label>
 
-                      <ul class="{{- class -}}__dropdown-list">
+                      <ul class="menu__dropdown-list">
                         {%- for childlink in link_items -%}
                           {%- assign childlink_index = forloop.index -%}
                           {%- assign childlink_count = childlink.items_count -%}
                           {%- assign childlink_items = childlink.items -%}
                           {%- assign childlink_title = childlink.title -%}
-                          {%- assign childlink_url = childlink.url -%}
+                          {%- assign childlink_url   = childlink.url -%}
 
                           {%- if childlink != blank -%}
-                            <li class="{{- class -}}__dropdown-item">
+                            <li class="menu__dropdown-item">
                               {%- if childlink_count > 0 and menu_levels > 2 -%}
-                                <input type="checkbox" id="{{- section_class -}}-dropdown-child{{- class -}}-trigger-{{- link_index -}}-{{- childlink_index -}}" style="display: none;">
-                                <label for="{{- section_class -}}-dropdown-child{{- class -}}-trigger-{{- link_index -}}-{{- childlink_index -}}" class="{{- class -}}__dropdown-opener">
+                                <input id="{{- section_type -}}-dropdown-trigger-child{{- menu_id -}}-{{- link_index -}}-{{- childlink_index -}}" type="checkbox" style="display: none;">
+                                <label class="menu__dropdown-opener" for="{{- section_type -}}-dropdown-trigger-child{{- menu_id -}}-{{- link_index -}}-{{- childlink_index -}}">
                                   {{- icon_arrow -}}
                                 </label>
                               {%- endif -%}
 
-                              <a href="{{ childlink_url }}" class="{{- class -}}__dropdown-link">
+                              <a class="menu__dropdown-link" href="{{ childlink_url }}">
                                 {{- childlink_title -}}
                               </a>
 
                               {%- if childlink_count > 0 and menu_levels > 2 -%}
-                                <div class="{{- class -}}__dropdown">
-                                  <div class="{{- class -}}__dropdown-wrapper">
-                                    <label for="{{- section_class -}}-dropdown-child{{- class -}}-trigger-{{- link_index -}}-{{- childlink_index -}}" class="{{- class -}}__dropdown-opener">
+                                <div class="menu__dropdown">
+                                  <div class="menu__dropdown-wrapper">
+                                    <label class="menu__dropdown-opener" for="{{- section_type -}}-dropdown-trigger-child{{- menu_id -}}-{{- link_index -}}-{{- childlink_index -}}">
                                       {{- icon_arrow -}}
                                       {{- menu_back_label | default: childlink_title -}}
                                     </label>
 
-                                    <ul class="{{- class -}}__dropdown-list">
+                                    <ul class="menu__dropdown-list">
                                       {%- for grandchildlink in childlink_items -%}
                                         {%- assign grandchildlink_title = grandchildlink.title -%}
-                                        {%- assign grandchildlink_url = grandchildlink.url -%}
+                                        {%- assign grandchildlink_url   = grandchildlink.url -%}
 
                                         {%- if grandchildlink != blank -%}
-                                          <li class="{{- class -}}__dropdown-item">
-                                            <a href="{{ grandchildlink_url }}" class="{{- class -}}__dropdown-link">
+                                          <li class="menu__dropdown-item">
+                                            <a class="menu__dropdown-link" href="{{ grandchildlink_url }}">
                                               {{- grandchildlink_title -}}
                                             </a>
                                           </li>

@@ -5,8 +5,8 @@
 @use '../_helpers/mixins' as *;
 
 html {
-  &:has(#header-menu-opener:checked),
-  &:has(#header-search-opener:checked) {
+  &:has(#header-opener-menu:checked),
+  &:has(#header-opener-search:checked) {
     @include media-down(md) {
       overflow: clip;
     }
@@ -32,8 +32,8 @@ body {
     transition: visibility var(--overlay-transition-duration) var(--overlay-transition-delay) $transition-function;
   }
 
-  &:has(#header-menu-opener:checked),
-  &:has(#header-search-opener:checked) {
+  &:has(#header-opener-menu:checked),
+  &:has(#header-opener-search:checked) {
     @include media-down(md) {
       overflow: clip;
     }

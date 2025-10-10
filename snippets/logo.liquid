@@ -5,16 +5,18 @@
   - logo: the logo image object
   - logo_floated: the floating logo image object
   - logo_title: the custom text title for the logo
+  - loading: 'eager' or 'lazy' (default is 'lazy')
   - routes: the routes object
-  - section_class: a CSS class prefix for styling the logo
+  - section_type: the section type where the logo is included (e.g. 'header', 'footer')
   - shop: the shop object
   - svg: the logo SVG code
   - svg_floated: the floating logo SVG code
   - transparency: whether to show floating logo or SVG
 
   Required parameters:
+  - logo OR svg
   - routes
-  - section_class
+  - section_type
   - shop
 
   Usage:
@@ -23,8 +25,9 @@
       logo: logo_image,
       logo_floated: logo_image_floated,
       logo_title: 'Your Title',
+      loading: 'eager',
       routes: routes,
-      section_class: 'your-class',
+      section_type: section.type,
       shop: shop,
       svg: svg_code,
       svg_floated: svg_code_floating,
@@ -32,72 +35,70 @@
   -%}
 {%- endcomment -%}
 
-{%- assign class = 'logo' -%}
+{%- assign loading_strategy = loading | default: 'lazy' -%}
 
-<div class="{{- section_class -}}__{{ class }} {{ class }}">
+<div class="logo {{ section_type -}}__logo">
   {%- if svg != blank or svg_floated != blank and transparency -%}
     {%- if svg != blank -%}
-      <div class="{{- section_class -}}__{{ class }}-image-holder {{ class }}__image-holder">
-        <a href="{{ routes.root_url }}" class="{{- section_class -}}__{{ class }}-link {{ class }}__link" aria-label="{{ shop.name }}">
-          <span class="{{- section_class -}}__{{- class -}}-image {{ class }}__image">
+      <div class="logo__image-holder {{ section_type -}}__logo-image-holder">
+        <a class="logo__link" href="{{ routes.root_url }}" aria-label="{{ shop.name }}">
+          <span class="logo__image">
             {{- svg | strip -}}
           </span>
         </a>
       </div>
     {%- endif -%}
     {%- if svg_floated != blank and transparency -%}
-      <div class="{{- section_class -}}__{{ class }}-image-holder {{ section_class }}__{{ class }}-image-holder--floated {{ class }}__image-holder {{ class }}__image-holder--floated">
-        <a href="{{ routes.root_url }}" class="{{- section_class -}}__{{ class }}-link {{ class }}__link" aria-label="{{ shop.name }}">
-          <span class="{{- section_class -}}__{{- class -}}-image {{ class }}__image">
+      <div class="logo__image-holder logo__image-holder--floated {{ section_type -}}__logo-image-holder {{ section_type -}}__logo-image-holder--floated">
+        <a class="logo__link" href="{{ routes.root_url }}" aria-label="{{ shop.name }}">
+          <span class="logo__image">
             {{- svg_floated | strip -}}
           </span>
         </a>
       </div>
     {%- endif -%}
   {%- elsif logo.url != blank or logo_floated.url != blank and transparency -%}
-    {% assign image_class_name = class | append: '__image' -%}
-
     {%- if logo.url != blank -%}
-      <div class="{{- section_class -}}__{{ class }}-image-holder {{ class }}__image-holder">
-        <a href="{{ routes.root_url }}" class="{{- section_class -}}__{{ class }}-link {{ class }}__link" aria-label="{{ shop.name }}">
+      <div class="logo__image-holder {{ section_type -}}__logo-image-holder">
+        <a class="logo__link" href="{{ routes.root_url }}" aria-label="{{ shop.name }}">
           {%- render 'image',
               image: logo,
               image__alt: shop.name,
-              image_class: image_class_name,
+              image_class: 'logo__image',
               image_size: 'logo',
-              loading: 'eager',
+              loading: loading_strategy,
               keep_type: true
           -%}
         </a>
       </div>
     {%- endif -%}
     {%- if logo_floated.url != blank and transparency -%}
-      <div class="{{- section_class -}}__{{ class }}-image-holder {{ section_class }}__{{ class }}-image-holder--floated {{ class }}__image-holder {{ class }}__image-holder--floated">
-        <a href="{{ routes.root_url }}" class="{{- section_class -}}__{{ class }}-link {{ class }}__link" aria-label="{{ shop.name }}">
+      <div class="logo__image-holder logo__image-holder--floated {{ section_type -}}__logo-image-holder {{ section_type -}}__logo-image-holder--floated">
+        <a class="logo__link" href="{{ routes.root_url }}" aria-label="{{ shop.name }}">
           {%- render 'image',
               image: logo_floated,
               image__alt: shop.name,
-              image_class: image_class_name,
+              image_class: 'logo__image',
               image_size: 'logo',
-              loading: 'eager',
+              loading: loading_strategy,
               keep_type: true
           -%}
         </a>
       </div>
     {%- endif -%}
   {%- elsif logo_title != blank -%}
-    <h2 class="{{- section_class -}}__{{- class -}}-text {{ class }}__text">
-      <a href="{{ routes.root_url }}" class="{{- section_class -}}__{{ class }}-link {{ class }}__link" aria-label="{{ shop.name }}">
+    <h2 class="logo__text">
+      <a class="logo__link" href="{{ routes.root_url }}" aria-label="{{ shop.name }}">
         {{- logo_title -}}
       </a>
     </h2>
   {%- elsif shop.logo_url != blank -%}
-    <a href="{{ routes.root_url }}" class="{{- section_class -}}__{{ class }}-link {{ class }}__link" aria-label="{{ shop.name }}">
-      <img class="{{- section_class -}}__{{- class -}}-image {{ class }}__image" src="{{ shop.logo_url }}" alt="{{ shop.name }}" width="150" height="50" loading="eager" />
+    <a class="logo__link" href="{{ routes.root_url }}" aria-label="{{ shop.name }}">
+      <img class="logo__image" src="{{ shop.logo_url }}" alt="{{ shop.name }}" width="150" height="50" loading="eager" />
     </a>
   {%- else -%}
-    <h2 class="{{- section_class -}}__{{- class -}}-text {{ class }}__text">
-      <a href="{{ routes.root_url }}" class="{{- section_class -}}__{{ class }}-link {{ class }}__link" aria-label="{{ shop.name }}">
+    <h2 class="logo__text">
+      <a class="logo__link" href="{{ routes.root_url }}" aria-label="{{ shop.name }}">
         {{- shop.name -}}
       </a>
     </h2>

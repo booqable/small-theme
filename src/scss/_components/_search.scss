@@ -150,7 +150,7 @@
     transition: visibility var(--search-dropdown-duration) $transition-function var(--search-dropdown-delay);
     display: flex !important;
 
-    #header-search-opener:checked ~ & {
+    #header-opener-search:checked ~ & {
       --search-dropdown-events: all;
       --search-dropdown-duration: 0s;
       --search-dropdown-delay: 0s;

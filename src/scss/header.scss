@@ -191,8 +191,8 @@
   }
 
   &:has(.menu__item.has-dropdown:hover),
-  &:has(#header-menu-opener:checked),
-  &:has(#header-search-opener:checked){
+  &:has(#header-opener-menu:checked),
+  &:has(#header-opener-search:checked){
     --header-border-color: #{$color-border};
     --header-transition-duration: 0s;
     --header-transition-delay: 0s;

@@ -1,5 +1,5 @@
 {%- assign app                       = section.blocks | where: "type", "app" | first -%}
-{%- assign class                     = 'header' -%}
+{%- assign block_id                  = '' -%}
 {%- assign color_scheme              = section.settings.color_scheme -%}
 {%- assign header_outline            = section.settings.header_outline -%}
 {%- assign menu_alignment_horizontal = '' -%}
@@ -9,6 +9,7 @@
 {%- assign padding_bottom_mobile     = section.settings.padding_bottom_mobile -%}
 {%- assign padding_top_desktop       = section.settings.padding_top_desktop -%}
 {%- assign padding_top_mobile        = section.settings.padding_top_mobile -%}
+{%- assign section_type              = section.type -%}
 {%- assign show_button_desktop       = '' -%}
 {%- assign show_button_mobile        = '' -%}
 {%- assign show_transparency         = section.settings.show_transparency -%}
@@ -17,6 +18,7 @@
 {%- for block in section.blocks -%}
   {%- case block.type -%}
     {%- when 'menu' -%}
+      {%- assign block_id                  = block.id -%}
       {%- assign menu_alignment_horizontal = block.settings.menu_alignment_horizontal -%}
       {%- assign menu_alignment_vertical   = block.settings.menu_alignment_vertical -%}
       {%- assign menu_opener_position      = block.settings.menu_opener_position -%}
@@ -33,7 +35,7 @@
               button_label: button_label,
               button_type: 'primary',
               button_url: button_url,
-              section_class: class
+              section_type: section_type
           -%}
         {%- endcapture -%}
       {%- endif -%}
@@ -42,7 +44,7 @@
 
 {%- if app -%}
   {%- capture element_app_desktop -%}
-    <div class="{{- class -}}__app">
+    <div class="header__app">
       {%- render 'app', block: app, section: section, size: "desktop" -%}
     </div>
   {%- endcapture -%}
@@ -138,8 +140,9 @@
             logo: logo,
             logo_floated: logo_floated,
             logo_title: logo_title,
+            loading: 'eager',
             routes: routes,
-            section_class: class,
+            section_type: section_type,
             shop: shop,
             svg: svg,
             svg_floated: svg_floated,
@@ -154,7 +157,7 @@
       {%- if menu != blank -%}
         {%- if app -%}
           {%- capture element_app_mobile -%}
-            <div class="{{- class -}}__app">
+            <div class="header__app">
               {%- render 'app', block: app, section: section, size: "mobile" -%}
             </div>
           {%- endcapture -%}
@@ -169,11 +172,12 @@
 
         {%- capture element_menu -%}
           {%- render 'menu'
+              content: element_menu_content,
               menu: menu,
               menu_back_label: menu_back_label,
+              menu_id: block_id,
               menu_levels: 3,
-              section_class: class,
-              content: element_menu_content,
+              section_type: section_type,
               settings: settings
           -%}
         {%- endcapture -%}
@@ -190,8 +194,8 @@
           {%- render 'search',
               closer_label: search_closer_label,
               placeholder: search_placeholder,
-              section_class: class,
-              show_search: show_search
+              routes: routes,
+              section_type: section_type
           -%}
         {%- endcapture -%}
       {%- endif -%}
@@ -200,17 +204,17 @@
 {%- endfor -%}
 
 <div
-  class="{{- class -}}__inner{% if sticky_header %} {{ class }}__inner--sticky{% endif %}{% unless show_transparency %} {{ class }}__inner--background{% endunless %} {{ class }}__inner--padding-top {{ class }}__inner--padding-bottom color-{{- color_scheme.id -}}"
+  class="header__inner{% if sticky_header %} header__inner--sticky{% endif %}{% unless show_transparency %} header__inner--background{% endunless %} header__inner--padding-top header__inner--padding-bottom color-{{- color_scheme.id -}}"
   {% if variables != blank %} style="{{- variables | escape -}}"{%- endif -%}
 >
-  <div class="{{- class -}}__container container">
-    <div class="{{- class -}}__content{% if header_outline == 'bordered' %} {{ class }}__content--outlined{%- endif -%}">
+  <div class="header__container container">
+    <div class="header__content{% if header_outline == 'bordered' %} header__content--outlined{%- endif -%}">
       {{- element_menu -}}
       {{- element_logo -}}
       {{- element_app_desktop -}}
       {{- element_search -}}
       {%- if show_mini_cart -%}
-        <div class="{{- class -}}__cart">
+        <div class="header__cart">
           {% comment %} CSS variables start {% endcomment %}
           {%- render 'css-mini-cart-button' -%}
           {% comment %} CSS variables end {% endcomment %}
