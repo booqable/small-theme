@@ -188,6 +188,7 @@
     }
   }
 
+  &:has(.menu__item.has-dropdown.active),
   &:has(.menu__item.has-dropdown:hover),
   &:has(#header-opener-menu:checked),
   &:has(#header-opener-search:checked){
