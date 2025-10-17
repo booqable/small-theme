@@ -76,4 +76,8 @@ body {
       display: block;
     }
   }
+
+  .header:not(&:has(.header__inner--background)) & {
+    margin-top: var(--preview-height, 0);
+  }
 }

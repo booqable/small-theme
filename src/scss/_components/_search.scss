@@ -22,10 +22,14 @@
   --search-input-min-width: 230px;
   --search-input-padding-left: 46px;
   --search-input-padding-right: 55px;
+  --search-input-reset-left: auto;
+  --search-input-reset-right: 7px;
 
   @include media-up(md) {
     --search-dropdown-padding: #{$horizontal-padding};
     --search-icon-form-width: auto;
+    --search-input-reset-left: 100%;
+    --search-input-reset-right: auto;
   }
 
   g {
@@ -68,11 +72,11 @@
     &-icon {
       position: relative;
       display: block;
-      width: 20px;
-      height: 20px;
+      width: 10px;
+      height: 10px;
 
       &:not(:only-child) {
-        margin-left: 8px;
+        margin-left: 12px;
       }
 
       &::before,
@@ -164,7 +168,8 @@
 
   &__reset {
     position: absolute;
-    right: 7px;
+    left: var(--search-input-reset-left);
+    right: var(--search-input-reset-right);
     top: 50%;
     height: $button-height;
     width: $button-width;
@@ -192,17 +197,15 @@
       transform: translate(-50%, -50%) rotate(var(--search-icon-rotate));
       background: var(--search-icon-color);
       transition: background $transition-duration $transition-function;
+
+      /* stylelint-disable-next-line */
+      @include hover {
+        --search-icon-color: #{$color-outline};
+      }
     }
 
     &::after {
       --search-icon-rotate: -45deg;
-    }
-
-    @include hover {
-      &::before,
-      &::after {
-        --search-icon-color: #{$color-outline};
-      }
     }
   }
 
@@ -235,9 +238,11 @@
       --search-input-border-color: transparent;
       --search-input-font-size: 20px;
       --search-input-min-width: auto;
-      --search-input-padding-left: 5px;
-      --search-input-padding-right: 60px;
+      --search-input-padding-left: 8px;
+      --search-input-padding-right: 8px;
       --search-input-width: auto;
+
+      text-align: center;
     }
 
     &-wrapper {

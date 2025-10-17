@@ -74,6 +74,12 @@
         }
       }
     </script>
-    <script type="module" src='{{ 'main.js' | asset_url }}'></script>
+
+    {% comment %} Non-critical JavaScript - load after page fully loads {% endcomment %}
+    <script type="module">
+      window.addEventListener('load', () => {
+        import('{{ 'main.js' | asset_url }}')
+      })
+    </script>
   </body>
 </html>

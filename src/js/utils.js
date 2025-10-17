@@ -5,14 +5,6 @@
  * event handling, and component management.
  */
 
-/* eslint-env browser */
-/* global clearTimeout */
-/* global setTimeout */
-/* global requestAnimationFrame */
-/* global requestIdleCallback */
-/* global ResizeObserver */
-/* global getComputedStyle */
-
 /**
  * Debounce utility - limits function execution frequency
  */

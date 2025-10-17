@@ -82,35 +82,21 @@
 
   {%- if menu_opener_position == 'left' -%}
     --menu-indent-mobile: 0 20px 0 0;
-    --order-app-mobile: 3;
-    --order-button-mobile: 6;
-    --order-cart-mobile: 5;
-    --order-logo-mobile: 2;
-    --order-menu-mobile: 1;
-    --order-search-mobile: 4;
+    --menu-opener-position: left;
   {%- else -%}
     --menu-indent-mobile: 0 0 0 8px;
   {%- endif -%}
 
   {%- if menu_alignment_vertical == 'top' -%}
-    --logo-growth-desktop: 0;
-    --menu-growth-desktop: 1;
+    --menu-vertical-alignment: top;
     --menu-border-width-desktop: 0;
     --menu-bottom-border-top-width-desktop: 0;
     --menu-bottom-padding-top-desktop: 0;
-    --menu-bottom-width-desktop: auto;
     --menu-margin-x-desktop: auto;
     --menu-indent-desktop: 0 20px;
-    --order-app-desktop: 3;
-    --order-button-desktop: 6;
-    --order-cart-desktop: 5;
-    --order-logo-desktop: 1;
-    --order-menu-desktop: 2;
-    --order-search-desktop: 4;
   {%- else -%}
     --menu-bottom-border-top-width-desktop: 100vw;
     {%- if header_outline == "bordered" -%}
-      --menu-bottom-margin-desktop: {% if padding_bottom_desktop == 'lg' %}20px{% elsif padding_bottom_desktop == 'md' %}16px{% else %}12px{% endif %};
       --menu-bottom-border-top-width-desktop: calc(100% + var(--menu-bottom-margin-desktop) * 2);
     {%- endif -%}
     --menu-bottom-padding-top-desktop: {% if padding_bottom_desktop == 'lg' %}20px{% elsif padding_bottom_desktop == 'md' %}16px{% else %}12px{% endif %} 0 0;
@@ -211,21 +197,23 @@
     <div class="header__content{% if header_outline == 'bordered' %} header__content--outlined{%- endif -%}">
       {{- element_menu -}}
       {{- element_logo -}}
-      {{- element_app_desktop -}}
-      {{- element_search -}}
-      {%- if show_mini_cart -%}
-        <div class="header__cart">
-          {% comment %} CSS variables start {% endcomment %}
-          {%- render 'css-mini-cart-button' -%}
-          {% comment %} CSS variables end {% endcomment %}
+      <div class="header__icons">
+        {{- element_app_desktop -}}
+        {{- element_search -}}
+        {%- if show_mini_cart -%}
+          <div class="header__cart">
+            {% comment %} CSS variables start {% endcomment %}
+            {%- render 'css-mini-cart-button' -%}
+            {% comment %} CSS variables end {% endcomment %}
 
-          {{- cart_button -}}
-          <i class="fa-regular fa-spinner-third fa-spin"></i>
-        </div>
-      {%- endif -%}
-      {%- if show_button_desktop -%}
-        {{- element_button -}}
-      {%- endif -%}
+            {{- cart_button -}}
+            <i class="fa-regular fa-spinner-third fa-spin"></i>
+          </div>
+        {%- endif -%}
+        {%- if show_button_desktop -%}
+          {{- element_button -}}
+        {%- endif -%}
+      </div>
     </div>
   </div>
 </div>
