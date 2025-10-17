@@ -213,19 +213,18 @@ const outsideHandler = () => {
   }
 
   const closeInside = (element, delay = false) => {
-    // Use cache key based on element selector
     const cacheKey = `container_${element}`
     let container = dom.get(cacheKey)
 
-    if (container === null) return false // Cached failed lookup
+    if (container === null) return false
 
     if (!container) {
       container = document.querySelector(element)
       if (!container) {
-        dom.set(cacheKey, null) // Cache failed lookup
+        dom.set(cacheKey, null)
         return false
       }
-      dom.set(cacheKey, container) // Cache successful lookup
+      dom.set(cacheKey, container)
     }
 
     const nodes = container.querySelectorAll(HeaderConfig.selectors.checkboxes)
@@ -306,7 +305,6 @@ const outsideHandler = () => {
       const handleMouseEnter = () => {
         clearHoverTimeout()
 
-        // Use cached array instead of querying on every mouseenter
         dropdownItemsArray.forEach(dropdownItem => {
           dropdownItem.classList.remove(activeClass)
         })
