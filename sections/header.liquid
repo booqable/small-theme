@@ -119,8 +119,16 @@
         {%- assign logo         = block.settings.logo_image -%}
         {%- assign logo_floated = block.settings.logo_image_floated -%}
         {%- assign logo_title   = block.settings.logo_custom_title -%}
-        {%- assign svg          = block.settings.logo_svg -%}
-        {%- assign svg_floated  = block.settings.logo_svg_floated -%}
+        {%- assign svg          = block.settings.logo_svg | strip -%}
+        {%- assign svg_floated  = block.settings.logo_svg_floated | strip -%}
+
+        {%- if svg == svg_floated -%}
+          {%- assign svg_floated = nil -%}
+        {%- endif -%}
+
+        {%- if logo.url == logo_floated.url -%}
+          {%- assign logo_floated = nil -%}
+        {%- endif -%}
 
         {%- render 'logo'
             logo: logo,
