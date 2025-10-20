@@ -94,8 +94,7 @@
             "type": "search",
             "settings": {
               "search_closer_label": "Close",
-              "search_placeholder": "Search",
-              "show_search": true
+              "search_placeholder": "Search"
             },
             "disabled": null
           },

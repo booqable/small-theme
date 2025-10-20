@@ -170,21 +170,17 @@
       {%- endif -%}
 
     {%- when 'search' -%}
-      {%- assign show_search = block.settings.show_search -%}
+      {%- capture element_search -%}
+        {%- assign search_closer_label = block.settings.search_closer_label -%}
+        {%- assign search_placeholder  = block.settings.search_placeholder -%}
 
-      {%- if show_search -%}
-        {%- capture element_search -%}
-          {%- assign search_closer_label = block.settings.search_closer_label -%}
-          {%- assign search_placeholder  = block.settings.search_placeholder -%}
-
-          {%- render 'search',
-              closer_label: search_closer_label,
-              placeholder: search_placeholder,
-              routes: routes,
-              section_type: section_type
-          -%}
-        {%- endcapture -%}
-      {%- endif -%}
+        {%- render 'search',
+            closer_label: search_closer_label,
+            placeholder: search_placeholder,
+            routes: routes,
+            section_type: section_type
+        -%}
+      {%- endcapture -%}
 
   {%- endcase -%}
 {%- endfor -%}
@@ -498,12 +494,6 @@
           {
             "type": "header",
             "content": "General settings"
-          },
-          {
-            "type": "checkbox",
-            "id": "show_search",
-            "default": true,
-            "label": "Show search"
           },
           {
             "type": "text",
