@@ -290,7 +290,7 @@ const initSearch = () => {
   const cleanup = search.init()
 
   if (!cleanup) return
-  globalCleanup.register('Search', cleanup)
+  globalCleanup.register('SearchAPI', cleanup)
 }
 
 initSearch()
