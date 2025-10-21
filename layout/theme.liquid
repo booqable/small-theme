@@ -92,15 +92,11 @@
       {%- endif -%}
     {%- endfor -%}
 
-    {% comment %} Non-critical JavaScript - load after page fully loads {% endcomment %}
-    <script type="module">
-      window.addEventListener('load', () => {
-        import('{{ 'main.js' | asset_url }}')
-        import('{{ 'header.js' | asset_url }}')
-        {% if show_search %}
-        import('{{ 'search.js' | asset_url }}')
-        {% endif %}
-      })
-    </script>
+    {% comment %} Non-critical JavaScript {% endcomment %}
+    <script type="module" src="{{ 'main.js' | asset_url }}"></script>
+    <script type="module" src="{{ 'header.js' | asset_url }}"></script>
+    {%- if show_search -%}
+    <script type="module" src="{{ 'search.js' | asset_url }}"></script>
+    {%- endif -%}
   </body>
 </html>
