@@ -213,11 +213,6 @@
       .header__logo-image-holder {
         &--floated {
           --header-logo-floated-visibility: 0;
-
-          /* stylelint-disable-next-line */
-          &:only-child {
-            --header-logo-floated-visibility: 1;
-          }
         }
 
         &:not(&--floated) {

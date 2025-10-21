@@ -124,6 +124,11 @@
           {%- assign logo_floated = nil -%}
         {%- endif -%}
 
+        {%- if logo.url == blank and logo_floated.url != blank and show_transparency -%}
+          {%- assign logo = logo_floated -%}
+          {%- assign logo_floated = nil -%}
+        {%- endif -%}
+
         {%- render 'logo'
             logo: logo,
             logo_floated: logo_floated,

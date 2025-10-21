@@ -33,10 +33,10 @@
 
 {%- assign loading_strategy = loading | default: 'lazy' -%}
 
-<div class="logo {{ section_type -}}__logo">
+<div class="{{- section_type -}}__logo logo">
   {%- if logo.url != blank or logo_floated.url != blank and transparency -%}
     {%- if logo.url != blank -%}
-      <div class="logo__image-holder {{ section_type -}}__logo-image-holder">
+      <div class="{{- section_type -}}__logo-image-holder logo__image-holder">
         <a class="logo__link" href="{{ routes.root_url }}" aria-label="{{ shop.name }}">
           {%- render 'image',
               image: logo,
@@ -50,7 +50,7 @@
       </div>
     {%- endif -%}
     {%- if logo_floated.url != blank and transparency -%}
-      <div class="logo__image-holder logo__image-holder--floated {{ section_type -}}__logo-image-holder {{ section_type -}}__logo-image-holder--floated">
+      <div class="{{- section_type -}}__logo-image-holder {{ section_type -}}__logo-image-holder--floated logo__image-holder logo__image-holder--floated">
         <a class="logo__link" href="{{ routes.root_url }}" aria-label="{{ shop.name }}">
           {%- render 'image',
               image: logo_floated,
@@ -81,4 +81,3 @@
     </h2>
   {%- endif -%}
 </div>
-
