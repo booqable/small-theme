@@ -45,6 +45,7 @@ body {
     }
   }
 
+  &:has(.menu__item.has-dropdown.active),
   &:has(.menu__item.has-dropdown:hover) {
     /* stylelint-disable-next-line */
     &::before {
@@ -75,5 +76,9 @@ body {
     .preview-app & {
       display: block;
     }
+  }
+
+  .header:not(&:has(.header__inner--background)) & {
+    margin-top: var(--preview-height, 0);
   }
 }

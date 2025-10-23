@@ -74,6 +74,29 @@
         }
       }
     </script>
-    <script type="module" src='{{ 'main.js' | asset_url }}'></script>
+
+    {%- assign show_search = false -%}
+
+    {%- for section in sections.all -%}
+      {%- if section.type == 'header' -%}
+        {%- for block in section.blocks -%}
+          {%- assign type = block.type -%}
+
+          {%- if type == 'search' -%}
+            {%- assign show_search = true -%}
+            {%- break -%}
+          {%- endif -%}
+        {%- endfor -%}
+
+        {%- break -%}
+      {%- endif -%}
+    {%- endfor -%}
+
+    {% comment %} Non-critical JavaScript {% endcomment %}
+    <script type="module" src="{{ 'main.js' | asset_url }}"></script>
+    <script type="module" src="{{ 'header.js' | asset_url }}"></script>
+    {%- if show_search -%}
+    <script type="module" src="{{ 'search.js' | asset_url }}"></script>
+    {%- endif -%}
   </body>
 </html>

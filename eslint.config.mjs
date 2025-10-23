@@ -9,12 +9,22 @@ export default [
       ecmaVersion: 2021,
       sourceType: 'module',
       globals: {
+        cancelAnimationFrame: 'readonly',
+        clearInterval: 'readonly',
+        clearTimeout: 'readonly',
         console: 'readonly',
-        window: 'readonly',
         document: 'readonly',
-        navigator: 'readonly',
+        getComputedStyle: 'readonly',
         localStorage: 'readonly',
-        sessionStorage: 'readonly'
+        navigator: 'readonly',
+        requestAnimationFrame: 'readonly',
+        requestIdleCallback: 'readonly',
+        ResizeObserver: 'readonly',
+        sessionStorage: 'readonly',
+        setInterval: 'readonly',
+        setTimeout: 'readonly',
+        URL: 'readonly',
+        window: 'readonly'
       }
     },
     rules: {
