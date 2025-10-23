@@ -1,0 +1,422 @@
+{%- assign show_bar = section.settings.show_bar -%}
+
+{%- if show_bar -%}
+  {%- assign block_id               = '' -%}
+  {%- assign icon_style             = settings.icon_style -%}
+  {%- assign color_scheme           = section.settings.color_scheme -%}
+  {%- assign padding_bottom_desktop = section.settings.padding_bottom_desktop -%}
+  {%- assign padding_bottom_mobile  = section.settings.padding_bottom_mobile -%}
+  {%- assign padding_top_desktop    = section.settings.padding_top_desktop -%}
+  {%- assign padding_top_mobile     = section.settings.padding_top_mobile -%}
+  {%- assign section_type           = section.type -%}
+
+  {% comment %} CSS variables start {% endcomment %}
+  {%- capture variables -%}
+    {%- case padding_bottom_desktop -%}
+      {%- when 'md' -%}
+        --padding-bottom-desktop: 9px;
+      {%- when 'lg' -%}
+        --padding-bottom-desktop: 12px;
+    {%- endcase -%}
+
+    {%- case padding_bottom_mobile -%}
+      {%- when 'md' -%}
+        --padding-bottom-mobile: 9px;
+      {%- when 'lg' -%}
+        --padding-bottom-mobile: 12px;
+    {%- endcase -%}
+
+    {%- case padding_top_desktop -%}
+      {%- when 'md' -%}
+        --padding-top-desktop: 9px;
+      {%- when 'lg' -%}
+        --padding-top-desktop: 12px;
+    {%- endcase -%}
+
+    {%- case padding_top_mobile -%}
+      {%- when 'md' -%}
+        --padding-top-mobile: 9px;
+      {%- when 'lg' -%}
+        --padding-top-mobile: 12px;
+    {%- endcase -%}
+  {%- endcapture -%}
+  {% comment %} CSS variables end {% endcomment %}
+
+  {%- for block in section.blocks -%}
+    {%- case block.type -%}
+      {%- when 'message' -%}
+        {%- capture top_bar_message -%}
+          {%- assign message_icon = block.settings.message_icon -%}
+          {%- assign message      = block.settings.message -%}
+
+          {%- if message != blank -%}
+            <div class="top-bar__message-wrapper">
+              {%- render 'icon', icon: message_icon, style: icon_style -%}
+
+              <span class="top-bar__message bq-content rx-content">
+                {{- message -}}
+              </span>
+            </div>
+          {%- endif -%}
+        {%- endcapture -%}
+
+      {%- when 'button' -%}
+        {%- capture top_bar_button -%}
+          {%- assign button_icon  = block.settings.button_icon -%}
+          {%- assign button_label = block.settings.button_label -%}
+          {%- assign button_url   = block.settings.button_url -%}
+
+          {%- if button_label != blank and button_url != blank -%}
+            <div class="top-bar__button-wrapper">
+              {%- render 'icon', icon: button_icon, style: icon_style -%}
+
+              {%- render 'button'
+                  button_label: button_label,
+                  button_url: button_url,
+                  section_type: section_type
+              -%}
+            </div>
+          {%- endif -%}
+        {%- endcapture -%}
+
+      {%- when 'menu' -%}
+        {%- capture top_bar_menu -%}
+          {%- assign block_id = block.id -%}
+          {%- assign menu     = block.settings.menu -%}
+
+          {%- if menu != blank -%}
+            <nav class="top-bar__menu-wrapper">
+              {%- render 'menu'
+                  menu: menu,
+                  menu_id: block_id,
+                  section_type: section_type,
+                  settings: settings,
+                  socials: false,
+                  use_opener: false
+              -%}
+            </nav>
+          {%- endif -%}
+        {%- endcapture -%}
+
+    {%- endcase -%}
+  {%- endfor -%}
+
+  <div
+    class="top-bar__wrapper top-bar__wrapper--padding-top top-bar__wrapper--padding-bottom color-{{- color_scheme.id -}}"
+    style="{{- variables | escape -}}"
+  >
+    <div class="top-bar__container container">
+      <div class="top-bar__content">
+        {{- top_bar_message -}}
+
+        <div class="top-bar__links">
+          {{- top_bar_button -}}
+          {{- top_bar_menu -}}
+        </div>
+      </div>
+    </div>
+  </div>
+{%- endif -%}
+
+{% schema %}
+  {
+    "name": "Top bar",
+    "tag": "section",
+    "class": "top-bar",
+    "templates": [],
+    "layout": true,
+    "settings": [
+      {
+        "type": "header",
+        "content": "General settings"
+      },
+      {
+        "type": "checkbox",
+        "id": "show_bar",
+        "default": true,
+        "label": "Show top bar"
+      },
+      {
+        "type": "color_scheme",
+        "id": "color_scheme",
+        "label": "Color scheme",
+        "default": "set-3"
+      },
+      {
+        "type": "header",
+        "content": "Desktop settings"
+      },
+      {
+        "type": "select",
+        "id": "padding_top_desktop",
+        "label": "Padding top",
+        "options": [
+          {
+            "value": "sm",
+            "label": "Small"
+          },
+          {
+            "value": "md",
+            "label": "Medium"
+          },
+          {
+            "value": "lg",
+            "label": "Large"
+          }
+        ],
+        "default": "sm"
+      },
+      {
+        "type": "select",
+        "id": "padding_bottom_desktop",
+        "label": "Padding bottom",
+        "options": [
+          {
+            "value": "sm",
+            "label": "Small"
+          },
+          {
+            "value": "md",
+            "label": "Medium"
+          },
+          {
+            "value": "lg",
+            "label": "Large"
+          }
+        ],
+        "default": "sm"
+      },
+      {
+        "type": "header",
+        "content": "Mobile settings"
+      },
+      {
+        "type": "select",
+        "id": "padding_top_mobile",
+        "label": "Padding top",
+        "options": [
+          {
+            "value": "sm",
+            "label": "Small"
+          },
+          {
+            "value": "md",
+            "label": "Medium"
+          },
+          {
+            "value": "lg",
+            "label": "Large"
+          }
+        ],
+        "default": "sm"
+      },
+      {
+        "type": "select",
+        "id": "padding_bottom_mobile",
+        "label": "Padding bottom",
+        "options": [
+          {
+            "value": "sm",
+            "label": "Small"
+          },
+          {
+            "value": "md",
+            "label": "Medium"
+          },
+          {
+            "value": "lg",
+            "label": "Large"
+          }
+        ],
+        "default": "sm"
+      }
+    ],
+    "blocks": [
+      {
+        "type": "message",
+        "name": "Message",
+        "limit": 1,
+        "settings": [
+          {
+            "type": "header",
+            "content": "General settings"
+          },
+          {
+            "type": "select",
+            "id": "message_icon",
+            "label": "Icon",
+            "options": [
+              {
+                "value": "empty",
+                "label": "No icon"
+              },
+              {
+                "value": "address-card",
+                "label": "Address card"
+              },
+              {
+                "value": "calendar",
+                "label": "Calendar"
+              },
+              {
+                "value": "clock",
+                "label": "Clock"
+              },
+              {
+                "value": "comments",
+                "label": "Comments"
+              },
+              {
+                "value": "credit-card-alt",
+                "label": "Credit card"
+              },
+              {
+                "value": "envelope",
+                "label": "Envelope"
+              },
+              {
+                "value": "exclamation",
+                "label": "Exclamation"
+              },
+              {
+                "value": "fax",
+                "label": "Fax"
+              },
+              {
+                "value": "globe",
+                "label": "Globe"
+              },
+              {
+                "value": "info",
+                "label": "Info"
+              },
+              {
+                "value": "phone",
+                "label": "Phone"
+              },
+              {
+                "value": "tag",
+                "label": "Tag"
+              },
+              {
+                "value": "warning",
+                "label": "Warning"
+              }
+            ],
+            "default": "clock"
+          },
+          {
+            "type": "contentEditor",
+            "id": "message",
+            "label": "Message",
+            "default": "Opening hours: 10 - 18"
+          }
+        ]
+      },
+      {
+        "type": "button",
+        "name": "Button",
+        "limit": 1,
+        "settings": [
+          {
+            "type": "header",
+            "content": "General settings"
+          },
+          {
+            "type": "select",
+            "id": "button_icon",
+            "label": "Icon",
+            "options": [
+              {
+                "value": "empty",
+                "label": "No icon"
+              },
+              {
+                "value": "address-card",
+                "label": "Address card"
+              },
+              {
+                "value": "calendar",
+                "label": "Calendar"
+              },
+              {
+                "value": "clock",
+                "label": "Clock"
+              },
+              {
+                "value": "comments",
+                "label": "Comments"
+              },
+              {
+                "value": "credit-card-alt",
+                "label": "Credit card"
+              },
+              {
+                "value": "envelope",
+                "label": "Envelope"
+              },
+              {
+                "value": "exclamation",
+                "label": "Exclamation"
+              },
+              {
+                "value": "fax",
+                "label": "Fax"
+              },
+              {
+                "value": "globe",
+                "label": "Globe"
+              },
+              {
+                "value": "info",
+                "label": "Info"
+              },
+              {
+                "value": "phone",
+                "label": "Phone"
+              },
+              {
+                "value": "tag",
+                "label": "Tag"
+              },
+              {
+                "value": "warning",
+                "label": "Warning"
+              }
+            ],
+            "default": "phone"
+          },
+          {
+            "type": "text",
+            "id": "button_label",
+            "label": "Label",
+            "default": "+1 555 010 0102"
+          },
+          {
+            "type": "url",
+            "id": "button_url",
+            "label": "URL",
+            "default": "tel:+15550100102"
+          }
+        ]
+      },
+      {
+        "type": "menu",
+        "name": "Menu",
+        "limit": 1,
+        "settings": [
+          {
+            "type": "header",
+            "content": "General settings"
+          },
+          {
+            "type": "menu",
+            "id": "menu",
+            "label": "Menu",
+            "info": "Displayed on desktop only"
+          }
+        ]
+      }
+    ]
+  }
+{% endschema %}

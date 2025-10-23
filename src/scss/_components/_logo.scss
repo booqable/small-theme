@@ -8,16 +8,16 @@
   position: relative;
 
   &__image {
-    display: flex;
-    align-items: center;
+    @include flex-center;
+
     max-height: 64px;
     max-width: 200px;
     width: auto;
 
     &-holder {
+      @include flex-center;
+
       height: 100%;
-      display: flex;
-      align-items: center;
 
       &--floated {
         position: absolute;

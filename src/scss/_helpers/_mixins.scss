@@ -98,3 +98,9 @@ $breakpoints: (
     @content;
   }
 }
+
+// Flex center mixin
+@mixin flex-center {
+  display: flex;
+  align-items: center;
+}
