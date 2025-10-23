@@ -147,7 +147,7 @@ const headerEventManager = (headerHeight) => {
   return { init, destroy }
 }
 
-const createHeaderComponent = () => {
+const headerComponent = () => {
   const dom = HeaderDOM()
   let headerHeight = null
   let eventManager = null
@@ -412,17 +412,17 @@ const outsideHandler = () => {
   return { init, destroy }
 }
 
-const initHeaderHeight = () => {
+const initHeader = () => {
   const globalCleanup = cleanupSystem()
-  const headerComponent = createHeaderComponent()
-  const cleanup = headerComponent.init()
+  const header = headerComponent()
+  const cleanup = header.init()
 
   if (!cleanup) return
-  globalCleanup.register('HeaderHeight', cleanup)
+  globalCleanup.register('HeaderAPI', cleanup)
 
   const menuAPI = outsideHandler()
   menuAPI.init()
   globalCleanup.register('MenuAPI', menuAPI.destroy)
 }
 
-initHeaderHeight()
+initHeader()
