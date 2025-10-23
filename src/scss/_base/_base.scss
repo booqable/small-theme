@@ -45,6 +45,7 @@ body {
     }
   }
 
+  &:has(.menu__item.has-dropdown.active),
   &:has(.menu__item.has-dropdown:hover) {
     /* stylelint-disable-next-line */
     &::before {

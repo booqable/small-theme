@@ -1,5 +1,5 @@
 {%- comment -%}
-  This snippet renders the logo image, SVG or text title
+  This snippet renders the logo image or text title
 
   Parameters:
   - logo: the logo image object
@@ -9,12 +9,10 @@
   - routes: the routes object
   - section_type: the section type where the logo is included (e.g. 'header', 'footer')
   - shop: the shop object
-  - svg: the logo SVG code
-  - svg_floated: the floating logo SVG code
-  - transparency: whether to show floating logo or SVG
+  - transparency: whether to show floating logo
 
   Required parameters:
-  - logo OR svg
+  - logo
   - routes
   - section_type
   - shop
@@ -29,37 +27,16 @@
       routes: routes,
       section_type: section.type,
       shop: shop,
-      svg: svg_code,
-      svg_floated: svg_code_floating,
       transparency: true
   -%}
 {%- endcomment -%}
 
 {%- assign loading_strategy = loading | default: 'lazy' -%}
 
-<div class="logo {{ section_type -}}__logo">
-  {%- if svg != blank or svg_floated != blank and transparency -%}
-    {%- if svg != blank -%}
-      <div class="logo__image-holder {{ section_type -}}__logo-image-holder">
-        <a class="logo__link" href="{{ routes.root_url }}" aria-label="{{ shop.name }}">
-          <span class="logo__image">
-            {{- svg | strip -}}
-          </span>
-        </a>
-      </div>
-    {%- endif -%}
-    {%- if svg_floated != blank and transparency -%}
-      <div class="logo__image-holder logo__image-holder--floated {{ section_type -}}__logo-image-holder {{ section_type -}}__logo-image-holder--floated">
-        <a class="logo__link" href="{{ routes.root_url }}" aria-label="{{ shop.name }}">
-          <span class="logo__image">
-            {{- svg_floated | strip -}}
-          </span>
-        </a>
-      </div>
-    {%- endif -%}
-  {%- elsif logo.url != blank or logo_floated.url != blank and transparency -%}
+<div class="{{- section_type -}}__logo logo">
+  {%- if logo.url != blank or logo_floated.url != blank and transparency -%}
     {%- if logo.url != blank -%}
-      <div class="logo__image-holder {{ section_type -}}__logo-image-holder">
+      <div class="{{- section_type -}}__logo-image-holder logo__image-holder">
         <a class="logo__link" href="{{ routes.root_url }}" aria-label="{{ shop.name }}">
           {%- render 'image',
               image: logo,
@@ -73,7 +50,7 @@
       </div>
     {%- endif -%}
     {%- if logo_floated.url != blank and transparency -%}
-      <div class="logo__image-holder logo__image-holder--floated {{ section_type -}}__logo-image-holder {{ section_type -}}__logo-image-holder--floated">
+      <div class="{{- section_type -}}__logo-image-holder {{ section_type -}}__logo-image-holder--floated logo__image-holder logo__image-holder--floated">
         <a class="logo__link" href="{{ routes.root_url }}" aria-label="{{ shop.name }}">
           {%- render 'image',
               image: logo_floated,
@@ -104,4 +81,3 @@
     </h2>
   {%- endif -%}
 </div>
-

@@ -15,7 +15,8 @@
   --header-content-areas: 'logo icons menu';
   --header-content-columns: 1fr auto auto;
   --header-content-gap: 8px;
-  --header-logo-visibility: visible;
+  --header-logo-visibility: 1;
+  --header-logo-floated-visibility: 0;
   --header-menu-row: 2;
   --header-position: static;
   --header-position-top: var(--preview-height, 0);
@@ -137,8 +138,15 @@
 
     &-image {
       &-holder {
-        transition: all var(--header-transition-duration) var(--header-transition-delay) $transition-function;
-        visibility: var(--header-logo-visibility);
+        transition: opacity var(--header-transition-duration) var(--header-transition-delay) $transition-function;
+
+        &--floated {
+          opacity: var(--header-logo-floated-visibility);
+        }
+
+        &:not(&--floated) {
+          opacity: var(--header-logo-visibility);
+        }
       }
     }
   }
@@ -155,7 +163,6 @@
     justify-content: flex-end;
     gap: var(--header-content-gap);
     grid-area: icons;
-
   }
 
   &:has(.header__inner--sticky) {
@@ -172,14 +179,16 @@
     --header-position-top: 0;
 
     .header__logo-image-holder {
-      --header-logo-visibility: hidden;
-
       &--floated {
-        --header-logo-visibility: visible;
+        --header-logo-floated-visibility: 1;
       }
 
-      &:only-child {
-        --header-logo-visibility: visible;
+      &:not(&--floated) {
+        --header-logo-visibility: 0;
+
+        &:only-child {
+          --header-logo-visibility: 1;
+        }
       }
     }
 
@@ -188,6 +197,7 @@
     }
   }
 
+  &:has(.menu__item.has-dropdown.active),
   &:has(.menu__item.has-dropdown:hover),
   &:has(#header-opener-menu:checked),
   &:has(#header-opener-search:checked){
@@ -201,15 +211,12 @@
       --header-transition-delay: 0s;
 
       .header__logo-image-holder {
-        --header-logo-visibility: visible;
-
         &--floated {
-          --header-logo-visibility: hidden;
+          --header-logo-floated-visibility: 0;
+        }
 
-          /* stylelint-disable-next-line */
-          &:only-child {
-            --header-logo-visibility: visible;
-          }
+        &:not(&--floated) {
+          --header-logo-visibility: 1;
         }
       }
     }

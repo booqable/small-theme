@@ -527,7 +527,8 @@
       pointer-events: none;
     }
 
-    @include hover {
+    &:hover,
+    &.active {
       --menu-item-cursor: pointer;
 
       .menu {
