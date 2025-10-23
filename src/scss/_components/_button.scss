@@ -7,7 +7,6 @@
 .btn {
   --button-background: none;
   --button-border-color: transparent;
-  --button-color: currentcolor;
   --button-indent: 0;
   --button-min-height: auto;
 
@@ -17,7 +16,6 @@
   margin: 0;
   padding: var(--button-indent);
   background: var(--button-background);
-  color: var(--button-color);
   text-decoration: none;
   border: 1px solid var(--button-border-color);
   border-radius: $button-border-radius;
@@ -29,16 +27,14 @@
   line-height: $font-height-sm;
   transition: all $transition-duration $transition-function;
 
-  @include hover {
-    --button-color: #{$color-outline};
-  }
-
   &--primary {
     --button-background: #{$background-accent};
     --button-color: #{$color-accent};
     --button-border-color: #{$background-accent};
     --button-indent: #{$button-padding};
     --button-min-height: #{$button-height};
+
+    color: var(--button-color);
 
     @include hover {
       --button-color: #{$color-accent};
@@ -49,12 +45,14 @@
 
   &--outline {
     --button-background: transparent;
-    --button-color: currentcolor;
-    --button-border-color: currentcolor;
+    --button-border-color: #{$color-outline};
+    --button-color: #{$color-outline};
+    --button-indent: #{$button-padding};
+    --button-min-height: #{$button-height};
+
+    color: var(--button-color);
 
     @include hover {
-      --button-color: currentcolor;
-
       opacity: $button-hover-opacity;
     }
   }
