@@ -7,7 +7,6 @@
 .btn {
   --button-background: none;
   --button-border-color: transparent;
-  --button-color: currentcolor;
   --button-indent: 0;
   --button-min-height: auto;
 
@@ -17,7 +16,6 @@
   margin: 0;
   padding: var(--button-indent);
   background: var(--button-background);
-  color: var(--button-color);
   text-decoration: none;
   border: 1px solid var(--button-border-color);
   border-radius: $button-border-radius;
@@ -26,12 +24,8 @@
   display: inline-flex;
   justify-content: center;
   align-items: center;
-  line-height: $font-height-xs;
+  line-height: $font-height-sm;
   transition: all $transition-duration $transition-function;
-
-  @include hover {
-    opacity: 0.8;
-  }
 
   &--primary {
     --button-background: #{$background-accent};
@@ -40,18 +34,26 @@
     --button-indent: #{$button-padding};
     --button-min-height: #{$button-height};
 
+    color: var(--button-color);
+
     @include hover {
       --button-color: #{$color-accent};
+
+      opacity: $button-hover-opacity;
     }
   }
 
   &--outline {
     --button-background: transparent;
-    --button-color: currentcolor;
-    --button-border-color: currentcolor;
+    --button-border-color: #{$color-outline};
+    --button-color: #{$color-outline};
+    --button-indent: #{$button-padding};
+    --button-min-height: #{$button-height};
+
+    color: var(--button-color);
 
     @include hover {
-      --button-color: currentcolor;
+      opacity: $button-hover-opacity;
     }
   }
 }

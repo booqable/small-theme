@@ -1,0 +1,26 @@
+{%- comment -%}
+
+  This snippet is used for rendering the icons
+  The style of the icon could be "filled" or "outlined"
+
+  Parameters:
+  - icon: the icon itself to render (FontAwesome icon name)
+  - style: the style of the icon (filled or outlined, default is filled)
+
+  Required parameters:
+  - icon
+
+  Usage:
+
+  {%- render 'icon',
+      icon: your_id,
+      style: your_id
+  -%}
+
+{%- endcomment -%}
+
+{%- unless icon == 'empty' -%}
+  <span class="icon">
+    <i class="{% if style == 'outline' %}fa-regular{% else %}fa-solid{% endif %} fa-{{- icon -}}" aria-hidden="true"></i>
+  </span>
+{%- endunless -%}

@@ -65,6 +65,7 @@ $border-radius: var(--border-radius);
 // Buttons
 $button-border-radius: var(--button-border-radius);
 $button-background: color-mix(in srgb, var(--color-primary) 15%, transparent);
+$button-hover-opacity: 0.8;
 $button-padding: var(--button-padding);
 $button-height: var(--button-height);
 $button-width: var(--button-width);

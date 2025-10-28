@@ -192,7 +192,7 @@
 
 <div
   class="header__inner{% if sticky_header %} header__inner--sticky{% endif %}{% unless show_transparency %} header__inner--background{% endunless %} header__inner--padding-top header__inner--padding-bottom color-{{- color_scheme.id -}}"
-  {% if variables != blank %} style="{{- variables | escape -}}"{%- endif -%}
+  style="{{- variables | escape -}}"
 >
   <div class="header__container container">
     <div class="header__content{% if header_outline == 'bordered' %} header__content--outlined{%- endif -%}">
@@ -271,7 +271,7 @@
             "label": "Large"
           }
         ],
-        "default": "large"
+        "default": "lg"
       },
       {
         "type": "select",
@@ -291,7 +291,7 @@
             "label": "Large"
           }
         ],
-        "default": "large"
+        "default": "lg"
       },
       {
         "type": "select",
@@ -331,7 +331,7 @@
             "label": "Large"
           }
         ],
-        "default": "medium"
+        "default": "md"
       },
       {
         "type": "select",
@@ -351,7 +351,7 @@
             "label": "Large"
           }
         ],
-        "default": "medium"
+        "default": "md"
       }
     ],
     "blocks": [

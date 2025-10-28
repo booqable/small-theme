@@ -37,11 +37,18 @@
 {%- assign menu = menu | default: '' -%}
 
 {%- if menu != blank -%}
-  {%- assign content     = content | default: '' -%}
-  {%- assign menu_levels = menu_levels | default: 1 -%}
+  {%- assign content     = content -%}
   {%- assign menu_items  = menu.items -%}
-  {%- assign socials     = socials | default: true -%}
-  {%- assign use_opener  = use_opener | default: true -%}
+
+  {%- if menu_levels == nil -%}
+    {%- assign menu_levels = 1 -%}
+  {%- endif -%}
+  {%- if socials == nil -%}
+    {%- assign socials = true -%}
+  {%- endif -%}
+  {%- if use_opener == nil -%}
+    {%- assign use_opener = true -%}
+  {%- endif -%}
 
   {%- capture icon_arrow -%}
     <i class="menu__item-icon">
@@ -71,8 +78,8 @@
               <li class="menu__item{% if link_count > 0 and menu_levels > 1 %} has-dropdown{%- endif -%}">
 
                 {%- if link_count > 0 and menu_levels > 1 -%}
-                  <input id="{{- section_type -}}-dropdown-trigger-{{- menu_id -}}{{- link_index -}}" type="checkbox" style="display: none;">
-                  <label class="menu__dropdown-opener" for="{{- section_type -}}-dropdown-trigger-{{- menu_id -}}{{- link_index -}}">
+                  <input id="{{- section_type -}}-dropdown-trigger-{{- menu_id -}}-{{- link_index -}}" type="checkbox" style="display: none;">
+                  <label class="menu__dropdown-opener" for="{{- section_type -}}-dropdown-trigger-{{- menu_id -}}-{{- link_index -}}">
                     {{- icon_arrow -}}
                   </label>
                 {%- endif -%}
@@ -85,7 +92,7 @@
                   <div class="menu__dropdown" style="display: none;">
                     <div class="menu__dropdown-wrapper">
 
-                      <label class="menu__dropdown-opener" for="{{- section_type -}}-dropdown-trigger-{{- menu_id -}}{{- link_index -}}">
+                      <label class="menu__dropdown-opener" for="{{- section_type -}}-dropdown-trigger-{{- menu_id -}}-{{- link_index -}}">
                         {{- icon_arrow -}}
                         {{- menu_back_label | default: link_title -}}
                       </label>
@@ -154,7 +161,9 @@
 
         {{- content -}}
 
-        {%- render 'socials', settings: settings -%}
+        {%- if socials -%}
+          {%- render 'socials', settings: settings -%}
+        {%- endif -%}
       </div>
     </nav>
   </div>

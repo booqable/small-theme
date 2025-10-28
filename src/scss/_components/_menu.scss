@@ -11,8 +11,6 @@
   --menu-dropdown-item-display: grid;
   --menu-dropdown-left: auto;
   --menu-dropdown-link-display: flex;
-  --menu-dropdown-link-font-size: 18px;
-  --menu-dropdown-link-font-weight: #{$font-weight-bold};
   --menu-dropdown-link-indent: 0;
   --menu-dropdown-link-padding: 16px var(--menu-dropdown-link-indent) 16px 0;
   --menu-dropdown-position: fixed;
@@ -36,7 +34,6 @@
   --menu-opener-color: currentcolor;
   --menu-horizontal-position: flex-end;
   --menu-item-cursor: default;
-  --menu-item-margin: 0;
   --menu-item-icon-transform: rotate(-90deg);
   --menu-item-icon-margin: 0;
   --menu-link-indent: 0;
@@ -78,7 +75,6 @@
     --menu-dropdown-height: auto;
     --menu-dropdown-left: 50%;
     --menu-dropdown-link-display: inline-block;
-    --menu-dropdown-link-font-size: 20px;
     --menu-dropdown-link-padding: 0;
     --menu-dropdown-right: auto;
     --menu-dropdown-transform: translateX(-50%);
@@ -96,7 +92,7 @@
     --menu-dropdown-wrapper-transform: translateY(-100%);
     --menu-dropdown-wrapper-width: 100%;
     --menu-horizontal-position: var(--menu-horizontal-position-desktop, center);
-    --menu-item-margin: 0 12px;
+    --menu-item-gap: 0 40px;
     --menu-list-overflow: inherit;
     --menu-list-margin: calc(-1 * var(--menu-margin-top)) var(--menu-margin-x-desktop) calc(-1 * var(--menu-margin-bottom));
     --menu-list-width: calc(100% + -1 * var(--menu-margin-x-desktop, 0) * 2);
@@ -121,7 +117,6 @@
 
   @include media-up(xl) {
     --menu-dropdown-list-padding: 25px #{$horizontal-padding};
-    --menu-item-margin: 0 22px;
   }
 
   path {
@@ -269,9 +264,7 @@
     flex: 1 1 auto;
 
     @include media-up(md) {
-      display: flex;
-      justify-content: var(--menu-horizontal-position);
-      align-items: center;
+      @include flexbox($align: center, $justify: var(--menu-horizontal-position), $gap: var(--menu-item-gap));
     }
 
     &:not(:only-child) {
@@ -280,7 +273,7 @@
   }
 
   &__link {
-    font-size: 18px;
+    font-size: inherit;
     font-weight: $font-weight-bold;
     line-height: $font-height-lg;
     padding: 16px var(--menu-link-indent) 16px 0;
@@ -356,13 +349,6 @@
         @include media-up(md) {
           --menu-dropdown-item-margin: 8px 0;
         }
-
-        .menu__dropdown-link {
-          @include media-up(md) {
-            --menu-dropdown-link-font-size: 16px;
-            --menu-dropdown-link-font-weight: #{$font-weight-medium};
-          }
-        }
       }
     }
 
@@ -372,9 +358,7 @@
       justify-content: space-between;
       grid-area: drop-1;
       padding: var(--menu-dropdown-link-padding);
-      font-size: var(--menu-dropdown-link-font-size);
       line-height: $font-height-lg;
-      font-weight: var(--menu-dropdown-link-font-weight);
 
       @include media-up(md) {
         vertical-align: top;
@@ -510,7 +494,6 @@
     grid-template-columns: 1fr min-content;
     grid-template-areas: "item-1 item-2";
     align-items: center;
-    margin: var(--menu-item-margin);
     cursor: var(--menu-item-cursor);
 
     @include media-up(md) {
@@ -518,9 +501,8 @@
     }
 
     &-icon {
-      display: flex;
-      align-items: center;
-      justify-content: center;
+      @include flexbox($align: center, $justify: center);
+
       margin: var(--menu-item-icon-margin);
       transform: var(--menu-item-icon-transform);
       transition: transform $transition-duration $transition-function;

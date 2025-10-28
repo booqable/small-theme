@@ -1,0 +1,82 @@
+// Import variables
+@use '../variables' as *;
+
+// Import mixins
+@use '../_helpers/mixins' as *;
+
+$top-bar-font-size: clamp(14px, calc($font-size-base - 4px), 18px);
+$top-bar-item-margin-x: 40px;
+
+.top-bar {
+  font-size: $top-bar-font-size;
+
+  &__btn {
+    font-size: inherit;
+
+    &-wrapper {
+      @include flexbox($align: center);
+    }
+  }
+
+  &__wrapper {
+    --top-bar-padding-bottom: var(--padding-bottom-mobile, 6px);
+    --top-bar-padding-top: var(--padding-top-mobile, 6px);
+
+    color: $color-primary;
+    background: $background-primary;
+
+    @include media-up(md) {
+      --top-bar-padding-bottom: var(--padding-bottom-desktop, 6px);
+      --top-bar-padding-top: var(--padding-top-desktop, 6px);
+    }
+
+    &--padding-top {
+      padding-top: var(--top-bar-padding-top);
+    }
+
+    &--padding-bottom {
+      padding-bottom: var(--top-bar-padding-bottom);
+    }
+  }
+
+  &__content {
+    @include flexbox($align: center, $justify: flex-end);
+  }
+
+  &__links {
+    @include flexbox($align: center);
+
+    flex: 0 1 auto;
+
+    &:not(:empty, :only-child) {
+      margin-left: $top-bar-item-margin-x;
+    }
+  }
+
+  &__message-wrapper {
+    @include flexbox($align: center);
+
+    flex: 1 1 auto;
+
+    p {
+      margin: 0;
+    }
+  }
+
+  &__button-wrapper {
+    @include flexbox($align: center);
+  }
+
+  &__menu-wrapper {
+    &:not(:only-child) {
+      @include media-up(md) {
+        margin-left: $top-bar-item-margin-x;
+      }
+    }
+  }
+
+  .icon {
+    margin-right: 10px;
+    margin-bottom: -1px;
+  }
+}

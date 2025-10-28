@@ -39,12 +39,11 @@
   }
 
   &__opener {
+    @include flexbox($align: center, $justify: center);
+
     height: $button-height;
     width: $button-width;
     border-radius: $button-border-radius;
-    display: flex;
-    align-items: center;
-    justify-content: center;
     background: $button-background;
     position: relative;
     cursor: pointer;
@@ -61,11 +60,10 @@
   }
 
   &__closer {
+    @include flexbox($align: center, $justify: center);
+
     text-align: center;
     margin-top: 16px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
     font-size: 14px;
     cursor: pointer;
 
@@ -117,6 +115,8 @@
   }
 
   &__wrapper {
+    @include flexbox($align: center, $direction: column);
+
     position: absolute;
     width: 100vw;
     height: auto;
@@ -127,9 +127,6 @@
     transform: var(--search-dropdown-transform);
     transition: transform $transition-duration $transition-function,
       height $transition-duration $transition-function;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
     overflow: clip;
     color: currentcolor;
     background: $background-primary;
@@ -167,6 +164,8 @@
   }
 
   &__reset {
+    @include flexbox($align: center);
+
     position: absolute;
     left: var(--search-input-reset-left);
     right: var(--search-input-reset-right);
@@ -176,8 +175,6 @@
     visibility: hidden;
     transform: translate(0, -50%);
     transition: visibility $transition-duration $transition-function;
-    display: flex;
-    align-items: center;
     background: $button-background;
     border-radius: $button-border-radius;
     cursor: pointer;
