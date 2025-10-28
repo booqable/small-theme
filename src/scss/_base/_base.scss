@@ -78,7 +78,7 @@ body {
     }
   }
 
-  .header:not(&:has(.header__inner--background)) & {
+  .header:not(&:has(.header__inner--filled)) & {
     margin-top: var(--preview-height, 0);
   }
 }

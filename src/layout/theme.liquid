@@ -22,7 +22,7 @@
     {%- render 'css-root-variables', settings: settings -%}
 
     {% comment %} Async CSS loading with resource hints {% endcomment %}
-    {%- assign css_files = "critical.css, general.css, header.css" | split: ", " -%}
+    {%- assign css_files = 'critical.css, general.css, header.css' | split: ', ' -%}
 
     {%- for css_file in css_files -%}
       {%- assign css_url = css_file | asset_url -%}
@@ -76,27 +76,53 @@
       }
     </script>
 
-    {%- assign show_search = false -%}
+    {%- assign section_names = 'header, top-bar' | split: ', ' -%}
+    {%- assign show_search_script = false -%}
+    {%- assign show_top_bar_script = false -%}
 
     {%- for section in sections.all -%}
-      {%- if section.type == 'header' -%}
+      {%- assign section_type = section.type -%}
+      {%- assign execute = false -%}
+
+      {%- for name in section_names -%}
+        {%- if section_type == name -%}
+          {%- assign execute = true -%}
+          {%- break -%}
+        {%- endif -%}
+      {%- endfor -%}
+
+      {%- unless execute -%}
+        {%- continue -%}
+      {%- endunless -%}
+
+      {%- if section_type == 'header' -%}
         {%- for block in section.blocks -%}
           {%- assign type = block.type -%}
 
-          {%- if type == 'search' -%}
-            {%- assign show_search = true -%}
-            {%- break -%}
-          {%- endif -%}
-        {%- endfor -%}
+          {%- unless type == 'search' -%}
+            {%- continue -%}
+          {%- endunless -%}
 
-        {%- break -%}
+          {%- assign show_search_script = true -%}
+        {%- endfor -%}
+      {%- endif -%}
+
+      {%- if section_type == 'top-bar' -%}
+        {%- assign show_top_bar = section.settings.show_bar -%}
+
+        {%- if show_top_bar -%}
+          {%- assign show_top_bar_script = true -%}
+        {%- endif -%}
       {%- endif -%}
     {%- endfor -%}
 
     {% comment %} Non-critical JavaScript {% endcomment %}
     <script type="module" src="{{ 'main.js' | asset_url }}"></script>
     <script type="module" src="{{ 'header.js' | asset_url }}"></script>
-    {%- if show_search -%}
+    {%- if show_top_bar_script -%}
+    <script type="module" src="{{ 'top-bar.js' | asset_url }}"></script>
+    {%- endif -%}
+    {%- if show_search_script -%}
     <script type="module" src="{{ 'search.js' | asset_url }}"></script>
     {%- endif -%}
   </body>

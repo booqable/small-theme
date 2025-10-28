@@ -14,7 +14,7 @@ $top-bar-item-margin-x: 40px;
     font-size: inherit;
 
     &-wrapper {
-      @include flex-center;
+      @include flexbox($align: center);
     }
   }
 
@@ -40,13 +40,11 @@ $top-bar-item-margin-x: 40px;
   }
 
   &__content {
-    @include flex-center;
-
-    justify-content: flex-end;
+    @include flexbox($align: center, $justify: flex-end);
   }
 
   &__links {
-    @include flex-center;
+    @include flexbox($align: center);
 
     flex: 0 1 auto;
 
@@ -56,7 +54,7 @@ $top-bar-item-margin-x: 40px;
   }
 
   &__message-wrapper {
-    @include flex-center;
+    @include flexbox($align: center);
 
     flex: 1 1 auto;
 
@@ -66,7 +64,7 @@ $top-bar-item-margin-x: 40px;
   }
 
   &__button-wrapper {
-    @include flex-center;
+    @include flexbox($align: center);
   }
 
   &__menu-wrapper {

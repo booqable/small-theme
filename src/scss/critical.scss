@@ -46,6 +46,12 @@ body {
   > * {
     flex: 0 0 auto;
   }
+
+  &:not(&:has(.header__inner--filled)) {
+    main {
+      margin-top: var(--top-bar-height, 0);
+    }
+  }
 }
 
 /* Container styles */

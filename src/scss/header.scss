@@ -31,6 +31,7 @@
   top: var(--header-position-top);
   left: 0;
   right: 0;
+  transition: top $transition-duration $transition-function;
 
   @include media-up(md) {
     --header-btn-display: block;
@@ -66,7 +67,7 @@
       padding-bottom: var(--header-padding-bottom);
     }
 
-    &--background {
+    &--filled {
       background: $background-primary;
     }
   }
@@ -186,22 +187,24 @@
   }
 
   &__icons {
-    @include flex-center;
+    @include flexbox($align: center, $justify: flex-end, $gap: var(--header-content-gap));
 
-    justify-content: flex-end;
-    gap: var(--header-content-gap);
     grid-area: icons;
-  }
-
-  &:has(.header__inner--sticky) {
-    --header-position: sticky;
   }
 
   &:has(.header__content--outlined) {
     --header-border-color: transparent;
   }
 
-  &:not(&:has(.header__inner--background)) {
+  &:has(.header__inner--sticky) {
+    --header-position: sticky;
+
+    .scrolled & {
+      --header-position-top: calc(-1 * var(--top-bar-height, 0)) !important;
+    }
+  }
+
+  &:not(&:has(.header__inner--filled)) {
     --header-border-color: transparent;
     --header-position: absolute;
     --header-position-top: 0;
