@@ -39,9 +39,8 @@
   }
 
   &__opener {
-    @include flex-center;
+    @include flexbox($align: center, $justify: center);
 
-    justify-content: center;
     height: $button-height;
     width: $button-width;
     border-radius: $button-border-radius;
@@ -61,9 +60,8 @@
   }
 
   &__closer {
-    @include flex-center;
+    @include flexbox($align: center, $justify: center);
 
-    justify-content: center;
     text-align: center;
     margin-top: 16px;
     font-size: 14px;
@@ -117,9 +115,8 @@
   }
 
   &__wrapper {
-    @include flex-center;
+    @include flexbox($align: center, $direction: column);
 
-    flex-direction: column;
     position: absolute;
     width: 100vw;
     height: auto;
@@ -167,7 +164,7 @@
   }
 
   &__reset {
-    @include flex-center;
+    @include flexbox($align: center);
 
     position: absolute;
     left: var(--search-input-reset-left);

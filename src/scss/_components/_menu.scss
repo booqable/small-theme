@@ -264,10 +264,7 @@
     flex: 1 1 auto;
 
     @include media-up(md) {
-      @include flex-center;
-
-      justify-content: var(--menu-horizontal-position);
-      gap: var(--menu-item-gap);
+      @include flexbox($align: center, $justify: var(--menu-horizontal-position), $gap: var(--menu-item-gap));
     }
 
     &:not(:only-child) {
@@ -504,9 +501,8 @@
     }
 
     &-icon {
-      @include flex-center;
+      @include flexbox($align: center, $justify: center);
 
-      justify-content: center;
       margin: var(--menu-item-icon-margin);
       transform: var(--menu-item-icon-transform);
       transition: transform $transition-duration $transition-function;

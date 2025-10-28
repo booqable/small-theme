@@ -186,10 +186,8 @@
   }
 
   &__icons {
-    @include flex-center;
+    @include flexbox($align: center, $justify: flex-end, $gap: var(--header-content-gap));
 
-    justify-content: flex-end;
-    gap: var(--header-content-gap);
     grid-area: icons;
   }
 
