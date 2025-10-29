@@ -191,7 +191,7 @@
 {%- endfor -%}
 
 <div
-  class="header__inner{% if sticky_header %} header__inner--sticky{% endif %}{% unless show_transparency %} header__inner--background{% endunless %} header__inner--padding-top header__inner--padding-bottom color-{{- color_scheme.id -}}"
+  class="header__inner{% if sticky_header %} header__inner--sticky{% endif %}{% unless show_transparency %} header__inner--filled{% endunless %} header__inner--padding-top header__inner--padding-bottom color-{{- color_scheme.id -}}"
   style="{{- variables | escape -}}"
 >
   <div class="header__container container">
