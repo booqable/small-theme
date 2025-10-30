@@ -22,7 +22,7 @@
     {%- render 'css-root-variables', settings: settings -%}
 
     {% comment %} Async CSS loading with resource hints {% endcomment %}
-    {%- assign css_files = 'critical.css, general.css, header.css' | split: ', ' -%}
+    {%- assign css_files = 'critical.css, general.css, header.css, app.css' | split: ', ' -%}
 
     {%- for css_file in css_files -%}
       {%- assign css_url = css_file | asset_url -%}

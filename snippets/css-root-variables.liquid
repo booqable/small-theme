@@ -20,10 +20,13 @@
     {% case settings.corner_radius %}
       {%- when 'square' -%}
         --border-radius: 0;
+        --border-radius-block: 0;
       {%- when 'rounded' -%}
         --border-radius: 8px;
+        --border-radius-block: 8px;
       {%- when 'fully_round' -%}
         --border-radius: 50px;
+        --border-radius-block: 16px;
     {% endcase %}
     {% case settings.button_corners %}
       {%- when 'square' -%}

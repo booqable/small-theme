@@ -1,0 +1,172 @@
+// Import variables
+@use 'variables' as *;
+
+// Import mixins
+@use '_helpers/mixins' as *;
+
+.app {
+  --app-lang-display: block;
+  --app-foreground-color: #{$color-primary};
+  --app-margin: 10px 0;
+  --app-padding: 0 10px;
+  --app-wrapper-background: #{$background-primary};
+  --app-wrapper-border-color: #{$color-border};
+  --app-dropdown-left: 50%;
+  --app-dropdown-translate: -50%;
+  --app-dropdown-down-bottom: auto;
+  --app-dropdown-down-top: calc(100% + 11px);
+  --app-dropdown-up-bottom: calc(100% + 11px);
+  --app-dropdown-up-top: auto;
+
+  &-mobile {
+    --app-dropdown-left: -1px;
+    --app-dropdown-translate: 0;
+
+    display: flex;
+
+    @include media-up(md) {
+      display: none;
+    }
+  }
+
+  &-desktop {
+    --app-lang-display: none;
+    --app-margin: 0;
+    --app-padding: 0;
+    --app-wrapper-background: #{$color-border};
+    --app-wrapper-border-color: transparent;
+    --app-dropdown-up-bottom: var(--app-dropdown-down-bottom);
+    --app-dropdown-up-top: var(--app-dropdown-down-top);
+
+    display: none;
+
+    @include media-up(md) {
+      display: block;
+    }
+
+    [data-compact="true"],
+    [data-short-names="true"] {
+      height: $button-height !important;
+      width: $button-width !important;
+    }
+  }
+}
+
+.accessibe-widget {
+  justify-content: flex-start !important;
+  margin: var(--app-margin);
+
+  &__icon {
+    color: transparent !important;
+
+    path {
+      fill: var(--app-foreground-color) !important;
+      transition: all $transition-duration $transition-function;
+    }
+  }
+
+  &__label {
+    color: var(--app-foreground-color) !important;
+    padding-left: 4px;
+    transition: all $transition-duration $transition-function;
+  }
+
+  &__wrapper {
+    @include flexbox($align: center, $justify: center);
+
+    padding: var(--app-padding);
+    background: var(--app-wrapper-background);
+    height: $button-height;
+    border: 1px solid var(--app-wrapper-border-color);
+    border-radius: $button-border-radius;
+    transition: all $transition-duration $transition-function;
+
+    @include hover {
+      --app-wrapper-border-color: #{$color-outline};
+
+      .accessibe-widget {
+        &__label {
+          --app-foreground-color: #{$color-outline};
+        }
+
+        &__icon {
+          --app-foreground-color: #{$color-outline};
+
+          path {
+            --app-foreground-color: #{$color-outline};
+          }
+        }
+      }
+
+      .app-desktop & {
+        --app-wrapper-border-color: transparent;
+      }
+    }
+  }
+}
+
+.weglot-widget {
+  margin: var(--app-margin);
+
+  &__item {
+    span {
+      color: var(--app-foreground-color);
+      white-space: nowrap;
+      transition: all $transition-duration $transition-function;
+
+      @include hover {
+        --app-foreground-color: #{$color-outline};
+      }
+    }
+  }
+
+  &__currentlang {
+    display: var(--app-lang-display) !important;
+  }
+
+  &__label {
+    color: var(--app-foreground-color) !important;
+    transition: all $transition-duration $transition-function;
+    width: 100%;
+  }
+
+  &__wrapper {
+    padding: var(--app-padding) !important;
+    background: var(--app-wrapper-background) !important;
+    border: 1px solid var(--app-wrapper-border-color) !important;
+    border-radius: $button-border-radius !important;
+    transition: all $transition-duration $transition-function;
+
+    @include hover {
+      --app-wrapper-border-color: #{$color-outline};
+
+      .weglot-widget__label {
+        --app-foreground-color: #{$color-outline};
+      }
+
+      .app-desktop & {
+        --app-wrapper-border-color: transparent;
+      }
+    }
+  }
+
+  &__dropdown {
+    left: var(--app-dropdown-left) !important;
+    transform: translateX(var(--app-dropdown-translate));
+    border: 1px solid $color-border !important;
+    border-radius: $border-radius-block !important;
+    transition: all $transition-duration $transition-function;
+    border-color: $color-border !important;
+    box-shadow: none !important;
+
+    &--up {
+      bottom: var(--app-dropdown-up-bottom) !important;
+      top: var(--app-dropdown-up-top) !important;
+    }
+
+    &--down {
+      bottom: var(--app-dropdown-down-bottom) !important;
+      top: var(--app-dropdown-down-top) !important;
+    }
+  }
+}

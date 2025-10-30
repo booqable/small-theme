@@ -44,7 +44,7 @@
 
 {%- if app -%}
   {%- capture element_app_desktop -%}
-    <div class="header__app">
+    <div class="header__app app">
       {%- render 'app', block: app, section: section, size: "desktop" -%}
     </div>
   {%- endcapture -%}
@@ -148,7 +148,7 @@
       {%- if menu != blank -%}
         {%- if app -%}
           {%- capture element_app_mobile -%}
-            <div class="header__app">
+            <div class="header__app app">
               {%- render 'app', block: app, section: section, size: "mobile" -%}
             </div>
           {%- endcapture -%}
