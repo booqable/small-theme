@@ -4,6 +4,8 @@
 // Import mixins
 @use '../_helpers/mixins' as *;
 
+$inset-indent: 16px;
+
 html {
   &:has(#header-opener-menu:checked),
   &:has(#header-opener-search:checked) {
@@ -80,5 +82,260 @@ body {
 
   .header:not(&:has(.header__inner--filled)) & {
     margin-top: var(--preview-height, 0);
+  }
+}
+
+/* Date picker component styles */
+div {
+  &[data-tid="Modal"] {
+    &:has(> div[class*="Body-"] form > div > div) {
+      div[class*="Body-"] form > div > div {
+        border-radius: $border-radius-block !important;
+      }
+    }
+
+    &[class*="Container-"] {
+      border-radius: $border-radius-block !important;
+
+      &:has([class*="DatePickerInput"] > div) {
+        [class*="DatePickerInput"] {
+          > div {
+            border-top-left-radius: $border-radius-block !important;
+            border-bottom-left-radius: $border-radius-block !important;
+          }
+        }
+      }
+
+      &:has([class*="Select__control"]) {
+        [class*="Select__control"] {
+          border-radius: $border-radius-block !important;
+        }
+      }
+
+      &:has([class*="Picker-"] [class*="Period-"]) {
+        [class*="Picker-"] {
+          > div {
+            border-radius: $border-radius-block !important;
+          }
+        }
+      }
+    }
+
+    div[data-tid="Start and stop location dropdown"] {
+      &[class*="Container-"] {
+        [class*="Select__control"] {
+          border-radius: $border-radius-block !important;
+        }
+      }
+    }
+  }
+
+  &[data-tid="Modal actions"] {
+    button {
+      background: $background-accent !important;
+      color: $color-accent !important;
+      border-radius: $button-border-radius !important;
+      transition: all $transition-duration $transition-function;
+
+      span {
+        color: inherit !important;
+      }
+
+      @include hover {
+        box-shadow: none !important;
+        color: $color-accent !important;
+        background: $background-accent !important;
+        opacity: $button-hover-opacity;
+      }
+    }
+  }
+}
+
+/* Mini cart styles */
+bq-minicart-button {
+  @include flexbox($align: center, $justify: center);
+
+  height: $button-height;
+  width: $button-width;
+  background: $button-background;
+  border-radius: $button-border-radius;
+
+  --minicart-button-accent-color: #{$background-accent};
+  --minicart-button-badge-color: #{$color-accent};
+  --minicart-button-badge-size: 12px;
+  --minicart-button-border-radius: 50%;
+  --minicart-button-color: #{$color-primary};
+  --minicart-button-font: #{$font-family-body};
+  --minicart-button-font-size: calc(#{$font-size-base} - 2px);
+  --minicart-button-hover-color: #{$color-outline};
+  --minicart-button-hover-opacity: 1;
+  --minicart-button-padding: 4px;
+  --minicart-button-size: 21px;
+  --minicart-button-transition-delay: 0ms;
+  --minicart-button-transition-duration: #{$transition-duration};
+  --minicart-button-transition-property: all;
+  --minicart-button-transition-timing-function: #{$transition-function};
+  --minicart-button-outer-background: transparent;
+  --minicart-button-outer-background-hover: transparent;
+  --minicart-button-outer-border: transparent;
+  --minicart-button-outer-border-radius: 0;
+  --minicart-button-outer-hover-border: transparent;
+  --minicart-button-outer-padding: 7px 3px 2px 2px;
+  --minicart-button-outer-transition: none;
+}
+
+/* stylelint-disable-next-line */
+div {
+  &[data-tid="Mini cart"] {
+    --minicart-accent-color: #{$background-accent};
+    --minicart-accent-outline: #{$color-outline};
+    --minicart-accent-text-color: #{$color-accent};
+    --minicart-background-color: #{$background-primary};
+    --minicart-typo-color: #{$color-primary};
+    --minicart-header-color: #{$color-accent};
+    --minicart-warning-color: #{$color-red};
+    --minicart-warning-background-color: #{$color-red-light};
+    --minicart-border-radius: #{$border-radius-block};
+    --minicart-border-color: #{$color-border};
+    --minicart-padding: #{$inset-indent};
+    --minicart-image-width: 64px;
+    --minicart-z-index: 9999;
+    --minicart-font: #{$font-family-body};
+    --minicart-font-size: calc(#{$font-size-base} - 2px);
+    --minicart-font-weight-normal: #{$font-weight-regular};
+    --minicart-font-weight-bold: #{$font-weight-semibold};
+
+    [class*="Cleanstate-"] {
+      margin: 0 !important;
+      padding: $inset-indent 0;
+
+      button {
+        border-radius: $button-border-radius !important;
+        color: $color-accent !important;
+        transition: all $transition-duration $transition-function;
+
+        span {
+          color: inherit !important;
+        }
+
+        @include hover {
+          box-shadow: none !important;
+          opacity: $button-hover-opacity;
+        }
+      }
+
+      + [class*="PoweredBy"] {
+        padding: 0 0 $inset-indent !important;
+      }
+    }
+
+    [class*="Lines-"] {
+      [class*="Details-"] {
+        [class*="QuantityButton-"] {
+          border-radius: $border-radius-block 0 0 $border-radius-block !important;
+        }
+
+        span {
+          + [class*="QuantityButton-"] {
+            border-radius: 0 $border-radius-block $border-radius-block 0 !important;
+          }
+        }
+      }
+    }
+
+    [class*="Summary-"] {
+      [class*="Services-"] {
+        max-height: 84px;
+
+        [class*="Checkbox-"] {
+          svg {
+            border-radius: $border-radius-checkbox !important;
+          }
+
+          &[value="true"] {
+            svg {
+              background: $background-accent !important;
+              border-color: $background-accent !important;
+              color: $color-accent !important;
+            }
+          }
+        }
+      }
+
+      [class*="CheckoutButtons-"] {
+        button {
+          border-radius: $button-border-radius !important;
+          transition: all $transition-duration $transition-function;
+
+          @include hover {
+            opacity: $button-hover-opacity;
+          }
+        }
+      }
+    }
+
+    &:has([class*="Cleanstate-"]) {
+      > [class*="Lines-"] {
+        @include height-up(xxs) {
+          @include flexbox($justify: center, $direction: column);
+        }
+      }
+    }
+  }
+
+  &[data-tippy-root] {
+    &:has([data-tid="Mini cart"]) {
+      top: $header-height !important;
+      right: $horizontal-padding-mobile !important;
+      transform: translate(0, 0) !important;
+      transition: top $transition-duration $transition-function;
+
+      @include media-up(xl) {
+        right: $horizontal-padding !important;
+      }
+
+      body:has(.header__inner--sticky) & {
+        position: fixed !important;
+      }
+    }
+
+    &:has([data-tid="Mini cart"] [class*="DetailContainer-"] > [class*="Quantity-"]) {
+      [class*="QuantityButton"] {
+        &:first-child {
+          border-top-left-radius: $border-radius-block !important;
+          border-bottom-left-radius: $border-radius-block !important;
+        }
+
+        &:last-child {
+          border-top-right-radius: $border-radius-block !important;
+          border-bottom-right-radius: $border-radius-block !important;
+        }
+      }
+    }
+
+    &:has([data-tid="Mini cart"] [data-tid*="Select dates"] > [class*="DatesBase-"] > [class*="Dates"]) {
+      [class*="DatesBase-"] {
+        > [class*="Dates"] {
+          border-radius: $border-radius-block !important;
+        }
+      }
+    }
+
+    &:has([class*="tippy-content"] [class*="DayPicker-wrapper"] [class*="DayPicker-NavBar"]) {
+      [class*="tippy-content"] {
+        > div {
+          > [class*="Content"] {
+            > [class*="Inner"] {
+              border-radius: $border-radius-block !important;
+
+              [class*="AvailabilityLegend"] {
+                border-bottom-right-radius: $border-radius-block !important;
+                border-bottom-left-radius: $border-radius-block !important;
+              }
+            }
+          }
+        }
+      }
+    }
   }
 }

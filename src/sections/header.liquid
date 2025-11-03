@@ -203,10 +203,6 @@
         {{- element_search -}}
         {%- if show_mini_cart -%}
           <div class="header__cart">
-            {% comment %} CSS variables start {% endcomment %}
-            {%- render 'css-mini-cart-button' -%}
-            {% comment %} CSS variables end {% endcomment %}
-
             {{- cart_button -}}
             <i class="fa-regular fa-spinner-third fa-spin"></i>
           </div>

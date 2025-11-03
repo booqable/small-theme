@@ -21,12 +21,15 @@
       {%- when 'square' -%}
         --border-radius: 0;
         --border-radius-block: 0;
+        --border-radius-checkbox: 0;
       {%- when 'rounded' -%}
         --border-radius: 8px;
         --border-radius-block: 8px;
+        --border-radius-checkbox: 4px;
       {%- when 'fully_round' -%}
         --border-radius: 50px;
         --border-radius-block: 16px;
+        --border-radius-checkbox: 50px;
     {% endcase %}
     {% case settings.button_corners %}
       {%- when 'square' -%}

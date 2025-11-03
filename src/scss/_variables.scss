@@ -1,7 +1,8 @@
 // Theme Variables
 
 // Breakpoints
-$breakpoint-xs: 480px;
+$breakpoint-xxs: 480px;
+$breakpoint-xs: 567px;
 $breakpoint-sm: 768px;
 $breakpoint-md: 992px;
 $breakpoint-lg: 1280px;
@@ -17,6 +18,8 @@ $color-border: color-mix(in srgb, var(--color-primary) 15%, transparent);
 $color-outline: var(--color-outline);
 $color-placeholder: color-mix(in srgb, var(--color-primary) 50%, transparent);
 $color-primary: var(--color-primary, #000);
+$color-red: #C23434;
+$color-red-light: #F5CFCF;
 $color-secondary: var(--color-secondary);
 
 // Fonts
@@ -62,6 +65,7 @@ $font-weight-extrabold: var(--font-weight-extrabold);
 // Border radius
 $border-radius: var(--border-radius);
 $border-radius-block: var(--border-radius-block);
+$border-radius-checkbox: var(--border-radius-checkbox);
 
 // Buttons
 $button-border-radius: var(--button-border-radius);

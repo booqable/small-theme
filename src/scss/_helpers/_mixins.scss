@@ -3,6 +3,7 @@
 
 // Breakpoint map for easier iteration
 $breakpoints: (
+  xxs: $breakpoint-xxs,
   xs: $breakpoint-xs,
   sm: $breakpoint-sm,
   md: $breakpoint-md,
@@ -82,6 +83,52 @@ $breakpoints: (
     @include media-up(xxl) {
       @content;
     }
+  }
+}
+
+// Height-based media query mixins
+@mixin height-up($breakpoint) {
+  @if map.has-key($breakpoints, $breakpoint) {
+    @media (min-height: #{map.get($breakpoints, $breakpoint)}) {
+      @content;
+    }
+  } @else {
+    @media (min-height: #{$breakpoint}) {
+      @content;
+    }
+  }
+}
+
+@mixin height-down($breakpoint) {
+  @if map.has-key($breakpoints, $breakpoint) {
+    @media (max-height: #{map.get($breakpoints, $breakpoint) - 1px}) {
+      @content;
+    }
+  } @else {
+    @media (max-height: #{$breakpoint - 1px}) {
+      @content;
+    }
+  }
+}
+
+@mixin height-between($lower, $upper) {
+  $min: null;
+  $max: null;
+
+  @if map.has-key($breakpoints, $lower) {
+    $min: map.get($breakpoints, $lower);
+  } @else {
+    $min: $lower;
+  }
+
+  @if map.has-key($breakpoints, $upper) {
+    $max: map.get($breakpoints, $upper) - 1px;
+  } @else {
+    $max: $upper - 1px;
+  }
+
+  @media (min-height: #{$min}) and (max-height: #{$max}) {
+    @content;
   }
 }
 
