@@ -153,13 +153,6 @@ div {
 
 /* Mini cart styles */
 bq-minicart-button {
-  @include flexbox($align: center, $justify: center);
-
-  height: $button-height;
-  width: $button-width;
-  background: $button-background;
-  border-radius: $button-border-radius;
-
   --minicart-button-accent-color: #{$background-accent};
   --minicart-button-badge-color: #{$color-accent};
   --minicart-button-badge-size: 12px;
@@ -175,12 +168,12 @@ bq-minicart-button {
   --minicart-button-transition-duration: #{$transition-duration};
   --minicart-button-transition-property: all;
   --minicart-button-transition-timing-function: #{$transition-function};
-  --minicart-button-outer-background: transparent;
-  --minicart-button-outer-background-hover: transparent;
+  --minicart-button-outer-background: #{$button-background};
+  --minicart-button-outer-background-hover: #{$button-background};
   --minicart-button-outer-border: transparent;
-  --minicart-button-outer-border-radius: 0;
+  --minicart-button-outer-border-radius: #{$button-border-radius};
   --minicart-button-outer-hover-border: transparent;
-  --minicart-button-outer-padding: 7px 3px 2px 2px;
+  --minicart-button-outer-padding: 8px 10px 4px 9px;
   --minicart-button-outer-transition: none;
 }
 
