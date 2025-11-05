@@ -56,17 +56,17 @@
     </i>
   {%- endcapture -%}
 
-  <div class="menu {{ section_type -}}__menu" id="{{- section_type -}}-{{- menu_id -}}">
+  <div class="{{- section_type -}}__menu menu" id="{{- section_type -}}-{{- menu_id -}}">
     {%- if use_opener -%}
       <input id="{{- section_type -}}-opener-{{- menu_id -}}" type="checkbox" style="display: none;">
-      <label class="menu__opener {{ section_type -}}__menu-opener" for="{{- section_type -}}-opener-{{- menu_id -}}">
+      <label class="{{- section_type -}}__menu-opener menu__opener" for="{{- section_type -}}-opener-{{- menu_id -}}">
         <span></span>
       </label>
     {%- endif -%}
 
-    <nav class="menu__nav {{ section_type -}}__menu-nav" style="display: none;">
-      <div class="menu__wrapper">
-        <ul class="menu__list">
+    <nav class="{{- section_type -}}__menu-nav menu__nav" style="display: none;">
+      <div class="{{- section_type -}}__menu-wrapper menu__wrapper">
+        <ul class="{{- section_type -}}__menu-list menu__list">
           {%- for link in menu_items -%}
             {%- assign link_count = link.items_count -%}
             {%- assign link_index = forloop.index -%}
@@ -84,7 +84,7 @@
                   </label>
                 {%- endif -%}
 
-                <a class="menu__link" href="{{ link_url }}">
+                <a class="{{- section_type -}}__menu-link menu__link" href="{{ link_url }}">
                   {{- link_title -}}
                 </a>
 

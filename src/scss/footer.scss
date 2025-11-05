@@ -1,0 +1,23 @@
+// Import variables
+@use 'variables' as *;
+
+// Import mixins
+@use '_helpers/mixins' as *;
+
+// Import components
+// @use '_components/menu' as *;
+
+.footer {
+  &__top {
+    @include flexbox($direction: column);
+
+    @include media-up(md) {
+
+    }
+
+  }
+
+  .menu__link {
+    font-size: clamp(14px, calc($font-size-base - 2px), 20px);
+  }
+}

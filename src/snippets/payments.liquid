@@ -1,0 +1,89 @@
+{% comment %}
+
+  This snippet is used for rendering the payments icons
+
+  Usage:
+
+  {%- render 'payments', payments: payment_methods  -%}
+
+{% endcomment %}
+
+{% style %}
+  .payments {
+    font-size: calc(var(--social-size, 20px) + 10px);
+  }
+
+  .payment {
+    padding: 0 16px 0 0;
+    margin: 0 calc(-1 * (var(--social-spacing, 6px) - 4px)) calc(-1 * (var(--social-spacing, 6px) - 4px));
+    display: flex;
+    align-items: center;
+    flex-wrap: wrap;
+  }
+
+  .payment svg {
+    width: 35px;
+    height: 31px;
+  }
+
+  .payment i,
+  .payment span {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    margin: 0 calc(var(--social-spacing, 6px) - 4px) calc(var(--social-spacing, 6px) - 4px);
+  }
+
+  .payment span:not([title="Bancontact"]) path,
+  .payment span[title="Bancontact"] .st1,
+  .payment span[title="Giropay"] path:not(.st1) {
+    fill: currentColor !important;
+  }
+
+  .palette-one .payment span[title="Giropay"] .st1 {
+    fill: var(--background-primary, #0B1A26) !important;
+  }
+
+  .palette-two .payment span[title="Giropay"] .st1 {
+    fill: var(--background-primary-2, #FFFFFF) !important;
+  }
+
+  .palette-three .payment span[title="Giropay"] .st1 {
+    fill: var(--background-primary-3, #0B1A26) !important;
+  }
+{% endstyle %}
+
+<div class="payment">
+  {% comment %} {%- for provider in payments -%} {% endcomment %}
+    {% comment %} {%- case provider -%} {% endcomment %}
+      {% comment %} {%- when "stripe" -%} {% endcomment %}
+        <i class="fa-brands fa-cc-stripe"></i>
+      {% comment %} {%- when "creditcard" -%} {% endcomment %}
+        <i class="fa-brands fa-cc-visa" title="Visa"></i>
+        <i class="fa-brands fa-cc-mastercard" title="MasterCard"></i>
+        <i class="fa-brands fa-cc-amex" title="American Express"></i>
+      {% comment %} {%- when "paypal" -%} {% endcomment %}
+        <i class="fa-brands fa-cc-paypal" title="PayPal"></i>
+      {% comment %} {%- when "applepay" -%} {% endcomment %}
+        <i class="fa-brands fa-apple-pay" title="ApplePay"></i>
+      {% comment %} {%- when "googlepay" -%} {% endcomment %}
+        <i class="fa-brands fa-google-pay" title="GooglePay"></i>
+      {% comment %} {%- when "ideal" -%} {% endcomment %}
+        <i class="fa-brands fa-ideal" title="iDEAL"></i>
+      {% comment %} {%- when "alipay" -%} {% endcomment %}
+        <i class="fa-brands fa-alipay" title="Alipay"></i>
+      {% comment %} {%- when "p24" -%} {% endcomment %}
+        {% comment %} {%- render "icon-p24" -%} {% endcomment %}
+        {%- include "icon-p24" -%}
+      {% comment %} {%- when "eps" -%} {% endcomment %}
+        {% comment %} {%- render "icon-eps" -%} {% endcomment %}
+        {%- include "icon-eps" -%}
+      {% comment %} {%- when "bancontact" -%} {% endcomment %}
+        {% comment %} {%- render "icon-bancontact" -%} {% endcomment %}
+        {%- include "icon-bancontact" -%}
+      {% comment %} {%- when "giropay" -%} {% endcomment %}
+        {% comment %} {%- render "icon-giropay" -%} {% endcomment %}
+        {%- include "icon-giropay" -%}
+    {% comment %} {%- endcase -%} {% endcomment %}
+  {% comment %} {%- endfor -%} {% endcomment %}
+</div>
