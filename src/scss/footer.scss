@@ -4,20 +4,71 @@
 // Import mixins
 @use '_helpers/mixins' as *;
 
-// Import components
-// @use '_components/menu' as *;
-
 .footer {
-  &__top {
-    @include flexbox($direction: column);
+  &__wrapper {
+    --footer-content-direction: column;
+    --footer-padding-bottom: var(--padding-bottom-mobile, 16px);
+    --footer-padding-left: 16px;
+    --footer-padding-right: 16px;
+    --footer-padding-top: var(--padding-top-mobile, 16px);
+
+    color: $color-primary;
+    background: $background-primary;
+    border-top: 1px solid $color-border;
 
     @include media-up(md) {
-
+      --footer-content-direction: row;
+      --footer-padding-bottom: var(--padding-bottom-desktop, 40px);
+      --footer-padding-left: 32px;
+      --footer-padding-right: 32px;
+      --footer-padding-top: var(--padding-top-desktop, 40px);
     }
 
+    @include media-up(xl) {
+      --footer-padding-left: 80px;
+      --footer-padding-right: 80px;
+    }
+
+    .footer__container & {
+      border: 1px solid $color-border;
+      border-radius: $border-radius-block;
+      padding-left: var(--footer-padding-left);
+      padding-right: var(--footer-padding-right);
+    }
+
+    &--padding-top {
+      padding-top: var(--footer-padding-top);
+    }
+
+    &--padding-bottom {
+      padding-bottom: var(--footer-padding-bottom);
+    }
   }
 
-  .menu__link {
-    font-size: clamp(14px, calc($font-size-base - 2px), 20px);
+  &__top {
+    @include flexbox($direction: var(--footer-content-direction), $wrap: wrap);
+  }
+
+  &__content {
+    flex: 0 1 auto;
+  }
+
+  &__links {
+    flex: 1 1 auto;
+  }
+
+  &__info {
+    padding-top: 28px;
+    font-size: clamp(14px, calc($font-size-base - 4px), 18px);
+  }
+
+  .payments {
+    flex: 0 1 auto;
+    width: 100%;
+  }
+
+  .social-networks {
+    flex: 0 1 auto;
+    width: 100%;
   }
 }

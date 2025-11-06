@@ -6,20 +6,16 @@
 
 .menu {
   --menu-display: flex;
-  --menu-dropdown-link-indent: 0;
-  --menu-dropdown-link-padding: 16px var(--menu-dropdown-link-indent) 16px 0;
   --menu-dropdown-opener-height: #{$button-height};
   --menu-dropdown-opener-weight: inherit;
   --menu-dropdown-opener-width: #{$button-width};
   --menu-opener-color: currentcolor;
-  --menu-item-cursor: default;
 
   display: var(--menu-display);
   align-items: center;
 
   @include media-up(md) {
     --menu-display: block;
-    --menu-dropdown-link-padding: 0;
     --menu-dropdown-opener-height: auto;
     --menu-dropdown-opener-width: auto;
   }
@@ -53,7 +49,7 @@
     font-size: clamp(14px, calc($font-size-base - 2px), 20px);
     font-weight: $font-weight-bold;
     line-height: $font-height-lg;
-    padding: 16px 0;
+    padding: 4px 0;
     grid-area: item-1;
     z-index: 1;
     position: relative;
@@ -81,15 +77,11 @@
       @include flexbox($align: center, $justify: space-between);
 
       grid-area: drop-1;
-      padding: var(--menu-dropdown-link-padding);
+      padding: 4px 0;
       line-height: $font-height-lg;
 
       @include media-up(md) {
         vertical-align: top;
-      }
-
-      .has-dropdown & {
-        --menu-dropdown-link-indent: #{$horizontal-padding-mobile};
       }
     }
 
@@ -123,22 +115,6 @@
       transition: transform $transition-duration $transition-function;
     }
 
-    #{&} {
-      &-wrapper {
-        .menu {
-          &__dropdown {
-            &-link {
-              .has-dropdown & {
-                @include media-up(md) {
-                  --menu-dropdown-link-indent: 0;
-                }
-              }
-            }
-          }
-        }
-      }
-    }
-
     > #{&} {
       &-wrapper {
         > .menu__dropdown-opener {
@@ -150,8 +126,6 @@
   }
 
   &__item {
-    cursor: var(--menu-item-cursor);
-
     &-icon {
       @include flexbox($align: center, $justify: center);
 
@@ -161,15 +135,7 @@
 
     &:hover,
     &.active {
-      --menu-item-cursor: pointer;
-
       .menu {
-        &__link {
-          @include media-up(md) {
-            color: $color-outline;
-          }
-        }
-
         &__dropdown {
           &-opener {
             path {

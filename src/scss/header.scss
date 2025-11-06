@@ -26,6 +26,7 @@
   --header-menu-dropdown-link-display: flex;
   --header-menu-dropdown-link-font-size: inherit;
   --header-menu-dropdown-link-font-weight: #{$font-weight-bold};
+  --header-menu-dropdown-link-indent: 0;
   --header-menu-dropdown-opener-display: flex;
   --header-menu-dropdown-opener-position: center;
   --header-menu-dropdown-opener-transform: rotate(90deg);
@@ -42,6 +43,7 @@
   --header-menu-dropdown-wrapper-position: absolute;
   --header-menu-dropdown-wrapper-transform: translateX(100%);
   --header-menu-dropdown-wrapper-width: 100vw;
+  --header-menu-item-cursor: default;
   --header-menu-item-icon-margin: 0;
   --header-menu-item-icon-transform: rotate(-90deg);
   --header-menu-link-indent: 0;
@@ -153,10 +155,12 @@
       --header-menu-indent: var(--menu-indent-desktop);
       --header-menu-margin-bottom: var(--padding-bottom-desktop, 12px);
       --header-menu-margin-top: var(--padding-top-desktop, 12px);
-      --header-menu-list-margin: calc(-1 * var(--header-menu-margin-top)) var(--menu-margin-x-desktop) calc(-1 * var(--header-menu-margin-bottom));
-      --header-menu-list-width: calc(100% + -1 * var(--menu-margin-x-desktop, 0) * 2);
+      --header-menu-list-margin: calc(-1 * var(--header-menu-margin-top)) 0 calc(-1 * var(--header-menu-margin-bottom));
+      --header-menu-list-width: calc(100% + var(--menu-margin-x-desktop, 0) * 2);
       --header-padding-bottom: var(--padding-bottom-desktop, 12px);
       --header-padding-top: var(--padding-top-desktop, 12px);
+      --header-menu-item-padding-bottom: var(--header-padding-bottom);
+      --header-menu-item-padding-top: var(--header-padding-top);
     }
 
     &--padding-top {
@@ -375,10 +379,10 @@
 
     &-link {
       font-size: inherit;
-      padding-right: var(--header-menu-link-indent);
+      padding: 16px var(--header-menu-link-indent) 16px 0;
 
       @include media-up(md) {
-        padding-right: var(--header-menu-link-indent);
+        padding: 0 var(--header-menu-link-indent) 0 0;
       }
 
       .has-dropdown & {
@@ -439,13 +443,11 @@
         display: var(--header-menu-dropdown-link-display);
         font-size: var(--header-menu-dropdown-link-font-size);
         font-weight: var(--header-menu-dropdown-link-font-weight);
+        padding: 16px var(--header-menu-dropdown-link-indent) 16px 0;
 
         @include media-up(md) {
           vertical-align: top;
-        }
-
-        .has-dropdown & {
-          --menu-dropdown-link-indent: #{$horizontal-padding-mobile};
+          padding: 0 var(--header-menu-dropdown-link-indent) 0 0;
         }
       }
 
@@ -462,6 +464,16 @@
             @include media-up(md) {
               --header-menu-dropdown-link-font-size: clamp(14px, calc(#{$font-size-base} - 2px), 18px);
               --header-menu-dropdown-link-font-weight: #{$font-weight-medium};
+            }
+          }
+        }
+
+        &:has(> .header__menu-dropdown-opener + .header__menu-dropdown-link) {
+          > .header__menu-dropdown-link {
+            --header-menu-dropdown-link-indent: 16px;
+
+            @include media-up(xl) {
+              --header-menu-dropdown-link-indent: 8px;
             }
           }
         }
@@ -565,9 +577,11 @@
       grid-template-columns: 1fr min-content;
       grid-template-areas: "item-1 item-2";
       align-items: center;
+      cursor: var(--header-menu-item-cursor);
 
       @include media-up(md) {
         height: 100%;
+        padding: var(--header-menu-item-padding-top) 0 var(--header-menu-item-padding-bottom);
       }
 
       &-icon {
@@ -575,9 +589,24 @@
         transform: var(--header-menu-item-icon-transform);
       }
 
+      [style*="--menu-vertical-alignment: top"] & {
+        @include media-up(md) {
+          --header-menu-item-padding-bottom: 0;
+          --header-menu-item-padding-top: 0;
+        }
+      }
+
       &:hover,
       &.active {
+        --header-menu-item-cursor: pointer;
+
         .header__menu {
+          &-link {
+            @include media-up(md) {
+              color: $color-outline;
+            }
+          }
+
           &-dropdown {
             @include media-up(md) {
               --header-menu-dropdown-events: all;

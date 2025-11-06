@@ -92,7 +92,7 @@
     --menu-border-width-desktop: 0;
     --menu-bottom-border-top-width-desktop: 0;
     --menu-bottom-padding-top-desktop: 0;
-    --menu-margin-x-desktop: auto;
+    --menu-margin-x-desktop: 0;
     --menu-indent-desktop: 0 20px;
   {%- else -%}
     --menu-bottom-border-top-width-desktop: 100vw;
@@ -100,7 +100,7 @@
       --menu-bottom-border-top-width-desktop: calc(100% + var(--menu-bottom-margin-desktop) * 2);
     {%- endif -%}
     --menu-bottom-padding-top-desktop: {% if padding_bottom_desktop == 'lg' %}20px{% elsif padding_bottom_desktop == 'md' %}16px{% else %}12px{% endif %} 0 0;
-    --menu-margin-x-desktop: -22px;
+    --menu-margin-x-desktop: 22px;
     --menu-indent-desktop: {% if padding_bottom_desktop == 'lg' %}20px{% elsif padding_bottom_desktop == 'md' %}16px{% else %}12px{% endif %} 0 0;
   {%- endif -%}
 
