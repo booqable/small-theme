@@ -8,23 +8,11 @@
   --menu-display: flex;
   --menu-dropdown-link-indent: 0;
   --menu-dropdown-link-padding: 16px var(--menu-dropdown-link-indent) 16px 0;
-  --menu-dropdown-opener-display: flex;
   --menu-dropdown-opener-height: #{$button-height};
-  --menu-dropdown-opener-position: center;
-  --menu-dropdown-opener-transform: rotate(90deg);
   --menu-dropdown-opener-weight: inherit;
   --menu-dropdown-opener-width: #{$button-width};
-  --menu-dropdown-wrapper-height: 100%;
-  --menu-dropdown-wrapper-max-height: calc(100vh - $header-height);
-  --menu-dropdown-wrapper-overflow: clip auto;
-  --menu-dropdown-wrapper-padding: 25px #{$horizontal-padding-mobile} 50px;
-  --menu-dropdown-wrapper-position: absolute;
-  --menu-dropdown-wrapper-transform: translateX(100%);
-  --menu-dropdown-wrapper-width: 100vw;
   --menu-opener-color: currentcolor;
   --menu-item-cursor: default;
-  --menu-item-icon-transform: rotate(-90deg);
-  --menu-item-icon-margin: 0;
 
   display: var(--menu-display);
   align-items: center;
@@ -34,12 +22,6 @@
     --menu-dropdown-link-padding: 0;
     --menu-dropdown-opener-height: auto;
     --menu-dropdown-opener-width: auto;
-    --menu-dropdown-wrapper-height: auto;
-    --menu-dropdown-wrapper-overflow: auto;
-    --menu-dropdown-wrapper-padding: 0;
-    --menu-dropdown-wrapper-position: static;
-    --menu-dropdown-wrapper-transform: translateY(-100%);
-    --menu-dropdown-wrapper-width: 100%;
   }
 
   path {
@@ -110,12 +92,9 @@
     }
 
     &-opener {
+      @include flexbox($align: center, $justify: center);
       height: var(--menu-dropdown-opener-height);
       width: var(--menu-dropdown-opener-width);
-      max-width: $max-width;
-      display: var(--menu-dropdown-opener-display);
-      align-items: center;
-      justify-content: var(--menu-dropdown-opener-position);
       font-weight: var(--menu-dropdown-opener-weight);
       cursor: pointer;
       transition: all $transition-duration $transition-function;
@@ -125,10 +104,6 @@
       margin: 0 auto;
       z-index: 1;
       color: var(--menu-opener-color);
-
-      @include media-up(md) {
-        transform: var(--menu-dropdown-opener-transform);
-      }
 
       @include hover {
         --menu-opener-color: #{$color-outline};
@@ -142,49 +117,18 @@
     }
 
     &-wrapper {
-      position: var(--menu-dropdown-wrapper-position);
-      top: 0;
-      left: 0;
-      width: var(--menu-dropdown-wrapper-width);
-      height: var(--menu-dropdown-wrapper-height);
-      max-height: var(--menu-dropdown-wrapper-max-height);
-      padding: var(--menu-dropdown-wrapper-padding);
-      background: $background-primary;
-      overflow: var(--menu-dropdown-wrapper-overflow);
-      transform: var(--menu-dropdown-wrapper-transform);
       transition: transform $transition-duration $transition-function;
-      border-bottom: 1px solid $color-border;
-
-      .scrolled & {
-        @include media-up(md) {
-          --menu-dropdown-wrapper-max-height: calc(100vh - #{$header-height} + var(--top-bar-height, 0));
-        }
-      }
     }
 
     #{&} {
       &-wrapper {
         .menu {
           &__dropdown {
-            &-wrapper {
-              @include media-up(md) {
-                --menu-dropdown-wrapper-transform: none;
-
-                border-color: transparent;
-              }
-            }
-
             &-link {
               .has-dropdown & {
                 @include media-up(md) {
                   --menu-dropdown-link-indent: 0;
                 }
-              }
-            }
-
-            &-opener {
-              @include media-up(md) {
-                --menu-dropdown-opener-display: none;
               }
             }
           }
@@ -195,46 +139,19 @@
     > #{&} {
       &-wrapper {
         > .menu__dropdown-opener {
-          --menu-dropdown-opener-position: flex-start;
           --menu-dropdown-opener-weight: #{$font-weight-semibold};
           --menu-dropdown-opener-width: auto;
-
-          .menu__item-icon {
-            --menu-item-icon-transform: rotate(90deg);
-            --menu-item-icon-margin: 0 10px -1px 0;
-          }
-        }
-
-        [id^="header-dropdown-trigger-menu"]:checked ~ &,
-        [id*="header-dropdown-trigger-menu"]:checked ~ & {
-          --menu-dropdown-wrapper-transform: translateX(0);
-        }
-
-        [id^="header-dropdown-trigger-childmenu"]:checked ~ &,
-        [id*="header-dropdown-trigger-childmenu"]:checked ~ & {
-          --menu-dropdown-wrapper-transform: translateX(0);
-          --menu-dropdown-wrapper-overflow: clip auto;
         }
       }
     }
   }
 
   &__item {
-    display: grid;
-    grid-template-columns: 1fr min-content;
-    grid-template-areas: "item-1 item-2";
-    align-items: center;
     cursor: var(--menu-item-cursor);
-
-    @include media-up(md) {
-      height: 100%;
-    }
 
     &-icon {
       @include flexbox($align: center, $justify: center);
 
-      margin: var(--menu-item-icon-margin);
-      transform: var(--menu-item-icon-transform);
       transition: transform $transition-duration $transition-function;
       pointer-events: none;
     }
@@ -251,17 +168,7 @@
         }
 
         &__dropdown {
-          &-wrapper {
-            @include media-up(md) {
-              --menu-dropdown-wrapper-transform: translateY(0);
-            }
-          }
-
           &-opener {
-            @include media-up(md) {
-              --menu-dropdown-opener-transform: rotate(270deg);
-            }
-
             path {
               @include media-up(md) {
                 --menu-opener-color: #{$color-outline};
@@ -270,31 +177,6 @@
           }
         }
       }
-    }
-  }
-
-  &:has([id^="header-dropdown-trigger-childmenu"]:checked),
-  &:has([id*="header-dropdown-trigger-childmenu"]:checked) {
-    .menu__item {
-      > .menu__dropdown {
-        > .menu__dropdown-wrapper {
-          --menu-dropdown-wrapper-overflow: clip;
-        }
-      }
-    }
-  }
-
-  .header__btn-wrapper {
-    display: var(--menu-display);
-
-    @include media-up(md) {
-      --menu-display: none;
-    }
-  }
-
-  .social-networks {
-    @include media-up(md) {
-      display: none;
     }
   }
 }
