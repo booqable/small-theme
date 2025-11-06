@@ -75,7 +75,7 @@
             {%- assign link_url   = link.url -%}
 
             {%- if link != blank -%}
-              <li class="menu__item{% if link_count > 0 and menu_levels > 1 %} has-dropdown{%- endif -%}">
+              <li class="{{- section_type -}}__menu-item menu__item{% if link_count > 0 and menu_levels > 1 %} has-dropdown{%- endif -%}">
 
                 {%- if link_count > 0 and menu_levels > 1 -%}
                   <input id="{{- section_type -}}-dropdown-trigger-{{- menu_id -}}-{{- link_index -}}" type="checkbox" style="display: none;">
@@ -89,7 +89,7 @@
                 </a>
 
                 {%- if link_count > 0 and menu_levels > 1 -%}
-                  <div class="menu__dropdown" style="display: none;">
+                  <div class="{{- section_type -}}__menu-dropdown menu__dropdown" style="display: none;">
                     <div class="menu__dropdown-wrapper">
 
                       <label class="menu__dropdown-opener" for="{{- section_type -}}-dropdown-trigger-{{- menu_id -}}-{{- link_index -}}">
@@ -119,7 +119,7 @@
                               </a>
 
                               {%- if childlink_count > 0 and menu_levels > 2 -%}
-                                <div class="menu__dropdown">
+                                <div class="{{- section_type -}}__menu-dropdown menu__dropdown">
                                   <div class="menu__dropdown-wrapper">
                                     <label class="menu__dropdown-opener" for="{{- section_type -}}-dropdown-trigger-child{{- menu_id -}}-{{- link_index -}}-{{- childlink_index -}}">
                                       {{- icon_arrow -}}
