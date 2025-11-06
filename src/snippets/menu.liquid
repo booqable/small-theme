@@ -51,7 +51,7 @@
   {%- endif -%}
 
   {%- capture icon_arrow -%}
-    <i class="menu__item-icon">
+    <i class="{{- section_type -}}__menu-item-icon menu__item-icon">
       {%- render 'icon-arrow' -%}
     </i>
   {%- endcapture -%}
@@ -79,7 +79,7 @@
 
                 {%- if link_count > 0 and menu_levels > 1 -%}
                   <input id="{{- section_type -}}-dropdown-trigger-{{- menu_id -}}-{{- link_index -}}" type="checkbox" style="display: none;">
-                  <label class="menu__dropdown-opener" for="{{- section_type -}}-dropdown-trigger-{{- menu_id -}}-{{- link_index -}}">
+                  <label class="{{- section_type -}}__menu-dropdown-opener menu__dropdown-opener" for="{{- section_type -}}-dropdown-trigger-{{- menu_id -}}-{{- link_index -}}">
                     {{- icon_arrow -}}
                   </label>
                 {%- endif -%}
@@ -90,14 +90,14 @@
 
                 {%- if link_count > 0 and menu_levels > 1 -%}
                   <div class="{{- section_type -}}__menu-dropdown menu__dropdown" style="display: none;">
-                    <div class="menu__dropdown-wrapper">
+                    <div class="{{- section_type -}}__menu-dropdown-wrapper menu__dropdown-wrapper">
 
-                      <label class="menu__dropdown-opener" for="{{- section_type -}}-dropdown-trigger-{{- menu_id -}}-{{- link_index -}}">
+                      <label class="{{- section_type -}}__menu-dropdown-opener menu__dropdown-opener" for="{{- section_type -}}-dropdown-trigger-{{- menu_id -}}-{{- link_index -}}">
                         {{- icon_arrow -}}
                         {{- menu_back_label | default: link_title -}}
                       </label>
 
-                      <ul class="menu__dropdown-list">
+                      <ul class="{{- section_type -}}__menu-dropdown-list menu__dropdown-list">
                         {%- for childlink in link_items -%}
                           {%- assign childlink_index = forloop.index -%}
                           {%- assign childlink_count = childlink.items_count -%}
@@ -106,34 +106,34 @@
                           {%- assign childlink_url   = childlink.url -%}
 
                           {%- if childlink != blank -%}
-                            <li class="menu__dropdown-item">
+                            <li class="{{- section_type -}}__menu-dropdown-item menu__dropdown-item">
                               {%- if childlink_count > 0 and menu_levels > 2 -%}
                                 <input id="{{- section_type -}}-dropdown-trigger-child{{- menu_id -}}-{{- link_index -}}-{{- childlink_index -}}" type="checkbox" style="display: none;">
-                                <label class="menu__dropdown-opener" for="{{- section_type -}}-dropdown-trigger-child{{- menu_id -}}-{{- link_index -}}-{{- childlink_index -}}">
+                                <label class="{{- section_type -}}__menu-dropdown-opener menu__dropdown-opener" for="{{- section_type -}}-dropdown-trigger-child{{- menu_id -}}-{{- link_index -}}-{{- childlink_index -}}">
                                   {{- icon_arrow -}}
                                 </label>
                               {%- endif -%}
 
-                              <a class="menu__dropdown-link" href="{{ childlink_url }}">
+                              <a class="{{- section_type -}}__menu-dropdown-link menu__dropdown-link" href="{{ childlink_url }}">
                                 {{- childlink_title -}}
                               </a>
 
                               {%- if childlink_count > 0 and menu_levels > 2 -%}
                                 <div class="{{- section_type -}}__menu-dropdown menu__dropdown">
-                                  <div class="menu__dropdown-wrapper">
-                                    <label class="menu__dropdown-opener" for="{{- section_type -}}-dropdown-trigger-child{{- menu_id -}}-{{- link_index -}}-{{- childlink_index -}}">
+                                  <div class="{{- section_type -}}__menu-dropdown-wrapper menu__dropdown-wrapper">
+                                    <label class="{{- section_type -}}__menu-dropdown-opener menu__dropdown-opener" for="{{- section_type -}}-dropdown-trigger-child{{- menu_id -}}-{{- link_index -}}-{{- childlink_index -}}">
                                       {{- icon_arrow -}}
                                       {{- menu_back_label | default: childlink_title -}}
                                     </label>
 
-                                    <ul class="menu__dropdown-list">
+                                    <ul class="{{- section_type -}}__menu-dropdown-list menu__dropdown-list">
                                       {%- for grandchildlink in childlink_items -%}
                                         {%- assign grandchildlink_title = grandchildlink.title -%}
                                         {%- assign grandchildlink_url   = grandchildlink.url -%}
 
                                         {%- if grandchildlink != blank -%}
-                                          <li class="menu__dropdown-item">
-                                            <a class="menu__dropdown-link" href="{{ grandchildlink_url }}">
+                                          <li class="{{- section_type -}}__menu-dropdown-item menu__dropdown-item">
+                                            <a class="{{- section_type -}}__menu-dropdown-link menu__dropdown-link" href="{{ grandchildlink_url }}">
                                               {{- grandchildlink_title -}}
                                             </a>
                                           </li>

@@ -32,6 +32,7 @@
 
   &__opener {
     @include flexbox($align: center);
+
     cursor: pointer;
   }
 
@@ -78,6 +79,7 @@
 
     &-link {
       @include flexbox($align: center, $justify: space-between);
+
       grid-area: drop-1;
       padding: var(--menu-dropdown-link-padding);
       line-height: $font-height-lg;
@@ -93,6 +95,7 @@
 
     &-opener {
       @include flexbox($align: center, $justify: center);
+
       height: var(--menu-dropdown-opener-height);
       width: var(--menu-dropdown-opener-width);
       font-weight: var(--menu-dropdown-opener-weight);
