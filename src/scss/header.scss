@@ -511,7 +511,6 @@
         padding: var(--header-menu-dropdown-wrapper-padding);
         overflow: var(--header-menu-dropdown-wrapper-overflow);
         transform: var(--header-menu-dropdown-wrapper-transform);
-        border-bottom: 1px solid $color-border;
 
         .scrolled & {
           @include media-up(md) {
@@ -712,7 +711,9 @@
   }
 
   &:has(.header__content--outlined) {
-    --header-border-color: transparent;
+    @include media-up(md) {
+      --header-border-color: transparent;
+    }
   }
 
   &:has(.header__inner--sticky) {
