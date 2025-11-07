@@ -1,7 +1,8 @@
 {%- assign app                       = section.blocks | where: "type", "app" | first -%}
 {%- assign block_id                  = '' -%}
 {%- assign color_scheme              = section.settings.color_scheme -%}
-{%- assign header_outline            = section.settings.header_outline -%}
+{%- assign header_layout             = section.settings.header_layout -%}
+{%- assign header_narrow             = false -%}
 {%- assign menu_alignment_horizontal = '' -%}
 {%- assign menu_alignment_vertical   = '' -%}
 {%- assign menu_opener_position      = '' -%}
@@ -14,6 +15,10 @@
 {%- assign show_button_mobile        = '' -%}
 {%- assign show_transparency         = section.settings.show_transparency -%}
 {%- assign sticky_header             = section.settings.sticky_header -%}
+
+{%- if header_layout == 'narrow' -%}
+  {%- assign header_narrow = true -%}
+{%- endif -%}
 
 {%- for block in section.blocks -%}
   {%- case block.type -%}
@@ -96,7 +101,7 @@
     --menu-indent-desktop: 0 20px;
   {%- else -%}
     --menu-bottom-border-top-width-desktop: 100vw;
-    {%- if header_outline == "bordered" -%}
+    {%- if header_layout == 'narrow' -%}
       --menu-bottom-border-top-width-desktop: calc(100% + var(--menu-bottom-margin-desktop) * 2);
     {%- endif -%}
     --menu-bottom-padding-top-desktop: {% if padding_bottom_desktop == 'lg' %}20px{% elsif padding_bottom_desktop == 'md' %}16px{% else %}12px{% endif %} 0 0;
@@ -195,7 +200,7 @@
   style="{{- variables | escape -}}"
 >
   <div class="header__container container">
-    <div class="header__content{% if header_outline == 'bordered' %} header__content--outlined{%- endif -%}">
+    <div class="header__content{% if header_layout == 'narrow' %} header__content--outlined{%- endif -%}">
       {{- element_menu -}}
       {{- element_logo -}}
       <div class="header__icons">
@@ -295,19 +300,19 @@
       },
       {
         "type": "select",
-        "id": "header_outline",
-        "label": "Header outline",
+        "id": "header_layout",
+        "label": "Layout",
         "options": [
           {
-            "value": "none",
-            "label": "None"
+            "value": "wide",
+            "label": "Wide"
           },
           {
-            "value": "bordered",
-            "label": "Bordered"
+            "value": "narrow",
+            "label": "Narrow"
           }
         ],
-        "default": "none"
+        "default": "wide"
       },
       {
         "type": "header",

@@ -42,6 +42,7 @@
   --header-menu-dropdown-wrapper-overflow: clip auto;
   --header-menu-dropdown-wrapper-padding: 25px #{$horizontal-padding-mobile} 50px;
   --header-menu-dropdown-wrapper-position: absolute;
+  --header-menu-dropdown-wrapper-radius: 0;
   --header-menu-dropdown-wrapper-transform: translateX(100%);
   --header-menu-dropdown-wrapper-width: 100vw;
   --header-menu-item-cursor: default;
@@ -64,7 +65,6 @@
   --header-menu-opener-icon-top: 50%;
   --header-menu-opener-icon-transform: translate(0, -50%);
   --header-menu-row: 2;
-  --header-menu-wrapper-background: #{$background-primary};
   --header-menu-wrapper-flex-direction: column;
   --header-menu-wrapper-overflow: clip;
   --header-menu-wrapper-padding: #{$horizontal-padding-mobile};
@@ -117,7 +117,6 @@
     --header-menu-nav-visibility: visible;
     --header-menu-nav-width: auto;
     --header-menu-opener-display: none;
-    --header-menu-wrapper-background: none;
     --header-menu-wrapper-flex-direction: row;
     --header-menu-wrapper-overflow: inherit;
     --header-menu-wrapper-padding: 0;
@@ -139,6 +138,7 @@
     --header-menu-margin-top: var(--padding-top-mobile, 12px);
     --header-menu-list-margin: 0 auto;
     --header-menu-list-width: 100%;
+    --header-menu-wrapper-background: #{$background-primary};
     --header-padding-bottom: var(--padding-bottom-mobile, 12px);
     --header-padding-top: var(--padding-top-mobile, 12px);
     --header-menu-item-padding-bottom: 0;
@@ -160,6 +160,7 @@
       --header-menu-margin-top: var(--padding-top-desktop, 12px);
       --header-menu-list-margin: calc(-1 * var(--header-menu-margin-top)) 0 calc(-1 * var(--header-menu-margin-bottom));
       --header-menu-list-width: calc(100% + var(--menu-margin-x-desktop, 0) * 2);
+      --header-menu-wrapper-background: none;
       --header-padding-bottom: var(--padding-bottom-desktop, 12px);
       --header-padding-top: var(--padding-top-desktop, 12px);
       --header-menu-item-padding-bottom: var(--header-padding-bottom);
@@ -430,7 +431,7 @@
         @include media-up(md) {
           @include grid(
             $display: var(--header-menu-dropdown-list-display),
-            $columns: repeat(auto-fill, minmax(200px, 1fr)),
+            $columns: repeat(auto-fill, minmax(280px, 1fr)),
             $gap: var(--header-menu-dropdown-list-gap)
           );
 
@@ -511,6 +512,8 @@
         padding: var(--header-menu-dropdown-wrapper-padding);
         overflow: var(--header-menu-dropdown-wrapper-overflow);
         transform: var(--header-menu-dropdown-wrapper-transform);
+        border-bottom-left-radius: var(--header-menu-dropdown-wrapper-radius);
+        border-bottom-right-radius: var(--header-menu-dropdown-wrapper-radius);
 
         .scrolled & {
           @include media-up(md) {
@@ -713,6 +716,24 @@
   &:has(.header__content--outlined) {
     @include media-up(md) {
       --header-border-color: transparent;
+    }
+
+    .header__menu-item {
+      /* stylelint-disable-next-line */
+      .header__menu-dropdown-wrapper {
+        @include media-up(md) {
+          --header-menu-dropdown-wrapper-radius: 0;
+        }
+      }
+
+      > .header__menu-dropdown {
+        /* stylelint-disable-next-line */
+        > .header__menu-dropdown-wrapper {
+          @include media-up(md) {
+            --header-menu-dropdown-wrapper-radius: #{$border-radius};
+          }
+        }
+      }
     }
   }
 
