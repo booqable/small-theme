@@ -4,36 +4,67 @@
 // Import mixins
 @use '_helpers/mixins' as *;
 
+// Import components
+@use '_components/payments' as *;
+
 .footer {
   &__wrapper {
+    --footer-border-radius: 0;
+    --footer-bottom-padding-bottom: 10px;
     --footer-content-direction: column;
+    --footer-margin-bottom: 0;
+    --footer-menu-grid-col: 1fr;
+    --footer-menu-grid-justify: start;
     --footer-padding-bottom: var(--padding-bottom-mobile, 16px);
-    --footer-padding-left: 16px;
-    --footer-padding-right: 16px;
+    --footer-padding-left: 0;
+    --footer-padding-right: 0;
     --footer-padding-top: var(--padding-top-mobile, 16px);
 
     color: $color-primary;
     background: $background-primary;
     border-top: 1px solid $color-border;
+    border-radius: var(--footer-border-radius);
+    font-size: clamp(14px, calc($font-size-base - 4px), 18px);
+    margin-bottom: var(--footer-margin-bottom);
+    padding-left: var(--footer-padding-left);
+    padding-right: var(--footer-padding-right);
 
     @include media-up(md) {
+      --footer-bottom-padding-bottom: 0;
       --footer-content-direction: row;
+      --footer-margin-bottom: 0;
+      --footer-menu-grid-col: repeat(auto-fit, minmax(140px, 270px));
+      --footer-menu-grid-justify: end;
       --footer-padding-bottom: var(--padding-bottom-desktop, 40px);
-      --footer-padding-left: 32px;
-      --footer-padding-right: 32px;
+      --footer-padding-left: 0;
+      --footer-padding-right: 0;
       --footer-padding-top: var(--padding-top-desktop, 40px);
     }
 
     @include media-up(xl) {
-      --footer-padding-left: 80px;
-      --footer-padding-right: 80px;
+      --footer-padding-left: 0;
+      --footer-padding-right: 0;
     }
 
     .footer__container & {
+      --footer-border-radius: #{$border-radius-block};
+      --footer-margin-bottom: 16px;
+      --footer-padding-left: 16px;
+      --footer-padding-right: 16px;
+
       border: 1px solid $color-border;
-      border-radius: $border-radius-block;
-      padding-left: var(--footer-padding-left);
-      padding-right: var(--footer-padding-right);
+
+      @include media-up(md) {
+        --footer-margin-bottom: 32px;
+        --footer-padding-left: 32px;
+        --footer-padding-right: 32px;
+      }
+
+      @include media-up(xl) {
+        --footer-margin-bottom: 50px;
+        --footer-padding-left: 80px;
+        --footer-padding-right: 80px;
+      }
     }
 
     &--padding-top {
@@ -54,12 +85,40 @@
   }
 
   &__links {
+    @include grid(
+      $columns: var(--footer-menu-grid-col),
+      $justify: var(--footer-menu-grid-justify),
+      $gap: 16px
+    );
+
     flex: 1 1 auto;
+    padding: 0 0 40px;
   }
 
   &__info {
-    padding-top: 28px;
-    font-size: clamp(14px, calc($font-size-base - 4px), 18px);
+    padding: 28px 0 16px;
+  }
+
+  &__bottom {
+    @include flexbox($align: center, $justify: space-between, $wrap: wrap, $gap: 24px);
+
+    padding: 32px 0 var(--footer-bottom-padding-bottom);
+    border-top: 1px solid $color-border;
+
+    .footer__menu {
+      &-list {
+        @include flexbox($align: center, $justify: center, $wrap: wrap, $gap: 24px);
+      }
+
+      &-item {
+        padding: 0;
+      }
+
+      &-link {
+        font-weight: $font-weight-regular;
+        font-size: inherit;
+      }
+    }
   }
 
   .payments {

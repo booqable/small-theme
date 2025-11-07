@@ -66,10 +66,12 @@
     display: block !important;
 
     &-item {
-      display: grid;
-      grid-template-columns: 1fr min-content;
-      grid-template-areas: "drop-1 item-2";
-      align-items: center;
+      @include grid(
+        $columns: 1fr min-content,
+        $areas: 'drop-1 item-2',
+        $align: center
+      );
+
       padding: 0;
     }
 
@@ -126,6 +128,8 @@
   }
 
   &__item {
+    padding: 0 0 10px;
+
     &-icon {
       @include flexbox($align: center, $justify: center);
 

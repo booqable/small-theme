@@ -123,3 +123,79 @@ $breakpoints: (
     gap: $gap;
   }
 }
+
+// Grid mixin
+@mixin grid(
+  $display: null,
+  $areas: null,
+  $align: null,
+  $align-content: null,
+  $auto-columns: null,
+  $auto-flow: null,
+  $auto-rows: null,
+  $columns: null,
+  $column-gap: null,
+  $gap: null,
+  $justify: null,
+  $justify-items: null,
+  $rows: null,
+  $row-gap: null
+) {
+  @if $display {
+    display: $display;
+  } @else {
+    display: grid;
+  }
+
+  @if $columns {
+    grid-template-columns: $columns;
+  }
+
+  @if $rows {
+    grid-template-rows: $rows;
+  }
+
+  @if $areas {
+    grid-template-areas: $areas;
+  }
+
+  @if $gap {
+    gap: $gap;
+  }
+
+  @if $column-gap {
+    column-gap: $column-gap;
+  }
+
+  @if $row-gap {
+    row-gap: $row-gap;
+  }
+
+  @if $align-content {
+    align-content: $align-content;
+  }
+
+  @if $align {
+    align-items: $align;
+  }
+
+  @if $justify {
+    justify-content: $justify;
+  }
+
+  @if $justify-items {
+    justify-items: $justify-items;
+  }
+
+  @if $auto-flow {
+    grid-auto-flow: $auto-flow;
+  }
+
+  @if $auto-columns {
+    grid-auto-columns: $auto-columns;
+  }
+
+  @if $auto-rows {
+    grid-auto-rows: $auto-rows;
+  }
+}

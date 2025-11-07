@@ -55,30 +55,6 @@
     {%- when 'lg' -%}
       --padding-top-mobile: 50px;
   {%- endcase -%}
-
-  {%- if menu_opener_position == 'left' -%}
-    --menu-indent-mobile: 0 20px 0 0;
-    --menu-opener-position: left;
-  {%- else -%}
-    --menu-indent-mobile: 0 0 0 8px;
-  {%- endif -%}
-
-  {%- if menu_alignment_vertical == 'top' -%}
-    --menu-vertical-alignment: top;
-    --menu-border-width-desktop: 0;
-    --menu-bottom-border-top-width-desktop: 0;
-    --menu-bottom-padding-top-desktop: 0;
-    --menu-margin-x-desktop: auto;
-    --menu-indent-desktop: 0 20px;
-  {%- else -%}
-    --menu-bottom-border-top-width-desktop: 100vw;
-    {%- if header_layout == "narrow" -%}
-      --menu-bottom-border-top-width-desktop: calc(100% + var(--menu-bottom-margin-desktop) * 2);
-    {%- endif -%}
-    --menu-bottom-padding-top-desktop: {% if padding_bottom_desktop == 'lg' %}20px{% elsif padding_bottom_desktop == 'md' %}16px{% else %}12px{% endif %} 0 0;
-    --menu-margin-x-desktop: -22px;
-    --menu-indent-desktop: {% if padding_bottom_desktop == 'lg' %}20px{% elsif padding_bottom_desktop == 'md' %}16px{% else %}12px{% endif %} 0 0;
-  {%- endif -%}
 {%- endcapture -%}
 {% comment %} CSS variables end {% endcomment %}
 
@@ -131,15 +107,13 @@
       {%- capture element_socials -%}
         {%- render 'socials', settings: settings -%}
       {%- endcapture -%}
+
     {%- when 'payments' -%}
-      {% comment %} {%- if payment_methods.size > 0 -%} {% endcomment %}
+      {%- if payment_methods.size > 0 -%}
         {%- capture element_payments -%}
-          <div class="payments">
-            {% comment %} {%- render "payments", payments: payment_methods -%} {% endcomment %}
-            {%- include "payments" -%}
-          </div>
+            {%- render "payments", payments: payment_methods -%}
         {%- endcapture -%}
-      {% comment %} {%- endif -%} {% endcomment %}
+      {%- endif -%}
   {%- endcase -%}
 {%- endfor -%}
 
@@ -173,14 +147,12 @@
         <div class="footer__bottom">
           {%- if footer_bottom_text != blank or show_powered_by -%}
             <div class="footer__copy">
-              <p>
-                {%- if footer_bottom_text != blank -%}
-                  {{ footer_bottom_text }}
-                  {{- element_powered_by -}}
-                {%- else -%}
-                  {{- element_powered_by -}}
-                {%- endif -%}
-              </p>
+              {%- if footer_bottom_text != blank -%}
+                {{ footer_bottom_text }}
+                {{- element_powered_by -}}
+              {%- else -%}
+                {{- element_powered_by -}}
+              {%- endif -%}
             </div>
           {%- endif -%}
 
@@ -234,12 +206,12 @@
         "label": "Layout",
         "options": [
           {
-            "value": "narrow",
-            "label": "Narrow"
-          },
-          {
             "value": "wide",
             "label": "Wide"
+          },
+          {
+            "value": "narrow",
+            "label": "Narrow"
           }
         ],
         "default": "wide"

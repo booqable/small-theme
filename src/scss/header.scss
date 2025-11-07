@@ -17,6 +17,7 @@
   --header-content-areas: 'logo icons menu';
   --header-content-columns: 1fr auto auto;
   --header-content-gap: 8px;
+  --header-content-rows: auto;
   --header-logo-visibility: 1;
   --header-logo-floated-visibility: 0;
   --header-menu-dropdown-events: none;
@@ -140,6 +141,8 @@
     --header-menu-list-width: 100%;
     --header-padding-bottom: var(--padding-bottom-mobile, 12px);
     --header-padding-top: var(--padding-top-mobile, 12px);
+    --header-menu-item-padding-bottom: 0;
+    --header-menu-item-padding-top: 0;
 
     color: $color-primary;
     background: var(--header-background);
@@ -177,27 +180,32 @@
   }
 
   &__content {
-    display: grid;
-    justify-content: space-between;
-    align-items: stretch;
-    grid-template-areas: var(--header-content-areas);
-    grid-template-columns: var(--header-content-columns);
-
-    [style*="--menu-opener-position: left"] & {
-      --header-content-areas: 'menu logo icons';
-      --header-content-columns: auto 1fr auto;
-    }
+    @include grid(
+      $columns: var(--header-content-columns),
+      $rows: var(--header-content-rows),
+      $areas: var(--header-content-areas),
+      $align: stretch,
+      $justify: space-between
+    );
 
     @include media-up(md) {
-      --header-content-areas: 'logo icons'
-                              'menu menu';
+      --header-content-areas: 'logo icons' 'menu menu';
       --header-content-columns: 1fr auto;
+      --header-content-rows: auto auto;
+    }
 
-      grid-template-rows: auto auto;
+    [style*="--menu-opener-position: left"] & {
+      @include media-down(md) {
+        --header-content-areas: 'menu logo icons';
+        --header-content-columns: auto 1fr auto;
+      }
+    }
 
-      [style*="--menu-vertical-alignment: top"] & {
+    [style*="--menu-vertical-alignment: top"] & {
+      @include media-up(md) {
         --header-content-areas: 'logo menu icons';
         --header-content-columns: 220px 1fr 220px;
+        --header-content-rows: auto;
       }
     }
 
@@ -420,10 +428,13 @@
         margin: var(--header-menu-dropdown-wrapper-margin);
 
         @include media-up(md) {
+          @include grid(
+            $display: var(--header-menu-dropdown-list-display),
+            $columns: repeat(auto-fill, minmax(200px, 1fr)),
+            $gap: var(--header-menu-dropdown-list-gap)
+          );
+
           padding: var(--header-menu-dropdown-list-padding);
-          display: var(--header-menu-dropdown-list-display);
-          grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
-          gap: var(--header-menu-dropdown-list-gap);
         }
 
         #{&} {
@@ -573,15 +584,17 @@
     }
 
     &-item {
-      display: grid;
-      grid-template-columns: 1fr min-content;
-      grid-template-areas: "item-1 item-2";
-      align-items: center;
+      @include grid(
+        $columns: 1fr min-content,
+        $areas: 'item-1 item-2',
+        $align: center
+      );
+
       cursor: var(--header-menu-item-cursor);
+      padding: var(--header-menu-item-padding-top) 0 var(--header-menu-item-padding-bottom);
 
       @include media-up(md) {
         height: 100%;
-        padding: var(--header-menu-item-padding-top) 0 var(--header-menu-item-padding-bottom);
       }
 
       &-icon {

@@ -1,0 +1,64 @@
+// Import variables
+@use '../variables' as *;
+
+// Import mixins
+@use '../_helpers/mixins' as *;
+
+$payment-indent-bottom: $social-icon-spacing;
+$payment-indent-x: calc($social-icon-spacing + 1px);
+
+.payments {
+  --payments-position: flex-start;
+
+  padding: 24px 0;
+  font-size: calc($social-size + 16px);
+
+  @include media-up(md) {
+    --payments-position: flex-end;
+  }
+}
+
+.payment {
+  @include flexbox($align: center, $justify: var(--payments-position), $wrap: wrap);
+
+  margin: 0 calc(-1 * $payment-indent-x) calc(-1 * $payment-indent-bottom);
+
+  svg {
+    width: 45px;
+    height: 37px;
+  }
+
+  i {
+    @include flexbox($align: center, $justify: center);
+
+    margin: 0 $payment-indent-x $payment-indent-bottom;
+  }
+
+  span {
+    @include flexbox($align: center, $justify: center);
+
+    margin: 0 $payment-indent-x $payment-indent-bottom;
+
+    &[title="Bancontact"] .st1 {
+      fill: currentcolor !important;
+    }
+
+    &:not([title="Bancontact"]) {
+      path {
+        fill: currentcolor !important;
+      }
+    }
+
+    &[title="Giropay"] {
+      .st1 {
+        fill: $background-primary !important;
+      }
+
+      path {
+        &:not(.st1) {
+          fill: currentcolor !important;
+        }
+      }
+    }
+  }
+}
