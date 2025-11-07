@@ -158,7 +158,7 @@
         ],
         "settings": {
           "color_scheme": "set-1",
-          "header_layout": "wide",
+          "header_outline": "wide",
           "padding_bottom_desktop": "lg",
           "padding_bottom_mobile": "md",
           "padding_top_desktop": "lg",
