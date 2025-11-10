@@ -167,6 +167,70 @@
           "sticky_header": true
         },
         "disabled": null
+      },
+      "footer": {
+        "type": "footer",
+        "blocks": {
+          "logo": {
+            "type": "logo",
+            "settings": {
+              "logo_custom_title": "{{ shop.name }}",
+              "logo_image": "booqable://assets/image-store-logo.png"
+            },
+            "disabled": null
+          },
+          "content": {
+            "type": "content",
+            "settings": {
+              "content_text": "<p>Address: <br> Blokhuisplein 40, 8911 LJ Leeuwarden</p><p>Contact: <br> <a href=\"tel:18001234567\">1800 123 4567</a> <br> <a href=\"mailto:info@booqable.com\">info@booqable.com</a></p>"
+            },
+            "disabled": null
+          },
+          "menu": {
+            "type": "menu",
+            "settings": {
+              "menu": "main-menu"
+            },
+            "disabled": null
+          },
+          "menu_456789": {
+            "type": "menu",
+            "settings": {
+              "menu": "main-menu"
+            },
+            "disabled": null
+          },
+          "socials": {
+            "type": "socials",
+            "settings": {},
+            "disabled": null
+          },
+          "payments": {
+            "type": "payments",
+            "settings": {},
+            "disabled": null
+          }
+        },
+        "block_order": [
+          "logo",
+          "content",
+          "menu",
+          "menu_456789",
+          "socials",
+          "payments"
+        ],
+        "settings": {
+          "color_scheme": "set-1",
+          "footer_bottom_menu": "main-menu",
+          "footer_bottom_text": "{{ \"now\" | date: \"%Y\" }} {{ shop.name }}. All right reserved.",
+          "footer_layout": "wide",
+          "padding_bottom_desktop": "lg",
+          "padding_bottom_mobile": "md",
+          "padding_top_desktop": "lg",
+          "padding_top_mobile": "md",
+          "privacy_policy_link_text": "Privacy policy"
+        },
+        "disabled": null
       }
     },
     "transition_duration": "0.3"
