@@ -1,8 +1,8 @@
 {
   "name": "Home",
   "sections": {
-    "example": {
-      "type": "example",
+    "hero": {
+      "type": "hero",
       "blocks": {
         "block-id": {
           "type": "block-id",
@@ -20,6 +20,6 @@
     }
   },
   "order": [
-    "example"
+    "hero"
   ]
 }

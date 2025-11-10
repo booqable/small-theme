@@ -1,0 +1,141 @@
+<section>
+  <h1>Trailer rentals
+for every occasion</h1>
+</section>
+
+{% schema %}
+  {
+    "name": "Hero",
+    "tag": "section",
+    "class": "hero",
+    "settings": [
+      {
+        "type": "header",
+        "content": "General settings"
+      },
+      {
+        "type": "color_scheme",
+        "id": "color_scheme",
+        "label": "Color scheme",
+        "default": "set-1"
+      },
+      {
+        "type": "header",
+        "content": "Desktop settings"
+      },
+      {
+        "type": "select",
+        "id": "padding_top_desktop",
+        "label": "Padding top",
+        "options": [
+          {
+            "value": "sm",
+            "label": "Small"
+          },
+          {
+            "value": "md",
+            "label": "Medium"
+          },
+          {
+            "value": "lg",
+            "label": "Large"
+          }
+        ],
+        "default": "lg"
+      },
+      {
+        "type": "select",
+        "id": "padding_bottom_desktop",
+        "label": "Padding bottom",
+        "options": [
+          {
+            "value": "sm",
+            "label": "Small"
+          },
+          {
+            "value": "md",
+            "label": "Medium"
+          },
+          {
+            "value": "lg",
+            "label": "Large"
+          }
+        ],
+        "default": "lg"
+      },
+      {
+        "type": "select",
+        "id": "hero_layout",
+        "label": "Layout",
+        "options": [
+          {
+            "value": "wide",
+            "label": "Wide"
+          },
+          {
+            "value": "narrow",
+            "label": "Narrow"
+          }
+        ],
+        "default": "wide"
+      },
+      {
+        "type": "header",
+        "content": "Mobile settings"
+      },
+      {
+        "type": "select",
+        "id": "padding_top_mobile",
+        "label": "Padding top",
+        "options": [
+          {
+            "value": "sm",
+            "label": "Small"
+          },
+          {
+            "value": "md",
+            "label": "Medium"
+          },
+          {
+            "value": "lg",
+            "label": "Large"
+          }
+        ],
+        "default": "md"
+      },
+      {
+        "type": "select",
+        "id": "padding_bottom_mobile",
+        "label": "Padding bottom",
+        "options": [
+          {
+            "value": "sm",
+            "label": "Small"
+          },
+          {
+            "value": "md",
+            "label": "Medium"
+          },
+          {
+            "value": "lg",
+            "label": "Large"
+          }
+        ],
+        "default": "md"
+      }
+    ],
+    "blocks": [
+      {
+        "type": "block-id",
+        "name": "Text Block",
+        "settings": [
+          {
+            "type": "text",
+            "id": "text_content",
+            "label": "Text Content"
+          }
+        ]
+      }
+    ]
+}
+{% endschema %}
