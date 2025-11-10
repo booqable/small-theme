@@ -5,23 +5,23 @@
 @use '../_helpers/mixins' as *;
 
 .social-networks {
-  $social-size: var(--social-size);
-  $social-icon-spacing: var(--social-icon-spacing);
-
   display: flex;
   flex-wrap: wrap;
   margin: 0 calc(-1 * $social-icon-spacing) calc(-1 * $social-icon-spacing);
   font-size: $social-size;
-
-  @include media-up(md) {
-    justify-content: flex-end;
-  }
 
   &__item {
     margin: 0 $social-icon-spacing $social-icon-spacing;
   }
 
   &__link {
+    @include flexbox($align: center, $justify: center);
+
+    width: $button-width;
+    height: $button-height;
+    border-radius: $button-border-radius;
+    background: $button-background;
+
     @include hover {
       opacity: 1;
     }

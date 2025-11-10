@@ -1,0 +1,48 @@
+{%- comment -%}
+
+  This snippet renders the payment icons
+
+  Parameters:
+  - payments: array of payment method identifiers
+
+  Required parameters:
+  - payments
+
+  Usage:
+
+  {%- render 'payments', payments: payment_methods  -%}
+
+{%- endcomment -%}
+
+<div class="payments">
+  <div class="payment">
+    {%- for provider in payments -%}
+      {%- case provider -%}
+        {%- when "stripe" -%}
+          <i class="fa-brands fa-cc-stripe"></i>
+        {%- when "creditcard" -%}
+          <i class="fa-brands fa-cc-visa" title="Visa"></i>
+          <i class="fa-brands fa-cc-mastercard" title="MasterCard"></i>
+          <i class="fa-brands fa-cc-amex" title="American Express"></i>
+        {%- when "paypal" -%}
+          <i class="fa-brands fa-cc-paypal" title="PayPal"></i>
+        {%- when "applepay" -%}
+          <i class="fa-brands fa-apple-pay" title="ApplePay"></i>
+        {%- when "googlepay" -%}
+          <i class="fa-brands fa-google-pay" title="GooglePay"></i>
+        {%- when "ideal" -%}
+          <i class="fa-brands fa-ideal" title="iDEAL"></i>
+        {%- when "alipay" -%}
+          <i class="fa-brands fa-alipay" title="Alipay"></i>
+        {%- when "p24" -%}
+          {%- render "icon-p24" -%}
+        {%- when "eps" -%}
+          {%- render "icon-eps" -%}
+        {%- when "bancontact" -%}
+          {%- render "icon-bancontact" -%}
+        {%- when "giropay" -%}
+          {%- render "icon-giropay" -%}
+      {%- endcase -%}
+    {%- endfor -%}
+  </div>
+</div>

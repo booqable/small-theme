@@ -1,0 +1,414 @@
+{{ "footer.css" | asset_url | stylesheet_tag }}
+
+{%- assign block_id                 = '' -%}
+{%- assign color_scheme             = section.settings.color_scheme -%}
+{%- assign element_menu             = '' -%}
+{%- assign footer_bottom_menu       = section.settings.footer_bottom_menu -%}
+{%- assign footer_bottom_text       = section.settings.footer_bottom_text -%}
+{%- assign footer_layout            = section.settings.footer_layout -%}
+{%- assign footer_narrow            = false -%}
+{%- assign padding_bottom_desktop   = section.settings.padding_bottom_desktop -%}
+{%- assign padding_bottom_mobile    = section.settings.padding_bottom_mobile -%}
+{%- assign padding_top_desktop      = section.settings.padding_top_desktop -%}
+{%- assign padding_top_mobile       = section.settings.padding_top_mobile -%}
+{%- assign powered_by_booqable_text = 'Powered by Booqable' -%}
+{%- assign powered_by_booqable_url  = 'https://booqable.com/?source=Shop&campaign=Cart' -%}
+{%- assign section_type             = section.type -%}
+
+{%- if footer_layout == 'narrow' -%}
+  {%- assign footer_narrow = true -%}
+{%- endif -%}
+
+{%- if show_powered_by -%}
+  {%- capture element_powered_by -%}
+    &nbsp;|&nbsp;
+    <a href="{{ powered_by_booqable_url }}" target="_blank" aria-label="Powered by Booqable Rental Software">{{ powered_by_booqable_text }}</a>
+  {%- endcapture -%}
+{%- endif -%}
+
+{% comment %} CSS variables start {% endcomment %}
+{%- capture variables -%}
+  {%- case padding_bottom_desktop -%}
+    {%- when 'md' -%}
+      --padding-bottom-desktop: 60px;
+    {%- when 'lg' -%}
+      --padding-bottom-desktop: 80px;
+  {%- endcase -%}
+
+  {%- case padding_bottom_mobile -%}
+    {%- when 'md' -%}
+      --padding-bottom-mobile: 32px;
+    {%- when 'lg' -%}
+      --padding-bottom-mobile: 50px;
+  {%- endcase -%}
+
+  {%- case padding_top_desktop -%}
+    {%- when 'md' -%}
+      --padding-top-desktop: 60px;
+    {%- when 'lg' -%}
+      --padding-top-desktop: 80px;
+  {%- endcase -%}
+
+  {%- case padding_top_mobile -%}
+    {%- when 'md' -%}
+      --padding-top-mobile: 32px;
+    {%- when 'lg' -%}
+      --padding-top-mobile: 50px;
+  {%- endcase -%}
+{%- endcapture -%}
+{% comment %} CSS variables end {% endcomment %}
+
+{%- for block in section.blocks -%}
+  {%- case block.type -%}
+    {%- when 'logo' -%}
+      {%- capture element_logo -%}
+        {%- assign logo         = block.settings.logo_image -%}
+        {%- assign logo_title   = block.settings.logo_custom_title -%}
+
+        {%- render 'logo'
+            logo: logo,
+            logo_title: logo_title,
+            routes: routes,
+            section_type: section_type,
+            shop: shop
+        -%}
+      {%- endcapture -%}
+
+    {%- when 'content' -%}
+      {%- capture element_content -%}
+        {%- assign content_text = block.settings.content_text -%}
+
+        <div class="footer__info">
+          {{ content_text }}
+        </div>
+      {%- endcapture -%}
+
+    {%- when 'menu' -%}
+      {%- assign block_id = block.id -%}
+      {%- assign menu     = block.settings.menu -%}
+
+      {%- if menu != blank -%}
+        {%- capture menu_instant -%}
+          {%- render 'menu'
+              menu: menu,
+              menu_id: block_id,
+              menu_levels: 1,
+              section_type: section_type,
+              settings: settings,
+              socials: false,
+              use_opener: false
+          -%}
+        {%- endcapture -%}
+
+        {%- assign element_menu = element_menu | append: menu_instant -%}
+      {%- endif -%}
+
+    {%- when 'socials' -%}
+      {%- capture element_socials -%}
+        {%- render 'socials', settings: settings -%}
+      {%- endcapture -%}
+
+    {%- when 'payments' -%}
+      {%- if payment_methods.size > 0 -%}
+        {%- capture element_payments -%}
+            {%- render "payments", payments: payment_methods -%}
+        {%- endcapture -%}
+      {%- endif -%}
+  {%- endcase -%}
+{%- endfor -%}
+
+{%- if footer_narrow -%}
+  <div class="footer__container container">
+{%- endif -%}
+  <div
+    class="footer__wrapper footer__wrapper--padding-top footer__wrapper--padding-bottom color-{{- color_scheme.id -}}"
+    style="{{- variables | escape -}}"
+  >
+    {%- unless footer_narrow -%}
+    <div class="footer__container container">
+    {%- endunless -%}
+      <div class="footer__top">
+        <div class="footer__content">
+          {{- element_logo -}}
+          {{- element_content -}}
+        </div>
+
+        {%- if element_menu != blank -%}
+          <div class="footer__links">
+            {{ element_menu }}
+          </div>
+        {%- endif -%}
+
+        {{- element_socials -}}
+        {{- element_payments -}}
+      </div>
+
+      {%- if footer_bottom_text != blank or footer_bottom_menu != blank or show_powered_by -%}
+        <div class="footer__bottom">
+          {%- if footer_bottom_text != blank or show_powered_by -%}
+            <div class="footer__copy">
+              {%- if footer_bottom_text != blank -%}
+                {{ footer_bottom_text }}
+                {{- element_powered_by -}}
+              {%- else -%}
+                {{- element_powered_by -}}
+              {%- endif -%}
+            </div>
+          {%- endif -%}
+
+            {%- if footer_bottom_menu != blank -%}
+              {%- assign menu_id = section.key -%}
+              {%- assign menu    = section.settings.footer_bottom_menu -%}
+
+              {%- if menu != blank -%}
+                {%- render 'menu'
+                    menu: menu,
+                    menu_id: menu_id,
+                    menu_levels: 1,
+                    section_type: section_type,
+                    settings: settings,
+                    socials: false,
+                    use_opener: false
+                -%}
+              {%- endif -%}
+            {%- endif -%}
+        </div>
+      {%- endif -%}
+    {%- unless footer_narrow -%}
+    </div>
+    {%- endunless -%}
+  </div>
+{%- if footer_narrow -%}
+  </div>
+{%- endif -%}
+
+{% schema %}
+  {
+    "name": "Footer",
+    "tag": "footer",
+    "class": "footer",
+    "templates": [],
+    "layout": true,
+    "settings":[
+      {
+        "type": "header",
+        "content": "General settings"
+      },
+      {
+        "type": "color_scheme",
+        "id": "color_scheme",
+        "label": "Color scheme",
+        "default": "set-1"
+      },
+      {
+        "type": "select",
+        "id": "footer_layout",
+        "label": "Layout",
+        "options": [
+          {
+            "value": "wide",
+            "label": "Wide"
+          },
+          {
+            "value": "narrow",
+            "label": "Narrow"
+          }
+        ],
+        "default": "wide"
+      },
+      {
+        "type": "text",
+        "id": "footer_bottom_text",
+        "label": "Bottom message",
+        "default": "{{ 'now' | date: '%Y' }} {{ shop.name }}. All right reserved.",
+        "info": "This template keeps the year auto-updated and returns the name of your company. Leave blank to hide the text"
+      },
+      {
+        "type": "text",
+        "id": "privacy_policy_link_text",
+        "label": "Privacy policy link text",
+        "default": "Privacy policy"
+      },
+      {
+        "type": "menu",
+        "id": "footer_bottom_menu",
+        "label": "Bottom menu",
+        "info": "This menu located at the very bottom of footer"
+      },
+      {
+        "type": "header",
+        "content": "Desktop settings"
+      },
+      {
+        "type": "select",
+        "id": "padding_top_desktop",
+        "label": "Padding top",
+        "options": [
+          {
+            "value": "sm",
+            "label": "Small"
+          },
+          {
+            "value": "md",
+            "label": "Medium"
+          },
+          {
+            "value": "lg",
+            "label": "Large"
+          }
+        ],
+        "default": "lg"
+      },
+      {
+        "type": "select",
+        "id": "padding_bottom_desktop",
+        "label": "Padding bottom",
+        "options": [
+          {
+            "value": "sm",
+            "label": "Small"
+          },
+          {
+            "value": "md",
+            "label": "Medium"
+          },
+          {
+            "value": "lg",
+            "label": "Large"
+          }
+        ],
+        "default": "lg"
+      },
+      {
+        "type": "header",
+        "content": "Mobile settings"
+      },
+      {
+        "type": "select",
+        "id": "padding_top_mobile",
+        "label": "Padding top",
+        "options": [
+          {
+            "value": "sm",
+            "label": "Small"
+          },
+          {
+            "value": "md",
+            "label": "Medium"
+          },
+          {
+            "value": "lg",
+            "label": "Large"
+          }
+        ],
+        "default": "md"
+      },
+      {
+        "type": "select",
+        "id": "padding_bottom_mobile",
+        "label": "Padding bottom",
+        "options": [
+          {
+            "value": "sm",
+            "label": "Small"
+          },
+          {
+            "value": "md",
+            "label": "Medium"
+          },
+          {
+            "value": "lg",
+            "label": "Large"
+          }
+        ],
+        "default": "md"
+      }
+    ],
+    "blocks": [
+      {
+        "type": "logo",
+        "name": "Logo",
+        "limit": 1,
+        "settings": [
+          {
+            "type": "header",
+            "content": "General settings"
+          },
+          {
+            "type": "paragraph",
+            "content": "Use WebP, PNG, JPG high-quality image (640px or larger) for best results on all screen sizes"
+          },
+          {
+            "type": "image_picker",
+            "id": "logo_image",
+            "label": "Image"
+          },
+          {
+            "type": "text",
+            "id": "logo_custom_title",
+            "label": "Site title",
+            "info": "Displayed when no logo is added"
+          }
+        ]
+      },
+      {
+        "type": "content",
+        "name": "Content",
+        "limit": 1,
+        "settings": [
+          {
+            "type": "header",
+            "content": "General settings"
+          },
+          {
+            "type": "contentEditor",
+            "id": "content_text",
+            "label": "Text"
+          }
+        ]
+      },
+      {
+        "type": "menu",
+        "name": "Menu",
+        "limit": 2,
+        "settings": [
+          {
+            "type": "header",
+            "content": "General settings"
+          },
+          {
+            "type": "menu",
+            "id": "menu",
+            "label": "Menu",
+            "info": "Submenu isn't supported"
+          }
+        ]
+      },
+      {
+        "type": "socials",
+        "name": "Socials",
+        "limit": 1,
+        "settings": [
+          {
+            "type": "paragraph",
+            "content": "Configurable in theme general settings"
+          }
+        ]
+      },
+      {
+        "type": "payments",
+        "name": "Payments",
+        "limit": 1,
+        "settings": [
+          {
+            "type": "paragraph",
+            "content": "Displays all possible payment methods, connected in Payment providers"
+          }
+        ]
+      },
+      {
+        "type": "@app"
+      }
+    ]
+  }
+{% endschema %}
