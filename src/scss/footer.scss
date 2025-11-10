@@ -82,6 +82,14 @@
 
   &__content {
     flex: 0 1 auto;
+
+    &:not(&:only-child) {
+      .footer__logo {
+        &:only-child {
+          margin-bottom: 40px;
+        }
+      }
+    }
   }
 
   &__links {
