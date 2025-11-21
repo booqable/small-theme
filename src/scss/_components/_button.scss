@@ -101,6 +101,6 @@
   vertical-align: top;
 
   @include media-up(xs) {
-    --btn-wrapper-display: inline-block;
+    --btn-wrapper-display: inline-flex;
   }
 }

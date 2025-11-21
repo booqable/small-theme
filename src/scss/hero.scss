@@ -56,6 +56,7 @@
     --hero-content-direction: column;
     --hero-content-justify: var(--hero-content-horizontal-mobile, flex-start);
     --hero-content-text-align: var(--hero-content-text-align-mobile, left);
+    --hero-date-picker-text-align: var(--hero-content-text-align);
     --hero-height: var(--hero-height-mobile, auto);
     --hero-padding-bottom: var(--padding-bottom-mobile, 20px);
     --hero-padding-top: var(--padding-top-mobile, 20px);
@@ -72,6 +73,8 @@
     overflow: clip;
 
     @include media-up(md) {
+      --hero-col-content-align: var(--hero-content-horizontal-desktop, flex-start);
+      --hero-col-content-justify: var(--hero-content-vertical-desktop, flex-start);
       --hero-col-padding-left: var(--hero-padding-left);
       --hero-col-padding-right: var(--hero-padding-right);
       --hero-content-align: var(--hero-content-vertical-desktop, flex-start);
@@ -340,6 +343,13 @@
     @include flexbox($justify: var(--hero-content-justify));
 
     width: var(--hero-btn-width);
+    text-align: var(--hero-date-picker-text-align);
+
+    [style*="--hero-content-horizontal-mobile: flex-end"] & {
+      @include media-down(md) {
+        --hero-date-picker-text-align: center;
+      }
+    }
 
     .date-picker__component {
       width: var(--hero-btn-width);

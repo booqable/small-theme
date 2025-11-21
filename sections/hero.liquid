@@ -138,7 +138,7 @@
         {%- endif -%}
       {%- endif -%}
 
-    {%- elsif block.type == 'info' -%}
+    {%- elsif block.type == 'highlights' -%}
       {%- assign blocks_info_count = blocks_info_count | plus: 1 -%}
 
       {%- if first_info_index == -1 -%}
@@ -223,7 +223,7 @@
                           {%- endif -%}
                         {%- endif -%}
 
-                      {%- when 'info' -%}
+                      {%- when 'highlights' -%}
                         {%- assign heading = block.settings.heading -%}
                         {%- assign text    = block.settings.text -%}
 
@@ -345,7 +345,7 @@
                     {%- endif -%}
                   {%- endif -%}
 
-                {%- when 'info' -%}
+                {%- when 'highlights' -%}
                   {%- assign heading = block.settings.heading -%}
                   {%- assign text    = block.settings.text -%}
 
@@ -801,8 +801,8 @@
         ]
       },
       {
-        "type": "info",
-        "name": "Info",
+        "type": "highlights",
+        "name": "Highlights",
         "limit": 2,
         "settings": [
           {
