@@ -8,7 +8,7 @@
   --search-dropdown-delay: 50ms;
   --search-dropdown-duration: #{$transition-duration};
   --search-dropdown-events: none;
-  --search-dropdown-padding: #{$horizontal-padding-mobile};
+  --search-dropdown-padding: #{$horizontal-padding-sm};
   --search-dropdown-transform: translateY(-100%);
   --search-dropdown-visibility: hidden;
   --search-input-width: 100%;
@@ -26,7 +26,7 @@
   --search-input-reset-right: 7px;
 
   @include media-up(md) {
-    --search-dropdown-padding: #{$horizontal-padding};
+    --search-dropdown-padding: #{$horizontal-padding-lg};
     --search-icon-form-width: auto;
     --search-input-reset-left: 100%;
     --search-input-reset-right: auto;

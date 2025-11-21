@@ -40,11 +40,11 @@
     --button-width: 40px;
     {% case settings.button_size %}
       {%- when 'sm' -%}
-        --button-padding: 5px 12px;
+        --button-padding: 8px 16px;
       {%- when 'md' -%}
-        --button-padding: 5px 16px;
-      {%- when 'xl' -%}
-        --button-padding: 5px 20px;
+        --button-padding: 12px 20px;
+      {%- when 'lg' -%}
+        --button-padding: 17px 26px;
     {% endcase %}
     --font-body:             "{{ settings.font_body.family | default: Roboto }}", {{ settings.font_body.fallback_families | default: sans-serif }};
     --font-heading:          "{{ settings.font_heading.family | default: Nippo }}", {{ settings.font_heading.fallback_families | default: sans-serif }};
@@ -56,12 +56,12 @@
     --font-height-xl:        {{ settings.font_height_xl | default: "1.5" }};
     --font-size-base:        {{ settings.font_size_base | append: "px" | default: "16px" }};
     --font-size-button:      {{ settings.button_font_size | append: "px" | default: "16px" }};
-    --font-size-h1:          {{ settings.font_size_h1 | append: "px" | default: "80px" }};
-    --font-size-h2:          {{ settings.font_size_h2 | append: "px" | default: "56px" }};
-    --font-size-h3:          {{ settings.font_size_h3 | append: "px" | default: "40px" }};
-    --font-size-h4:          {{ settings.font_size_h4 | append: "px" | default: "32px" }};
-    --font-size-h5:          {{ settings.font_size_h5 | append: "px" | default: "24px" }};
-    --font-size-h6:          {{ settings.font_size_h6 | append: "px" | default: "20px" }};
+    --font-size-h1:          {{ settings.font_size_h1 }};
+    --font-size-h2:          {{ settings.font_size_h2 }};
+    --font-size-h3:          {{ settings.font_size_h3 }};
+    --font-size-h4:          {{ settings.font_size_h4 | default: "32" }};
+    --font-size-h5:          {{ settings.font_size_h5 | default: "24" }};
+    --font-size-h6:          {{ settings.font_size_h6 | default: "20" }};
     --font-size-tagline:     {{ settings.font_size_tagline | append: "px" | default: "18px" }};
     --font-weight-button:    {{ settings.button_font_weight | default: "400" }};
     --font-weight-h1:        {{ settings.font_weight_h1 | default: "400" }};
@@ -74,6 +74,10 @@
     --font-weight-semibold:  {{ settings.font_weight_semibold | default: "600" }};
     --font-weight-bold:      {{ settings.font_weight_bold | default: "700" }};
     --font-weight-extrabold: {{ settings.font_weight_extrabold | default: "800" }};
+    --horizontal-padding-lg: {{ settings.horizontal_padding_lg | default: "80px" }};
+    --horizontal-padding-sm: {{ settings.horizontal_padding_sm | default: "16px" }};
+    --max-width-value:       {{ settings.max_width_value | default: "1920" }};
+    --max-width:             {{ settings.max_width_value | append: "px" | default: "1920px" }};
     {%- case settings.social_icon_size -%}
       {%- when 'sm' -%}
         --social-size: 18px;

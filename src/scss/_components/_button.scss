@@ -5,10 +5,10 @@
 @use '../_helpers/mixins' as *;
 
 .btn {
+  --button-animation-delay: 5s;
   --button-background: none;
   --button-border-color: transparent;
   --button-indent: 0;
-  --button-min-height: auto;
 
   font-family: $font-family-body;
   font-size: $font-size-button;
@@ -21,7 +21,6 @@
   border: 1px solid var(--button-border-color);
   border-radius: $button-border-radius;
   cursor: pointer;
-  min-height: var(--button-min-height);
   display: inline-flex;
   justify-content: center;
   align-items: center;
@@ -33,7 +32,6 @@
     --button-color: #{$color-accent};
     --button-border-color: #{$background-accent};
     --button-indent: #{$button-padding};
-    --button-min-height: #{$button-height};
 
     color: var(--button-color);
 
@@ -44,17 +42,65 @@
     }
   }
 
-  &--outline {
+  &--outlined {
     --button-background: transparent;
     --button-border-color: #{$color-outline};
     --button-color: #{$color-outline};
     --button-indent: #{$button-padding};
-    --button-min-height: #{$button-height};
 
     color: var(--button-color);
 
     @include hover {
       opacity: $button-hover-opacity;
     }
+  }
+
+  svg {
+    margin-left: 10px;
+    transform: translateX(0) rotate(-90deg);
+    animation: bounce 5.6s var(--button-animation-delay) $transition-function infinite;
+  }
+
+  path {
+    stroke: currentcolor;
+  }
+
+  &:hover {
+    svg {
+      --button-animation-delay: 1s;
+    }
+  }
+}
+
+@keyframes bounce {
+  0% {
+    transform: translateX(0) rotate(-90deg);
+  }
+
+  3.2% {
+    transform: translateX(8px) rotate(-90deg);
+  }
+
+  5.36% {
+    transform: translateX(3px) rotate(-90deg);
+  }
+
+  7.5% {
+    transform: translateX(8px) rotate(-90deg);
+  }
+
+  11%, 100% {
+    transform: translateX(0) rotate(-90deg);
+  }
+}
+
+[class*="__btn-wrapper"] {
+  --btn-wrapper-display: flex;
+
+  display: var(--btn-wrapper-display);
+  vertical-align: top;
+
+  @include media-up(xs) {
+    --btn-wrapper-display: inline-block;
   }
 }

@@ -13,6 +13,7 @@
   --header-background: transparent;
   --header-border-color: #{$color-border};
   --header-btn-display: none;
+  --header-btn-height: auto;
   --header-btn-menu-display: flex;
   --header-content-areas: 'logo icons menu';
   --header-content-columns: 1fr auto auto;
@@ -40,7 +41,7 @@
   --header-menu-dropdown-wrapper-margin: 0;
   --header-menu-dropdown-wrapper-max-height: calc(100vh - #{$header-height});
   --header-menu-dropdown-wrapper-overflow: clip auto;
-  --header-menu-dropdown-wrapper-padding: 25px #{$horizontal-padding-mobile} 50px;
+  --header-menu-dropdown-wrapper-padding: 25px #{$horizontal-padding-sm} 50px;
   --header-menu-dropdown-wrapper-position: absolute;
   --header-menu-dropdown-wrapper-radius: 0;
   --header-menu-dropdown-wrapper-transform: translateX(100%);
@@ -67,7 +68,7 @@
   --header-menu-row: 2;
   --header-menu-wrapper-flex-direction: column;
   --header-menu-wrapper-overflow: clip;
-  --header-menu-wrapper-padding: #{$horizontal-padding-mobile};
+  --header-menu-wrapper-padding: #{$horizontal-padding-sm};
   --header-menu-wrapper-position: absolute;
   --header-menu-wrapper-transform: translateY(-100%);
   --header-menu-wrapper-width: 100vw;
@@ -85,6 +86,7 @@
 
   @include media-up(md) {
     --header-btn-display: block;
+    --header-btn-height: #{$button-height};
     --header-btn-menu-display: none;
     --header-menu-dropdown-height: auto;
     --header-menu-dropdown-item-display: block;
@@ -94,7 +96,7 @@
     --header-menu-dropdown-link-font-size: clamp(16px, calc(#{$font-size-base} + 2px), 22px);
     --header-menu-dropdown-list-display: grid;
     --header-menu-dropdown-list-gap: 20px;
-    --header-menu-dropdown-list-padding: #{$horizontal-padding-mobile};
+    --header-menu-dropdown-list-padding: #{$horizontal-padding-sm};
     --header-menu-dropdown-position: absolute;
     --header-menu-dropdown-right: auto;
     --header-menu-dropdown-top: calc(100% + 1px);
@@ -126,7 +128,7 @@
   }
 
   @include media-up(xl) {
-    --header-menu-dropdown-list-padding: 25px #{$horizontal-padding};
+    --header-menu-dropdown-list-padding: 25px #{$horizontal-padding-lg};
     --header-menu-item-gap: 0 44px;
   }
 
@@ -221,6 +223,12 @@
   }
 
   &__btn {
+    @include media-up(md) {
+      --button-indent: 10px 20px;
+
+      height: var(--header-btn-height);
+    }
+
     &-wrapper {
       display: var(--header-btn-display);
     }

@@ -1,13 +1,433 @@
-<section>
-  <h1>Trailer rentals
-for every occasion</h1>
-</section>
+{%- if section.blocks.size > 0 -%}
+  {%- assign blocks_button_consecutive  = false -%}
+  {%- assign blocks_button_count        = 0 -%}
+  {%- assign blocks_info_consecutive    = false -%}
+  {%- assign blocks_info_count          = 0 -%}
+  {%- assign first_button_index         = -1 -%}
+  {%- assign first_info_index           = -1 -%}
+  {%- assign second_button_index        = -1 -%}
+  {%- assign second_info_index          = -1 -%}
+  {%- assign color_scheme               = section.settings.color_scheme -%}
+  {%- assign content_horizontal_desktop = section.settings.content_horizontal_desktop -%}
+  {%- assign content_horizontal_mobile  = section.settings.content_horizontal_mobile -%}
+  {%- assign content_vertical_desktop   = section.settings.content_vertical_desktop -%}
+  {%- assign content_vertical_mobile    = section.settings.content_vertical_mobile -%}
+  {%- assign height_desktop             = section.settings.height_desktop -%}
+  {%- assign height_mobile              = section.settings.height_mobile -%}
+  {%- assign hero_direction             = section.settings.hero_direction -%}
+  {%- assign hero_layout                = section.settings.hero_layout -%}
+  {%- assign hero_split                 = section.settings.hero_split -%}
+  {%- assign image_placeholder          = settings.image_placeholder -%}
+  {%- assign horizontal                 = false -%}
+  {%- assign narrowed                   = false -%}
+  {%- assign padding_bottom_desktop     = section.settings.padding_bottom_desktop -%}
+  {%- assign padding_bottom_mobile      = section.settings.padding_bottom_mobile -%}
+  {%- assign padding_top_desktop        = section.settings.padding_top_desktop -%}
+  {%- assign padding_top_mobile         = section.settings.padding_top_mobile -%}
+  {%- assign section_type               = section.type -%}
+  {%- assign splitted                   = false -%}
+
+  {%- if hero_layout == 'narrow' -%}
+    {%- assign narrowed = true -%}
+  {%- endif -%}
+
+  {%- if hero_split == 'split' -%}
+    {%- assign splitted = true -%}
+  {%- endif -%}
+
+  {%- if hero_direction == 'row' -%}
+    {%- assign horizontal = true -%}
+  {%- endif -%}
+
+  {% comment %} CSS variables start {% endcomment %}
+  {%- capture variables -%}
+    {%- case padding_bottom_desktop -%}
+      {%- when 'md' -%}
+        --padding-bottom-desktop: 60px;
+      {%- when 'lg' -%}
+        --padding-bottom-desktop: 80px;
+    {%- endcase -%}
+
+    {%- case padding_bottom_mobile -%}
+      {%- when 'md' -%}
+        --padding-bottom-mobile: 32px;
+      {%- when 'lg' -%}
+        --padding-bottom-mobile: 50px;
+    {%- endcase -%}
+
+    {%- case padding_top_desktop -%}
+      {%- when 'md' -%}
+        --padding-top-desktop: 60px;
+      {%- when 'lg' -%}
+        --padding-top-desktop: 80px;
+    {%- endcase -%}
+
+    {%- case padding_top_mobile -%}
+      {%- when 'md' -%}
+        --padding-top-mobile: 32px;
+      {%- when 'lg' -%}
+        --padding-top-mobile: 50px;
+    {%- endcase -%}
+
+    {%- case height_desktop -%}
+      {%- when 'md' -%}
+        --hero-height-desktop: 600px;
+      {%- when 'full' -%}
+        --hero-height-desktop: 100vh;
+    {%- endcase -%}
+
+    {%- case height_mobile -%}
+      {%- when 'md' -%}
+        --hero-height-mobile: 600px;
+      {%- when 'full' -%}
+        --hero-height-mobile: 100vh;
+    {%- endcase -%}
+
+    {%- case content_horizontal_desktop -%}
+      {%- when 'center' -%}
+        --hero-content-horizontal-desktop: center;
+        --hero-content-text-align-desktop: center;
+      {%- when 'right' -%}
+        --hero-content-horizontal-desktop: flex-end;
+        --hero-content-text-align-desktop: right;
+    {%- endcase -%}
+
+    {%- case content_horizontal_mobile -%}
+      {%- when 'center' -%}
+        --hero-content-horizontal-mobile: center;
+        --hero-content-text-align-mobile: center;
+      {%- when 'right' -%}
+        --hero-content-horizontal-mobile: flex-end;
+        --hero-content-text-align-mobile: right;
+    {%- endcase -%}
+
+    {%- case content_vertical_desktop -%}
+      {%- when 'middle' -%}
+        --hero-content-vertical-desktop: center;
+      {%- when 'bottom' -%}
+        --hero-content-vertical-desktop: flex-end;
+    {%- endcase -%}
+
+    {%- case content_vertical_mobile -%}
+      {%- when 'middle' -%}
+        --hero-content-vertical-mobile: center;
+      {%- when 'bottom' -%}
+        --hero-content-vertical-mobile: flex-end;
+    {%- endcase -%}
+
+    {%- if horizontal and splitted -%}
+      --hero-content-direction-desktop: row;
+    {%- endif -%}
+  {%- endcapture -%}
+  {% comment %} CSS variables end {% endcomment %}
+
+  {%- for block in section.blocks -%}
+    {%- assign index = forloop.index0 -%}
+
+    {%- if block.type == 'button' -%}
+      {%- assign blocks_button_count = blocks_button_count | plus: 1 -%}
+
+      {%- if first_button_index == -1 -%}
+        {%- assign first_button_index = index -%}
+      {%- elsif second_button_index == -1 -%}
+        {%- assign second_button_index = index -%}
+        {%- assign index_diff = second_button_index | minus: first_button_index -%}
+
+        {%- if index_diff == 1 -%}
+          {%- assign blocks_button_consecutive = true -%}
+        {%- endif -%}
+      {%- endif -%}
+
+    {%- elsif block.type == 'info' -%}
+      {%- assign blocks_info_count = blocks_info_count | plus: 1 -%}
+
+      {%- if first_info_index == -1 -%}
+        {%- assign first_info_index = index -%}
+      {%- elsif second_info_index == -1 -%}
+        {%- assign second_info_index = index -%}
+        {%- assign index_diff = second_info_index | minus: first_info_index -%}
+
+        {%- if index_diff == 1 -%}
+          {%- assign blocks_info_consecutive = true -%}
+        {%- endif -%}
+      {%- endif -%}
+    {%- endif -%}
+  {%- endfor -%}
+
+  {%- if narrowed -%}
+    <div class="hero__container container">
+  {%- endif -%}
+    <div class="hero__wrapper{% unless splitted %} hero__wrapper--padding-top hero__wrapper--padding-bottom{% endunless %} color-{{- color_scheme.id -}}"
+      style="{{- variables | escape -}}"
+    >
+      {%- unless narrowed or splitted -%}
+      <div class="hero__container container">
+      {%- endunless -%}
+        <div class="hero__content">
+
+          {%- if splitted -%}
+            <div class="hero__columns">
+              <div class="hero__col hero__col--padding-top hero__col--padding-bottom">
+                <div class="hero__container container">
+                  {%- for block in section.blocks -%}
+                    {%- assign index = forloop.index0 -%}
+
+                    {%- case block.type -%}
+                      {%- when 'image' -%}
+                        {%- continue -%}
+
+                      {%- when 'heading' -%}
+                        {%- assign heading = block.settings.heading -%}
+
+                        {%- if heading != blank -%}
+                          <h1 class="hero__heading">
+                            {{- heading -}}
+                          </h1>
+                        {%- endif -%}
+
+                      {%- when 'text' -%}
+                        {%- assign description = block.settings.description -%}
+
+                        {%- if description != blank -%}
+                          <div class="hero__description">
+                            {{- description -}}
+                          </div>
+                        {%- endif -%}
+
+                      {%- when 'date-picker' -%}
+                        {%- render 'date-picker',
+                            section_type: section_type
+                        -%}
+
+                      {%- when 'button' -%}
+                        {%- assign button_icon  = block.settings.button_icon -%}
+                        {%- assign button_label = block.settings.button_label -%}
+                        {%- assign button_type  = block.settings.button_type -%}
+                        {%- assign button_url   = block.settings.button_url -%}
+
+                        {%- if button_label != blank and button_url != blank -%}
+                          {%- if blocks_button_consecutive and index == first_button_index -%}
+                            <div class="hero__buttons">
+                          {%- endif -%}
+
+                            {%- render 'button',
+                                button_icon: button_icon,
+                                button_label: button_label,
+                                button_type: button_type,
+                                button_url: button_url,
+                                section_type: section_type
+                            -%}
+
+                          {%- if blocks_button_consecutive and index == second_button_index -%}
+                            </div>
+                          {%- endif -%}
+                        {%- endif -%}
+
+                      {%- when 'info' -%}
+                        {%- assign heading = block.settings.heading -%}
+                        {%- assign text    = block.settings.text -%}
+
+                        {%- if heading != blank or text != blank -%}
+                          {%- if blocks_info_consecutive and index == first_info_index -%}
+                            <div class="hero__info-wrapper">
+                          {%- endif -%}
+
+                            <div class="hero__info">
+                              <div class="hero__info-content">
+                                {%- if heading != blank -%}
+                                  <h3 class="hero__info-heading">{{- heading -}}</h3>
+                                {%- endif -%}
+                                {%- if text != blank -%}
+                                  <div class="hero__info-text">{{- text -}}</div>
+                                {%- endif -%}
+                              </div>
+                            </div>
+
+                          {%- if blocks_info_consecutive and index == second_info_index -%}
+                            </div>
+                          {%- endif -%}
+                        {%- endif -%}
+
+                    {%- endcase -%}
+                  {%- endfor -%}
+                </div>
+              </div>
+
+              <div class="hero__col">
+                {%- for block in section.blocks -%}
+                  {%- if block.type == 'image' -%}
+                    {%- assign image         = block.settings.image -%}
+                    {%- assign image_alt     = block.settings.image_alt -%}
+                    {%- assign image_mobile  = block.settings.image_mobile -%}
+
+                    {%- if image.url == blank and image_mobile.url != blank -%}
+                      {%- assign image = image_mobile -%}
+                      {%- assign image_mobile = blank -%}
+                    {%- endif -%}
+
+                    {%- if image.url != blank -%}
+                      {%- assign image = image -%}
+                    {%- elsif image_placeholder != blank -%}
+                      {%- assign image = image_placeholder -%}
+                    {%- else -%}
+                      {%- assign image = blank -%}
+                    {%- endif -%}
+
+                    {%- if image.url != blank -%}
+                      <div class="hero__image-holder">
+                        {%- render 'image',
+                            image: image,
+                            image_alt: image_alt,
+                            image_class: 'hero__image',
+                            image_mobile: image_mobile,
+                            image_size: 'xxl',
+                            loading: 'eager'
+                        -%}
+                      </div>
+                    {%- endif -%}
+
+                    {%- break -%}
+
+                  {%- endif -%}
+                {%- endfor -%}
+              </div>
+            </div>
+
+          {%- else -%}
+            {%- for block in section.blocks -%}
+              {%- assign index = forloop.index0 -%}
+
+              {%- case block.type -%}
+                {%- when 'heading' -%}
+                  {%- assign heading = block.settings.heading -%}
+
+                  {%- if heading != blank -%}
+                    <h1 class="hero__heading">
+                      {{- heading -}}
+                    </h1>
+                  {%- endif -%}
+
+                {%- when 'text' -%}
+                  {%- assign description = block.settings.description -%}
+
+                  {%- if description != blank -%}
+                    <div class="hero__description">
+                      {{- description -}}
+                    </div>
+                  {%- endif -%}
+
+                {%- when 'date-picker' -%}
+                  {%- render 'date-picker',
+                      section_type: section_type
+                  -%}
+
+                {%- when 'button' -%}
+                  {%- assign button_icon  = block.settings.button_icon -%}
+                  {%- assign button_label = block.settings.button_label -%}
+                  {%- assign button_type  = block.settings.button_type -%}
+                  {%- assign button_url   = block.settings.button_url -%}
+
+                  {%- if button_label != blank and button_url != blank -%}
+                    {%- if blocks_button_consecutive and index == first_button_index -%}
+                      <div class="hero__buttons">
+                    {%- endif -%}
+
+                      {%- render 'button',
+                          button_icon: button_icon,
+                          button_label: button_label,
+                          button_type: button_type,
+                          button_url: button_url,
+                          section_type: section_type
+                      -%}
+
+                    {%- if blocks_button_consecutive and index == second_button_index -%}
+                      </div>
+                    {%- endif -%}
+                  {%- endif -%}
+
+                {%- when 'info' -%}
+                  {%- assign heading = block.settings.heading -%}
+                  {%- assign text    = block.settings.text -%}
+
+                  {%- if heading != blank or text != blank -%}
+                    {%- if blocks_info_consecutive and index == first_info_index -%}
+                      <div class="hero__info-wrapper">
+                    {%- endif -%}
+
+                      <div class="hero__info">
+                        <div class="hero__info-content">
+                          {%- if heading != blank -%}
+                            <h3 class="hero__info-heading">{{- heading -}}</h3>
+                          {%- endif -%}
+                          {%- if text != blank -%}
+                            <div class="hero__info-text">{{- text -}}</div>
+                          {%- endif -%}
+                        </div>
+                      </div>
+
+                    {%- if blocks_info_consecutive and index == second_info_index -%}
+                      </div>
+                    {%- endif -%}
+                  {%- endif -%}
+
+                {%- when 'image' -%}
+                  {%- assign image               = block.settings.image -%}
+                  {%- assign image_alt           = block.settings.image_alt -%}
+                  {%- assign image_mobile        = block.settings.image_mobile -%}
+                  {%- assign image_overlay       = block.settings.image_overlay | times: 1.0 | divided_by: 100 -%}
+                  {%- assign image_overlay_style = block.settings.image_overlay_style -%}
+
+                  {%- if image.url == blank and image_mobile.url != blank -%}
+                    {%- assign image = image_mobile -%}
+                    {%- assign image_mobile = blank -%}
+                  {%- endif -%}
+
+                  {%- if image.url != blank -%}
+                    {%- assign image = image -%}
+                  {%- elsif image_placeholder != blank -%}
+                    {%- assign image = image_placeholder -%}
+                  {%- else -%}
+                    {%- assign image = blank -%}
+                  {%- endif -%}
+
+                  {%- if image.url != blank -%}
+                    <div class="hero__image-holder">
+                      {%- render 'image',
+                          image: image,
+                          image_alt: image_alt,
+                          image_class: 'hero__image',
+                          image_mobile: image_mobile,
+                          image_size: 'xxl',
+                          loading: 'eager'
+                      -%}
+                      <span class="hero__image-overlay{% if image_overlay_style == 'gradient' %} hero__image-overlay--gradient{% endif %}" style="opacity: {{ image_overlay }}"></span>
+                    </div>
+                  {%- endif -%}
+
+              {%- endcase -%}
+            {%- endfor -%}
+          {%- endif -%}
+
+        </div>
+      {%- unless narrowed or splitted -%}
+      </div>
+      {%- endunless -%}
+    </div>
+  {%- if narrowed -%}
+    </div>
+  {%- endif -%}
+{%- endif -%}
 
 {% schema %}
   {
     "name": "Hero",
     "tag": "section",
     "class": "hero",
+    "css_assets": [
+      {
+        "file": "hero.css"
+      }
+    ],
     "settings": [
       {
         "type": "header",
@@ -20,8 +440,80 @@ for every occasion</h1>
         "default": "set-1"
       },
       {
+        "type": "select",
+        "id": "hero_layout",
+        "label": "Layout",
+        "options": [
+          {
+            "value": "wide",
+            "label": "Wide"
+          },
+          {
+            "value": "narrow",
+            "label": "Narrow"
+          }
+        ],
+        "default": "wide"
+      },
+      {
+        "type": "select",
+        "id": "hero_split",
+        "label": "",
+        "options": [
+          {
+            "value": "overlay",
+            "label": "Overlay"
+          },
+          {
+            "value": "split",
+            "label": "Split"
+          }
+        ],
+        "default": "overlay"
+      },
+      {
         "type": "header",
         "content": "Desktop settings"
+      },
+      {
+        "type": "select",
+        "id": "height_desktop",
+        "label": "Section height",
+        "options": [
+          {
+            "value": "sm",
+            "label": "Small"
+          },
+          {
+            "value": "md",
+            "label": "Medium"
+          },
+          {
+            "value": "full",
+            "label": "Full"
+          }
+        ],
+        "default": "full"
+      },
+            {
+        "type": "select",
+        "id": "hero_direction",
+        "label": "Layout",
+        "options": [
+          {
+            "value": "row",
+            "label": "Row"
+          },
+          {
+            "value": "column",
+            "label": "Column"
+          }
+        ],
+        "default": "row"
+      },
+      {
+        "type": "paragraph",
+        "content": "Applies when 'Split' layout is selected"
       },
       {
         "type": "select",
@@ -65,23 +557,67 @@ for every occasion</h1>
       },
       {
         "type": "select",
-        "id": "hero_layout",
-        "label": "Layout",
+        "id": "content_horizontal_desktop",
+        "label": "Horizontal positioning",
         "options": [
           {
-            "value": "wide",
-            "label": "Wide"
+            "value": "left",
+            "label": "Left"
           },
           {
-            "value": "narrow",
-            "label": "Narrow"
+            "value": "center",
+            "label": "Center"
+          },
+          {
+            "value": "right",
+            "label": "Right"
           }
         ],
-        "default": "wide"
+        "default": "left"
+      },
+      {
+        "type": "select",
+        "id": "content_vertical_desktop",
+        "label": "Vertical alignment",
+        "options": [
+          {
+            "value": "top",
+            "label": "Top"
+          },
+          {
+            "value": "middle",
+            "label": "Middle"
+          },
+          {
+            "value": "bottom",
+            "label": "Bottom"
+          }
+        ],
+        "default": "top"
       },
       {
         "type": "header",
         "content": "Mobile settings"
+      },
+      {
+        "type": "select",
+        "id": "height_mobile",
+        "label": "Section height",
+        "options": [
+          {
+            "value": "auto",
+            "label": "Auto"
+          },
+          {
+            "value": "md",
+            "label": "Medium"
+          },
+          {
+            "value": "full",
+            "label": "Full"
+          }
+        ],
+        "default": "full"
       },
       {
         "type": "select",
@@ -122,20 +658,234 @@ for every occasion</h1>
           }
         ],
         "default": "md"
+      },
+      {
+        "type": "select",
+        "id": "content_horizontal_mobile",
+        "label": "Horizontal positioning",
+        "options": [
+          {
+            "value": "left",
+            "label": "Left"
+          },
+          {
+            "value": "center",
+            "label": "Center"
+          },
+          {
+            "value": "right",
+            "label": "Right"
+          }
+        ],
+        "default": "left"
+      },
+      {
+        "type": "select",
+        "id": "content_vertical_mobile",
+        "label": "Vertical alignment",
+        "options": [
+          {
+            "value": "top",
+            "label": "Top"
+          },
+          {
+            "value": "middle",
+            "label": "Middle"
+          },
+          {
+            "value": "bottom",
+            "label": "Bottom"
+          }
+        ],
+        "default": "top"
       }
     ],
     "blocks": [
       {
-        "type": "block-id",
-        "name": "Text Block",
+        "type": "heading",
+        "name": "Heading",
+        "limit": 1,
         "settings": [
           {
+            "type": "header",
+            "content": "General settings"
+          },
+          {
             "type": "text",
-            "id": "text_content",
-            "label": "Text Content"
+            "id": "heading",
+            "label": "Heading",
+            "default": "Welcome to our store"
+          }
+        ]
+      },
+      {
+        "type": "text",
+        "name": "Text",
+        "limit": 1,
+        "settings": [
+          {
+            "type": "header",
+            "content": "General settings"
+          },
+          {
+            "type": "contentEditor",
+            "id": "description",
+            "label": "Text",
+            "default": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse varius enim in eros elementum tristique."
+          }
+        ]
+      },
+      {
+        "type": "date-picker",
+        "name": "Date picker",
+        "limit": 1,
+        "settings": []
+      },
+      {
+        "type": "button",
+        "name": "Button",
+        "limit": 2,
+        "settings": [
+          {
+            "type": "header",
+            "content": "General settings"
+          },
+          {
+            "type": "text",
+            "id": "button_label",
+            "label": "Label",
+            "default": "Rent now"
+          },
+          {
+            "type": "url",
+            "id": "button_url",
+            "label": "URL",
+            "default": "booqable://root"
+          },
+          {
+            "type": "select",
+            "id": "button_type",
+            "label": "Style",
+            "options": [
+              {
+                "value": "transparent",
+                "label": "Transparent"
+              },
+              {
+                "value": "primary",
+                "label": "Primary"
+              },
+              {
+                "value": "outlined",
+                "label": "Outlined"
+              }
+            ],
+            "default": "primary"
+          },
+          {
+            "type": "select",
+            "id": "button_icon",
+            "label": "",
+            "options": [
+              {
+                "value": "minimal",
+                "label": "Minimal"
+              },
+              {
+                "value": "arrowed",
+                "label": "Arrowed"
+              }
+            ],
+            "default": "arrowed"
+          }
+        ]
+      },
+      {
+        "type": "info",
+        "name": "Info",
+        "limit": 2,
+        "settings": [
+          {
+            "type": "header",
+            "content": "General settings"
+          },
+          {
+            "type": "text",
+            "id": "heading",
+            "label": "Heading",
+            "default": "100+"
+          },
+          {
+            "type": "contentEditor",
+            "id": "text",
+            "label": "Text",
+            "default": "Products for you"
+          }
+        ]
+      },
+      {
+        "type": "image",
+        "name": "Image",
+        "limit": 1,
+        "settings": [
+          {
+            "type": "header",
+            "content": "General settings"
+          },
+          {
+            "type": "paragraph",
+            "content": "If 'Split' section's layout is selected, then there is no overlay, and the image displays last, regardless of blocks order"
+          },
+          {
+            "type": "paragraph",
+            "content": "Use WebP, PNG, JPG high-quality image (1920px or larger) for best results on all screen sizes"
+          },
+          {
+            "type": "image_picker",
+            "id": "image",
+            "label": "Image",
+            "default": "booqable://assets/image-placeholder.png"
+          },
+          {
+            "type": "image_picker",
+            "id": "image_mobile",
+            "label": "Image mobile (optional)"
+          },
+          {
+            "type": "text",
+            "id": "image_alt",
+            "label": "Alternative text (optional)",
+            "default": "Hero image",
+            "info": "For SEO and Accessibility purposes"
+          },
+          {
+            "type": "select",
+            "id": "image_overlay_style",
+            "label": "Overlay",
+            "options": [
+              {
+                "value": "solid",
+                "label": "Solid"
+              },
+              {
+                "value": "gradient",
+                "label": "Gradient"
+              }
+            ],
+            "default": "gradient"
+          },
+          {
+            "type": "range",
+            "id": "image_overlay",
+            "label": "Overlay percentage",
+            "min": 0,
+            "max": 100,
+            "step": 1,
+            "default": 40,
+            "unit": "%"
           }
         ]
       }
     ]
-}
+  }
 {% endschema %}
