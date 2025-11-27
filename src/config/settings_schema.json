@@ -52,7 +52,7 @@
             "label": "Large"
           }
         ],
-        "default": "md"
+        "default": "lg"
       },
       {
         "type": "select",
@@ -179,59 +179,13 @@
     ]
   },
   {
-    "name": "Styling",
+    "name": "Images",
     "settings": [
       {
-        "type": "header",
-        "content": "Element corners"
-      },
-      {
-        "type": "paragraph",
-        "content": "Make rounded corners of elements (sections, blocks, images, etc.)"
-      },
-      {
-        "type": "select",
-        "id": "corner_radius",
-        "label": "Radius",
-        "options": [
-          {
-            "value": "square",
-            "label": "Square"
-          },
-          {
-            "value": "rounded",
-            "label": "Rounded"
-          },
-          {
-            "value": "fully_round",
-            "label": "Fully round"
-          }
-        ],
-        "default": "square"
-      },
-      {
-        "type": "header",
-        "content": "Icons"
-      },
-      {
-        "type": "paragraph",
-        "content": "The icons' style used throughout the theme (e.g., 'Phone' and 'Clock' in the Top bar section)"
-      },
-      {
-        "type": "select",
-        "id": "icon_style",
-        "label": "Style",
-        "options": [
-          {
-            "value": "filled",
-            "label": "Filled"
-          },
-          {
-            "value": "outline",
-            "label": "Outlined"
-          }
-        ],
-        "default": "outline"
+        "type": "image_picker",
+        "id": "image_placeholder",
+        "label": "Image placeholder",
+        "info": "Placeholder for missing required image (products, collections, etc.)"
       }
     ]
   },
@@ -353,6 +307,63 @@
         "id": "social_vimeo",
         "label": "Vimeo",
         "info": "Example: https://vimeo.com/booqable"
+      }
+    ]
+  },
+    {
+    "name": "Styling",
+    "settings": [
+      {
+        "type": "header",
+        "content": "Element corners"
+      },
+      {
+        "type": "paragraph",
+        "content": "Make rounded corners of elements (sections, blocks, images, etc.)"
+      },
+      {
+        "type": "select",
+        "id": "corner_radius",
+        "label": "Radius",
+        "options": [
+          {
+            "value": "square",
+            "label": "Square"
+          },
+          {
+            "value": "rounded",
+            "label": "Rounded"
+          },
+          {
+            "value": "fully_round",
+            "label": "Fully round"
+          }
+        ],
+        "default": "square"
+      },
+      {
+        "type": "header",
+        "content": "Icons"
+      },
+      {
+        "type": "paragraph",
+        "content": "The icons' style used throughout the theme (e.g., 'Phone' and 'Clock' in the Top bar section)"
+      },
+      {
+        "type": "select",
+        "id": "icon_style",
+        "label": "Style",
+        "options": [
+          {
+            "value": "filled",
+            "label": "Filled"
+          },
+          {
+            "value": "outline",
+            "label": "Outlined"
+          }
+        ],
+        "default": "outline"
       }
     ]
   },

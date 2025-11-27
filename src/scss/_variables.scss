@@ -1,7 +1,8 @@
 // Theme Variables
 
 // Breakpoints
-$breakpoint-xs: 480px;
+$breakpoint-xxs: 480px;
+$breakpoint-xs: 567px;
 $breakpoint-sm: 768px;
 $breakpoint-md: 992px;
 $breakpoint-lg: 1280px;
@@ -11,6 +12,7 @@ $breakpoint-xxl: 1920px;
 // Colors
 $background-accent: var(--background-accent);
 $background-primary: var(--background-primary, #fff);
+$background-primary-transparent: color-mix(in srgb, #{$background-primary} 0%, transparent);
 $background-shadow: color-mix(in srgb, var(--color-primary) 55%, transparent);
 $color-accent: var(--color-accent);
 $color-border: color-mix(in srgb, var(--color-primary) 15%, transparent);
@@ -27,18 +29,18 @@ $font-family-tagline: var(--font-tagline);
 // Sizes
 $font-size-base: var(--font-size-base);
 $font-size-button: var(--font-size-button);
-$font-size-h1: var(--font-size-h1);
-$font-size-h2: var(--font-size-h2);
-$font-size-h3: var(--font-size-h3);
-$font-size-h4: var(--font-size-h4);
-$font-size-h5: var(--font-size-h5);
-$font-size-h6: var(--font-size-h6);
+$font-size-h1: #{"clamp(40px, calc(var(--font-size-h1) * 100vw / var(--max-width-value)), 100px)"};
+$font-size-h2: #{"clamp(36px, calc(var(--font-size-h2) * 100vw / var(--max-width-value)), 76px)"};
+$font-size-h3: #{"clamp(32px, calc(var(--font-size-h3) * 100vw / var(--max-width-value)), 55px)"};
+$font-size-h4: #{"clamp(24px, calc(var(--font-size-h4) * 100vw / var(--max-width-value)), 40px)"};
+$font-size-h5: #{"clamp(20px, calc(var(--font-size-h5) * 100vw / var(--max-width-value)), 28px)"};
+$font-size-h6: #{"clamp(18px, calc(var(--font-size-h6) * 100vw / var(--max-width-value)), 24px)"};
 $font-size-tagline: var(--font-size-tagline);
+$horizontal-padding-lg: var(--horizontal-padding-lg);
+$horizontal-padding-sm: var(--horizontal-padding-sm);
 $header-height: var(--header-height, 65px);
 $preview-height: var(--preview-height, 0);
-$horizontal-padding: 80px;
-$horizontal-padding-mobile: 16px;
-$max-width: 1920px;
+$max-width: var(--max-width);
 $social-icon-spacing: var(--social-icon-spacing);
 $social-size: var(--social-size);
 

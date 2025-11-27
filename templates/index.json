@@ -1,25 +1,82 @@
 {
   "name": "Home",
   "sections": {
-    "example": {
-      "type": "example",
+    "hero": {
+      "type": "hero",
       "blocks": {
-        "block-id": {
-          "type": "block-id",
+        "heading": {
+          "type": "heading",
           "settings": {
+            "heading": "Explore the golf <br> course the best way"
+          },
+          "disabled": null
+        },
+        "text": {
+          "type": "text",
+          "settings": {
+            "description": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse varius <br> enim in eros elementum tristique. Duis cursus, mi quis viverra ornare, eros <br> dolor interdum nulla, ut commodo diam libero vitae erat."
+          },
+          "disabled": null
+        },
+        "button": {
+          "type": "button",
+          "settings": {
+            "button_icon": "minimal",
+            "button_label": "Rent now",
+            "button_type": "primary",
+            "button_url": "booqable://product/"
+          },
+          "disabled": null
+        },
+        "button_562543": {
+          "type": "button",
+          "settings": {
+            "button_icon": "minimal",
+            "button_label": "About us",
+            "button_type": "outlined",
+            "button_url": "booqable://root/"
+          },
+          "disabled": null
+        },
+        "image": {
+          "type": "image",
+          "settings": {
+            "image": "booqable://assets/image-hero.jpg",
+            "image_alt": "Hero image description",
+            "image_mobile": "",
+            "image_overlay": 10,
+            "image_overlay_style": "gradient"
           },
           "disabled": null
         }
       },
       "block_order": [
-        "block-id"
+        "heading",
+        "text",
+        "button",
+        "button_562543",
+        "image"
       ],
       "settings": {
+        "content_horizontal_desktop": "left",
+        "content_horizontal_mobile": "left",
+        "content_vertical_desktop": "bottom",
+        "content_vertical_mobile": "bottom",
+        "color_scheme": "set-2",
+        "height_desktop": "full",
+        "height_mobile": "full",
+        "hero_direction": "row",
+        "hero_layout": "wide",
+        "hero_split": "overlay",
+        "padding_bottom_desktop": "lg",
+        "padding_bottom_mobile": "md",
+        "padding_top_desktop": "lg",
+        "padding_top_mobile": "md"
       },
       "disabled": null
     }
   },
   "order": [
-    "example"
+    "hero"
   ]
 }

@@ -23,7 +23,11 @@
 {%- endcomment -%}
 
 <span class="{{- section_type -}}__btn-wrapper">
-  <a href="{{ button_url }}" class="btn{% if button_type == 'primary' %} btn--primary{% elsif button_type == 'outline' %} btn--outlined{% endif %} {{ section_type -}}__btn">
+  <a href="{{ button_url }}" class="{{- section_type -}}__btn btn{% if button_type == 'primary' %} btn--primary{% elsif button_type == 'outlined' %} btn--outlined{%- endif -%}">
     {{- button_label -}}
+
+    {%- if button_icon == 'arrowed' -%}
+      {%- render 'icon-arrow' -%}
+    {%- endif -%}
   </a>
 </span>

@@ -21,7 +21,7 @@
         "settings": {
           "background": "#150402",
           "background_accent": "#82B42B",
-          "color_accent": "#CBCAA7",
+          "color_accent": "#FFFFFF",
           "color_accent_outline": "#82B42B",
           "color_primary": "#FFFFFF",
           "color_secondary": "#CBCAA7"
@@ -32,7 +32,7 @@
         "settings": {
           "background": "#F5F5F5",
           "background_accent": "#82B42B",
-          "color_accent": "#CBCAA7",
+          "color_accent": "#FFFFFF",
           "color_accent_outline": "#82B42B",
           "color_primary": "#150402",
           "color_secondary": "#000000"
@@ -44,9 +44,9 @@
           "background": "#82B42B",
           "background_accent": "#150402",
           "color_accent": "#FFFFFF",
-          "color_accent_outline": "#CBCAA7",
+          "color_accent_outline": "#FFFFFF",
           "color_primary": "#150402",
-          "color_secondary": "#CBCAA7"
+          "color_secondary": "#FFFFFF"
         }
       }
     },
@@ -63,7 +63,11 @@
     "font_weight_h2": "700",
     "font_weight_h3": "700",
     "font_weight_headers": "700",
+    "horizontal_padding_lg": "80px",
+    "horizontal_padding_sm": "16px",
     "icon_style": "outline",
+    "image_placeholder": "booqable://assets/image-placeholder.png",
+    "max_width_value": 1920,
     "sections": {
       "top-bar": {
         "type": "top-bar",

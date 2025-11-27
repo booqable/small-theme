@@ -3,6 +3,7 @@
 
 // Breakpoint map for easier iteration
 $breakpoints: (
+  xxs: $breakpoint-xxs,
   xs: $breakpoint-xs,
   sm: $breakpoint-sm,
   md: $breakpoint-md,
@@ -100,8 +101,12 @@ $breakpoints: (
 }
 
 // Flexbox mixin
-@mixin flexbox($align: null, $justify: null, $direction: null, $wrap: null, $gap: null) {
-  display: flex;
+@mixin flexbox($display: null, $align: null, $justify: null, $direction: null, $wrap: null, $gap: null) {
+  @if $display {
+    display: $display;
+  } @else {
+    display: flex;
+  }
 
   @if $align {
     align-items: $align;

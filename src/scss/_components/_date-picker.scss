@@ -1,0 +1,24 @@
+// Button component styles
+@use '../variables' as *;
+
+// Import mixins
+@use '../_helpers/mixins' as *;
+
+bq-date-picker {
+  /* Colors */
+  --date-picker-background-color: #{$background-accent};
+  --date-picker-border-color: #{$color-border};
+  --date-picker-icon-color: #{$color-accent};
+  --date-picker-text-color: #{$color-accent};
+
+  /* Sizes */
+  --date-picker-border-radius: #{$button-border-radius};
+  --date-picker-text-line-height: #{$font-height-lg};
+  --date-picker-text-size: clamp(14px, calc(#{$font-size-base} - 2px), 18px);
+  --date-picker-text-weight: #{$font-weight-semibold};
+  --date-picker-wrapper-padding: 16px 24px;
+}
+
+.date-picker {
+  min-height: 60px;
+}

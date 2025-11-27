@@ -57,11 +57,12 @@ body {
 /* Container styles */
 .container {
   max-width: $max-width;
-  padding: 0 $horizontal-padding-mobile;
+  width: 100%;
+  padding: 0 $horizontal-padding-sm;
   margin: 0 auto;
 
   @include media-up(xl) {
-    padding: 0 $horizontal-padding;
+    padding: 0 $horizontal-padding-lg;
   }
 }
 

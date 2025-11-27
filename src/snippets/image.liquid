@@ -303,7 +303,7 @@
     {%- endif -%}
   {%- endif -%}
 
-  <span class="image-wrapper {{ image_class }}-wrapper"
+  <span class="{{- image_class -}}-wrapper image-wrapper"
     {%- if aspect_ratio and set_ratio -%}
       style="aspect-ratio: {{ aspect_ratio }}; --aspect-ratio: {{ aspect_ratio }};"
       data-aspect-ratio="{{ aspect_ratio }}"
@@ -315,7 +315,7 @@
     {%- if loading_strategy == 'lazy' -%}
       {%- unless image_points -%}
         <img
-          class="image-placeholder {{ image_class }}-placeholder"
+          class="{{- image_class -}}-placeholder image-placeholder"
           src="{{ image_url | image_url: width: placeholder_width }}"
           alt=""
           width="{%- if placeholder_width -%}{{- placeholder_width | round: 0 -}}{%- endif -%}"
