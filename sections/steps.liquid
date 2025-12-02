@@ -111,20 +111,14 @@
                   {%- assign steps_group = true -%}
                 {%- endunless -%}
 
-                {%- assign step_counter = step_counter | plus: 1 -%}
+                {%- assign last_in_group   = true -%}
+                {%- assign next_block      = section.blocks[forloop.index] -%}
+                {%- assign next_block_text = next_block.settings.description -%}
+                {%- assign step_counter    = step_counter | plus: 1 -%}
 
-                {%- assign is_last_in_group = true -%}
-
-                {%- unless forloop.last -%}
-                  {%- for next_block in section.blocks offset: forloop.index -%}
-                    {%- if next_block.type == 'step' and next_block.settings.description != blank -%}
-                      {%- assign is_last_in_group = false -%}
-                      {%- break -%}
-                    {%- elsif next_block.type == 'heading' or next_block.type == 'highlited-text' -%}
-                      {%- break -%}
-                    {%- endif -%}
-                  {%- endfor -%}
-                {%- endunless -%}
+                {%- if next_block.type == 'step' and next_block_text != blank -%}
+                  {%- assign last_in_group = false -%}
+                {%- endif -%}
 
                 {%- capture element_counter -%}
                   <span class="steps__number">
@@ -149,7 +143,7 @@
                   {%- if steps_layout_blocks == 'icon' -%}
                     {{- element_counter -}}
 
-                    {%- unless is_last_in_group -%}
+                    {%- unless last_in_group -%}
                       {%- render 'icon-arrow-full' -%}
                     {%- endunless -%}
                   {%- endif -%}
