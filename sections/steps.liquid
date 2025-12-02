@@ -113,8 +113,8 @@
 
                 {%- assign step_counter = step_counter | plus: 1 -%}
 
-                {%- comment -%} Check if next block is also a step with description {%- endcomment -%}
                 {%- assign is_last_in_group = true -%}
+
                 {%- unless forloop.last -%}
                   {%- for next_block in section.blocks offset: forloop.index -%}
                     {%- if next_block.type == 'step' and next_block.settings.description != blank -%}
