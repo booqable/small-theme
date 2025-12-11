@@ -74,9 +74,88 @@
         "padding_top_mobile": "md"
       },
       "disabled": null
+    },
+    "steps": {
+      "type": "steps",
+      "blocks": {
+        "highlited-text": {
+          "type": "highlited-text",
+          "settings": {
+            "tagline": "Steps"
+          },
+          "disabled": null
+        },
+        "heading": {
+          "type": "heading",
+          "settings": {
+            "heading": "How it works"
+          },
+          "disabled": null
+        },
+        "step_543421": {
+          "type": "step",
+          "settings": {
+            "description": "<h3>Choose your <br>golf cart</h3><p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse varius enim in eros elementum tristique.</p>",
+            "image": "",
+            "image_alt": "",
+            "number_prefix": "0"
+          },
+          "disabled": null
+        },
+        "step_543422": {
+          "type": "step",
+          "settings": {
+            "description": "<h3>Select your <br>rental period</h3><p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse varius enim in eros elementum tristique.</p>",
+            "image": "",
+            "image_alt": "",
+            "number_prefix": "0"
+          },
+          "disabled": null
+        },
+        "step_543423": {
+          "type": "step",
+          "settings": {
+            "description": "<h3>Checkout <br>your order</h3><p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse varius enim in eros elementum tristique.</p>",
+            "image": "",
+            "image_alt": "",
+            "number_prefix": "0"
+          },
+          "disabled": null
+        },
+        "step_543424": {
+          "type": "step",
+          "settings": {
+            "description": "<h3>We deliver & <br>pickup your order</h3><p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse varius enim in eros elementum tristique.</p>",
+            "image": "",
+            "image_alt": "",
+            "number_prefix": "0"
+          },
+          "disabled": null
+        }
+      },
+      "block_order": [
+        "highlited-text",
+        "heading",
+        "step_543421",
+        "step_543422",
+        "step_543423",
+        "step_543424"
+      ],
+      "settings": {
+        "color_scheme": "set-3",
+        "content_horizontal": "left",
+        "steps_layout": "wide",
+        "steps_layout_blocks": "simple",
+        "padding_bottom_desktop": "lg",
+        "padding_bottom_mobile": "md",
+        "padding_top_desktop": "lg",
+        "padding_top_mobile": "md"
+      },
+      "disabled": null
     }
   },
   "order": [
-    "hero"
+    "hero",
+    "steps"
   ]
 }
