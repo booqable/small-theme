@@ -52,6 +52,51 @@ export const requestIdle = (callback, options = {}) => {
 }
 
 /**
+ * Create an IntersectionObserver with custom options
+ */
+export const intersectionObserver = (callback, options = {}) => {
+  const defaultOptions = {
+    root: null,
+    rootMargin: '100px',
+    threshold: 0.01
+  }
+
+  const config = { ...defaultOptions, ...options }
+  let observer = null
+
+  const init = () => {
+    if (observer) return observer
+
+    // eslint-disable-next-line no-undef
+    observer = new IntersectionObserver(callback, config)
+
+    return observer
+  }
+
+  const destroy = () => {
+    observer?.disconnect()
+    observer = null
+  }
+
+  const observe = (element) => {
+    if (!observer) init()
+    observer?.observe(element)
+  }
+
+  const unobserve = (element) => {
+    observer?.unobserve(element)
+  }
+
+  return {
+    init,
+    destroy,
+    observe,
+    unobserve,
+    get observer() { return observer }
+  }
+}
+
+/**
  * Create a ResizeObserver with debouncing
  */
 export const resizeObserver = (callback, options = {}) => {
@@ -189,14 +234,10 @@ export const onReady = (callback) => {
 }
 
 /**
- * CSS variable utilities
+ * Set CSS variable utility
  */
 export const setCssVar = (property, value, element = document.documentElement) => {
   element.style.setProperty(property, value)
-}
-
-export const getCssVar = (property, element = document.documentElement) => {
-  return getComputedStyle(element).getPropertyValue(property).trim()
 }
 
 /**
@@ -209,4 +250,35 @@ export const getDimensions = (element) => {
     width: rect.width,
     height: rect.height
   }
+}
+
+/**
+ * Check if element is in viewport
+ */
+export const inViewport = (element) => {
+  if (!element) return false
+  const rect = element.getBoundingClientRect()
+  return (
+    rect.top >= 0 &&
+    rect.left >= 0 &&
+    rect.bottom <= (window.innerHeight || document.documentElement.clientHeight) &&
+    rect.right <= (window.innerWidth || document.documentElement.clientWidth)
+  )
+}
+
+/**
+ * Network connection utilities
+ */
+export const slowConnection = () => {
+  if (!navigator.connection) return false
+  const connectionType = navigator.connection.effectiveType
+  return connectionType === '2g' || connectionType === 'slow-2g'
+}
+
+/**
+ * Feature detection utilities
+ */
+export const hasFetchPriority = () => {
+  // eslint-disable-next-line no-undef
+  return 'fetchPriority' in HTMLImageElement.prototype
 }
