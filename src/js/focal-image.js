@@ -9,7 +9,8 @@
 import {
   frameSequence,
   cleanupSystem,
-  intersectionObserver
+  intersectionObserver,
+  inViewport
 } from 'utils.js'
 
 const FocalConfig = {
@@ -119,82 +120,41 @@ const FocalRenderer = (calculator) => {
   }
 }
 
-const FocalProcessor = (renderer) => {
-  const processImages = (images, observer) => {
-    images.forEach(image => {
-      if (image.getAttribute(FocalConfig.attr.processed) === 'true') return
-      observer.observe(image)
-    })
-  }
-
-  return {
-    processImages
-  }
-}
-
-const focalObserver = (renderer) => {
-  let observer = null
-
-  const observerCallback = (entries) => {
-    entries.forEach((entry) => {
-      if (!entry.isIntersecting) return
-      renderer.applyFocalPoint(entry.target)
-      observer.unobserve(entry.target)
-    })
-  }
-
-  const init = () => {
-    observer = intersectionObserver(observerCallback)
-    observer.init()
-  }
-
-  const getObserver = () => observer
-
-  const destroy = () => {
-    if (observer) {
-      observer.destroy()
-      observer = null
-    }
-  }
-
-  return {
-    init,
-    getObserver,
-    destroy
-  }
-}
-
 const focalComponent = () => {
   const dom = FocalDOM()
-  let calculator = null
-  let renderer = null
-  let processor = null
-  let observerManager = null
+  let observer = null
 
   const init = () => {
     if (!dom.init()) return null
 
-    calculator = FocalCalculator(dom)
-    renderer = FocalRenderer(calculator)
-    processor = FocalProcessor(renderer)
-    observerManager = focalObserver(renderer)
+    const calculator = FocalCalculator(dom)
+    const renderer = FocalRenderer(calculator)
 
-    observerManager.init()
+    const observerCallback = (entries) => {
+      entries.forEach((entry) => {
+        if (!entry.isIntersecting) return
+        renderer.applyFocalPoint(entry.target)
+        observer.unobserve(entry.target)
+      })
+    }
+
+    observer = intersectionObserver(observerCallback)
+    observer.init()
 
     const images = dom.get('images')
-    const observer = observerManager.getObserver()
-    processor.processImages(images, observer)
+    images.forEach(image => {
+      inViewport(image) ?
+        renderer.applyFocalPoint(image) :
+        observer.observe(image)
+    })
 
     return destroy
   }
 
   const destroy = () => {
-    observerManager?.destroy()
+    observer?.destroy()
     dom?.cleanup()
-    calculator = null
-    renderer = null
-    processor = null
-    observerManager = null
+    observer = null
   }
 
   return {
