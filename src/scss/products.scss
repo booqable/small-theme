@@ -26,12 +26,9 @@
     background: $background-primary;
 
     @include media-up(md) {
+      --products-layout: repeat(var(--products-layout-desktop, 2), 1fr);
       --products-padding-bottom: var(--padding-bottom-desktop, 40px);
       --products-padding-top: var(--padding-top-desktop, 40px);
-    }
-
-    @include media-up(xl) {
-      --products-layout: repeat(var(--products-layout-desktop, 2), 1fr);
     }
 
     &--padding-top {

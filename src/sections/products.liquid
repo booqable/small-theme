@@ -55,8 +55,6 @@
     {%- case products_layout -%}
       {%- when 'three' -%}
         --products-layout-desktop: 3;
-      {%- when 'four' -%}
-        --products-layout-desktop: 4;
     {%- endcase -%}
   {%- endcapture -%}
   {% comment %} CSS variables end {% endcomment %}
@@ -274,10 +272,6 @@
           {
             "value": "three",
             "label": "3 columns"
-          },
-          {
-            "value": "four",
-            "label": "4 columns"
           }
         ],
         "default": "two"
