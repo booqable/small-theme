@@ -1,7 +1,7 @@
 [
   {
     "name": "theme_info",
-    "theme_name": "Small",
+    "theme_name": "Small catalog",
     "theme_version": "0.1.0",
     "theme_author": "Booqable"
   },
@@ -22,10 +22,6 @@
   {
     "name": "Buttons",
     "settings": [
-      {
-        "type": "paragraph",
-        "content": "Adjust the button design throughout your website"
-      },
       {
         "type": "header",
         "content": "Design"
@@ -76,7 +72,7 @@
       },
       {
         "type": "header",
-        "content": "Label"
+        "content": "Text"
       },
       {
         "type": "paragraph",
@@ -182,10 +178,79 @@
     "name": "Images",
     "settings": [
       {
+        "type": "header",
+        "content": "Product image"
+      },
+      {
+        "type": "select",
+        "id": "product_card_image_fit",
+        "label": "Image fit",
+        "options": [
+          {
+            "value": "cover",
+            "label": "Cover"
+          },
+          {
+            "value": "contain",
+            "label": "Contain"
+          }
+        ],
+        "default": "cover"
+      },
+      {
+        "type": "checkbox",
+        "id": "use_focal_images",
+        "label": "Use focal images",
+        "default": true,
+        "info": "Display point focused image instead of full sized. Works with 'Cover' image fit option together"
+      },
+      {
+        "type": "checkbox",
+        "id": "use_product_card_image_borders",
+        "label": "Show borders around image",
+        "default": false
+      },
+      {
+        "type": "header",
+        "content": "Placeholder image"
+      },
+      {
         "type": "image_picker",
         "id": "image_placeholder",
-        "label": "Image placeholder",
+        "label": "",
         "info": "Placeholder for missing required image (products, collections, etc.)"
+      }
+    ]
+  },
+  {
+    "name": "Product card",
+    "settings": [
+      {
+        "type": "header",
+        "content": "Design"
+      },
+      {
+        "type": "color_scheme",
+        "id": "product_card_color_scheme",
+        "label": "Color scheme",
+        "default": "set-1"
+      },
+      {
+        "type": "checkbox",
+        "id": "use_product_card_color_scheme",
+        "label": "Use color scheme",
+        "default": false,
+        "info": "Use these color scheme instead of section's one"
+      },
+      {
+        "type": "header",
+        "content": "Text"
+      },
+      {
+        "type": "checkbox",
+        "id": "show_product_card_excerpt",
+        "default": false,
+        "label": "Show description excerpt"
       }
     ]
   },
@@ -336,7 +401,7 @@
           },
           {
             "value": "fully_round",
-            "label": "Fully round"
+            "label": "Fully"
           }
         ],
         "default": "square"
