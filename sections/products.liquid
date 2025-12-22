@@ -83,7 +83,7 @@
                 </h2>
               {%- endif -%}
 
-            {%- when 'highlited-text' -%}
+            {%- when 'tagline' -%}
               {%- if products_group -%}
                 </div>
 
@@ -98,7 +98,7 @@
                 </p>
               {%- endif -%}
 
-            {%- when 'text' -%}
+            {%- when 'description' -%}
               {%- if products_group -%}
                 </div>
 
@@ -150,6 +150,81 @@
     "css_assets": [
       {
         "file": "products.css"
+      }
+    ],
+    "blocks": [
+      {
+        "type": "description",
+        "name": "Description",
+        "limit": 1,
+        "settings": [
+          {
+            "type": "header",
+            "content": "General settings"
+          },
+          {
+            "type": "contentEditor",
+            "id": "description",
+            "label": "Text",
+            "default": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse varius enim in eros elementum tristique."
+          }
+        ]
+      },
+      {
+        "type": "heading",
+        "name": "Heading",
+        "limit": 1,
+        "settings": [
+          {
+            "type": "header",
+            "content": "General settings"
+          },
+          {
+            "type": "text",
+            "id": "heading",
+            "label": "Heading",
+            "default": "How it works"
+          }
+        ]
+      },
+      {
+        "type": "product",
+        "name": "Product",
+        "limit": 4,
+        "settings": [
+          {
+            "type": "header",
+            "content": "General settings"
+          },
+          {
+            "type": "product",
+            "id": "product",
+            "label": "Product"
+          },
+          {
+            "type": "text",
+            "id": "product_badge",
+            "label": "Badge",
+            "default": "NEW"
+          }
+        ]
+      },
+      {
+        "type": "tagline",
+        "name": "Tagline",
+        "limit": 1,
+        "settings": [
+          {
+            "type": "header",
+            "content": "General settings"
+          },
+          {
+            "type": "text",
+            "id": "tagline",
+            "label": "Text",
+            "default": "Tagline"
+          }
+        ]
       }
     ],
     "settings": [
@@ -290,81 +365,6 @@
           }
         ],
         "default": "md"
-      }
-    ],
-    "blocks": [
-      {
-        "type": "heading",
-        "name": "Heading",
-        "limit": 1,
-        "settings": [
-          {
-            "type": "header",
-            "content": "General settings"
-          },
-          {
-            "type": "text",
-            "id": "heading",
-            "label": "Heading",
-            "default": "How it works"
-          }
-        ]
-      },
-      {
-        "type": "highlited-text",
-        "name": "Highlighted text",
-        "limit": 1,
-        "settings": [
-          {
-            "type": "header",
-            "content": "General settings"
-          },
-          {
-            "type": "text",
-            "id": "tagline",
-            "label": "Text",
-            "default": "Tagline"
-          }
-        ]
-      },
-      {
-        "type": "text",
-        "name": "Description",
-        "limit": 1,
-        "settings": [
-          {
-            "type": "header",
-            "content": "General settings"
-          },
-          {
-            "type": "contentEditor",
-            "id": "description",
-            "label": "Text",
-            "default": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse varius enim in eros elementum tristique."
-          }
-        ]
-      },
-      {
-        "type": "product",
-        "name": "Product",
-        "limit": 4,
-        "settings": [
-          {
-            "type": "header",
-            "content": "General settings"
-          },
-          {
-            "type": "product",
-            "id": "product",
-            "label": "Product"
-          },
-          {
-            "type": "text",
-            "id": "product_badge",
-            "label": "Badge",
-            "default": "NEW"
-          }
-        ]
       }
     ]
   }

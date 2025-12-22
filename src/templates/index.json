@@ -156,10 +156,10 @@
     "products": {
       "type": "products",
       "blocks": {
-        "highlited-text": {
-          "type": "highlited-text",
+        "description": {
+          "type": "description",
           "settings": {
-            "tagline": "Shop"
+            "description": "<p>We got products for all your adventures</p>"
           },
           "disabled": null
         },
@@ -167,13 +167,6 @@
           "type": "heading",
           "settings": {
             "heading": "Our products"
-          },
-          "disabled": null
-        },
-        "text": {
-          "type": "text",
-          "settings": {
-            "description": "<p>We got products for all your adventures</p>"
           },
           "disabled": null
         },
@@ -192,12 +185,19 @@
             "product_badge": "PRODUCT ACTION LABEL"
           },
           "disabled": null
+        },
+        "tagline": {
+          "type": "tagline",
+          "settings": {
+            "tagline": "Shop"
+          },
+          "disabled": null
         }
       },
       "block_order": [
-        "highlited-text",
+        "tagline",
         "heading",
-        "text",
+        "description",
         "product",
         "product_564321"
       ],
