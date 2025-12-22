@@ -235,6 +235,13 @@
           },
           "disabled": null
         },
+        "description": {
+          "type": "description",
+          "settings": {
+            "description": "<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse varius enim in eros elementum tristique. Duis cursus, mi quis viverra ornare, eros dolor interdum nulla, ut commodo diam libero vitae erat.</p>"
+          },
+          "disabled": null
+        },
         "heading": {
           "type": "heading",
           "settings": {
@@ -264,19 +271,12 @@
             "tagline": "About us"
           },
           "disabled": null
-        },
-        "text": {
-          "type": "text",
-          "settings": {
-            "description": "<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse varius enim in eros elementum tristique. Duis cursus, mi quis viverra ornare, eros dolor interdum nulla, ut commodo diam libero vitae erat.</p>"
-          },
-          "disabled": null
         }
       },
       "block_order": [
         "tagline",
         "heading",
-        "text",
+        "description",
         "highlights",
         "highlights_987654",
         "button",
