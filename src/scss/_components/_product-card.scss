@@ -44,8 +44,9 @@
 
   &__badge {
     position: absolute;
-    top: 24px;
-    left: 24px;
+    top: 0;
+    left: 0;
+    margin: 24px;
     padding: 10px 15px;
     font-size: clamp(14px, calc($font-size-base - 4px), 18px);
     font-weight: $font-weight-semibold;
