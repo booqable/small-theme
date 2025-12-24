@@ -76,7 +76,7 @@
   {%- assign inner_height       = image.height -%}
   {%- assign inner_width        = image.width -%}
   {%- assign image_alt          = image_alt | default: image.alt | default: '' -%}
-  {%- assign image_fit          = settings.card_image_fit -%}
+  {%- assign image_fit          = settings.product_card_image_fit -%}
   {%- assign image_main_class   = image_class | append: ' image-main' -%}
   {%- assign image_use_focal    = settings.use_focal_images -%}
   {%- assign loading_strategy   = loading | default: 'lazy' -%}

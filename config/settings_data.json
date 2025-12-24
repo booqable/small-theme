@@ -68,6 +68,8 @@
     "icon_style": "outline",
     "image_placeholder": "booqable://assets/image-placeholder.png",
     "max_width_value": 1920,
+    "product_card_color_scheme": "set-1",
+    "product_card_image_fit": "cover",
     "sections": {
       "top-bar": {
         "type": "top-bar",
@@ -237,6 +239,10 @@
         "disabled": null
       }
     },
-    "transition_duration": "0.3"
+    "show_product_card_excerpt": false,
+    "transition_duration": "0.3",
+    "use_focal_images": true,
+    "use_product_card_color_scheme": false,
+    "use_product_card_image_borders": true
   }
 }

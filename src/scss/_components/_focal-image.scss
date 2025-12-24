@@ -1,0 +1,10 @@
+// Button component styles
+@use '../variables' as *;
+
+.focal-image {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: 50% 50%;
+  transition: opacity $transition-duration $transition-function;
+}

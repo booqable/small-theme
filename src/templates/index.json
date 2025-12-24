@@ -152,10 +152,70 @@
         "padding_top_mobile": "md"
       },
       "disabled": null
+    },
+    "products": {
+      "type": "products",
+      "blocks": {
+        "description": {
+          "type": "description",
+          "settings": {
+            "description": "<p>We got products for all your adventures</p>"
+          },
+          "disabled": null
+        },
+        "heading": {
+          "type": "heading",
+          "settings": {
+            "heading": "Our products"
+          },
+          "disabled": null
+        },
+        "product": {
+          "type": "product",
+          "settings": {
+            "product": "",
+            "product_badge": "PRODUCT ACTION LABEL"
+          },
+          "disabled": null
+        },
+        "product_564321": {
+          "type": "product",
+          "settings": {
+            "product": "",
+            "product_badge": "PRODUCT ACTION LABEL"
+          },
+          "disabled": null
+        },
+        "tagline": {
+          "type": "tagline",
+          "settings": {
+            "tagline": "Shop"
+          },
+          "disabled": null
+        }
+      },
+      "block_order": [
+        "tagline",
+        "heading",
+        "description",
+        "product",
+        "product_564321"
+      ],
+      "settings": {
+        "color_scheme": "set-1",
+        "content_horizontal": "left",
+        "products_layout": "two",
+        "padding_bottom_desktop": "lg",
+        "padding_bottom_mobile": "md",
+        "padding_top_desktop": "lg",
+        "padding_top_mobile": "md"
+      },
+      "disabled": null
     }
   },
   "order": [
     "hero",
-    "steps"
+    "steps",
+    "products"
   ]
 }
