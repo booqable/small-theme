@@ -2,15 +2,12 @@
  * Focal Image Component
  *
  * Converts focal point coordinates to CSS object-position.
- * Uses IntersectionObserver for lazy processing and performance optimization.
  *
  */
 
 import {
   frameSequence,
-  cleanupSystem,
-  intersectionObserver,
-  inViewport
+  cleanupSystem
 } from 'utils.js'
 
 const FocalConfig = {
@@ -122,7 +119,6 @@ const FocalRenderer = (calculator) => {
 
 const focalComponent = () => {
   const dom = FocalDOM()
-  let observer = null
 
   const init = () => {
     if (!dom.init()) return null
@@ -130,31 +126,16 @@ const focalComponent = () => {
     const calculator = FocalCalculator(dom)
     const renderer = FocalRenderer(calculator)
 
-    const observerCallback = (entries) => {
-      entries.forEach((entry) => {
-        if (!entry.isIntersecting) return
-        renderer.applyFocalPoint(entry.target)
-        observer.unobserve(entry.target)
-      })
-    }
-
-    observer = intersectionObserver(observerCallback)
-    observer.init()
-
     const images = dom.get('images')
     images.forEach(image => {
-      inViewport(image) ?
-        renderer.applyFocalPoint(image) :
-        observer.observe(image)
+      renderer.applyFocalPoint(image)
     })
 
     return destroy
   }
 
   const destroy = () => {
-    observer?.destroy()
     dom?.cleanup()
-    observer = null
   }
 
   return {
