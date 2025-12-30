@@ -41,8 +41,8 @@
   &__opener {
     @include flexbox($align: center, $justify: center);
 
-    height: $button-height;
-    width: $button-width;
+    height: $button-height-xs;
+    width: $button-width-xs;
     border-radius: $button-border-radius;
     background: $button-background;
     position: relative;
@@ -170,8 +170,8 @@
     left: var(--search-input-reset-left);
     right: var(--search-input-reset-right);
     top: 50%;
-    height: $button-height;
-    width: $button-width;
+    height: $button-height-xs;
+    width: $button-width-xs;
     visibility: hidden;
     transform: translate(0, -50%);
     transition: visibility $transition-duration $transition-function;

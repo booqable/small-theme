@@ -36,15 +36,19 @@
       {%- when 'fully_round' -%}
         --button-border-radius: 50px;
     {% endcase %}
-    --button-height: 40px;
-    --button-width: 40px;
+    --button-height-xs: 40px;
+    --button-width-xs: 40px;
+    --button-width-fw: 100%;
     {% case settings.button_size %}
       {%- when 'sm' -%}
-        --button-padding: 8px 16px;
+        --button-padding-x: 16px;
+        --button-padding-y: 8px;
       {%- when 'md' -%}
-        --button-padding: 12px 20px;
+        --button-padding-x: 20px;
+        --button-padding-y: 12px;
       {%- when 'lg' -%}
-        --button-padding: 17px 26px;
+        --button-padding-x: 26px;
+        --button-padding-y: 17px;
     {% endcase %}
     --font-body:             "{{ settings.font_body.family | default: Roboto }}", {{ settings.font_body.fallback_families | default: sans-serif }};
     --font-heading:          "{{ settings.font_heading.family | default: Nippo }}", {{ settings.font_heading.fallback_families | default: sans-serif }};

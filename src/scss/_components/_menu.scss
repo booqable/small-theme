@@ -6,9 +6,9 @@
 
 .menu {
   --menu-display: flex;
-  --menu-dropdown-opener-height: #{$button-height};
+  --menu-dropdown-opener-height: #{$button-height-xs};
   --menu-dropdown-opener-weight: inherit;
-  --menu-dropdown-opener-width: #{$button-width};
+  --menu-dropdown-opener-width: #{$button-width-xs};
   --menu-opener-color: currentcolor;
 
   display: var(--menu-display);

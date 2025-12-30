@@ -1,0 +1,247 @@
+// Import variables
+@use 'variables' as *;
+
+// Import mixins
+@use '_helpers/mixins' as *;
+
+.about {
+  --about-border-color: transparent;
+  --about-border-radius: 0;
+  --about-btn-gap: 16px;
+  --about-btn-margin-left: 0;
+  --about-btn-margin-right: 0;
+  --about-btn-margin-top: 16px;
+  --about-btn-width: 100%;
+  --about-buttons-direction: column;
+  --about-heading-margin-top: 20px;
+  --about-highlight-margin-left: 0;
+  --about-highlight-margin-right: 0;
+  --about-highlight-margin-top: 24px;
+
+  @include media-up(xs) {
+    --about-btn-width: auto;
+    --about-buttons-direction: row;
+  }
+
+  @include media-up(md) {
+    --about-btn-gap: 24px;
+    --about-btn-margin-top: 32px;
+    --about-highlight-margin-top: 80px;
+  }
+
+  &__wrapper {
+    --about-content-justify: var(--about-content-horizontal-alignment, flex-start);
+    --about-content-text-justify: var(--about-content-text-horizontal-alignment, left);
+    --section-padding-bottom: var(--padding-bottom-mobile, 20px);
+    --section-padding-top: var(--padding-top-mobile, 20px);
+
+    position: relative;
+    color: $color-primary;
+    background: $background-primary;
+    border-radius: var(--about-border-radius);
+    border: 1px solid var(--about-border-color);
+    text-align: var(--about-content-text-justify);
+
+    @include media-up(md) {
+      --section-padding-bottom: var(--padding-bottom-desktop, 40px);
+      --section-padding-top: var(--padding-top-desktop, 40px);
+    }
+
+    &--padding-top {
+      &:not(:empty) {
+        padding-top: var(--section-padding-top);
+      }
+    }
+
+    &--padding-bottom {
+      &:not(:empty) {
+        padding-bottom: var(--section-padding-bottom);
+      }
+    }
+
+    .about__container & {
+      --about-border-color: #{$color-border};
+      --about-border-radius: #{$border-radius-block};
+    }
+  }
+
+  &__heading {
+    margin: var(--about-heading-margin-top) 0 0;
+
+    &:first-child {
+      --about-heading-margin-top: 0;
+    }
+  }
+
+  &__tagline {
+    margin: 20px 0 0;
+
+    &:first-child {
+      margin-top: 0;
+    }
+  }
+
+  &__description {
+    &:not(:first-child) {
+      margin-top: 40px;
+    }
+
+    * {
+      &:last-child {
+        margin-bottom: 0;
+        padding-bottom: 0;
+      }
+    }
+  }
+
+  &__buttons {
+    @include flexbox(
+      $direction: var(--about-buttons-direction),
+      $align: center,
+      $justify: var(--about-content-justify),
+      $wrap: wrap,
+      $gap: var(--about-btn-gap)
+    );
+
+    width: var(--about-btn-width);
+
+    &:not(:first-child) {
+      // margin-top: var(--about-btn-margin-top);
+    }
+  }
+
+  &__btn {
+    &-wrapper {
+      margin-top: var(--about-btn-margin-top);
+      margin-left: var(--about-btn-margin-left);
+      margin-right: var(--about-btn-margin-right);
+      width: var(--about-btn-width);
+
+      & + .about__image-holder + & {
+        --about-btn-margin-left: 4px;
+
+        @include media-up(md) {
+          --about-btn-margin-left: 8px;
+        }
+      }
+
+      &:has(+ .about__image-holder + &) {
+        --about-btn-margin-right: 8px;
+
+        @include media-up(md) {
+          --about-btn-margin-right: 12px;
+        }
+      }
+
+      & + .about__info {
+        @include flexbox($direction: column, $align: var(--about-content-justify));
+      }
+
+      /* stylelint-disable-next-line */
+      &:first-child {
+        // --about-btn-margin-top: 0;
+
+        & + .about__btn-wrapper {
+          // --about-btn-margin-top: 0;
+        }
+
+        & + .about__image-holder + .about__btn-wrapper {
+          // --about-btn-margin-top: 0;
+        }
+      }
+    }
+  }
+
+  &__highlight {
+    display: inline-block;
+    vertical-align: top;
+    margin-top: var(--about-highlight-margin-top);
+    margin-left: var(--about-highlight-margin-left);
+    margin-right: var(--about-highlight-margin-right);
+    width: var(--about-highlight-width);
+
+    &-content {
+      border-radius: $border-radius-block;
+      border: 1px solid $color-primary;
+      padding: 24px;
+      height: 100%;
+      width: var(--about-highlight-content-width);
+    }
+
+    &-heading {
+      margin-bottom: 12px;
+    }
+
+    &-text {
+      line-height: $font-height-md;
+
+      p {
+        &:last-child {
+          margin: 0;
+        }
+      }
+    }
+
+    &-wrapper {
+      @include flexbox($align: stretch, $justify: var(--about-content-justify), $gap: var(--about-btn-gap));
+
+      .about__highlight {
+        --about-highlight-margin-top: 0;
+        --about-highlight-width: 50%;
+
+        @include flexbox($direction: column, $align: var(--about-content-justify));
+
+        &-content {
+          --about-highlight-content-width: 100%;
+        }
+      }
+
+      &:not(:first-child) {
+        margin-top: var(--about-highlight-margin-top);
+      }
+    }
+
+    &:has(+ .about__image-holder + &) {
+      --about-highlight-margin-right: 8px;
+
+      @include media-up(md) {
+        --about-highlight-margin-right: 12px;
+      }
+    }
+
+    & + .about__image-holder + & {
+      --about-highlight-margin-left: 4px;
+
+      @include media-up(md) {
+        --about-highlight-margin-left: 8px;
+      }
+    }
+
+    /* stylelint-disable-next-line */
+    &:first-child {
+      --about-highlight-margin-top: 0;
+
+      & + .about__image-holder + .about__info {
+        --about-highlight-margin-top: 0;
+      }
+    }
+
+    &:has(+ .about__btn-wrapper) {
+      @include flexbox($direction: column, $align: var(--about-content-justify));
+    }
+  }
+
+  &__col {
+    @include flexbox(
+      $direction: column,
+      $align: var(--about-content-justify)
+    );
+    // position: relative;
+    // border-radius: var(--about-border-radius);
+    // background: var(--about-background);
+    // overflow: clip;
+    // padding: var(--about-col-padding-top) var(--about-col-padding-right) var(--about-col-padding-bottom) var(--about-col-padding-left);
+    // flex-grow: var(--about-col-grow);
+    // width: var(--about-col-width);
+  }
+}

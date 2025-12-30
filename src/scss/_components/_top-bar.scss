@@ -11,6 +11,9 @@ $top-bar-item-margin-x: 40px;
   font-size: $top-bar-font-size;
 
   &__btn {
+    --button-margin: 0;
+    --button-width: auto;
+
     font-size: inherit;
 
     &-wrapper {

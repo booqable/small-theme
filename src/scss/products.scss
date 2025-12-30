@@ -19,35 +19,27 @@
     --products-content-align: var(--products-content-alignment, flex-start);
     --products-content-text-align: var(--products-content-text-alignment, left);
     --products-layout: repeat(auto-fit, minmax(330px, 1fr));
-    --products-padding-bottom: var(--padding-bottom-mobile, 20px);
-    --products-padding-top: var(--padding-top-mobile, 20px);
+    --section-padding-bottom: var(--padding-bottom-mobile, 20px);
+    --section-padding-top: var(--padding-top-mobile, 20px);
 
     color: $color-primary;
     background: $background-primary;
 
     @include media-up(md) {
       --products-layout: repeat(var(--products-layout-desktop, 2), 1fr);
-      --products-padding-bottom: var(--padding-bottom-desktop, 40px);
-      --products-padding-top: var(--padding-top-desktop, 40px);
+      --section-padding-bottom: var(--padding-bottom-desktop, 40px);
+      --section-padding-top: var(--padding-top-desktop, 40px);
     }
 
     &--padding-top {
       &:not(:empty) {
-        padding-top: var(--products-padding-top);
+        padding-top: var(--section-padding-top);
       }
     }
 
     &--padding-bottom {
       &:not(:empty) {
-        padding-bottom: var(--products-padding-bottom);
-      }
-    }
-
-    body:not(:has(.header__inner--filled)) & {
-      --products-padding-top: calc(var(--padding-top-mobile, 20px) + #{$header-height});
-
-      @include media-up(md) {
-        --products-padding-top: calc(var(--padding-top-desktop, 40px) + #{$header-height});
+        padding-bottom: var(--section-padding-bottom);
       }
     }
   }

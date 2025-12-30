@@ -9,12 +9,15 @@
   --button-background: none;
   --button-border-color: transparent;
   --button-indent: 0;
+  --button-margin: #{$button-padding-y} 0;
+  --button-width: #{$button-width-fw};
 
   font-family: $font-family-body;
   font-size: $font-size-button;
   font-weight: $font-weight-button;
   white-space: nowrap;
-  margin: 0;
+  width: var(--button-width);
+  margin: var(--button-margin);
   padding: var(--button-indent);
   background: var(--button-background);
   text-decoration: none;
@@ -29,9 +32,10 @@
 
   &--primary {
     --button-background: #{$background-accent};
-    --button-color: #{$color-accent};
     --button-border-color: #{$background-accent};
-    --button-indent: #{$button-padding};
+    --button-color: #{$color-accent};
+    --button-indent: #{$button-padding-y} #{$button-padding-x};
+    --button-margin: 0;
 
     color: var(--button-color);
 
@@ -46,7 +50,8 @@
     --button-background: transparent;
     --button-border-color: #{$color-outline};
     --button-color: #{$color-outline};
-    --button-indent: #{$button-padding};
+    --button-indent: #{$button-padding-y} #{$button-padding-x};
+    --button-margin: 0;
 
     color: var(--button-color);
 

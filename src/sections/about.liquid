@@ -1,0 +1,564 @@
+{%- if section.blocks.size > 0 -%}
+  {%- assign about_layout            = section.settings.about_layout -%}
+  {%- assign about_layout_blocks     = section.settings.about_layout_blocks -%}
+  {%- assign button_block_count      = 0 -%}
+  {%- assign button_block_ordinal    = false -%}
+  {%- assign button_first_index      = -1 -%}
+  {%- assign button_second_index     = -1 -%}
+  {%- assign color_scheme            = section.settings.color_scheme -%}
+  {%- assign content_horizontal      = section.settings.content_horizontal -%}
+  {%- assign highlight_block_count   = 0 -%}
+  {%- assign highlight_block_ordinal = false -%}
+  {%- assign highlight_first_index   = -1 -%}
+  {%- assign highlight_second_index  = -1 -%}
+  {%- assign image_placeholder       = settings.image_placeholder -%}
+  {%- assign narrowed                = false -%}
+  {%- assign padding_bottom_desktop  = section.settings.padding_bottom_desktop -%}
+  {%- assign padding_bottom_mobile   = section.settings.padding_bottom_mobile -%}
+  {%- assign padding_top_desktop     = section.settings.padding_top_desktop -%}
+  {%- assign padding_top_mobile      = section.settings.padding_top_mobile -%}
+  {%- assign section_type            = section.type -%}
+
+  {%- if about_layout == 'narrow' -%}
+    {%- assign narrowed = true -%}
+  {%- endif -%}
+
+  {% comment %} CSS variables start {% endcomment %}
+  {%- capture variables -%}
+    {%- case padding_bottom_desktop -%}
+      {%- when 'md' -%}
+        --padding-bottom-desktop: 60px;
+      {%- when 'lg' -%}
+        --padding-bottom-desktop: 80px;
+    {%- endcase -%}
+
+    {%- case padding_bottom_mobile -%}
+      {%- when 'md' -%}
+        --padding-bottom-mobile: 32px;
+      {%- when 'lg' -%}
+        --padding-bottom-mobile: 50px;
+    {%- endcase -%}
+
+    {%- case padding_top_desktop -%}
+      {%- when 'md' -%}
+        --padding-top-desktop: 60px;
+      {%- when 'lg' -%}
+        --padding-top-desktop: 80px;
+    {%- endcase -%}
+
+    {%- case padding_top_mobile -%}
+      {%- when 'md' -%}
+        --padding-top-mobile: 32px;
+      {%- when 'lg' -%}
+        --padding-top-mobile: 50px;
+    {%- endcase -%}
+
+    {%- case content_horizontal -%}
+      {%- when 'center' -%}
+        --about-content-horizontal-alignment: center;
+        --about-content-text-horizontal-alignment: center;
+      {%- when 'right' -%}
+        --about-content-horizontal-alignment: flex-end;
+        --about-content-text-horizontal-alignment: right;
+    {%- endcase -%}
+  {%- endcapture -%}
+  {% comment %} CSS variables end {% endcomment %}
+
+  {%- for block in section.blocks -%}
+    {%- assign index = forloop.index0 -%}
+
+    {%- if block.type == 'button' -%}
+      {%- assign button_block_count = button_block_count | plus: 1 -%}
+
+      {%- if button_first_index == -1 -%}
+        {%- assign button_first_index = index -%}
+      {%- elsif button_second_index == -1 -%}
+        {%- assign button_second_index = index -%}
+        {%- assign index_diff = button_second_index | minus: button_first_index -%}
+
+        {%- if index_diff == 1 -%}
+          {%- assign button_block_ordinal = true -%}
+        {%- endif -%}
+      {%- endif -%}
+
+    {%- elsif block.type == 'highlight' -%}
+      {%- assign highlight_block_count = highlight_block_count | plus: 1 -%}
+
+      {%- if highlight_first_index == -1 -%}
+        {%- assign highlight_first_index = index -%}
+      {%- elsif highlight_second_index == -1 -%}
+        {%- assign highlight_second_index = index -%}
+        {%- assign index_diff = highlight_second_index | minus: highlight_first_index -%}
+
+        {%- if index_diff == 1 -%}
+          {%- assign highlight_block_ordinal = true -%}
+        {%- endif -%}
+      {%- endif -%}
+    {%- endif -%}
+  {%- endfor -%}
+
+  {%- if narrowed -%}
+    <div class="about__container container">
+  {%- endif -%}
+    <div class="about__wrapper about__wrapper-{{ about_layout_blocks }} about__wrapper--padding-top about__wrapper--padding-bottom color-{{- color_scheme.id -}}"
+      style="{{- variables | escape -}}"
+    >
+      {%- unless narrowed -%}
+        <div class="about__container container">
+      {%- endunless -%}
+
+        <div class="about__columns">
+          <div class="about__col">
+            {%- for block in section.blocks -%}
+              {%- assign index = forloop.index0 -%}
+
+              {%- case block.type -%}
+                {%- when 'button' -%}
+                  {%- assign button_icon  = block.settings.button_icon -%}
+                  {%- assign button_label = block.settings.button_label -%}
+                  {%- assign button_type  = block.settings.button_type -%}
+                  {%- assign button_url   = block.settings.button_url -%}
+
+                  {%- if button_label != blank and button_url != blank -%}
+                    {%- if button_block_ordinal and index == button_first_index -%}
+                      <div class="about__buttons">
+                    {%- endif -%}
+
+                    {%- render 'button',
+                        button_icon: button_icon,
+                        button_id: block.id,
+                        button_label: button_label,
+                        button_type: button_type,
+                        button_url: button_url,
+                        section_type: section_type
+                    -%}
+
+                    {%- if button_block_ordinal and index == button_second_index -%}
+                      </div>
+                    {%- endif -%}
+                  {%- endif -%}
+
+                {%- when 'description' -%}
+                  {%- assign description = block.settings.description -%}
+
+                  {%- if description != blank -%}
+                    <div class="about__description bq-content rx-content" id="{{- block.id -}}">
+                      {{- description -}}
+                    </div>
+                  {%- endif -%}
+
+                {%- when 'heading' -%}
+                  {%- assign heading = block.settings.heading -%}
+
+                  {%- if heading != blank -%}
+                    <h2 class="about__heading" id="{{- block.id -}}">
+                      {{- heading -}}
+                    </h2>
+                  {%- endif -%}
+
+                {%- when 'highlight' -%}
+                  {%- assign heading = block.settings.heading -%}
+                  {%- assign text    = block.settings.text -%}
+
+                  {%- if heading != blank or text != blank -%}
+                    {%- if highlight_block_ordinal and index == highlight_first_index -%}
+                      <div class="about__highlight-wrapper">
+                    {%- endif -%}
+
+                      <div class="about__highlight" id="{{- block.id -}}">
+                        <div class="about__highlight-content">
+                          {%- if heading != blank -%}
+                            <h3 class="about__highlight-heading">{{- heading -}}</h3>
+                          {%- endif -%}
+                          {%- if text != blank -%}
+                            <div class="about__highlight-text">{{- text -}}</div>
+                          {%- endif -%}
+                        </div>
+                      </div>
+
+                    {%- if highlight_block_ordinal and index == highlight_second_index -%}
+                      </div>
+                    {%- endif -%}
+                  {%- endif -%}
+
+                {%- when 'image' -%}
+                  {%- continue -%}
+
+                {%- when 'tagline' -%}
+                  {%- assign tagline = block.settings.tagline -%}
+
+                  {%- if tagline != blank -%}
+                    <p class="about__tagline tagline" id="{{- block.id -}}">
+                      {{- tagline -}}
+                    </p>
+                  {%- endif -%}
+
+              {%- endcase -%}
+            {%- endfor -%}
+          </div>
+          <div class="about__col">
+            {%- for block in section.blocks -%}
+              {%- if block.type == 'image' -%}
+                {%- assign image     = block.settings.image -%}
+                {%- assign image_alt = block.settings.image_alt -%}
+
+                {%- if image.url != blank -%}
+                  {%- assign image = image -%}
+                {%- elsif image_placeholder != blank -%}
+                  {%- assign image = image_placeholder -%}
+                {%- else -%}
+                  {%- assign image = blank -%}
+                {%- endif -%}
+
+                {%- if image.url != blank -%}
+                  <div class="about__image-holder" id="{{- block.id -}}">
+                    {%- render 'image',
+                        image: image,
+                        image_alt: image_alt,
+                        image_class: 'about__image',
+                        image_size: 'xl',
+                        loading: 'lazy'
+                    -%}
+                  </div>
+                {%- endif -%}
+              {%- endif -%}
+            {%- endfor -%}
+          </div>
+        </div>
+
+      {%- unless narrowed -%}
+        </div>
+      {%- endunless -%}
+    </div>
+  {%- if narrowed -%}
+    </div>
+  {%- endif -%}
+{%- endif -%}
+
+{% schema %}
+  {
+    "name": "About",
+    "tag": "section",
+    "class": "about",
+    "css_assets": [
+      {
+        "file": "about.css"
+      }
+    ],
+    "blocks": [
+      {
+        "type": "button",
+        "name": "Button",
+        "limit": 2,
+        "settings": [
+          {
+            "type": "header",
+            "content": "General settings"
+          },
+          {
+            "type": "text",
+            "id": "button_label",
+            "label": "Label",
+            "default": "Rent now"
+          },
+          {
+            "type": "url",
+            "id": "button_url",
+            "label": "URL",
+            "default": "booqable://root"
+          },
+          {
+            "type": "select",
+            "id": "button_type",
+            "label": "Style",
+            "options": [
+              {
+                "value": "transparent",
+                "label": "Transparent"
+              },
+              {
+                "value": "primary",
+                "label": "Primary"
+              },
+              {
+                "value": "outlined",
+                "label": "Outlined"
+              }
+            ],
+            "default": "primary"
+          },
+          {
+            "type": "select",
+            "id": "button_icon",
+            "label": "",
+            "options": [
+              {
+                "value": "minimal",
+                "label": "Minimal"
+              },
+              {
+                "value": "arrowed",
+                "label": "Arrowed"
+              }
+            ],
+            "default": "arrowed"
+          }
+        ]
+      },
+      {
+        "type": "description",
+        "name": "Description",
+        "limit": 1,
+        "settings": [
+          {
+            "type": "header",
+            "content": "General settings"
+          },
+          {
+            "type": "contentEditor",
+            "id": "description",
+            "label": "Text",
+            "default": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse varius enim in eros elementum tristique."
+          }
+        ]
+      },
+      {
+        "type": "heading",
+        "name": "Heading",
+        "limit": 1,
+        "settings": [
+          {
+            "type": "header",
+            "content": "General settings"
+          },
+          {
+            "type": "text",
+            "id": "heading",
+            "label": "Heading",
+            "default": "How it works"
+          }
+        ]
+      },
+      {
+        "type": "highlight",
+        "name": "Highlight",
+        "limit": 4,
+        "settings": [
+          {
+            "type": "header",
+            "content": "General settings"
+          },
+          {
+            "type": "text",
+            "id": "heading",
+            "label": "Heading",
+            "default": "100+"
+          },
+          {
+            "type": "contentEditor",
+            "id": "text",
+            "label": "Text",
+            "default": "Products for you"
+          }
+        ]
+      },
+      {
+        "type": "image",
+        "name": "Image",
+        "limit": 1,
+        "settings": [
+          {
+            "type": "header",
+            "content": "General settings"
+          },
+          {
+            "type": "paragraph",
+            "content": "Use WebP, PNG, JPG high-quality image (1400px or larger) for best results on all screen sizes"
+          },
+          {
+            "type": "image_picker",
+            "id": "image",
+            "label": "Image",
+            "default": "booqable://assets/image-placeholder.png"
+          },
+          {
+            "type": "text",
+            "id": "image_alt",
+            "label": "Alternative text (optional)",
+            "default": "About image",
+            "info": "For SEO and Accessibility purposes"
+          }
+        ]
+      },
+      {
+        "type": "tagline",
+        "name": "Tagline",
+        "limit": 1,
+        "settings": [
+          {
+            "type": "header",
+            "content": "General settings"
+          },
+          {
+            "type": "text",
+            "id": "tagline",
+            "label": "Text",
+            "default": "Tagline"
+          }
+        ]
+      }
+    ],
+    "settings": [
+      {
+        "type": "header",
+        "content": "General settings"
+      },
+      {
+        "type": "color_scheme",
+        "id": "color_scheme",
+        "label": "Color scheme",
+        "default": "set-1"
+      },
+      {
+        "type": "select",
+        "id": "about_layout",
+        "label": "Layout",
+        "options": [
+          {
+            "value": "wide",
+            "label": "Wide"
+          },
+          {
+            "value": "narrow",
+            "label": "Narrow"
+          }
+        ],
+        "default": "wide"
+      },
+      {
+        "type": "select",
+        "id": "about_layout_blocks",
+        "label": "",
+        "options": [
+          {
+            "value": "card",
+            "label": "Cards"
+          },
+          {
+            "value": "simple",
+            "label": "Simple"
+          }
+        ],
+        "default": "simple"
+      },
+      {
+        "type": "select",
+        "id": "content_horizontal",
+        "label": "Horizontal positioning",
+        "options": [
+          {
+            "value": "left",
+            "label": "Left"
+          },
+          {
+            "value": "center",
+            "label": "Center"
+          },
+          {
+            "value": "right",
+            "label": "Right"
+          }
+        ],
+        "default": "left"
+      },
+      {
+        "type": "header",
+        "content": "Desktop settings"
+      },
+      {
+        "type": "select",
+        "id": "padding_top_desktop",
+        "label": "Padding top",
+        "options": [
+          {
+            "value": "sm",
+            "label": "Small"
+          },
+          {
+            "value": "md",
+            "label": "Medium"
+          },
+          {
+            "value": "lg",
+            "label": "Large"
+          }
+        ],
+        "default": "lg"
+      },
+      {
+        "type": "select",
+        "id": "padding_bottom_desktop",
+        "label": "Padding bottom",
+        "options": [
+          {
+            "value": "sm",
+            "label": "Small"
+          },
+          {
+            "value": "md",
+            "label": "Medium"
+          },
+          {
+            "value": "lg",
+            "label": "Large"
+          }
+        ],
+        "default": "lg"
+      },
+      {
+        "type": "header",
+        "content": "Mobile settings"
+      },
+      {
+        "type": "select",
+        "id": "padding_top_mobile",
+        "label": "Padding top",
+        "options": [
+          {
+            "value": "sm",
+            "label": "Small"
+          },
+          {
+            "value": "md",
+            "label": "Medium"
+          },
+          {
+            "value": "lg",
+            "label": "Large"
+          }
+        ],
+        "default": "md"
+      },
+      {
+        "type": "select",
+        "id": "padding_bottom_mobile",
+        "label": "Padding bottom",
+        "options": [
+          {
+            "value": "sm",
+            "label": "Small"
+          },
+          {
+            "value": "md",
+            "label": "Medium"
+          },
+          {
+            "value": "lg",
+            "label": "Large"
+          }
+        ],
+        "default": "md"
+      }
+    ]
+  }
+{% endschema %}

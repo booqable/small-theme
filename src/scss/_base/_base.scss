@@ -54,6 +54,23 @@ body {
       --overlay-visibility: visible;
     }
   }
+
+  /* Add spacing at the top of sections if the header is transparent */
+  &:not(:has(.header__inner--filled)) {
+    #main {
+      > section {
+        &:first-child {
+          > [class*="__wrapper"] {
+            --section-padding-top: calc(var(--padding-top-mobile, 20px) + #{$header-height} - var(--top-bar-height, 0px));
+
+            @include media-up(md) {
+              --section-padding-top: calc(var(--padding-top-desktop, 40px) + #{$header-height} - var(--top-bar-height, 0px));
+            }
+          }
+        }
+      }
+    }
+  }
 }
 
 #main {

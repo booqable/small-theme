@@ -86,7 +86,7 @@
 
   @include media-up(md) {
     --header-btn-display: block;
-    --header-btn-height: #{$button-height};
+    --header-btn-height: #{$button-height-xs};
     --header-btn-menu-display: none;
     --header-menu-dropdown-height: auto;
     --header-menu-dropdown-item-display: block;
@@ -223,6 +223,8 @@
   }
 
   &__btn {
+    --button-margin: 0;
+
     @include media-up(md) {
       --button-indent: 10px 20px;
 
@@ -249,8 +251,8 @@
     }
 
     &-opener {
-      height: $button-height;
-      width: $button-width;
+      height: $button-height-xs;
+      width: $button-width-xs;
       border-radius: $button-border-radius;
       display: var(--header-menu-opener-display);
       background: $button-background;
