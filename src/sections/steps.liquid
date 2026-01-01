@@ -67,6 +67,8 @@
       {%- endunless -%}
 
         {%- for block in section.blocks -%}
+          {%- assign block_id = block.id -%}
+
           {%- case block.type -%}
             {%- when 'heading' -%}
               {%- if steps_group -%}
@@ -78,24 +80,9 @@
               {%- assign heading = block.settings.heading -%}
 
               {%- if heading != blank -%}
-                <h2 class="steps__heading" id="{{- block.id -}}">
+                <h2 class="steps__heading" id="{{- block_id -}}">
                   {{- heading -}}
                 </h2>
-              {%- endif -%}
-
-            {%- when 'highlited-text' -%}
-              {%- if steps_group -%}
-                </div>
-
-                {%- assign steps_group = false -%}
-              {%- endif -%}
-
-              {%- assign tagline = block.settings.tagline -%}
-
-              {%- if tagline != blank -%}
-                <p class="steps__tagline tagline" id="{{- block.id -}}">
-                  {{- tagline -}}
-                </p>
               {%- endif -%}
 
             {%- when 'step' -%}
@@ -126,7 +113,7 @@
                   </span>
                 {%- endcapture -%}
 
-                <div class="steps__col" data-step-number="{{- step_counter -}}" id="{{- block.id -}}">
+                <div class="steps__col" data-step-number="{{- step_counter -}}" id="{{- block_id -}}">
                   {%- if steps_layout_blocks == 'card' -%}
                     {{- element_counter -}}
                   {%- endif -%}
@@ -157,6 +144,22 @@
                   {%- endif -%}
                 </div>
               {%- endif -%}
+
+            {%- when 'tagline' -%}
+              {%- if steps_group -%}
+                </div>
+
+                {%- assign steps_group = false -%}
+              {%- endif -%}
+
+              {%- assign tagline = block.settings.tagline -%}
+
+              {%- if tagline != blank -%}
+                <p class="steps__tagline tagline" id="{{- block_id -}}">
+                  {{- tagline -}}
+                </p>
+              {%- endif -%}
+
           {%- endcase -%}
         {%- endfor -%}
 
@@ -181,6 +184,77 @@
     "css_assets": [
       {
         "file": "steps.css"
+      }
+    ],
+    "blocks": [
+      {
+        "type": "heading",
+        "name": "Heading",
+        "limit": 1,
+        "settings": [
+          {
+            "type": "header",
+            "content": "General settings"
+          },
+          {
+            "type": "text",
+            "id": "heading",
+            "label": "Heading",
+            "default": "How it works"
+          }
+        ]
+      },
+      {
+        "type": "step",
+        "name": "Step",
+        "limit": 8,
+        "settings": [
+          {
+            "type": "header",
+            "content": "General settings"
+          },
+          {
+            "type": "text",
+            "id": "number_prefix",
+            "label": "Number prefix (optional)"
+          },
+          {
+            "type": "image_picker",
+            "id": "image",
+            "label": "Image (optional)",
+            "info": "Use WebP, PNG, JPG high-quality image (330px or larger) for best results on all screen sizes"
+          },
+          {
+            "type": "text",
+            "id": "image_alt",
+            "label": "Alternative text (optional)",
+            "default": "Image description",
+            "info": "For SEO and Accessibility purposes"
+          },
+          {
+            "type": "contentEditor",
+            "id": "description",
+            "label": "Text",
+            "default": "Step description goes here"
+          }
+        ]
+      },
+      {
+        "type": "tagline",
+        "name": "Tagline",
+        "limit": 1,
+        "settings": [
+          {
+            "type": "header",
+            "content": "General settings"
+          },
+          {
+            "type": "text",
+            "id": "tagline",
+            "label": "Text",
+            "default": "Tagline"
+          }
+        ]
       }
     ],
     "settings": [
@@ -337,77 +411,6 @@
           }
         ],
         "default": "md"
-      }
-    ],
-    "blocks": [
-      {
-        "type": "heading",
-        "name": "Heading",
-        "limit": 1,
-        "settings": [
-          {
-            "type": "header",
-            "content": "General settings"
-          },
-          {
-            "type": "text",
-            "id": "heading",
-            "label": "Heading",
-            "default": "How it works"
-          }
-        ]
-      },
-      {
-        "type": "highlited-text",
-        "name": "Highlighted text",
-        "limit": 1,
-        "settings": [
-          {
-            "type": "header",
-            "content": "General settings"
-          },
-          {
-            "type": "text",
-            "id": "tagline",
-            "label": "Text",
-            "default": "Tagline"
-          }
-        ]
-      },
-      {
-        "type": "step",
-        "name": "Step",
-        "limit": 8,
-        "settings": [
-          {
-            "type": "header",
-            "content": "General settings"
-          },
-          {
-            "type": "text",
-            "id": "number_prefix",
-            "label": "Number prefix (optional)"
-          },
-          {
-            "type": "image_picker",
-            "id": "image",
-            "label": "Image (optional)",
-            "info": "Use WebP, PNG, JPG high-quality image (330px or larger) for best results on all screen sizes"
-          },
-          {
-            "type": "text",
-            "id": "image_alt",
-            "label": "Alternative text (optional)",
-            "default": "Image description",
-            "info": "For SEO and Accessibility purposes"
-          },
-          {
-            "type": "contentEditor",
-            "id": "description",
-            "label": "Text",
-            "default": "Step description goes here"
-          }
-        ]
       }
     ]
   }

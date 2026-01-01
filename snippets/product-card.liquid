@@ -1,0 +1,153 @@
+{%- comment -%}
+  This snippet renders the product card
+
+  Parameters:
+  - image_loading: string (lazy, eager)
+  - img_size: string (size of the image, e.g. 'xl', 'l', 'flexible')
+  - product: the product object
+  - settings: the settings object
+
+  Required parameters:
+  - product
+  - settings
+
+  Usage:
+
+  {%- render 'product-card',
+      badge: 'your_string',
+      image_loading: 'your_string',
+      img_size: 'size',
+      product: product,
+      settings: settings
+  -%}
+
+{%- endcomment -%}
+
+{%- assign color_scheme = settings.product_card_color_scheme -%}
+{%- assign excerpt      = '' -%}
+{%- assign id           = '' -%}
+{%- assign image        = '' -%}
+{%- assign image_border = settings.use_product_card_image_borders -%}
+{%- assign image_fit    = settings.product_card_image_fit -%}
+{%- assign name         = '' -%}
+{%- assign period       = '' -%}
+{%- assign placeholder  = settings.image_placeholder -%}
+{%- assign points       = nil -%}
+{%- assign price        = '' -%}
+{%- assign show_excerpt = settings.show_product_card_excerpt -%}
+{%- assign url          = '' -%}
+{%- assign use_colors   = settings.use_product_card_color_scheme -%}
+{%- assign use_focal    = settings.use_focal_images -%}
+
+{%- if product != blank -%}
+  {%- if product.images != blank -%}
+    {%- assign image = product.images.first -%}
+  {%- elsif placeholder != blank -%}
+    {%- assign image = placeholder -%}
+  {%- else -%}
+    {%- assign image = blank -%}
+  {%- endif -%}
+
+  {%- if img_size == blank -%}
+    {%- assign img_size = 'flexible' -%}
+  {%- endif -%}
+
+  {%- if use_focal and image_fit == 'cover' -%}
+    {%- assign points = image.coordinates -%}
+  {%- endif -%}
+
+  {%- assign id      = product.id -%}
+  {%- assign url     = product.url -%}
+  {%- assign name    = product.name -%}
+  {%- assign excerpt = product.excerpt -%}
+  {%- assign price   = product | product_price -%}
+  {%- assign period  = product | product_price_label -%}
+
+{%- else -%}
+  {%- if placeholder != blank -%}
+    {%- assign image = placeholder -%}
+  {%- else -%}
+    {%- assign image = blank -%}
+  {%- endif -%}
+
+  {%- assign name    = "Product name" -%}
+  {%- assign excerpt = "Product description" -%}
+  {%- assign price   = "$50.00" -%}
+  {%- assign period  = "1 day" -%}
+{%- endif -%}
+
+{% comment %} CSS variables start {% endcomment %}
+{%- capture card_variables -%}
+  {%- case image_fit -%}
+    {%- when 'cover' -%}
+      --product-image-object-fit: cover;
+    {%- when 'contain' -%}
+      --product-image-object-fit: contain;
+  {%- endcase -%}
+
+  {%- if image_border -%}
+    --product-image-border-width: 1px;
+  {%- endif -%}
+{%- endcapture -%}
+{% comment %} CSS variables end {% endcomment %}
+
+<div class="product-card{% if use_colors %} color-{{- color_scheme.id -}}{%- endif -%}"{% if id != blank %} id="{{- id -}}"{% endif %} style="{{- card_variables | escape -}}">
+  <div class="product-card__vision{% unless image != blank %} no-image{%- endunless -%}">
+    {%- if product != blank -%}
+      <a class="product-card__link" href="{{ url }}">
+    {%- endif -%}
+
+      {%- if image.url != blank -%}
+        {%- render 'image',
+          image: image,
+          image_alt: name,
+          image_class: 'product-card__image',
+          image_size: img_size,
+          focal: points,
+          settings: settings,
+          use_ratio: false,
+          loading: image_loading
+        -%}
+      {%- endif -%}
+
+      {%- if badge != blank -%}
+        <span class="product-card__badge">{{- badge -}}</span>
+      {%- endif -%}
+
+    {%- if product != blank -%}
+      </a>
+    {%- endif -%}
+  </div>
+
+  <div class="product-card__meta">
+    {%- if product != blank -%}
+      <div class="product-card__availability">
+        {{- product | product_availability -}}
+      </div>
+    {%- endif -%}
+
+    <h3 class="product-card__title">
+      {%- if product != blank -%}
+        <a class="product-card__link" href="{{ url }}">
+      {%- endif -%}
+          {{- name -}}
+      {%- if product != blank -%}
+        </a>
+      {%- endif -%}
+    </h3>
+
+    {%- if excerpt != blank and show_excerpt -%}
+      <div class="product-card__description">{{- excerpt -}}</div>
+    {%- endif -%}
+
+    {%- if price != blank and period != blank -%}
+      <div class="product-card__price-info">
+        <div class="product-card__price-wrapper">
+          <span class="product-card__price">{{- price -}}</span>
+          <span class="product-card__price-separator">/</span>
+          <span class="product-card__period">{{- period -}}</span>
+        </div>
+      </div>
+    {%- endif -%}
+  </div>
+</div>

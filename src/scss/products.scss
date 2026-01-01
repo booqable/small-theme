@@ -1,0 +1,91 @@
+// Import variables
+@use 'variables' as *;
+
+// Import mixins
+@use '_helpers/mixins' as *;
+
+// Import components
+@use '_components/product-card' as *;
+@use '_components/focal-image' as *;
+
+.products {
+  --products-item-gap: 24px;
+
+  @include media-up(xl) {
+    --products-item-gap: 48px;
+  }
+
+  &__wrapper {
+    --products-content-align: var(--products-content-alignment, flex-start);
+    --products-content-text-align: var(--products-content-text-alignment, left);
+    --products-layout: repeat(auto-fit, minmax(330px, 1fr));
+    --products-padding-bottom: var(--padding-bottom-mobile, 20px);
+    --products-padding-top: var(--padding-top-mobile, 20px);
+
+    color: $color-primary;
+    background: $background-primary;
+
+    @include media-up(md) {
+      --products-layout: repeat(var(--products-layout-desktop, 2), 1fr);
+      --products-padding-bottom: var(--padding-bottom-desktop, 40px);
+      --products-padding-top: var(--padding-top-desktop, 40px);
+    }
+
+    &--padding-top {
+      &:not(:empty) {
+        padding-top: var(--products-padding-top);
+      }
+    }
+
+    &--padding-bottom {
+      &:not(:empty) {
+        padding-bottom: var(--products-padding-bottom);
+      }
+    }
+
+    body:not(:has(.header__inner--filled)) & {
+      --products-padding-top: calc(var(--padding-top-mobile, 20px) + #{$header-height});
+
+      @include media-up(md) {
+        --products-padding-top: calc(var(--padding-top-desktop, 40px) + #{$header-height});
+      }
+    }
+  }
+
+  &__content {
+    @include flexbox(
+      $direction: column,
+      $align: var(--products-content-align)
+    );
+
+    text-align: var(--products-content-text-align);
+  }
+
+  &__description {
+    margin: 0 0 48px;
+
+    * {
+      &:last-child {
+        margin-bottom: 0;
+        padding-bottom: 0;
+      }
+    }
+  }
+
+  &__list {
+    @include grid(
+      $columns: var(--products-layout),
+      $gap: var(--products-item-gap)
+    );
+
+    width: 100%;
+  }
+
+  &__item {
+    &:only-child {
+      @include media-up(md) {
+        max-width: 50%;
+      }
+    }
+  }
+}

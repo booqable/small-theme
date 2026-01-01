@@ -1,18 +1,16 @@
 {%- if section.blocks.size > 0 -%}
   {%- assign color_scheme           = section.settings.color_scheme -%}
   {%- assign content_horizontal     = section.settings.content_horizontal -%}
-  {%- assign narrowed               = false -%}
+  {%- assign loading_strategy       = 'lazy' -%}
   {%- assign padding_bottom_desktop = section.settings.padding_bottom_desktop -%}
   {%- assign padding_bottom_mobile  = section.settings.padding_bottom_mobile -%}
   {%- assign padding_top_desktop    = section.settings.padding_top_desktop -%}
   {%- assign padding_top_mobile     = section.settings.padding_top_mobile -%}
-  {%- assign step_counter           = 0 -%}
-  {%- assign steps_group            = false -%}
-  {%- assign steps_layout           = section.settings.steps_layout -%}
-  {%- assign steps_layout_blocks    = section.settings.steps_layout_blocks -%}
+  {%- assign products_group         = false -%}
+  {%- assign products_layout        = section.settings.products_layout -%}
 
-  {%- if steps_layout == 'narrow' -%}
-    {%- assign narrowed = true -%}
+  {%- if section_preview -%}
+    {%- assign loading_strategy     = 'eager' -%}
   {%- endif -%}
 
   {% comment %} CSS variables start {% endcomment %}
@@ -47,115 +45,89 @@
 
     {%- case content_horizontal -%}
       {%- when 'center' -%}
-        --steps-content-alignment: center;
-        --steps-content-text-align: center;
+        --products-content-alignment: center;
+        --products-content-text-alignment: center;
       {%- when 'right' -%}
-        --steps-content-alignment: flex-end;
-        --steps-content-text-align: right;
+        --products-content-alignment: flex-end;
+        --products-content-text-alignment: right;
+    {%- endcase -%}
+
+    {%- case products_layout -%}
+      {%- when 'three' -%}
+        --products-layout-desktop: 3;
     {%- endcase -%}
   {%- endcapture -%}
   {% comment %} CSS variables end {% endcomment %}
 
-  {%- if narrowed -%}
-    <div class="steps__container container">
-  {%- endif -%}
-    <div class="steps__wrapper steps__wrapper-{{ steps_layout_blocks }} steps__wrapper--padding-top steps__wrapper--padding-bottom color-{{- color_scheme.id -}}"
-      style="{{- variables | escape -}}"
-    >
-      {%- unless narrowed -%}
-        <div class="steps__container container">
-      {%- endunless -%}
-
+  <div class="products__wrapper products__wrapper--padding-top products__wrapper--padding-bottom color-{{- color_scheme.id -}}"
+    style="{{- variables | escape -}}"
+  >
+    <div class="products__container container">
+      <div class="products__content">
         {%- for block in section.blocks -%}
           {%- assign block_id = block.id -%}
 
           {%- case block.type -%}
-            {%- when 'heading' -%}
-              {%- if steps_group -%}
+            {%- when 'description' -%}
+              {%- if products_group -%}
                 </div>
 
-                {%- assign steps_group = false -%}
+                {%- assign products_group = false -%}
+              {%- endif -%}
+
+              {%- assign description = block.settings.description -%}
+
+              {%- if description != blank -%}
+                <div class="products__description" id="{{- block_id -}}">
+                  {{- description -}}
+                </div>
+              {%- endif -%}
+
+            {%- when 'heading' -%}
+              {%- if products_group -%}
+                </div>
+
+                {%- assign products_group = false -%}
               {%- endif -%}
 
               {%- assign heading = block.settings.heading -%}
 
               {%- if heading != blank -%}
-                <h2 class="steps__heading" id="{{- block_id -}}">
+                <h2 class="products__heading" id="{{- block_id -}}">
                   {{- heading -}}
                 </h2>
               {%- endif -%}
 
-            {%- when 'step' -%}
-              {%- assign description   = block.settings.description -%}
-              {%- assign image         = block.settings.image -%}
-              {%- assign image_alt     = block.settings.image_alt -%}
-              {%- assign number_prefix = block.settings.number_prefix -%}
+            {%- when 'product' -%}
+              {%- assign product       = block.settings.product -%}
+              {%- assign product_badge = block.settings.product_badge -%}
 
-              {%- if description != blank -%}
-                {%- unless steps_group -%}
-                  <div class="steps__columns">
+              {%- unless products_group -%}
+                <div class="products__list">
 
-                  {%- assign steps_group = true -%}
-                {%- endunless -%}
+                {%- assign products_group = true -%}
+              {%- endunless -%}
 
-                {%- assign last_in_group   = true -%}
-                {%- assign next_block      = section.blocks[forloop.index] -%}
-                {%- assign next_block_text = next_block.settings.description -%}
-                {%- assign step_counter    = step_counter | plus: 1 -%}
-
-                {%- if next_block.type == 'step' and next_block_text != blank -%}
-                  {%- assign last_in_group = false -%}
-                {%- endif -%}
-
-                {%- capture element_counter -%}
-                  <span class="steps__number">
-                    {{ number_prefix }}{{ step_counter }}
-                  </span>
-                {%- endcapture -%}
-
-                <div class="steps__col" data-step-number="{{- step_counter -}}" id="{{- block_id -}}">
-                  {%- if steps_layout_blocks == 'card' -%}
-                    {{- element_counter -}}
-                  {%- endif -%}
-
-                  {%- if image.url != blank -%}
-                    {%- render 'image',
-                        image: image,
-                        image_alt: image_alt,
-                        image_class: 'steps__image',
-                        image_size: 'flexible'
-                    -%}
-                  {%- endif -%}
-
-                  {%- if steps_layout_blocks == 'icon' -%}
-                    {{- element_counter -}}
-
-                    {%- unless last_in_group -%}
-                      {%- render 'icon-arrow-full' -%}
-                    {%- endunless -%}
-                  {%- endif -%}
-
-                  <div class="steps__text">
-                    {{- description -}}
-                  </div>
-
-                  {%- if steps_layout_blocks == 'simple' -%}
-                    {{- element_counter -}}
-                  {%- endif -%}
+                <div class="products__item" id="{{- block_id -}}">
+                  {%- render 'product-card',
+                      badge: product_badge,
+                      product: product,
+                      settings: settings,
+                      image_loading: loading_strategy
+                  -%}
                 </div>
-              {%- endif -%}
 
             {%- when 'tagline' -%}
-              {%- if steps_group -%}
+              {%- if products_group -%}
                 </div>
 
-                {%- assign steps_group = false -%}
+                {%- assign products_group = false -%}
               {%- endif -%}
 
               {%- assign tagline = block.settings.tagline -%}
 
               {%- if tagline != blank -%}
-                <p class="steps__tagline tagline" id="{{- block_id -}}">
+                <p class="products__tagline tagline" id="{{- block_id -}}">
                   {{- tagline -}}
                 </p>
               {%- endif -%}
@@ -163,30 +135,42 @@
           {%- endcase -%}
         {%- endfor -%}
 
-        {%- if steps_group -%}
+        {%- if products_group -%}
           </div>
         {%- endif -%}
-
-      {%- unless narrowed -%}
-        </div>
-      {%- endunless -%}
+      </div>
     </div>
-  {%- if narrowed -%}
-    </div>
-  {%- endif -%}
+  </div>
 {%- endif -%}
 
 {% schema %}
   {
-    "name": "Steps",
+    "name": "Products",
     "tag": "section",
-    "class": "steps",
+    "class": "products",
     "css_assets": [
       {
-        "file": "steps.css"
+        "file": "products.css"
       }
     ],
     "blocks": [
+      {
+        "type": "description",
+        "name": "Description",
+        "limit": 1,
+        "settings": [
+          {
+            "type": "header",
+            "content": "General settings"
+          },
+          {
+            "type": "contentEditor",
+            "id": "description",
+            "label": "Text",
+            "default": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse varius enim in eros elementum tristique."
+          }
+        ]
+      },
       {
         "type": "heading",
         "name": "Heading",
@@ -205,37 +189,24 @@
         ]
       },
       {
-        "type": "step",
-        "name": "Step",
-        "limit": 8,
+        "type": "product",
+        "name": "Product",
+        "limit": 4,
         "settings": [
           {
             "type": "header",
             "content": "General settings"
           },
           {
-            "type": "text",
-            "id": "number_prefix",
-            "label": "Number prefix (optional)"
-          },
-          {
-            "type": "image_picker",
-            "id": "image",
-            "label": "Image (optional)",
-            "info": "Use WebP, PNG, JPG high-quality image (330px or larger) for best results on all screen sizes"
+            "type": "product",
+            "id": "product",
+            "label": "Product"
           },
           {
             "type": "text",
-            "id": "image_alt",
-            "label": "Alternative text (optional)",
-            "default": "Image description",
-            "info": "For SEO and Accessibility purposes"
-          },
-          {
-            "type": "contentEditor",
-            "id": "description",
-            "label": "Text",
-            "default": "Step description goes here"
+            "id": "product_badge",
+            "label": "Badge",
+            "default": "NEW"
           }
         ]
       },
@@ -267,42 +238,6 @@
         "id": "color_scheme",
         "label": "Color scheme",
         "default": "set-1"
-      },
-      {
-        "type": "select",
-        "id": "steps_layout",
-        "label": "Layout",
-        "options": [
-          {
-            "value": "wide",
-            "label": "Wide"
-          },
-          {
-            "value": "narrow",
-            "label": "Narrow"
-          }
-        ],
-        "default": "wide"
-      },
-      {
-        "type": "select",
-        "id": "steps_layout_blocks",
-        "label": "",
-        "options": [
-          {
-            "value": "card",
-            "label": "Cards"
-          },
-          {
-            "value": "icon",
-            "label": "Icons"
-          },
-          {
-            "value": "simple",
-            "label": "Simple"
-          }
-        ],
-        "default": "simple"
       },
       {
         "type": "select",
@@ -367,6 +302,22 @@
           }
         ],
         "default": "lg"
+      },
+      {
+        "type": "select",
+        "id": "products_layout",
+        "label": "Layout",
+        "options": [
+          {
+            "value": "two",
+            "label": "2 columns"
+          },
+          {
+            "value": "three",
+            "label": "3 columns"
+          }
+        ],
+        "default": "two"
       },
       {
         "type": "header",

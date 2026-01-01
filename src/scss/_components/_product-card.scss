@@ -1,0 +1,118 @@
+// Button component styles
+@use '../variables' as *;
+
+// Import mixins
+@use '../_helpers/mixins' as *;
+
+.product-card {
+  --product-description-padding-bottom: 0;
+  --product-vision-background: #{$background-primary};
+  --product-vision-ratio: 1 / 1.17;
+
+  @include media-up(md) {
+    --product-vision-ratio: 1 / 0.955;
+  }
+
+  @include grid(
+    $rows: max-content 1fr
+  );
+
+  min-width: 288px;
+  overflow: clip;
+  text-align: left;
+  contain: content;
+  height: 100%;
+
+  &__vision {
+    width: 100%;
+    overflow: hidden;
+    contain: paint layout;
+    color: $color-secondary;
+    background: var(--product-vision-background);
+    border: var(--product-image-border-width) solid $color-border;
+    border-radius: $border-radius-block;
+    aspect-ratio: var(--product-vision-ratio);
+
+    &.no-image {
+      --product-vision-background: #{$color-placeholder};
+    }
+
+    .product-card__link {
+      display: block;
+    }
+  }
+
+  &__badge {
+    position: absolute;
+    top: 0;
+    left: 0;
+    margin: 24px;
+    padding: 10px 15px;
+    font-size: clamp(14px, calc($font-size-base - 4px), 18px);
+    font-weight: $font-weight-semibold;
+    border-radius: $border-radius-block;
+    background: $background-accent;
+    color: $color-accent;
+  }
+
+  &__image {
+    display: block;
+    position: absolute;
+    max-width: none;
+
+    &-wrapper:has(&-placeholder) {
+      position: absolute;
+      inset: 0;
+    }
+
+    .preview-app &,
+    &:not(.focal-image) {
+      width: 100%;
+      height: 100%;
+      object-fit: var(--product-image-object-fit);
+    }
+  }
+
+  &__meta {
+    @include flexbox($direction: column);
+
+    padding: 20px 0 0;
+    contain: style layout;
+  }
+
+  &__title {
+    font-size: clamp(24px, 3vw, 32px);
+    line-height: $font-height-md;
+    margin: 0;
+  }
+
+  &__description {
+    padding: 10px 0 var(--product-description-padding-bottom);
+    flex-grow: 1;
+
+    &:not(:last-child) {
+      --product-description-padding-bottom: 16px;
+    }
+  }
+
+  &__price-info {
+    font-size: clamp(18px, calc($font-size-base + 2px), 24px);
+    font-weight: $font-weight-bold;
+    padding-top: 10px;
+  }
+
+  &__price-separator {
+    padding: 0 3px;
+  }
+}
+
+bq-product-availability {
+  font-size: clamp(14px, calc($font-size-base - 4px), 18px);
+  line-height: $font-height-xs;
+  font-weight: $font-weight-medium;
+
+  &[visible="true"] {
+    display: inline-block;
+    margin: 8px 0;
+  }
+}

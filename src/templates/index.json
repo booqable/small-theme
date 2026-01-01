@@ -4,20 +4,6 @@
     "hero": {
       "type": "hero",
       "blocks": {
-        "heading": {
-          "type": "heading",
-          "settings": {
-            "heading": "Explore the golf <br> course the best way"
-          },
-          "disabled": null
-        },
-        "text": {
-          "type": "text",
-          "settings": {
-            "description": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse varius <br> enim in eros elementum tristique. Duis cursus, mi quis viverra ornare, eros <br> dolor interdum nulla, ut commodo diam libero vitae erat."
-          },
-          "disabled": null
-        },
         "button": {
           "type": "button",
           "settings": {
@@ -38,6 +24,20 @@
           },
           "disabled": null
         },
+        "description": {
+          "type": "description",
+          "settings": {
+            "description": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse varius <br> enim in eros elementum tristique. Duis cursus, mi quis viverra ornare, eros <br> dolor interdum nulla, ut commodo diam libero vitae erat."
+          },
+          "disabled": null
+        },
+        "heading": {
+          "type": "heading",
+          "settings": {
+            "heading": "Explore the golf <br> course the best way"
+          },
+          "disabled": null
+        },
         "image": {
           "type": "image",
           "settings": {
@@ -52,17 +52,17 @@
       },
       "block_order": [
         "heading",
-        "text",
+        "description",
         "button",
         "button_562543",
         "image"
       ],
       "settings": {
+        "color_scheme": "set-2",
         "content_horizontal_desktop": "left",
         "content_horizontal_mobile": "left",
         "content_vertical_desktop": "bottom",
         "content_vertical_mobile": "bottom",
-        "color_scheme": "set-2",
         "height_desktop": "full",
         "height_mobile": "full",
         "hero_direction": "row",
@@ -75,16 +75,68 @@
       },
       "disabled": null
     },
-    "steps": {
-      "type": "steps",
+    "products": {
+      "type": "products",
       "blocks": {
-        "highlited-text": {
-          "type": "highlited-text",
+        "description": {
+          "type": "description",
           "settings": {
-            "tagline": "Steps"
+            "description": "<p>We got products for all your adventures</p>"
           },
           "disabled": null
         },
+        "heading": {
+          "type": "heading",
+          "settings": {
+            "heading": "Our products"
+          },
+          "disabled": null
+        },
+        "product": {
+          "type": "product",
+          "settings": {
+            "product": "",
+            "product_badge": "PRODUCT ACTION LABEL"
+          },
+          "disabled": null
+        },
+        "product_564321": {
+          "type": "product",
+          "settings": {
+            "product": "",
+            "product_badge": "PRODUCT ACTION LABEL"
+          },
+          "disabled": null
+        },
+        "tagline": {
+          "type": "tagline",
+          "settings": {
+            "tagline": "Shop"
+          },
+          "disabled": null
+        }
+      },
+      "block_order": [
+        "tagline",
+        "heading",
+        "description",
+        "product",
+        "product_564321"
+      ],
+      "settings": {
+        "color_scheme": "set-1",
+        "content_horizontal": "left",
+        "padding_bottom_desktop": "lg",
+        "padding_bottom_mobile": "md",
+        "padding_top_desktop": "lg",
+        "padding_top_mobile": "md",
+        "products_layout": "two"
+      },
+      "disabled": null
+    },
+    "steps": {
+      "type": "steps",
+      "blocks": {
         "heading": {
           "type": "heading",
           "settings": {
@@ -131,10 +183,17 @@
             "number_prefix": "0"
           },
           "disabled": null
+        },
+        "tagline": {
+          "type": "tagline",
+          "settings": {
+            "tagline": "Steps"
+          },
+          "disabled": null
         }
       },
       "block_order": [
-        "highlited-text",
+        "tagline",
         "heading",
         "step_543421",
         "step_543422",
@@ -144,18 +203,19 @@
       "settings": {
         "color_scheme": "set-3",
         "content_horizontal": "left",
-        "steps_layout": "wide",
-        "steps_layout_blocks": "simple",
         "padding_bottom_desktop": "lg",
         "padding_bottom_mobile": "md",
         "padding_top_desktop": "lg",
-        "padding_top_mobile": "md"
+        "padding_top_mobile": "md",
+        "steps_layout": "wide",
+        "steps_layout_blocks": "simple"
       },
       "disabled": null
     }
   },
   "order": [
     "hero",
-    "steps"
+    "steps",
+    "products"
   ]
 }

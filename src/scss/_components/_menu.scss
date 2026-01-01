@@ -6,9 +6,9 @@
 
 .menu {
   --menu-display: flex;
-  --menu-dropdown-opener-height: #{$button-height};
+  --menu-dropdown-opener-height: #{$button-height-xs};
   --menu-dropdown-opener-weight: inherit;
-  --menu-dropdown-opener-width: #{$button-width};
+  --menu-dropdown-opener-width: #{$button-width-xs};
   --menu-opener-color: currentcolor;
 
   display: var(--menu-display);
@@ -76,7 +76,10 @@
     }
 
     &-link {
-      @include flexbox($align: center, $justify: space-between);
+      @include flexbox(
+        $align: center,
+        $justify: space-between
+      );
 
       grid-area: drop-1;
       padding: 4px 0;
@@ -88,7 +91,10 @@
     }
 
     &-opener {
-      @include flexbox($align: center, $justify: center);
+      @include flexbox(
+        $align: center,
+        $justify: center
+      );
 
       height: var(--menu-dropdown-opener-height);
       width: var(--menu-dropdown-opener-width);
@@ -131,7 +137,10 @@
     padding: 0 0 10px;
 
     &-icon {
-      @include flexbox($align: center, $justify: center);
+      @include flexbox(
+        $align: center,
+        $justify: center
+      );
 
       transition: transform $transition-duration $transition-function;
       pointer-events: none;

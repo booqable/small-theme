@@ -68,24 +68,24 @@
     "icon_style": "outline",
     "image_placeholder": "booqable://assets/image-placeholder.png",
     "max_width_value": 1920,
+    "product_card_color_scheme": "set-1",
+    "product_card_image_fit": "cover",
     "sections": {
-      "top-bar": {
-        "type": "top-bar",
+      "footer": {
+        "type": "footer",
         "blocks": {
-          "message": {
-            "type": "message",
+          "content": {
+            "type": "content",
             "settings": {
-              "message_icon": "clock",
-              "message": "Mo - Fr, 10 - 18"
+              "content_text": "<p>Address: <br> Blokhuisplein 40, 8911 LJ Leeuwarden</p><p>Contact: <br> <a href=\"tel:18001234567\">1800 123 4567</a> <br> <a href=\"mailto:info@booqable.com\">info@booqable.com</a></p>"
             },
             "disabled": null
           },
-          "button": {
-            "type": "button",
+          "logo": {
+            "type": "logo",
             "settings": {
-              "button_icon": "phone",
-              "button_label": "+1 555 123 4567",
-              "button_url": "tel:+15551234567"
+              "logo_custom_title": "{{ shop.name }}",
+              "logo_image": "booqable://assets/image-store-logo.png"
             },
             "disabled": null
           },
@@ -94,27 +94,60 @@
             "settings": {
               "menu": "main-menu"
             },
-            "disabled": true
+            "disabled": null
+          },
+          "menu_456789": {
+            "type": "menu",
+            "settings": {
+              "menu": "main-menu"
+            },
+            "disabled": null
+          },
+          "payments": {
+            "type": "payments",
+            "settings": {},
+            "disabled": null
+          },
+          "socials": {
+            "type": "socials",
+            "settings": {},
+            "disabled": null
           }
         },
         "block_order": [
-          "message",
-          "button",
-          "menu"
+          "logo",
+          "content",
+          "menu",
+          "menu_456789",
+          "socials",
+          "payments"
         ],
         "settings": {
           "color_scheme": "set-1",
-          "padding_bottom_desktop": "md",
+          "footer_bottom_menu": "main-menu",
+          "footer_bottom_text": "{{ \"now\" | date: \"%Y\" }} {{ shop.name }}. All right reserved.",
+          "footer_layout": "wide",
+          "padding_bottom_desktop": "lg",
           "padding_bottom_mobile": "md",
-          "padding_top_desktop": "md",
+          "padding_top_desktop": "lg",
           "padding_top_mobile": "md",
-          "show_bar": false
+          "privacy_policy_link_text": "Privacy policy"
         },
         "disabled": null
       },
       "header": {
         "type": "header",
         "blocks": {
+          "button": {
+            "type": "button",
+            "settings": {
+              "button_label": "Contact us",
+              "button_url": "booqable://pages/contact",
+              "show_button_desktop": true,
+              "show_button_mobile": true
+            },
+            "disabled": null
+          },
           "logo": {
             "type": "logo",
             "settings": {
@@ -142,16 +175,6 @@
               "search_placeholder": "Search"
             },
             "disabled": null
-          },
-          "button": {
-            "type": "button",
-            "settings": {
-              "button_label": "Contact us",
-              "button_url": "booqable://pages/contact",
-              "show_button_desktop": true,
-              "show_button_mobile": true
-            },
-            "disabled": null
           }
         },
         "block_order": [
@@ -172,21 +195,15 @@
         },
         "disabled": null
       },
-      "footer": {
-        "type": "footer",
+      "top-bar": {
+        "type": "top-bar",
         "blocks": {
-          "logo": {
-            "type": "logo",
+          "button": {
+            "type": "button",
             "settings": {
-              "logo_custom_title": "{{ shop.name }}",
-              "logo_image": "booqable://assets/image-store-logo.png"
-            },
-            "disabled": null
-          },
-          "content": {
-            "type": "content",
-            "settings": {
-              "content_text": "<p>Address: <br> Blokhuisplein 40, 8911 LJ Leeuwarden</p><p>Contact: <br> <a href=\"tel:18001234567\">1800 123 4567</a> <br> <a href=\"mailto:info@booqable.com\">info@booqable.com</a></p>"
+              "button_icon": "phone",
+              "button_label": "+1 555 123 4567",
+              "button_url": "tel:+15551234567"
             },
             "disabled": null
           },
@@ -195,48 +212,39 @@
             "settings": {
               "menu": "main-menu"
             },
-            "disabled": null
+            "disabled": true
           },
-          "menu_456789": {
-            "type": "menu",
+          "message": {
+            "type": "message",
             "settings": {
-              "menu": "main-menu"
+              "message_icon": "clock",
+              "message": "Mo - Fr, 10 - 18"
             },
-            "disabled": null
-          },
-          "socials": {
-            "type": "socials",
-            "settings": {},
-            "disabled": null
-          },
-          "payments": {
-            "type": "payments",
-            "settings": {},
             "disabled": null
           }
         },
         "block_order": [
-          "logo",
-          "content",
-          "menu",
-          "menu_456789",
-          "socials",
-          "payments"
+          "message",
+          "button",
+          "menu"
         ],
         "settings": {
           "color_scheme": "set-1",
-          "footer_bottom_menu": "main-menu",
-          "footer_bottom_text": "{{ \"now\" | date: \"%Y\" }} {{ shop.name }}. All right reserved.",
-          "footer_layout": "wide",
-          "padding_bottom_desktop": "lg",
+          "padding_bottom_desktop": "md",
           "padding_bottom_mobile": "md",
-          "padding_top_desktop": "lg",
+          "padding_top_desktop": "md",
           "padding_top_mobile": "md",
-          "privacy_policy_link_text": "Privacy policy"
+          "show_bar": false
         },
         "disabled": null
       }
     },
-    "transition_duration": "0.3"
+    "show_product_card_excerpt": false,
+    "social_icon_size": "md",
+    "social_icon_spacing": "md",
+    "transition_duration": "0.3",
+    "use_focal_images": true,
+    "use_product_card_color_scheme": false,
+    "use_product_card_image_borders": true
   }
 }
