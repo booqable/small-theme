@@ -316,7 +316,10 @@
     }
 
     &-wrapper {
-      @include flexbox($justify: space-between, $direction: var(--header-menu-wrapper-flex-direction));
+      @include flexbox(
+        $justify: space-between,
+        $direction: var(--header-menu-wrapper-flex-direction)
+      );
 
       position: var(--header-menu-wrapper-position);
       width: var(--header-menu-wrapper-width);
@@ -388,7 +391,11 @@
       flex: 1 1 auto;
 
       @include media-up(md) {
-        @include flexbox($align: center, $justify: var(--header-menu-horizontal-position), $gap: var(--header-menu-item-gap));
+        @include flexbox(
+          $align: center,
+          $justify: var(--header-menu-horizontal-position),
+          $gap: var(--header-menu-item-gap)
+        );
       }
 
       &:not(:only-child) {
@@ -718,7 +725,11 @@
   }
 
   &__icons {
-    @include flexbox($align: center, $justify: flex-end, $gap: var(--header-content-gap));
+    @include flexbox(
+      $align: center,
+      $justify: flex-end,
+      $gap: var(--header-content-gap)
+    );
 
     grid-area: icons;
   }

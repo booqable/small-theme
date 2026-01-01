@@ -44,22 +44,6 @@
 
   {%- for block in section.blocks -%}
     {%- case block.type -%}
-      {%- when 'message' -%}
-        {%- capture top_bar_message -%}
-          {%- assign message_icon = block.settings.message_icon -%}
-          {%- assign message      = block.settings.message -%}
-
-          {%- if message != blank -%}
-            <div class="top-bar__message-wrapper">
-              {%- render 'icon', icon: message_icon, style: icon_style -%}
-
-              <span class="top-bar__message bq-content rx-content">
-                {{- message -}}
-              </span>
-            </div>
-          {%- endif -%}
-        {%- endcapture -%}
-
       {%- when 'button' -%}
         {%- capture top_bar_button -%}
           {%- assign button_icon  = block.settings.button_icon -%}
@@ -98,6 +82,22 @@
           {%- endif -%}
         {%- endcapture -%}
 
+      {%- when 'message' -%}
+        {%- capture top_bar_message -%}
+          {%- assign message_icon = block.settings.message_icon -%}
+          {%- assign message      = block.settings.message -%}
+
+          {%- if message != blank -%}
+            <div class="top-bar__message-wrapper">
+              {%- render 'icon', icon: message_icon, style: icon_style -%}
+
+              <span class="top-bar__message bq-content rx-content">
+                {{- message -}}
+              </span>
+            </div>
+          {%- endif -%}
+        {%- endcapture -%}
+
     {%- endcase -%}
   {%- endfor -%}
 
@@ -125,194 +125,7 @@
     "class": "top-bar",
     "templates": [],
     "layout": true,
-    "settings": [
-      {
-        "type": "header",
-        "content": "General settings"
-      },
-      {
-        "type": "checkbox",
-        "id": "show_bar",
-        "default": true,
-        "label": "Show top bar"
-      },
-      {
-        "type": "color_scheme",
-        "id": "color_scheme",
-        "label": "Color scheme",
-        "default": "set-3"
-      },
-      {
-        "type": "header",
-        "content": "Desktop settings"
-      },
-      {
-        "type": "select",
-        "id": "padding_top_desktop",
-        "label": "Padding top",
-        "options": [
-          {
-            "value": "sm",
-            "label": "Small"
-          },
-          {
-            "value": "md",
-            "label": "Medium"
-          },
-          {
-            "value": "lg",
-            "label": "Large"
-          }
-        ],
-        "default": "sm"
-      },
-      {
-        "type": "select",
-        "id": "padding_bottom_desktop",
-        "label": "Padding bottom",
-        "options": [
-          {
-            "value": "sm",
-            "label": "Small"
-          },
-          {
-            "value": "md",
-            "label": "Medium"
-          },
-          {
-            "value": "lg",
-            "label": "Large"
-          }
-        ],
-        "default": "sm"
-      },
-      {
-        "type": "header",
-        "content": "Mobile settings"
-      },
-      {
-        "type": "select",
-        "id": "padding_top_mobile",
-        "label": "Padding top",
-        "options": [
-          {
-            "value": "sm",
-            "label": "Small"
-          },
-          {
-            "value": "md",
-            "label": "Medium"
-          },
-          {
-            "value": "lg",
-            "label": "Large"
-          }
-        ],
-        "default": "sm"
-      },
-      {
-        "type": "select",
-        "id": "padding_bottom_mobile",
-        "label": "Padding bottom",
-        "options": [
-          {
-            "value": "sm",
-            "label": "Small"
-          },
-          {
-            "value": "md",
-            "label": "Medium"
-          },
-          {
-            "value": "lg",
-            "label": "Large"
-          }
-        ],
-        "default": "sm"
-      }
-    ],
     "blocks": [
-      {
-        "type": "message",
-        "name": "Message",
-        "limit": 1,
-        "settings": [
-          {
-            "type": "header",
-            "content": "General settings"
-          },
-          {
-            "type": "select",
-            "id": "message_icon",
-            "label": "Icon",
-            "options": [
-              {
-                "value": "empty",
-                "label": "No icon"
-              },
-              {
-                "value": "address-card",
-                "label": "Address card"
-              },
-              {
-                "value": "calendar",
-                "label": "Calendar"
-              },
-              {
-                "value": "clock",
-                "label": "Clock"
-              },
-              {
-                "value": "comments",
-                "label": "Comments"
-              },
-              {
-                "value": "credit-card-alt",
-                "label": "Credit card"
-              },
-              {
-                "value": "envelope",
-                "label": "Envelope"
-              },
-              {
-                "value": "exclamation",
-                "label": "Exclamation"
-              },
-              {
-                "value": "fax",
-                "label": "Fax"
-              },
-              {
-                "value": "globe",
-                "label": "Globe"
-              },
-              {
-                "value": "info",
-                "label": "Info"
-              },
-              {
-                "value": "phone",
-                "label": "Phone"
-              },
-              {
-                "value": "tag",
-                "label": "Tag"
-              },
-              {
-                "value": "warning",
-                "label": "Warning"
-              }
-            ],
-            "default": "clock"
-          },
-          {
-            "type": "contentEditor",
-            "id": "message",
-            "label": "Message",
-            "default": "Opening hours: 10 - 18"
-          }
-        ]
-      },
       {
         "type": "button",
         "name": "Button",
@@ -416,6 +229,193 @@
             "info": "Displayed on desktop only"
           }
         ]
+      },
+      {
+        "type": "message",
+        "name": "Message",
+        "limit": 1,
+        "settings": [
+          {
+            "type": "header",
+            "content": "General settings"
+          },
+          {
+            "type": "select",
+            "id": "message_icon",
+            "label": "Icon",
+            "options": [
+              {
+                "value": "empty",
+                "label": "No icon"
+              },
+              {
+                "value": "address-card",
+                "label": "Address card"
+              },
+              {
+                "value": "calendar",
+                "label": "Calendar"
+              },
+              {
+                "value": "clock",
+                "label": "Clock"
+              },
+              {
+                "value": "comments",
+                "label": "Comments"
+              },
+              {
+                "value": "credit-card-alt",
+                "label": "Credit card"
+              },
+              {
+                "value": "envelope",
+                "label": "Envelope"
+              },
+              {
+                "value": "exclamation",
+                "label": "Exclamation"
+              },
+              {
+                "value": "fax",
+                "label": "Fax"
+              },
+              {
+                "value": "globe",
+                "label": "Globe"
+              },
+              {
+                "value": "info",
+                "label": "Info"
+              },
+              {
+                "value": "phone",
+                "label": "Phone"
+              },
+              {
+                "value": "tag",
+                "label": "Tag"
+              },
+              {
+                "value": "warning",
+                "label": "Warning"
+              }
+            ],
+            "default": "clock"
+          },
+          {
+            "type": "contentEditor",
+            "id": "message",
+            "label": "Message",
+            "default": "Opening hours: 10 - 18"
+          }
+        ]
+      }
+    ],
+    "settings": [
+      {
+        "type": "header",
+        "content": "General settings"
+      },
+      {
+        "type": "color_scheme",
+        "id": "color_scheme",
+        "label": "Color scheme",
+        "default": "set-3"
+      },
+      {
+        "type": "checkbox",
+        "id": "show_bar",
+        "default": true,
+        "label": "Show top bar"
+      },
+      {
+        "type": "header",
+        "content": "Desktop settings"
+      },
+      {
+        "type": "select",
+        "id": "padding_top_desktop",
+        "label": "Padding top",
+        "options": [
+          {
+            "value": "sm",
+            "label": "Small"
+          },
+          {
+            "value": "md",
+            "label": "Medium"
+          },
+          {
+            "value": "lg",
+            "label": "Large"
+          }
+        ],
+        "default": "sm"
+      },
+      {
+        "type": "select",
+        "id": "padding_bottom_desktop",
+        "label": "Padding bottom",
+        "options": [
+          {
+            "value": "sm",
+            "label": "Small"
+          },
+          {
+            "value": "md",
+            "label": "Medium"
+          },
+          {
+            "value": "lg",
+            "label": "Large"
+          }
+        ],
+        "default": "sm"
+      },
+      {
+        "type": "header",
+        "content": "Mobile settings"
+      },
+      {
+        "type": "select",
+        "id": "padding_top_mobile",
+        "label": "Padding top",
+        "options": [
+          {
+            "value": "sm",
+            "label": "Small"
+          },
+          {
+            "value": "md",
+            "label": "Medium"
+          },
+          {
+            "value": "lg",
+            "label": "Large"
+          }
+        ],
+        "default": "sm"
+      },
+      {
+        "type": "select",
+        "id": "padding_bottom_mobile",
+        "label": "Padding bottom",
+        "options": [
+          {
+            "value": "sm",
+            "label": "Small"
+          },
+          {
+            "value": "md",
+            "label": "Medium"
+          },
+          {
+            "value": "lg",
+            "label": "Large"
+          }
+        ],
+        "default": "sm"
       }
     ]
   }

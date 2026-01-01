@@ -19,7 +19,11 @@ $payment-indent-x: calc($social-icon-spacing + 1px);
 }
 
 .payment {
-  @include flexbox($align: center, $justify: var(--payments-position), $wrap: wrap);
+  @include flexbox(
+    $align: center,
+    $justify: var(--payments-position),
+    $wrap: wrap
+  );
 
   margin: 0 calc(-1 * $payment-indent-x) calc(-1 * $payment-indent-bottom);
 
@@ -29,13 +33,19 @@ $payment-indent-x: calc($social-icon-spacing + 1px);
   }
 
   i {
-    @include flexbox($align: center, $justify: center);
+    @include flexbox(
+      $align: center,
+      $justify: center
+    );
 
     margin: 0 $payment-indent-x $payment-indent-bottom;
   }
 
   span {
-    @include flexbox($align: center, $justify: center);
+    @include flexbox(
+      $align: center,
+      $justify: center
+    );
 
     margin: 0 $payment-indent-x $payment-indent-bottom;
 

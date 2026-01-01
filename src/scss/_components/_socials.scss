@@ -15,7 +15,10 @@
   }
 
   &__link {
-    @include flexbox($align: center, $justify: center);
+    @include flexbox(
+      $align: center,
+      $justify: center
+    );
 
     width: $button-width-xs;
     height: $button-height-xs;

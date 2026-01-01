@@ -39,7 +39,10 @@
   }
 
   &__opener {
-    @include flexbox($align: center, $justify: center);
+    @include flexbox(
+      $align: center,
+      $justify: center
+    );
 
     height: $button-height-xs;
     width: $button-width-xs;
@@ -60,7 +63,10 @@
   }
 
   &__closer {
-    @include flexbox($align: center, $justify: center);
+    @include flexbox(
+      $align: center,
+      $justify: center
+    );
 
     text-align: center;
     margin-top: 16px;
@@ -115,7 +121,10 @@
   }
 
   &__wrapper {
-    @include flexbox($align: center, $direction: column);
+    @include flexbox(
+      $align: center,
+      $direction: column)
+    ;
 
     position: absolute;
     width: 100vw;

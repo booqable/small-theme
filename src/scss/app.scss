@@ -72,7 +72,10 @@
   }
 
   &__wrapper {
-    @include flexbox($align: center, $justify: center);
+    @include flexbox(
+      $align: center,
+      $justify: center
+    );
 
     padding: var(--app-padding);
     background: var(--app-wrapper-background);

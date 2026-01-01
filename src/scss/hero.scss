@@ -20,12 +20,12 @@
   --hero-date-picker-margin-top: 32px;
   --hero-desription-margin-top: 16px;
   --hero-heading-margin-top: 20px;
+  --hero-highlight-margin-left: 0;
+  --hero-highlight-margin-right: 0;
+  --hero-highlight-margin-top: 24px;
+  --hero-highlight-content-width: auto;
+  --hero-highlight-width: auto;
   --hero-image-positioning: absolute;
-  --hero-info-margin-left: 0;
-  --hero-info-margin-right: 0;
-  --hero-info-margin-top: 24px;
-  --hero-info-content-width: auto;
-  --hero-info-width: auto;
   --hero-overlay-direction-x: right;
   --hero-overlay-direction-y: bottom;
 
@@ -37,7 +37,7 @@
   @include media-up(md) {
     --hero-btn-gap: 24px;
     --hero-btn-margin-top: 32px;
-    --hero-info-margin-top: 80px;
+    --hero-highlight-margin-top: 80px;
     --hero-overlay-direction-x: right;
     --hero-overlay-direction-y: bottom;
   }
@@ -151,7 +151,11 @@
     padding-right: var(--hero-padding-right);
 
     &:not(:has(.hero__columns)) {
-      @include flexbox($direction: column, $align: var(--hero-content-justify), $justify: var(--hero-content-align));
+      @include flexbox(
+        $direction: column,
+        $align: var(--hero-content-justify),
+        $justify: var(--hero-content-align)
+      );
 
       .hero__wrapper .hero__container & {
         --hero-content-height: 100%;
@@ -215,7 +219,11 @@
     }
 
     .hero__container {
-      @include flexbox($direction: column, $align: var(--hero-col-content-align), $justify: var(--hero-col-content-justify));
+      @include flexbox(
+        $direction: column,
+        $align: var(--hero-col-content-align),
+        $justify: var(--hero-col-content-justify)
+      );
 
       height: 100%;
 
@@ -284,7 +292,10 @@
   &__columns {
     --hero-background: #{$background-primary};
 
-    @include flexbox($direction: var(--hero-content-direction), $gap: var(--hero-col-gap));
+    @include flexbox(
+      $direction: var(--hero-content-direction),
+      $gap: var(--hero-col-gap)
+    );
 
     width: 100%;
     height: 100%;
@@ -353,7 +364,13 @@
   }
 
   &__buttons {
-    @include flexbox($direction: var(--hero-buttons-direction), $align: center, $justify: var(--hero-content-justify), $wrap: wrap, $gap: var(--hero-btn-gap));
+    @include flexbox(
+      $direction: var(--hero-buttons-direction),
+      $align: center,
+      $justify: var(--hero-content-justify),
+      $wrap: wrap,
+      $gap: var(--hero-btn-gap)
+    );
 
     width: var(--hero-btn-width);
 
@@ -385,8 +402,11 @@
         }
       }
 
-      & + .hero__info {
-        @include flexbox($direction: column, $align: var(--hero-content-justify));
+      & + .hero__highlight {
+        @include flexbox(
+          $direction: column,
+          $align: var(--hero-content-justify)
+        );
       }
 
       /* stylelint-disable-next-line */
@@ -404,20 +424,20 @@
     }
   }
 
-  &__info {
+  &__highlight {
     display: inline-block;
     vertical-align: top;
-    margin-top: var(--hero-info-margin-top);
-    margin-left: var(--hero-info-margin-left);
-    margin-right: var(--hero-info-margin-right);
-    width: var(--hero-info-width);
+    margin-top: var(--hero-highlight-margin-top);
+    margin-left: var(--hero-highlight-margin-left);
+    margin-right: var(--hero-highlight-margin-right);
+    width: var(--hero-highlight-width);
 
     &-content {
       border-radius: $border-radius-block;
       border: 1px solid $color-primary;
       padding: 24px;
       height: 100%;
-      width: var(--hero-info-content-width);
+      width: var(--hero-highlight-content-width);
     }
 
     &-heading {
@@ -435,51 +455,61 @@
     }
 
     &-wrapper {
-      @include flexbox($align: stretch, $justify: var(--hero-content-justify), $gap: var(--hero-btn-gap));
+      @include flexbox(
+        $align: stretch,
+        $justify: var(--hero-content-justify),
+        $gap: var(--hero-btn-gap)
+      );
 
-      .hero__info {
-        --hero-info-margin-top: 0;
-        --hero-info-width: 50%;
+      .hero__highlight {
+        --hero-highlight-margin-top: 0;
+        --hero-highlight-width: 50%;
 
-        @include flexbox($direction: column, $align: var(--hero-content-justify));
+        @include flexbox(
+          $direction: column,
+          $align: var(--hero-content-justify)
+        );
 
         &-content {
-          --hero-info-content-width: 100%;
+          --hero-highlight-content-width: 100%;
         }
       }
 
       &:not(:first-child) {
-        margin-top: var(--hero-info-margin-top);
+        margin-top: var(--hero-highlight-margin-top);
       }
     }
 
     &:has(+ .hero__image-holder + &) {
-      --hero-info-margin-right: 8px;
+      --hero-highlight-margin-right: 8px;
 
       @include media-up(md) {
-        --hero-info-margin-right: 12px;
+        --hero-highlight-margin-right: 12px;
       }
     }
 
     & + .hero__image-holder + & {
-      --hero-info-margin-left: 4px;
+      --hero-highlight-margin-left: 4px;
 
       @include media-up(md) {
-        --hero-info-margin-left: 8px;
+        --hero-highlight-margin-left: 8px;
       }
     }
 
     /* stylelint-disable-next-line */
     &:first-child {
-      --hero-info-margin-top: 0;
+      --hero-highlight-margin-top: 0;
 
-      & + .hero__image-holder + .hero__info {
-        --hero-info-margin-top: 0;
+      & + .hero__image-holder + .hero__highlight {
+        --hero-highlight-margin-top: 0;
       }
     }
 
     &:has(+ .hero__btn-wrapper) {
-      @include flexbox($direction: column, $align: var(--hero-content-justify));
+      @include flexbox(
+        $direction: column,
+        $align: var(--hero-content-justify)
+      );
     }
   }
 
@@ -578,7 +608,7 @@
           --hero-date-picker-margin-top: 0;
           --hero-desription-margin-top: 0;
           --hero-heading-margin-top: 0;
-          --hero-info-margin-top: 0;
+          --hero-highlight-margin-top: 0;
         }
 
         /* stylelint-disable-next-line */

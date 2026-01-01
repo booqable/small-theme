@@ -43,7 +43,10 @@ $top-bar-item-margin-x: 40px;
   }
 
   &__content {
-    @include flexbox($align: center, $justify: flex-end);
+    @include flexbox(
+      $align: center,
+      $justify: flex-end
+    );
   }
 
   &__links {

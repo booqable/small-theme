@@ -60,10 +60,19 @@
 
 {%- for block in section.blocks -%}
   {%- case block.type -%}
+    {%- when 'content' -%}
+      {%- capture element_content -%}
+        {%- assign content_text = block.settings.content_text -%}
+
+        <div class="footer__info">
+          {{ content_text }}
+        </div>
+      {%- endcapture -%}
+
     {%- when 'logo' -%}
       {%- capture element_logo -%}
-        {%- assign logo         = block.settings.logo_image -%}
-        {%- assign logo_title   = block.settings.logo_custom_title -%}
+        {%- assign logo       = block.settings.logo_image -%}
+        {%- assign logo_title = block.settings.logo_custom_title -%}
 
         {%- render 'logo'
             logo: logo,
@@ -72,15 +81,6 @@
             section_type: section_type,
             shop: shop
         -%}
-      {%- endcapture -%}
-
-    {%- when 'content' -%}
-      {%- capture element_content -%}
-        {%- assign content_text = block.settings.content_text -%}
-
-        <div class="footer__info">
-          {{ content_text }}
-        </div>
       {%- endcapture -%}
 
     {%- when 'menu' -%}
@@ -103,17 +103,18 @@
         {%- assign element_menu = element_menu | append: menu_instant -%}
       {%- endif -%}
 
-    {%- when 'socials' -%}
-      {%- capture element_socials -%}
-        {%- render 'socials', settings: settings -%}
-      {%- endcapture -%}
-
     {%- when 'payments' -%}
       {%- if payment_methods.size > 0 -%}
         {%- capture element_payments -%}
             {%- render "payments", payments: payment_methods -%}
         {%- endcapture -%}
       {%- endif -%}
+
+    {%- when 'socials' -%}
+      {%- capture element_socials -%}
+        {%- render 'socials', settings: settings -%}
+      {%- endcapture -%}
+
   {%- endcase -%}
 {%- endfor -%}
 
@@ -189,6 +190,92 @@
     "class": "footer",
     "templates": [],
     "layout": true,
+    "blocks": [
+      {
+        "type": "@app"
+      },
+      {
+        "type": "content",
+        "name": "Content",
+        "limit": 1,
+        "settings": [
+          {
+            "type": "header",
+            "content": "General settings"
+          },
+          {
+            "type": "contentEditor",
+            "id": "content_text",
+            "label": "Text"
+          }
+        ]
+      },
+      {
+        "type": "logo",
+        "name": "Logo",
+        "limit": 1,
+        "settings": [
+          {
+            "type": "header",
+            "content": "General settings"
+          },
+          {
+            "type": "paragraph",
+            "content": "Use WebP, PNG, JPG high-quality image (640px or larger) for best results on all screen sizes"
+          },
+          {
+            "type": "image_picker",
+            "id": "logo_image",
+            "label": "Image"
+          },
+          {
+            "type": "text",
+            "id": "logo_custom_title",
+            "label": "Site title",
+            "info": "Displayed when no logo is added"
+          }
+        ]
+      },
+      {
+        "type": "menu",
+        "name": "Menu",
+        "limit": 2,
+        "settings": [
+          {
+            "type": "header",
+            "content": "General settings"
+          },
+          {
+            "type": "menu",
+            "id": "menu",
+            "label": "Menu",
+            "info": "Submenu isn't supported"
+          }
+        ]
+      },
+      {
+        "type": "payments",
+        "name": "Payments",
+        "limit": 1,
+        "settings": [
+          {
+            "type": "paragraph",
+            "content": "Displays all possible payment methods, connected in Payment providers"
+          }
+        ]
+      },
+      {
+        "type": "socials",
+        "name": "Socials",
+        "limit": 1,
+        "settings": [
+          {
+            "type": "paragraph",
+            "content": "Configurable in theme general settings"
+          }
+        ]
+      }
+    ],
     "settings":[
       {
         "type": "header",
@@ -322,92 +409,6 @@
           }
         ],
         "default": "md"
-      }
-    ],
-    "blocks": [
-      {
-        "type": "logo",
-        "name": "Logo",
-        "limit": 1,
-        "settings": [
-          {
-            "type": "header",
-            "content": "General settings"
-          },
-          {
-            "type": "paragraph",
-            "content": "Use WebP, PNG, JPG high-quality image (640px or larger) for best results on all screen sizes"
-          },
-          {
-            "type": "image_picker",
-            "id": "logo_image",
-            "label": "Image"
-          },
-          {
-            "type": "text",
-            "id": "logo_custom_title",
-            "label": "Site title",
-            "info": "Displayed when no logo is added"
-          }
-        ]
-      },
-      {
-        "type": "content",
-        "name": "Content",
-        "limit": 1,
-        "settings": [
-          {
-            "type": "header",
-            "content": "General settings"
-          },
-          {
-            "type": "contentEditor",
-            "id": "content_text",
-            "label": "Text"
-          }
-        ]
-      },
-      {
-        "type": "menu",
-        "name": "Menu",
-        "limit": 2,
-        "settings": [
-          {
-            "type": "header",
-            "content": "General settings"
-          },
-          {
-            "type": "menu",
-            "id": "menu",
-            "label": "Menu",
-            "info": "Submenu isn't supported"
-          }
-        ]
-      },
-      {
-        "type": "socials",
-        "name": "Socials",
-        "limit": 1,
-        "settings": [
-          {
-            "type": "paragraph",
-            "content": "Configurable in theme general settings"
-          }
-        ]
-      },
-      {
-        "type": "payments",
-        "name": "Payments",
-        "limit": 1,
-        "settings": [
-          {
-            "type": "paragraph",
-            "content": "Displays all possible payment methods, connected in Payment providers"
-          }
-        ]
-      },
-      {
-        "type": "@app"
       }
     ]
   }

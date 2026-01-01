@@ -2,19 +2,22 @@
   This snippet renders a date picker.
 
   Parameters:
+  - block_id: the id of the block of the date picker
   - section_type: the section type where the date picker is included (e.g. 'hero')
 
   Required parameters:
   - section_type
+  - block_id
 
   Usage:
 
   {%- render 'date-picker',
+      block_id: block.id,
       section_type: section.type
   -%}
 {%- endcomment -%}
 
-<div class="{{- section_type -}}__date-picker date-picker">
+<div class="{{- section_type -}}__date-picker date-picker" id="{{- block_id -}}">
   <div class="date-picker__component">
     <bq-date-picker version="next"></bq-date-picker>
   </div>

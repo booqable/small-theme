@@ -1,6 +1,97 @@
 {
   "name": "Home",
   "sections": {
+    "about": {
+      "type": "about",
+      "blocks": {
+        "button": {
+          "type": "button",
+          "settings": {
+            "button_icon": "minimal",
+            "button_label": "About us",
+            "button_type": "primary",
+            "button_url": "booqable://root"
+          },
+          "disabled": null
+        },
+        "button_625433": {
+          "type": "button",
+          "settings": {
+            "button_icon": "arrow",
+            "button_label": "Contact",
+            "button_type": "simple",
+            "button_url": "booqable://pages/contact/"
+          },
+          "disabled": null
+        },
+        "description": {
+          "type": "description",
+          "settings": {
+            "description": "<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse varius enim in eros elementum tristique. Duis cursus, mi quis viverra ornare, eros dolor interdum nulla, ut commodo diam libero vitae erat.</p>"
+          },
+          "disabled": null
+        },
+        "heading": {
+          "type": "heading",
+          "settings": {
+            "heading": "Your local <br>golf cart expert"
+          },
+          "disabled": null
+        },
+        "highlight": {
+          "type": "highlight",
+          "settings": {
+            "heading": "10+",
+            "text": "Years of experience with drones and cameras. to capture your best moments."
+          },
+          "disabled": null
+        },
+        "highlight_987654": {
+          "type": "highlight",
+          "settings": {
+            "heading": "556+",
+            "text": "Satisfied customers who have rented products from us "
+          },
+          "disabled": null
+        },
+        "image": {
+          "type": "image",
+          "settings": {
+            "image": "booqable://assets/image-about.jpg",
+            "image_alt": "About image description"
+          },
+          "disabled": null
+        },
+        "tagline": {
+          "type": "tagline",
+          "settings": {
+            "tagline": "About us"
+          },
+          "disabled": null
+        }
+      },
+      "block_order": [
+        "tagline",
+        "heading",
+        "description",
+        "highlight",
+        "highlight_987654",
+        "button",
+        "button_625433",
+        "image"
+      ],
+      "settings": {
+        "about_layout": "wide",
+        "about_layout_blocks": "simple",
+        "color_scheme": "set-1",
+        "content_horizontal": "left",
+        "padding_bottom_desktop": "lg",
+        "padding_bottom_mobile": "md",
+        "padding_top_desktop": "lg",
+        "padding_top_mobile": "md"
+      },
+      "disabled": null
+    },
     "hero": {
       "type": "hero",
       "blocks": {
@@ -24,14 +115,10 @@
           },
           "disabled": null
         },
-        "image": {
-          "type": "image",
+        "description": {
+          "type": "description",
           "settings": {
-            "image": "booqable://assets/image-hero.jpg",
-            "image_alt": "Hero image description",
-            "image_mobile": "",
-            "image_overlay": 10,
-            "image_overlay_style": "gradient"
+            "description": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse varius <br> enim in eros elementum tristique. Duis cursus, mi quis viverra ornare, eros <br> dolor interdum nulla, ut commodo diam libero vitae erat."
           },
           "disabled": null
         },
@@ -42,27 +129,31 @@
           },
           "disabled": null
         },
-        "text": {
-          "type": "text",
+        "image": {
+          "type": "image",
           "settings": {
-            "description": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse varius <br> enim in eros elementum tristique. Duis cursus, mi quis viverra ornare, eros <br> dolor interdum nulla, ut commodo diam libero vitae erat."
+            "image": "booqable://assets/image-hero.jpg",
+            "image_alt": "Hero image description",
+            "image_mobile": "",
+            "image_overlay": 10,
+            "image_overlay_style": "gradient"
           },
           "disabled": null
         }
       },
       "block_order": [
         "heading",
-        "text",
+        "description",
         "button",
         "button_562543",
         "image"
       ],
       "settings": {
+        "color_scheme": "set-2",
         "content_horizontal_desktop": "left",
         "content_horizontal_mobile": "left",
         "content_vertical_desktop": "bottom",
         "content_vertical_mobile": "bottom",
-        "color_scheme": "set-2",
         "height_desktop": "full",
         "height_mobile": "full",
         "hero_direction": "row",
@@ -72,6 +163,65 @@
         "padding_bottom_mobile": "md",
         "padding_top_desktop": "lg",
         "padding_top_mobile": "md"
+      },
+      "disabled": null
+    },
+    "products": {
+      "type": "products",
+      "blocks": {
+        "description": {
+          "type": "description",
+          "settings": {
+            "description": "<p>We got products for all your adventures</p>"
+          },
+          "disabled": null
+        },
+        "heading": {
+          "type": "heading",
+          "settings": {
+            "heading": "Our products"
+          },
+          "disabled": null
+        },
+        "product": {
+          "type": "product",
+          "settings": {
+            "product": "",
+            "product_badge": "PRODUCT ACTION LABEL"
+          },
+          "disabled": null
+        },
+        "product_564321": {
+          "type": "product",
+          "settings": {
+            "product": "",
+            "product_badge": "PRODUCT ACTION LABEL"
+          },
+          "disabled": null
+        },
+        "tagline": {
+          "type": "tagline",
+          "settings": {
+            "tagline": "Shop"
+          },
+          "disabled": null
+        }
+      },
+      "block_order": [
+        "tagline",
+        "heading",
+        "description",
+        "product",
+        "product_564321"
+      ],
+      "settings": {
+        "color_scheme": "set-1",
+        "content_horizontal": "left",
+        "padding_bottom_desktop": "lg",
+        "padding_bottom_mobile": "md",
+        "padding_top_desktop": "lg",
+        "padding_top_mobile": "md",
+        "products_layout": "two"
       },
       "disabled": null
     },
@@ -144,162 +294,12 @@
       "settings": {
         "color_scheme": "set-3",
         "content_horizontal": "left",
+        "padding_bottom_desktop": "lg",
+        "padding_bottom_mobile": "md",
+        "padding_top_desktop": "lg",
+        "padding_top_mobile": "md",
         "steps_layout": "wide",
-        "steps_layout_blocks": "simple",
-        "padding_bottom_desktop": "lg",
-        "padding_bottom_mobile": "md",
-        "padding_top_desktop": "lg",
-        "padding_top_mobile": "md"
-      },
-      "disabled": null
-    },
-    "products": {
-      "type": "products",
-      "blocks": {
-        "description": {
-          "type": "description",
-          "settings": {
-            "description": "<p>We got products for all your adventures</p>"
-          },
-          "disabled": null
-        },
-        "heading": {
-          "type": "heading",
-          "settings": {
-            "heading": "Our products"
-          },
-          "disabled": null
-        },
-        "product": {
-          "type": "product",
-          "settings": {
-            "product": "",
-            "product_badge": "PRODUCT ACTION LABEL"
-          },
-          "disabled": null
-        },
-        "product_564321": {
-          "type": "product",
-          "settings": {
-            "product": "",
-            "product_badge": "PRODUCT ACTION LABEL"
-          },
-          "disabled": null
-        },
-        "tagline": {
-          "type": "tagline",
-          "settings": {
-            "tagline": "Shop"
-          },
-          "disabled": null
-        }
-      },
-      "block_order": [
-        "tagline",
-        "heading",
-        "description",
-        "product",
-        "product_564321"
-      ],
-      "settings": {
-        "color_scheme": "set-1",
-        "content_horizontal": "left",
-        "products_layout": "two",
-        "padding_bottom_desktop": "lg",
-        "padding_bottom_mobile": "md",
-        "padding_top_desktop": "lg",
-        "padding_top_mobile": "md"
-      },
-      "disabled": null
-    },
-    "about": {
-      "type": "about",
-      "blocks": {
-        "button": {
-          "type": "button",
-          "settings": {
-            "button_icon": "minimal",
-            "button_label": "About us",
-            "button_type": "primary",
-            "button_url": "booqable://root"
-          },
-          "disabled": null
-        },
-        "button_625433": {
-          "type": "button",
-          "settings": {
-            "button_icon": "arrowed",
-            "button_label": "Contact",
-            "button_type": "transparent",
-            "button_url": "booqable://pages/contact/"
-          },
-          "disabled": null
-        },
-        "description": {
-          "type": "description",
-          "settings": {
-            "description": "<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse varius enim in eros elementum tristique. Duis cursus, mi quis viverra ornare, eros dolor interdum nulla, ut commodo diam libero vitae erat.</p>"
-          },
-          "disabled": null
-        },
-        "image": {
-          "type": "image",
-          "settings": {
-            "image": "booqable://assets/image-about.jpg",
-            "image_alt": "About image description"
-          },
-          "disabled": null
-        },
-        "heading": {
-          "type": "heading",
-          "settings": {
-            "heading": "Your local <br>golf cart expert"
-          },
-          "disabled": null
-        },
-        "highlight": {
-          "type": "highlight",
-          "settings": {
-            "heading": "10+",
-            "text": "Years of experience with drones and cameras. to capture your best moments."
-          },
-          "disabled": null
-        },
-        "highlight_987654": {
-          "type": "highlight",
-          "settings": {
-            "heading": "556+",
-            "text": "Satisfied customers who have rented products from us "
-          },
-          "disabled": null
-        },
-        "tagline": {
-          "type": "tagline",
-          "settings": {
-            "tagline": "About us"
-          },
-          "disabled": null
-        }
-      },
-      "block_order": [
-        "tagline",
-        "heading",
-        "description",
-        "highlight",
-        "highlight_987654",
-        "button",
-        "button_625433",
-        "image"
-      ],
-      "settings": {
-        "about_layout": "two",
-        "about_layout_blocks": "simple",
-        "color_scheme": "set-1",
-        "content_horizontal": "left",
-        "padding_bottom_desktop": "lg",
-        "padding_bottom_mobile": "md",
-        "padding_top_desktop": "lg",
-        "padding_top_mobile": "md"
+        "steps_layout_blocks": "simple"
       },
       "disabled": null
     }

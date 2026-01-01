@@ -60,12 +60,12 @@
             "label": "Square"
           },
           {
-            "value": "rounded",
-            "label": "Rounded"
+            "value": "medium",
+            "label": "Medium"
           },
           {
-            "value": "fully_round",
-            "label": "Fully round"
+            "value": "round",
+            "label": "Round"
           }
         ],
         "default": "square"
@@ -332,6 +332,12 @@
       },
       {
         "type": "text",
+        "id": "social_tiktok",
+        "label": "TikTok",
+        "info": "Example: https://tiktok.com/@booqable"
+      },
+      {
+        "type": "text",
         "id": "social_linkedin",
         "label": "Linkedin",
         "default": "https://linkedin.com/",
@@ -342,12 +348,6 @@
         "id": "social_pinterest",
         "label": "Pinterest",
         "info": "Example: https://pinterest.com/booqable"
-      },
-      {
-        "type": "text",
-        "id": "social_tiktok",
-        "label": "TikTok",
-        "info": "Example: https://tiktok.com/@booqable"
       },
       {
         "type": "text",
@@ -375,7 +375,7 @@
       }
     ]
   },
-    {
+  {
     "name": "Styling",
     "settings": [
       {
@@ -396,12 +396,12 @@
             "label": "Square"
           },
           {
-            "value": "rounded",
-            "label": "Rounded"
+            "value": "medium",
+            "label": "Medium"
           },
           {
-            "value": "fully_round",
-            "label": "Fully"
+            "value": "round",
+            "label": "Round"
           }
         ],
         "default": "square"
@@ -420,12 +420,12 @@
         "label": "Style",
         "options": [
           {
-            "value": "filled",
-            "label": "Filled"
+            "value": "fill",
+            "label": "Fill"
           },
           {
             "value": "outline",
-            "label": "Outlined"
+            "label": "Outline"
           }
         ],
         "default": "outline"
@@ -479,7 +479,7 @@
         "id": "font_size_h2",
         "label": "Heading 2",
         "min": 36,
-        "max": 76,
+        "max": 70,
         "step": 1,
         "default": 56,
         "unit": "px"

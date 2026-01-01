@@ -1,12 +1,8 @@
 {%- if section.blocks.size > 0 -%}
-  {%- assign blocks_button_consecutive  = false -%}
-  {%- assign blocks_button_count        = 0 -%}
-  {%- assign blocks_info_consecutive    = false -%}
-  {%- assign blocks_info_count          = 0 -%}
-  {%- assign first_button_index         = -1 -%}
-  {%- assign first_info_index           = -1 -%}
-  {%- assign second_button_index        = -1 -%}
-  {%- assign second_info_index          = -1 -%}
+  {%- assign button_block_count         = 0 -%}
+  {%- assign button_block_ordinal       = false -%}
+  {%- assign button_first_index         = -1 -%}
+  {%- assign button_second_index        = -1 -%}
   {%- assign color_scheme               = section.settings.color_scheme -%}
   {%- assign content_horizontal_desktop = section.settings.content_horizontal_desktop -%}
   {%- assign content_horizontal_mobile  = section.settings.content_horizontal_mobile -%}
@@ -17,8 +13,12 @@
   {%- assign hero_direction             = section.settings.hero_direction -%}
   {%- assign hero_layout                = section.settings.hero_layout -%}
   {%- assign hero_split                 = section.settings.hero_split -%}
-  {%- assign image_placeholder          = settings.image_placeholder -%}
+  {%- assign highlight_block_count      = 0 -%}
+  {%- assign highlight_block_ordinal    = false -%}
+  {%- assign highlight_first_index      = -1 -%}
+  {%- assign highlight_second_index     = -1 -%}
   {%- assign horizontal                 = false -%}
+  {%- assign image_placeholder          = settings.image_placeholder -%}
   {%- assign narrowed                   = false -%}
   {%- assign padding_bottom_desktop     = section.settings.padding_bottom_desktop -%}
   {%- assign padding_bottom_mobile      = section.settings.padding_bottom_mobile -%}
@@ -125,30 +125,30 @@
     {%- assign index = forloop.index0 -%}
 
     {%- if block.type == 'button' -%}
-      {%- assign blocks_button_count = blocks_button_count | plus: 1 -%}
+      {%- assign button_block_count = button_block_count | plus: 1 -%}
 
-      {%- if first_button_index == -1 -%}
-        {%- assign first_button_index = index -%}
-      {%- elsif second_button_index == -1 -%}
-        {%- assign second_button_index = index -%}
-        {%- assign index_diff = second_button_index | minus: first_button_index -%}
+      {%- if button_first_index == -1 -%}
+        {%- assign button_first_index = index -%}
+      {%- elsif button_second_index == -1 -%}
+        {%- assign button_second_index = index -%}
+        {%- assign index_diff = button_second_index | minus: button_first_index -%}
 
         {%- if index_diff == 1 -%}
-          {%- assign blocks_button_consecutive = true -%}
+          {%- assign button_block_ordinal = true -%}
         {%- endif -%}
       {%- endif -%}
 
-    {%- elsif block.type == 'highlights' -%}
-      {%- assign blocks_info_count = blocks_info_count | plus: 1 -%}
+    {%- elsif block.type == 'highlight' -%}
+      {%- assign highlight_block_count = highlight_block_count | plus: 1 -%}
 
-      {%- if first_info_index == -1 -%}
-        {%- assign first_info_index = index -%}
-      {%- elsif second_info_index == -1 -%}
-        {%- assign second_info_index = index -%}
-        {%- assign index_diff = second_info_index | minus: first_info_index -%}
+      {%- if highlight_first_index == -1 -%}
+        {%- assign highlight_first_index = index -%}
+      {%- elsif highlight_second_index == -1 -%}
+        {%- assign highlight_second_index = index -%}
+        {%- assign index_diff = highlight_second_index | minus: highlight_first_index -%}
 
         {%- if index_diff == 1 -%}
-          {%- assign blocks_info_consecutive = true -%}
+          {%- assign highlight_block_ordinal = true -%}
         {%- endif -%}
       {%- endif -%}
     {%- endif -%}
@@ -170,35 +170,10 @@
               <div class="hero__col hero__col--padding-top hero__col--padding-bottom">
                 <div class="hero__container container">
                   {%- for block in section.blocks -%}
-                    {%- assign index = forloop.index0 -%}
+                    {%- assign block_id = block.id -%}
+                    {%- assign index    = forloop.index0 -%}
 
                     {%- case block.type -%}
-                      {%- when 'image' -%}
-                        {%- continue -%}
-
-                      {%- when 'heading' -%}
-                        {%- assign heading = block.settings.heading -%}
-
-                        {%- if heading != blank -%}
-                          <h1 class="hero__heading">
-                            {{- heading -}}
-                          </h1>
-                        {%- endif -%}
-
-                      {%- when 'text' -%}
-                        {%- assign description = block.settings.description -%}
-
-                        {%- if description != blank -%}
-                          <div class="hero__description">
-                            {{- description -}}
-                          </div>
-                        {%- endif -%}
-
-                      {%- when 'date-picker' -%}
-                        {%- render 'date-picker',
-                            section_type: section_type
-                        -%}
-
                       {%- when 'button' -%}
                         {%- assign button_icon  = block.settings.button_icon -%}
                         {%- assign button_label = block.settings.button_label -%}
@@ -206,47 +181,75 @@
                         {%- assign button_url   = block.settings.button_url -%}
 
                         {%- if button_label != blank and button_url != blank -%}
-                          {%- if blocks_button_consecutive and index == first_button_index -%}
+                          {%- if button_block_ordinal and index == button_first_index -%}
                             <div class="hero__buttons">
                           {%- endif -%}
 
                             {%- render 'button',
                                 button_icon: button_icon,
+                                button_id: block_id,
                                 button_label: button_label,
                                 button_type: button_type,
                                 button_url: button_url,
                                 section_type: section_type
                             -%}
 
-                          {%- if blocks_button_consecutive and index == second_button_index -%}
+                          {%- if button_block_ordinal and index == button_second_index -%}
                             </div>
                           {%- endif -%}
                         {%- endif -%}
 
-                      {%- when 'highlights' -%}
+                      {%- when 'date-picker' -%}
+                        {%- render 'date-picker',
+                            block_id: block_id,
+                            section_type: section_type
+                        -%}
+
+                      {%- when 'description' -%}
+                        {%- assign description = block.settings.description -%}
+
+                        {%- if description != blank -%}
+                          <div class="hero__description" id="{{- block_id -}}">
+                            {{- description -}}
+                          </div>
+                        {%- endif -%}
+
+                      {%- when 'heading' -%}
+                        {%- assign heading = block.settings.heading -%}
+
+                        {%- if heading != blank -%}
+                          <h1 class="hero__heading" id="{{- block_id -}}">
+                            {{- heading -}}
+                          </h1>
+                        {%- endif -%}
+
+                      {%- when 'highlight' -%}
                         {%- assign heading = block.settings.heading -%}
                         {%- assign text    = block.settings.text -%}
 
                         {%- if heading != blank or text != blank -%}
-                          {%- if blocks_info_consecutive and index == first_info_index -%}
-                            <div class="hero__info-wrapper">
+                          {%- if highlight_block_ordinal and index == highlight_first_index -%}
+                            <div class="hero__highlight-wrapper">
                           {%- endif -%}
 
-                            <div class="hero__info">
-                              <div class="hero__info-content">
+                            <div class="hero__highlight" id="{{- block_id -}}">
+                              <div class="hero__highlight-content">
                                 {%- if heading != blank -%}
-                                  <h3 class="hero__info-heading">{{- heading -}}</h3>
+                                  <h3 class="hero__highlight-heading">{{- heading -}}</h3>
                                 {%- endif -%}
                                 {%- if text != blank -%}
-                                  <div class="hero__info-text">{{- text -}}</div>
+                                  <div class="hero__highlight-text">{{- text -}}</div>
                                 {%- endif -%}
                               </div>
                             </div>
 
-                          {%- if blocks_info_consecutive and index == second_info_index -%}
+                          {%- if highlight_block_ordinal and index == highlight_second_index -%}
                             </div>
                           {%- endif -%}
                         {%- endif -%}
+
+                      {%- when 'image' -%}
+                        {%- continue -%}
 
                     {%- endcase -%}
                   {%- endfor -%}
@@ -256,6 +259,7 @@
               <div class="hero__col">
                 {%- for block in section.blocks -%}
                   {%- if block.type == 'image' -%}
+                    {%- assign block_id      = block.id -%}
                     {%- assign image         = block.settings.image -%}
                     {%- assign image_alt     = block.settings.image_alt -%}
                     {%- assign image_mobile  = block.settings.image_mobile -%}
@@ -274,7 +278,7 @@
                     {%- endif -%}
 
                     {%- if image.url != blank -%}
-                      <div class="hero__image-holder">
+                      <div class="hero__image-holder" id="{{- block_id -}}">
                         {%- render 'image',
                             image: image,
                             image_alt: image_alt,
@@ -295,32 +299,10 @@
 
           {%- else -%}
             {%- for block in section.blocks -%}
-              {%- assign index = forloop.index0 -%}
+              {%- assign block_id = block.id -%}
+              {%- assign index    = forloop.index0 -%}
 
               {%- case block.type -%}
-                {%- when 'heading' -%}
-                  {%- assign heading = block.settings.heading -%}
-
-                  {%- if heading != blank -%}
-                    <h1 class="hero__heading">
-                      {{- heading -}}
-                    </h1>
-                  {%- endif -%}
-
-                {%- when 'text' -%}
-                  {%- assign description = block.settings.description -%}
-
-                  {%- if description != blank -%}
-                    <div class="hero__description">
-                      {{- description -}}
-                    </div>
-                  {%- endif -%}
-
-                {%- when 'date-picker' -%}
-                  {%- render 'date-picker',
-                      section_type: section_type
-                  -%}
-
                 {%- when 'button' -%}
                   {%- assign button_icon  = block.settings.button_icon -%}
                   {%- assign button_label = block.settings.button_label -%}
@@ -328,44 +310,69 @@
                   {%- assign button_url   = block.settings.button_url -%}
 
                   {%- if button_label != blank and button_url != blank -%}
-                    {%- if blocks_button_consecutive and index == first_button_index -%}
+                    {%- if button_block_ordinal and index == button_first_index -%}
                       <div class="hero__buttons">
                     {%- endif -%}
 
                       {%- render 'button',
                           button_icon: button_icon,
+                          button_id: block_id,
                           button_label: button_label,
                           button_type: button_type,
                           button_url: button_url,
                           section_type: section_type
                       -%}
 
-                    {%- if blocks_button_consecutive and index == second_button_index -%}
+                    {%- if button_block_ordinal and index == button_second_index -%}
                       </div>
                     {%- endif -%}
                   {%- endif -%}
 
-                {%- when 'highlights' -%}
+                {%- when 'date-picker' -%}
+                  {%- render 'date-picker',
+                      block_id: block_id,
+                      section_type: section_type
+                  -%}
+
+                {%- when 'description' -%}
+                  {%- assign description = block.settings.description -%}
+
+                  {%- if description != blank -%}
+                    <div class="hero__description" id="{{- block_id -}}">
+                      {{- description -}}
+                    </div>
+                  {%- endif -%}
+
+                {%- when 'heading' -%}
+                  {%- assign heading = block.settings.heading -%}
+
+                  {%- if heading != blank -%}
+                    <h1 class="hero__heading" id="{{- block_id -}}">
+                      {{- heading -}}
+                    </h1>
+                  {%- endif -%}
+
+                {%- when 'highlight' -%}
                   {%- assign heading = block.settings.heading -%}
                   {%- assign text    = block.settings.text -%}
 
                   {%- if heading != blank or text != blank -%}
-                    {%- if blocks_info_consecutive and index == first_info_index -%}
-                      <div class="hero__info-wrapper">
+                    {%- if highlight_block_ordinal and index == highlight_first_index -%}
+                      <div class="hero__highlight-wrapper">
                     {%- endif -%}
 
-                      <div class="hero__info">
-                        <div class="hero__info-content">
+                      <div class="hero__highlight" id="{{- block_id -}}">
+                        <div class="hero__highlight-content">
                           {%- if heading != blank -%}
-                            <h3 class="hero__info-heading">{{- heading -}}</h3>
+                            <h3 class="hero__highlight-heading">{{- heading -}}</h3>
                           {%- endif -%}
                           {%- if text != blank -%}
-                            <div class="hero__info-text">{{- text -}}</div>
+                            <div class="hero__highlight-text">{{- text -}}</div>
                           {%- endif -%}
                         </div>
                       </div>
 
-                    {%- if blocks_info_consecutive and index == second_info_index -%}
+                    {%- if highlight_block_ordinal and index == highlight_second_index -%}
                       </div>
                     {%- endif -%}
                   {%- endif -%}
@@ -391,7 +398,7 @@
                   {%- endif -%}
 
                   {%- if image.url != blank -%}
-                    <div class="hero__image-holder">
+                    <div class="hero__image-holder" id="{{- block_id -}}">
                       {%- render 'image',
                           image: image,
                           image_alt: image_alt,
@@ -428,319 +435,7 @@
         "file": "hero.css"
       }
     ],
-    "settings": [
-      {
-        "type": "header",
-        "content": "General settings"
-      },
-      {
-        "type": "color_scheme",
-        "id": "color_scheme",
-        "label": "Color scheme",
-        "default": "set-1"
-      },
-      {
-        "type": "select",
-        "id": "hero_layout",
-        "label": "Layout",
-        "options": [
-          {
-            "value": "wide",
-            "label": "Wide"
-          },
-          {
-            "value": "narrow",
-            "label": "Narrow"
-          }
-        ],
-        "default": "wide"
-      },
-      {
-        "type": "select",
-        "id": "hero_split",
-        "label": "",
-        "options": [
-          {
-            "value": "overlay",
-            "label": "Overlay"
-          },
-          {
-            "value": "split",
-            "label": "Split"
-          }
-        ],
-        "default": "overlay"
-      },
-      {
-        "type": "header",
-        "content": "Desktop settings"
-      },
-      {
-        "type": "select",
-        "id": "height_desktop",
-        "label": "Section height",
-        "options": [
-          {
-            "value": "sm",
-            "label": "Small"
-          },
-          {
-            "value": "md",
-            "label": "Medium"
-          },
-          {
-            "value": "full",
-            "label": "Full"
-          }
-        ],
-        "default": "full"
-      },
-            {
-        "type": "select",
-        "id": "hero_direction",
-        "label": "Layout",
-        "options": [
-          {
-            "value": "row",
-            "label": "Row"
-          },
-          {
-            "value": "column",
-            "label": "Column"
-          }
-        ],
-        "default": "row"
-      },
-      {
-        "type": "paragraph",
-        "content": "Applies when 'Split' layout is selected"
-      },
-      {
-        "type": "select",
-        "id": "padding_top_desktop",
-        "label": "Padding top",
-        "options": [
-          {
-            "value": "sm",
-            "label": "Small"
-          },
-          {
-            "value": "md",
-            "label": "Medium"
-          },
-          {
-            "value": "lg",
-            "label": "Large"
-          }
-        ],
-        "default": "lg"
-      },
-      {
-        "type": "select",
-        "id": "padding_bottom_desktop",
-        "label": "Padding bottom",
-        "options": [
-          {
-            "value": "sm",
-            "label": "Small"
-          },
-          {
-            "value": "md",
-            "label": "Medium"
-          },
-          {
-            "value": "lg",
-            "label": "Large"
-          }
-        ],
-        "default": "lg"
-      },
-      {
-        "type": "select",
-        "id": "content_horizontal_desktop",
-        "label": "Horizontal positioning",
-        "options": [
-          {
-            "value": "left",
-            "label": "Left"
-          },
-          {
-            "value": "center",
-            "label": "Center"
-          },
-          {
-            "value": "right",
-            "label": "Right"
-          }
-        ],
-        "default": "left"
-      },
-      {
-        "type": "select",
-        "id": "content_vertical_desktop",
-        "label": "Vertical alignment",
-        "options": [
-          {
-            "value": "top",
-            "label": "Top"
-          },
-          {
-            "value": "middle",
-            "label": "Middle"
-          },
-          {
-            "value": "bottom",
-            "label": "Bottom"
-          }
-        ],
-        "default": "top"
-      },
-      {
-        "type": "header",
-        "content": "Mobile settings"
-      },
-      {
-        "type": "select",
-        "id": "height_mobile",
-        "label": "Section height",
-        "options": [
-          {
-            "value": "auto",
-            "label": "Auto"
-          },
-          {
-            "value": "md",
-            "label": "Medium"
-          },
-          {
-            "value": "full",
-            "label": "Full"
-          }
-        ],
-        "default": "full"
-      },
-      {
-        "type": "select",
-        "id": "padding_top_mobile",
-        "label": "Padding top",
-        "options": [
-          {
-            "value": "sm",
-            "label": "Small"
-          },
-          {
-            "value": "md",
-            "label": "Medium"
-          },
-          {
-            "value": "lg",
-            "label": "Large"
-          }
-        ],
-        "default": "md"
-      },
-      {
-        "type": "select",
-        "id": "padding_bottom_mobile",
-        "label": "Padding bottom",
-        "options": [
-          {
-            "value": "sm",
-            "label": "Small"
-          },
-          {
-            "value": "md",
-            "label": "Medium"
-          },
-          {
-            "value": "lg",
-            "label": "Large"
-          }
-        ],
-        "default": "md"
-      },
-      {
-        "type": "select",
-        "id": "content_horizontal_mobile",
-        "label": "Horizontal positioning",
-        "options": [
-          {
-            "value": "left",
-            "label": "Left"
-          },
-          {
-            "value": "center",
-            "label": "Center"
-          },
-          {
-            "value": "right",
-            "label": "Right"
-          }
-        ],
-        "default": "left"
-      },
-      {
-        "type": "select",
-        "id": "content_vertical_mobile",
-        "label": "Vertical alignment",
-        "options": [
-          {
-            "value": "top",
-            "label": "Top"
-          },
-          {
-            "value": "middle",
-            "label": "Middle"
-          },
-          {
-            "value": "bottom",
-            "label": "Bottom"
-          }
-        ],
-        "default": "top"
-      }
-    ],
     "blocks": [
-      {
-        "type": "heading",
-        "name": "Heading",
-        "limit": 1,
-        "settings": [
-          {
-            "type": "header",
-            "content": "General settings"
-          },
-          {
-            "type": "text",
-            "id": "heading",
-            "label": "Heading",
-            "default": "Welcome to our store"
-          }
-        ]
-      },
-      {
-        "type": "text",
-        "name": "Text",
-        "limit": 1,
-        "settings": [
-          {
-            "type": "header",
-            "content": "General settings"
-          },
-          {
-            "type": "contentEditor",
-            "id": "description",
-            "label": "Text",
-            "default": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse varius enim in eros elementum tristique."
-          }
-        ]
-      },
-      {
-        "type": "date-picker",
-        "name": "Date picker",
-        "limit": 1,
-        "settings": []
-      },
       {
         "type": "button",
         "name": "Button",
@@ -768,8 +463,8 @@
             "label": "Style",
             "options": [
               {
-                "value": "transparent",
-                "label": "Transparent"
+                "value": "simple",
+                "label": "Simple"
               },
               {
                 "value": "primary",
@@ -777,7 +472,7 @@
               },
               {
                 "value": "outlined",
-                "label": "Outlined"
+                "label": "Outline"
               }
             ],
             "default": "primary"
@@ -792,17 +487,57 @@
                 "label": "Minimal"
               },
               {
-                "value": "arrowed",
-                "label": "Arrowed"
+                "value": "arrow",
+                "label": "Arrow"
               }
             ],
-            "default": "arrowed"
+            "default": "arrow"
           }
         ]
       },
       {
-        "type": "highlights",
-        "name": "Highlights",
+        "type": "date-picker",
+        "name": "Date picker",
+        "limit": 1,
+        "settings": []
+      },
+      {
+        "type": "description",
+        "name": "Description",
+        "limit": 1,
+        "settings": [
+          {
+            "type": "header",
+            "content": "General settings"
+          },
+          {
+            "type": "contentEditor",
+            "id": "description",
+            "label": "Text",
+            "default": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse varius enim in eros elementum tristique."
+          }
+        ]
+      },
+      {
+        "type": "heading",
+        "name": "Heading",
+        "limit": 1,
+        "settings": [
+          {
+            "type": "header",
+            "content": "General settings"
+          },
+          {
+            "type": "text",
+            "id": "heading",
+            "label": "Heading",
+            "default": "Welcome to our store"
+          }
+        ]
+      },
+      {
+        "type": "highlight",
+        "name": "Highlight",
         "limit": 2,
         "settings": [
           {
@@ -885,6 +620,278 @@
             "unit": "%"
           }
         ]
+      }
+    ],
+    "settings": [
+      {
+        "type": "header",
+        "content": "General settings"
+      },
+      {
+        "type": "color_scheme",
+        "id": "color_scheme",
+        "label": "Color scheme",
+        "default": "set-1"
+      },
+      {
+        "type": "select",
+        "id": "hero_layout",
+        "label": "Layout",
+        "options": [
+          {
+            "value": "wide",
+            "label": "Wide"
+          },
+          {
+            "value": "narrow",
+            "label": "Narrow"
+          }
+        ],
+        "default": "wide"
+      },
+      {
+        "type": "select",
+        "id": "hero_split",
+        "label": "",
+        "options": [
+          {
+            "value": "overlay",
+            "label": "Overlay"
+          },
+          {
+            "value": "split",
+            "label": "Split"
+          }
+        ],
+        "default": "overlay"
+      },
+      {
+        "type": "header",
+        "content": "Desktop settings"
+      },
+            {
+        "type": "select",
+        "id": "padding_top_desktop",
+        "label": "Padding top",
+        "options": [
+          {
+            "value": "sm",
+            "label": "Small"
+          },
+          {
+            "value": "md",
+            "label": "Medium"
+          },
+          {
+            "value": "lg",
+            "label": "Large"
+          }
+        ],
+        "default": "lg"
+      },
+      {
+        "type": "select",
+        "id": "padding_bottom_desktop",
+        "label": "Padding bottom",
+        "options": [
+          {
+            "value": "sm",
+            "label": "Small"
+          },
+          {
+            "value": "md",
+            "label": "Medium"
+          },
+          {
+            "value": "lg",
+            "label": "Large"
+          }
+        ],
+        "default": "lg"
+      },
+      {
+        "type": "select",
+        "id": "height_desktop",
+        "label": "Section height",
+        "options": [
+          {
+            "value": "sm",
+            "label": "Small"
+          },
+          {
+            "value": "md",
+            "label": "Medium"
+          },
+          {
+            "value": "full",
+            "label": "Full"
+          }
+        ],
+        "default": "full"
+      },
+      {
+        "type": "select",
+        "id": "content_horizontal_desktop",
+        "label": "Horizontal positioning",
+        "options": [
+          {
+            "value": "left",
+            "label": "Left"
+          },
+          {
+            "value": "center",
+            "label": "Center"
+          },
+          {
+            "value": "right",
+            "label": "Right"
+          }
+        ],
+        "default": "left"
+      },
+      {
+        "type": "select",
+        "id": "content_vertical_desktop",
+        "label": "Vertical alignment",
+        "options": [
+          {
+            "value": "top",
+            "label": "Top"
+          },
+          {
+            "value": "middle",
+            "label": "Middle"
+          },
+          {
+            "value": "bottom",
+            "label": "Bottom"
+          }
+        ],
+        "default": "top"
+      },
+      {
+        "type": "select",
+        "id": "hero_direction",
+        "label": "Layout",
+        "options": [
+          {
+            "value": "row",
+            "label": "Row"
+          },
+          {
+            "value": "column",
+            "label": "Column"
+          }
+        ],
+        "default": "row"
+      },
+      {
+        "type": "paragraph",
+        "content": "Applies when 'Split' layout is selected"
+      },
+      {
+        "type": "header",
+        "content": "Mobile settings"
+      },
+      {
+        "type": "select",
+        "id": "padding_top_mobile",
+        "label": "Padding top",
+        "options": [
+          {
+            "value": "sm",
+            "label": "Small"
+          },
+          {
+            "value": "md",
+            "label": "Medium"
+          },
+          {
+            "value": "lg",
+            "label": "Large"
+          }
+        ],
+        "default": "md"
+      },
+      {
+        "type": "select",
+        "id": "padding_bottom_mobile",
+        "label": "Padding bottom",
+        "options": [
+          {
+            "value": "sm",
+            "label": "Small"
+          },
+          {
+            "value": "md",
+            "label": "Medium"
+          },
+          {
+            "value": "lg",
+            "label": "Large"
+          }
+        ],
+        "default": "md"
+      },
+      {
+        "type": "select",
+        "id": "height_mobile",
+        "label": "Section height",
+        "options": [
+          {
+            "value": "auto",
+            "label": "Auto"
+          },
+          {
+            "value": "md",
+            "label": "Medium"
+          },
+          {
+            "value": "full",
+            "label": "Full"
+          }
+        ],
+        "default": "full"
+      },
+      {
+        "type": "select",
+        "id": "content_horizontal_mobile",
+        "label": "Horizontal positioning",
+        "options": [
+          {
+            "value": "left",
+            "label": "Left"
+          },
+          {
+            "value": "center",
+            "label": "Center"
+          },
+          {
+            "value": "right",
+            "label": "Right"
+          }
+        ],
+        "default": "left"
+      },
+      {
+        "type": "select",
+        "id": "content_vertical_mobile",
+        "label": "Vertical alignment",
+        "options": [
+          {
+            "value": "top",
+            "label": "Top"
+          },
+          {
+            "value": "middle",
+            "label": "Middle"
+          },
+          {
+            "value": "bottom",
+            "label": "Bottom"
+          }
+        ],
+        "default": "top"
       }
     ]
   }
