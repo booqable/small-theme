@@ -46,8 +46,8 @@
 
     [data-compact="true"],
     [data-short-names="true"] {
-      height: $button-height !important;
-      width: $button-width !important;
+      height: $button-height-xs !important;
+      width: $button-width-xs !important;
     }
   }
 }
@@ -72,11 +72,14 @@
   }
 
   &__wrapper {
-    @include flexbox($align: center, $justify: center);
+    @include flexbox(
+      $align: center,
+      $justify: center
+    );
 
     padding: var(--app-padding);
     background: var(--app-wrapper-background);
-    height: $button-height;
+    height: $button-height-xs;
     border: 1px solid var(--app-wrapper-border-color);
     border-radius: $button-border-radius;
     transition: all $transition-duration $transition-function;

@@ -22,12 +22,6 @@
 
 {%- for block in section.blocks -%}
   {%- case block.type -%}
-    {%- when 'menu' -%}
-      {%- assign block_id                  = block.id -%}
-      {%- assign menu_alignment_horizontal = block.settings.menu_alignment_horizontal -%}
-      {%- assign menu_alignment_vertical   = block.settings.menu_alignment_vertical -%}
-      {%- assign menu_opener_position      = block.settings.menu_opener_position -%}
-
     {%- when 'button' -%}
       {%- assign button_label        = block.settings.button_label -%}
       {%- assign button_url          = block.settings.button_url -%}
@@ -44,6 +38,13 @@
           -%}
         {%- endcapture -%}
       {%- endif -%}
+
+    {%- when 'menu' -%}
+      {%- assign block_id                  = block.id -%}
+      {%- assign menu_alignment_horizontal = block.settings.menu_alignment_horizontal -%}
+      {%- assign menu_alignment_vertical   = block.settings.menu_alignment_vertical -%}
+      {%- assign menu_opener_position      = block.settings.menu_opener_position -%}
+
   {%- endcase -%}
 {%- endfor -%}
 
@@ -231,135 +232,52 @@
     "class": "header__wrapper",
     "templates": [],
     "layout": true,
-    "settings": [
-      {
-        "type": "header",
-        "content": "General settings"
-      },
-      {
-        "type": "checkbox",
-        "id": "sticky_header",
-        "default": true,
-        "label": "Stick to top"
-      },
-      {
-        "type": "checkbox",
-        "id": "show_transparency",
-        "default": true,
-        "label": "Use transparent background"
-      },
-      {
-        "type": "color_scheme",
-        "id": "color_scheme",
-        "label": "Color scheme",
-        "default": "set-1"
-      },
-      {
-        "type": "header",
-        "content": "Desktop settings"
-      },
-      {
-        "type": "select",
-        "id": "padding_top_desktop",
-        "label": "Padding top",
-        "options": [
-          {
-            "value": "sm",
-            "label": "Small"
-          },
-          {
-            "value": "md",
-            "label": "Medium"
-          },
-          {
-            "value": "lg",
-            "label": "Large"
-          }
-        ],
-        "default": "lg"
-      },
-      {
-        "type": "select",
-        "id": "padding_bottom_desktop",
-        "label": "Padding bottom",
-        "options": [
-          {
-            "value": "sm",
-            "label": "Small"
-          },
-          {
-            "value": "md",
-            "label": "Medium"
-          },
-          {
-            "value": "lg",
-            "label": "Large"
-          }
-        ],
-        "default": "lg"
-      },
-      {
-        "type": "select",
-        "id": "header_layout",
-        "label": "Layout",
-        "options": [
-          {
-            "value": "wide",
-            "label": "Wide"
-          },
-          {
-            "value": "narrow",
-            "label": "Narrow"
-          }
-        ],
-        "default": "wide"
-      },
-      {
-        "type": "header",
-        "content": "Mobile settings"
-      },
-      {
-        "type": "select",
-        "id": "padding_top_mobile",
-        "label": "Padding top",
-        "options": [
-          {
-            "value": "sm",
-            "label": "Small"
-          },
-          {
-            "value": "md",
-            "label": "Medium"
-          },
-          {
-            "value": "lg",
-            "label": "Large"
-          }
-        ],
-        "default": "md"
-      },
-      {
-        "type": "select",
-        "id": "padding_bottom_mobile",
-        "label": "Padding bottom",
-        "options": [
-          {
-            "value": "sm",
-            "label": "Small"
-          },
-          {
-            "value": "md",
-            "label": "Medium"
-          },
-          {
-            "value": "lg",
-            "label": "Large"
-          }
-        ],
-        "default": "md"
-      }
-    ],
     "blocks": [
+      {
+        "type": "@app"
+      },
+      {
+        "type": "button",
+        "name": "Button",
+        "limit": 1,
+        "settings": [
+          {
+            "type": "header",
+            "content": "General settings"
+          },
+          {
+            "type": "text",
+            "id": "button_label",
+            "label": "Label",
+            "default": "Contact us"
+          },
+          {
+            "type": "url",
+            "id": "button_url",
+            "label": "URL"
+          },
+          {
+            "type": "header",
+            "content": "Desktop settings"
+          },
+          {
+            "type": "checkbox",
+            "id": "show_button_desktop",
+            "label": "Show/hide button",
+            "default": true
+          },
+          {
+            "type": "header",
+            "content": "Mobile settings"
+          },
+          {
+            "type": "checkbox",
+            "id": "show_button_mobile",
+            "label": "Show/hide button",
+            "default": true
+          }
+        ]
+      },
       {
         "type": "logo",
         "name": "Logo",
@@ -496,51 +414,134 @@
             "default": "Search"
           }
         ]
+      }
+    ],
+    "settings": [
+      {
+        "type": "header",
+        "content": "General settings"
       },
       {
-        "type": "button",
-        "name": "Button",
-        "limit": 1,
-        "settings": [
+        "type": "color_scheme",
+        "id": "color_scheme",
+        "label": "Color scheme",
+        "default": "set-1"
+      },
+      {
+        "type": "checkbox",
+        "id": "sticky_header",
+        "default": true,
+        "label": "Stick to top"
+      },
+      {
+        "type": "checkbox",
+        "id": "show_transparency",
+        "default": true,
+        "label": "Use transparent background"
+      },
+      {
+        "type": "header",
+        "content": "Desktop settings"
+      },
+      {
+        "type": "select",
+        "id": "padding_top_desktop",
+        "label": "Padding top",
+        "options": [
           {
-            "type": "header",
-            "content": "General settings"
+            "value": "sm",
+            "label": "Small"
           },
           {
-            "type": "text",
-            "id": "button_label",
-            "label": "Label",
-            "default": "Contact us"
+            "value": "md",
+            "label": "Medium"
           },
           {
-            "type": "url",
-            "id": "button_url",
-            "label": "URL"
-          },
-          {
-            "type": "header",
-            "content": "Desktop settings"
-          },
-          {
-            "type": "checkbox",
-            "id": "show_button_desktop",
-            "label": "Show/hide button",
-            "default": true
-          },
-          {
-            "type": "header",
-            "content": "Mobile settings"
-          },
-          {
-            "type": "checkbox",
-            "id": "show_button_mobile",
-            "label": "Show/hide button",
-            "default": true
+            "value": "lg",
+            "label": "Large"
           }
-        ]
+        ],
+        "default": "lg"
       },
       {
-        "type": "@app"
+        "type": "select",
+        "id": "padding_bottom_desktop",
+        "label": "Padding bottom",
+        "options": [
+          {
+            "value": "sm",
+            "label": "Small"
+          },
+          {
+            "value": "md",
+            "label": "Medium"
+          },
+          {
+            "value": "lg",
+            "label": "Large"
+          }
+        ],
+        "default": "lg"
+      },
+      {
+        "type": "select",
+        "id": "header_layout",
+        "label": "Layout",
+        "options": [
+          {
+            "value": "wide",
+            "label": "Wide"
+          },
+          {
+            "value": "narrow",
+            "label": "Narrow"
+          }
+        ],
+        "default": "wide"
+      },
+      {
+        "type": "header",
+        "content": "Mobile settings"
+      },
+      {
+        "type": "select",
+        "id": "padding_top_mobile",
+        "label": "Padding top",
+        "options": [
+          {
+            "value": "sm",
+            "label": "Small"
+          },
+          {
+            "value": "md",
+            "label": "Medium"
+          },
+          {
+            "value": "lg",
+            "label": "Large"
+          }
+        ],
+        "default": "md"
+      },
+      {
+        "type": "select",
+        "id": "padding_bottom_mobile",
+        "label": "Padding bottom",
+        "options": [
+          {
+            "value": "sm",
+            "label": "Small"
+          },
+          {
+            "value": "md",
+            "label": "Medium"
+          },
+          {
+            "value": "lg",
+            "label": "Large"
+          }
+        ],
+        "default": "md"
       }
     ]
   }

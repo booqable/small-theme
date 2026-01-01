@@ -144,7 +144,10 @@
   }
 
   &__col {
-    @include flexbox($direction: column, $align: var(--steps-content-alignment, flex-start));
+    @include flexbox(
+      $direction: column,
+      $align: var(--steps-content-alignment, flex-start)
+    );
 
     padding: var(--steps-col-padding-top) var(--steps-col-padding-right) var(--steps-col-padding-bottom) var(--steps-col-padding-left);
     border-left: var(--steps-border-col-left);
@@ -275,7 +278,10 @@
   }
 
   &__text {
-    @include flexbox($direction: column, $justify: space-between);
+    @include flexbox(
+      $direction: column,
+      $justify: space-between
+    );
 
     flex-grow: var(--steps-text-flex-grow);
 
@@ -298,7 +304,10 @@
   }
 
   &__number {
-    @include flexbox($align: var(--steps-number-flex-align), $justify: center);
+    @include flexbox(
+      $align: var(--steps-number-flex-align),
+      $justify: center
+    );
 
     line-height: 1;
     font-weight: var(--steps-number-font-weight);

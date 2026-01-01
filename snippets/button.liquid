@@ -2,31 +2,34 @@
   This snippet renders a button with customizable label, URL, and style.
 
   Parameters:
+  - button_id: the unique identifier for the button
   - button_label: the text to display on the button
-  - button_url: the URL the button links to
   - button_type: the style of the button (e.g., 'primary', 'outline')
+  - button_url: the URL the button links to
   - section_type: the section type where the button is included (e.g. 'header', 'footer')
 
   Required parameters:
+  - button_id
   - button_label
-  - button_url
   - section_type
+  - button_url
 
   Usage:
 
   {%- render 'button',
+      button_id: block.id,
       button_label: 'Click me',
-      button_url: '/your-link',
       button_type: 'primary',
+      button_url: '/your-link',
       section_type: section.type
   -%}
 {%- endcomment -%}
 
-<span class="{{- section_type -}}__btn-wrapper">
+<span class="{{- section_type -}}__btn-wrapper"{% if button_id != blank %} id="{{- button_id -}}"{%- endif -%}>
   <a href="{{ button_url }}" class="{{- section_type -}}__btn btn{% if button_type == 'primary' %} btn--primary{% elsif button_type == 'outlined' %} btn--outlined{%- endif -%}">
     {{- button_label -}}
 
-    {%- if button_icon == 'arrowed' -%}
+    {%- if button_icon == 'arrow' -%}
       {%- render 'icon-arrow' -%}
     {%- endif -%}
   </a>

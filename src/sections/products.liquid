@@ -65,37 +65,9 @@
     <div class="products__container container">
       <div class="products__content">
         {%- for block in section.blocks -%}
+          {%- assign block_id = block.id -%}
+
           {%- case block.type -%}
-            {%- when 'heading' -%}
-              {%- if products_group -%}
-                </div>
-
-                {%- assign products_group = false -%}
-              {%- endif -%}
-
-              {%- assign heading = block.settings.heading -%}
-
-              {%- if heading != blank -%}
-                <h2 class="products__heading" id="{{- block.id -}}">
-                  {{- heading -}}
-                </h2>
-              {%- endif -%}
-
-            {%- when 'tagline' -%}
-              {%- if products_group -%}
-                </div>
-
-                {%- assign products_group = false -%}
-              {%- endif -%}
-
-              {%- assign tagline = block.settings.tagline -%}
-
-              {%- if tagline != blank -%}
-                <p class="products__tagline tagline" id="{{- block.id -}}">
-                  {{- tagline -}}
-                </p>
-              {%- endif -%}
-
             {%- when 'description' -%}
               {%- if products_group -%}
                 </div>
@@ -106,9 +78,24 @@
               {%- assign description = block.settings.description -%}
 
               {%- if description != blank -%}
-                <div class="products__description" id="{{- block.id -}}">
+                <div class="products__description" id="{{- block_id -}}">
                   {{- description -}}
                 </div>
+              {%- endif -%}
+
+            {%- when 'heading' -%}
+              {%- if products_group -%}
+                </div>
+
+                {%- assign products_group = false -%}
+              {%- endif -%}
+
+              {%- assign heading = block.settings.heading -%}
+
+              {%- if heading != blank -%}
+                <h2 class="products__heading" id="{{- block_id -}}">
+                  {{- heading -}}
+                </h2>
               {%- endif -%}
 
             {%- when 'product' -%}
@@ -121,7 +108,7 @@
                 {%- assign products_group = true -%}
               {%- endunless -%}
 
-                <div class="products__item" id="{{- block.id -}}">
+                <div class="products__item" id="{{- block_id -}}">
                   {%- render 'product-card',
                       badge: product_badge,
                       product: product,
@@ -129,6 +116,22 @@
                       image_loading: loading_strategy
                   -%}
                 </div>
+
+            {%- when 'tagline' -%}
+              {%- if products_group -%}
+                </div>
+
+                {%- assign products_group = false -%}
+              {%- endif -%}
+
+              {%- assign tagline = block.settings.tagline -%}
+
+              {%- if tagline != blank -%}
+                <p class="products__tagline tagline" id="{{- block_id -}}">
+                  {{- tagline -}}
+                </p>
+              {%- endif -%}
+
           {%- endcase -%}
         {%- endfor -%}
 
@@ -262,22 +265,6 @@
       },
       {
         "type": "select",
-        "id": "products_layout",
-        "label": "Layout",
-        "options": [
-          {
-            "value": "two",
-            "label": "2 columns"
-          },
-          {
-            "value": "three",
-            "label": "3 columns"
-          }
-        ],
-        "default": "two"
-      },
-      {
-        "type": "select",
         "id": "padding_top_desktop",
         "label": "Padding top",
         "options": [
@@ -315,6 +302,22 @@
           }
         ],
         "default": "lg"
+      },
+      {
+        "type": "select",
+        "id": "products_layout",
+        "label": "Layout",
+        "options": [
+          {
+            "value": "two",
+            "label": "2 columns"
+          },
+          {
+            "value": "three",
+            "label": "3 columns"
+          }
+        ],
+        "default": "two"
       },
       {
         "type": "header",

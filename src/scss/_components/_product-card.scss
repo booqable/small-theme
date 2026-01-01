@@ -74,9 +74,7 @@
   }
 
   &__meta {
-    @include flexbox(
-      $direction: column
-    );
+    @include flexbox($direction: column);
 
     padding: 20px 0 0;
     contain: style layout;

@@ -71,10 +71,12 @@ $border-radius-block: var(--border-radius-block);
 // Buttons
 $button-border-radius: var(--button-border-radius);
 $button-background: color-mix(in srgb, var(--color-primary) 15%, transparent);
+$button-height-xs: var(--button-height-xs);
 $button-hover-opacity: 0.8;
-$button-padding: var(--button-padding);
-$button-height: var(--button-height);
-$button-width: var(--button-width);
+$button-padding-x: var(--button-padding-x);
+$button-padding-y: var(--button-padding-y);
+$button-width-fw: var(--button-width-fw);
+$button-width-xs: var(--button-width-xs);
 
 // Transition
 $transition-duration: var(--transition-duration);
