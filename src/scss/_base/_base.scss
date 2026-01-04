@@ -81,6 +81,7 @@ body {
       flex-direction: column;
       flex-grow: 1;
 
+      /* stylelint-disable-next-line */
       > [class*="__wrapper"],
       > [class^="__wrapper"] {
         flex-grow: 1;

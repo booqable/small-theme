@@ -1,16 +1,10 @@
 {%- if section.blocks.size > 0 -%}
   {%- assign about_layout            = section.settings.about_layout -%}
   {%- assign about_layout_blocks     = section.settings.about_layout_blocks -%}
-  {%- assign button_block_count      = 0 -%}
-  {%- assign button_block_ordinal    = false -%}
-  {%- assign button_first_index      = -1 -%}
-  {%- assign button_second_index     = -1 -%}
+  {%- assign button_group            = false -%}
   {%- assign color_scheme            = section.settings.color_scheme -%}
   {%- assign content_horizontal      = section.settings.content_horizontal -%}
-  {%- assign highlight_block_count   = 0 -%}
-  {%- assign highlight_block_ordinal = false -%}
-  {%- assign highlight_first_index   = -1 -%}
-  {%- assign highlight_second_index  = -1 -%}
+  {%- assign highlight_group         = false -%}
   {%- assign image_placeholder       = settings.image_placeholder -%}
   {%- assign narrowed                = false -%}
   {%- assign padding_bottom_desktop  = section.settings.padding_bottom_desktop -%}
@@ -61,46 +55,18 @@
         --about-content-horizontal-alignment: flex-end;
         --about-content-text-horizontal-alignment: right;
     {%- endcase -%}
+
+    {%- case about_layout_blocks -%}
+      {%- when 'card' -%}
+        --about-highlight-content-direction: row;
+    {%- endcase -%}
   {%- endcapture -%}
   {% comment %} CSS variables end {% endcomment %}
-
-  {%- for block in section.blocks -%}
-    {%- assign index = forloop.index0 -%}
-
-    {%- if block.type == 'button' -%}
-      {%- assign button_block_count = button_block_count | plus: 1 -%}
-
-      {%- if button_first_index == -1 -%}
-        {%- assign button_first_index = index -%}
-      {%- elsif button_second_index == -1 -%}
-        {%- assign button_second_index = index -%}
-        {%- assign index_diff = button_second_index | minus: button_first_index -%}
-
-        {%- if index_diff == 1 -%}
-          {%- assign button_block_ordinal = true -%}
-        {%- endif -%}
-      {%- endif -%}
-
-    {%- elsif block.type == 'highlight' -%}
-      {%- assign highlight_block_count = highlight_block_count | plus: 1 -%}
-
-      {%- if highlight_first_index == -1 -%}
-        {%- assign highlight_first_index = index -%}
-      {%- elsif highlight_second_index == -1 -%}
-        {%- assign highlight_second_index = index -%}
-        {%- assign index_diff = highlight_second_index | minus: highlight_first_index -%}
-
-        {%- if index_diff == 1 -%}
-          {%- assign highlight_block_ordinal = true -%}
-        {%- endif -%}
-      {%- endif -%}
-    {%- endif -%}
-  {%- endfor -%}
 
   {%- if narrowed -%}
     <div class="about__container container">
   {%- endif -%}
-    <div class="about__wrapper about__wrapper-{{ about_layout_blocks }} about__wrapper--padding-top about__wrapper--padding-bottom color-{{- color_scheme.id -}}"
+    <div class="about__wrapper about__wrapper--padding-top about__wrapper--padding-bottom color-{{- color_scheme.id -}}"
       style="{{- variables | escape -}}"
     >
       {%- unless narrowed -%}
@@ -110,7 +76,16 @@
         <div class="about__columns">
           <div class="about__col">
             {%- for block in section.blocks -%}
-              {%- assign index = forloop.index0 -%}
+              {%- assign block_id        = block.id -%}
+              {%- assign next_block_type = '' -%}
+
+              {%- unless forloop.last -%}
+                {%- assign next_index = forloop.index -%}
+
+                {%- for next_block in section.blocks limit: 1 offset: next_index -%}
+                  {%- assign next_block_type = next_block.type -%}
+                {%- endfor -%}
+              {%- endunless -%}
 
               {%- case block.type -%}
                 {%- when 'button' -%}
@@ -120,21 +95,25 @@
                   {%- assign button_url   = block.settings.button_url -%}
 
                   {%- if button_label != blank and button_url != blank -%}
-                    {%- if button_block_ordinal and index == button_first_index -%}
+                    {%- if button_group == false and next_block_type == 'button' -%}
                       <div class="about__buttons">
+
+                      {%- assign button_group = true -%}
                     {%- endif -%}
 
-                    {%- render 'button',
-                        button_icon: button_icon,
-                        button_id: block.id,
-                        button_label: button_label,
-                        button_type: button_type,
-                        button_url: button_url,
-                        section_type: section_type
-                    -%}
+                      {%- render 'button',
+                          button_icon: button_icon,
+                          button_id: block_id,
+                          button_label: button_label,
+                          button_type: button_type,
+                          button_url: button_url,
+                          section_type: section_type
+                      -%}
 
-                    {%- if button_block_ordinal and index == button_second_index -%}
+                    {%- if button_group and next_block_type != 'button' -%}
                       </div>
+
+                      {%- assign button_group = false -%}
                     {%- endif -%}
                   {%- endif -%}
 
@@ -142,7 +121,7 @@
                   {%- assign description = block.settings.description -%}
 
                   {%- if description != blank -%}
-                    <div class="about__description bq-content rx-content" id="{{- block.id -}}">
+                    <div class="about__description bq-content rx-content" id="{{- block_id -}}">
                       {{- description -}}
                     </div>
                   {%- endif -%}
@@ -151,7 +130,7 @@
                   {%- assign heading = block.settings.heading -%}
 
                   {%- if heading != blank -%}
-                    <h2 class="about__heading" id="{{- block.id -}}">
+                    <h2 class="about__heading" id="{{- block_id -}}">
                       {{- heading -}}
                     </h2>
                   {%- endif -%}
@@ -161,23 +140,27 @@
                   {%- assign text    = block.settings.text -%}
 
                   {%- if heading != blank or text != blank -%}
-                    {%- if highlight_block_ordinal and index == highlight_first_index -%}
+                    {%- if highlight_group == false and next_block_type == 'highlight' -%}
                       <div class="about__highlight-wrapper">
+
+                      {%- assign highlight_group = true -%}
                     {%- endif -%}
 
-                      <div class="about__highlight" id="{{- block.id -}}">
-                        <div class="about__highlight-content">
-                          {%- if heading != blank -%}
-                            <h3 class="about__highlight-heading">{{- heading -}}</h3>
-                          {%- endif -%}
-                          {%- if text != blank -%}
-                            <div class="about__highlight-text">{{- text -}}</div>
-                          {%- endif -%}
+                        <div class="about__highlight" id="{{- block_id -}}">
+                          <div class="about__highlight-content">
+                            {%- if heading != blank -%}
+                              <h3 class="about__highlight-heading">{{- heading -}}</h3>
+                            {%- endif -%}
+                            {%- if text != blank -%}
+                              <div class="about__highlight-text">{{- text -}}</div>
+                            {%- endif -%}
+                          </div>
                         </div>
+
+                    {%- if highlight_group and next_block_type != 'highlight' -%}
                       </div>
 
-                    {%- if highlight_block_ordinal and index == highlight_second_index -%}
-                      </div>
+                      {%- assign highlight_group = false -%}
                     {%- endif -%}
                   {%- endif -%}
 
@@ -188,7 +171,7 @@
                   {%- assign tagline = block.settings.tagline -%}
 
                   {%- if tagline != blank -%}
-                    <p class="about__tagline tagline" id="{{- block.id -}}">
+                    <p class="about__tagline tagline" id="{{- block_id -}}">
                       {{- tagline -}}
                     </p>
                   {%- endif -%}
@@ -211,7 +194,7 @@
                 {%- endif -%}
 
                 {%- if image.url != blank -%}
-                  <div class="about__image-holder" id="{{- block.id -}}">
+                  <div class="about__image-holder" id="{{- block_id -}}">
                     {%- render 'image',
                         image: image,
                         image_alt: image_alt,
@@ -373,6 +356,10 @@
           },
           {
             "type": "paragraph",
+            "content": "The image displays last, regardless of blocks order"
+          },
+          {
+            "type": "paragraph",
             "content": "Use WebP, PNG, JPG high-quality image (1400px or larger) for best results on all screen sizes"
           },
           {
@@ -442,7 +429,7 @@
         "options": [
           {
             "value": "card",
-            "label": "Cards"
+            "label": "Card"
           },
           {
             "value": "simple",
