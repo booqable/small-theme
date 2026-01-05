@@ -6,10 +6,7 @@
 
 .hero {
   --hero-btn-gap: 16px;
-  --hero-btn-margin-left: 0;
-  --hero-btn-margin-right: 0;
   --hero-btn-margin-top: 16px;
-  --hero-btn-width: 100%;
   --hero-buttons-direction: column;
   --hero-content-height: auto;
   --hero-col-gap: 0;
@@ -20,8 +17,6 @@
   --hero-date-picker-margin-top: 32px;
   --hero-desription-margin-top: 16px;
   --hero-heading-margin-top: 20px;
-  --hero-highlight-margin-left: 0;
-  --hero-highlight-margin-right: 0;
   --hero-highlight-margin-top: 24px;
   --hero-highlight-content-width: auto;
   --hero-highlight-width: auto;
@@ -30,7 +25,6 @@
   --hero-overlay-direction-y: bottom;
 
   @include media-up(xs) {
-    --hero-btn-width: auto;
     --hero-buttons-direction: row;
   }
 
@@ -345,7 +339,7 @@
   &__date-picker {
     @include flexbox($justify: var(--hero-content-justify));
 
-    width: var(--hero-btn-width);
+    width: var(--button-width);
     text-align: var(--hero-date-picker-text-align);
 
     [style*="--hero-content-horizontal-mobile: flex-end"] & {
@@ -355,7 +349,7 @@
     }
 
     .date-picker__component {
-      width: var(--hero-btn-width);
+      width: var(--button-width);
     }
 
     &:not(:first-child) {
@@ -372,8 +366,6 @@
       $gap: var(--hero-btn-gap)
     );
 
-    width: var(--hero-btn-width);
-
     &:not(:first-child) {
       margin-top: var(--hero-btn-margin-top);
     }
@@ -382,25 +374,6 @@
   &__btn {
     &-wrapper {
       margin-top: var(--hero-btn-margin-top);
-      margin-left: var(--hero-btn-margin-left);
-      margin-right: var(--hero-btn-margin-right);
-      width: var(--hero-btn-width);
-
-      & + .hero__image-holder + & {
-        --hero-btn-margin-left: 4px;
-
-        @include media-up(md) {
-          --hero-btn-margin-left: 8px;
-        }
-      }
-
-      &:has(+ .hero__image-holder + &) {
-        --hero-btn-margin-right: 8px;
-
-        @include media-up(md) {
-          --hero-btn-margin-right: 12px;
-        }
-      }
 
       & + .hero__highlight {
         @include flexbox(
@@ -409,7 +382,6 @@
         );
       }
 
-      /* stylelint-disable-next-line */
       &:first-child {
         --hero-btn-margin-top: 0;
 
@@ -428,8 +400,6 @@
     display: inline-block;
     vertical-align: top;
     margin-top: var(--hero-highlight-margin-top);
-    margin-left: var(--hero-highlight-margin-left);
-    margin-right: var(--hero-highlight-margin-right);
     width: var(--hero-highlight-width);
 
     &-content {
@@ -480,23 +450,6 @@
       }
     }
 
-    &:has(+ .hero__image-holder + &) {
-      --hero-highlight-margin-right: 8px;
-
-      @include media-up(md) {
-        --hero-highlight-margin-right: 12px;
-      }
-    }
-
-    & + .hero__image-holder + & {
-      --hero-highlight-margin-left: 4px;
-
-      @include media-up(md) {
-        --hero-highlight-margin-left: 8px;
-      }
-    }
-
-    /* stylelint-disable-next-line */
     &:first-child {
       --hero-highlight-margin-top: 0;
 
