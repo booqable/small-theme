@@ -1,8 +1,5 @@
 {%- if section.blocks.size > 0 -%}
-  {%- assign button_block_count         = 0 -%}
-  {%- assign button_block_ordinal       = false -%}
-  {%- assign button_first_index         = -1 -%}
-  {%- assign button_second_index        = -1 -%}
+  {%- assign button_group               = false -%}
   {%- assign color_scheme               = section.settings.color_scheme -%}
   {%- assign content_horizontal_desktop = section.settings.content_horizontal_desktop -%}
   {%- assign content_horizontal_mobile  = section.settings.content_horizontal_mobile -%}
@@ -13,10 +10,7 @@
   {%- assign hero_direction             = section.settings.hero_direction -%}
   {%- assign hero_layout                = section.settings.hero_layout -%}
   {%- assign hero_split                 = section.settings.hero_split -%}
-  {%- assign highlight_block_count      = 0 -%}
-  {%- assign highlight_block_ordinal    = false -%}
-  {%- assign highlight_first_index      = -1 -%}
-  {%- assign highlight_second_index     = -1 -%}
+  {%- assign highlight_group            = false -%}
   {%- assign horizontal                 = false -%}
   {%- assign image_placeholder          = settings.image_placeholder -%}
   {%- assign narrowed                   = false -%}
@@ -121,39 +115,6 @@
   {%- endcapture -%}
   {% comment %} CSS variables end {% endcomment %}
 
-  {%- for block in section.blocks -%}
-    {%- assign index = forloop.index0 -%}
-
-    {%- if block.type == 'button' -%}
-      {%- assign button_block_count = button_block_count | plus: 1 -%}
-
-      {%- if button_first_index == -1 -%}
-        {%- assign button_first_index = index -%}
-      {%- elsif button_second_index == -1 -%}
-        {%- assign button_second_index = index -%}
-        {%- assign index_diff = button_second_index | minus: button_first_index -%}
-
-        {%- if index_diff == 1 -%}
-          {%- assign button_block_ordinal = true -%}
-        {%- endif -%}
-      {%- endif -%}
-
-    {%- elsif block.type == 'highlight' -%}
-      {%- assign highlight_block_count = highlight_block_count | plus: 1 -%}
-
-      {%- if highlight_first_index == -1 -%}
-        {%- assign highlight_first_index = index -%}
-      {%- elsif highlight_second_index == -1 -%}
-        {%- assign highlight_second_index = index -%}
-        {%- assign index_diff = highlight_second_index | minus: highlight_first_index -%}
-
-        {%- if index_diff == 1 -%}
-          {%- assign highlight_block_ordinal = true -%}
-        {%- endif -%}
-      {%- endif -%}
-    {%- endif -%}
-  {%- endfor -%}
-
   {%- if narrowed -%}
     <div class="hero__container container">
   {%- endif -%}
@@ -170,8 +131,16 @@
               <div class="hero__col hero__col--padding-top hero__col--padding-bottom">
                 <div class="hero__container container">
                   {%- for block in section.blocks -%}
-                    {%- assign block_id = block.id -%}
-                    {%- assign index    = forloop.index0 -%}
+                    {%- assign block_id        = block.id -%}
+                    {%- assign next_block_type = '' -%}
+
+                    {%- unless forloop.last -%}
+                      {%- assign next_index = forloop.index -%}
+
+                      {%- for next_block in section.blocks limit: 1 offset: next_index -%}
+                        {%- assign next_block_type = next_block.type -%}
+                      {%- endfor -%}
+                    {%- endunless -%}
 
                     {%- case block.type -%}
                       {%- when 'button' -%}
@@ -181,8 +150,10 @@
                         {%- assign button_url   = block.settings.button_url -%}
 
                         {%- if button_label != blank and button_url != blank -%}
-                          {%- if button_block_ordinal and index == button_first_index -%}
+                          {%- if button_group == false and next_block_type == 'button' -%}
                             <div class="hero__buttons">
+
+                            {%- assign button_group = true -%}
                           {%- endif -%}
 
                             {%- render 'button',
@@ -194,8 +165,10 @@
                                 section_type: section_type
                             -%}
 
-                          {%- if button_block_ordinal and index == button_second_index -%}
+                          {%- if button_group and next_block_type != 'button' -%}
                             </div>
+
+                            {%- assign button_group = false -%}
                           {%- endif -%}
                         {%- endif -%}
 
@@ -228,8 +201,10 @@
                         {%- assign text    = block.settings.text -%}
 
                         {%- if heading != blank or text != blank -%}
-                          {%- if highlight_block_ordinal and index == highlight_first_index -%}
+                          {%- if highlight_group == false and next_block_type == 'highlight' -%}
                             <div class="hero__highlight-wrapper">
+
+                            {%- assign highlight_group = true -%}
                           {%- endif -%}
 
                             <div class="hero__highlight" id="{{- block_id -}}">
@@ -243,8 +218,10 @@
                               </div>
                             </div>
 
-                          {%- if highlight_block_ordinal and index == highlight_second_index -%}
+                          {%- if highlight_group and next_block_type != 'highlight' -%}
                             </div>
+
+                            {%- assign highlight_group = false -%}
                           {%- endif -%}
                         {%- endif -%}
 
@@ -259,13 +236,13 @@
               <div class="hero__col">
                 {%- for block in section.blocks -%}
                   {%- if block.type == 'image' -%}
-                    {%- assign block_id      = block.id -%}
-                    {%- assign image         = block.settings.image -%}
-                    {%- assign image_alt     = block.settings.image_alt -%}
-                    {%- assign image_mobile  = block.settings.image_mobile -%}
+                    {%- assign block_id     = block.id -%}
+                    {%- assign image        = block.settings.image -%}
+                    {%- assign image_alt    = block.settings.image_alt -%}
+                    {%- assign image_mobile = block.settings.image_mobile -%}
 
                     {%- if image.url == blank and image_mobile.url != blank -%}
-                      {%- assign image = image_mobile -%}
+                      {%- assign image        = image_mobile -%}
                       {%- assign image_mobile = blank -%}
                     {%- endif -%}
 
@@ -299,8 +276,16 @@
 
           {%- else -%}
             {%- for block in section.blocks -%}
-              {%- assign block_id = block.id -%}
-              {%- assign index    = forloop.index0 -%}
+              {%- assign block_id        = block.id -%}
+              {%- assign next_block_type = '' -%}
+
+              {%- unless forloop.last -%}
+                {%- assign next_index = forloop.index -%}
+
+                {%- for next_block in section.blocks limit: 1 offset: next_index -%}
+                  {%- assign next_block_type = next_block.type -%}
+                {%- endfor -%}
+              {%- endunless -%}
 
               {%- case block.type -%}
                 {%- when 'button' -%}
@@ -310,8 +295,10 @@
                   {%- assign button_url   = block.settings.button_url -%}
 
                   {%- if button_label != blank and button_url != blank -%}
-                    {%- if button_block_ordinal and index == button_first_index -%}
+                    {%- if button_group == false and next_block_type == 'button' -%}
                       <div class="hero__buttons">
+
+                      {%- assign button_group = true -%}
                     {%- endif -%}
 
                       {%- render 'button',
@@ -323,8 +310,10 @@
                           section_type: section_type
                       -%}
 
-                    {%- if button_block_ordinal and index == button_second_index -%}
+                    {%- if button_group and next_block_type != 'button' -%}
                       </div>
+
+                      {%- assign button_group = false -%}
                     {%- endif -%}
                   {%- endif -%}
 
@@ -357,8 +346,10 @@
                   {%- assign text    = block.settings.text -%}
 
                   {%- if heading != blank or text != blank -%}
-                    {%- if highlight_block_ordinal and index == highlight_first_index -%}
+                    {%- if highlight_group == false and next_block_type == 'highlight' -%}
                       <div class="hero__highlight-wrapper">
+
+                      {%- assign highlight_group = true -%}
                     {%- endif -%}
 
                       <div class="hero__highlight" id="{{- block_id -}}">
@@ -372,8 +363,10 @@
                         </div>
                       </div>
 
-                    {%- if highlight_block_ordinal and index == highlight_second_index -%}
+                    {%- if highlight_group and next_block_type != 'highlight' -%}
                       </div>
+
+                      {%- assign highlight_group = false -%}
                     {%- endif -%}
                   {%- endif -%}
 

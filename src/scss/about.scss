@@ -1,0 +1,246 @@
+// Import variables
+@use 'variables' as *;
+
+// Import mixins
+@use '_helpers/mixins' as *;
+
+.about {
+  --about-border-radius: 0;
+  --about-btn-gap: 0;
+  --about-btn-margin-top: 16px;
+  --about-buttons-direction: column;
+  --about-buttons-margin-top: 32px;
+  --about-col-direction: column;
+  --about-col-gap: 46px;
+  --about-col-indent-x-mobile: 16px;
+  --about-col-indent-x-desktop: 40px;
+  --about-col-padding-left: 0;
+  --about-col-padding-right: 0;
+  --about-description-margin-top: 40px;
+  --about-heading-margin-top: 20px;
+  --about-highlight-content-background: transparent;
+  --about-highlight-content-border-radius: 0;
+  --about-highlight-content-padding: 0;
+  --about-highlight-wrapper-columns: 1fr;
+  --about-highlight-wrapper-gap: 16px;
+  --about-highlight-margin-top: 24px;
+  --about-tagline-margin-top: 20px;
+
+  @include media-up(xs) {
+    --about-btn-gap: 16px;
+    --about-buttons-direction: row;
+  }
+
+  @include media-up(md) {
+    --about-btn-gap: 24px;
+    --about-btn-margin-top: 46px;
+    --about-col-direction: row;
+    --about-highlight-margin-top: 40px;
+    --about-highlight-wrapper-gap: 24px;
+  }
+
+  @include media-up(lg) {
+    --about-highlight-wrapper-columns: repeat(2, 1fr);
+  }
+
+  &__wrapper {
+    --about-content-justify: var(--about-content-horizontal-alignment, flex-start);
+    --about-content-text-justify: var(--about-content-text-horizontal-alignment, left);
+    --section-padding-bottom: var(--padding-bottom-mobile, 16px);
+    --section-padding-top: var(--padding-top-mobile, 16px);
+
+    position: relative;
+    color: $color-primary;
+    background: $background-primary;
+    border-radius: var(--about-border-radius);
+    text-align: var(--about-content-text-justify);
+
+    @include media-up(md) {
+      --section-padding-bottom: var(--padding-bottom-desktop, 40px);
+      --section-padding-top: var(--padding-top-desktop, 40px);
+    }
+
+    &--padding-top {
+      &:not(:empty) {
+        padding-top: var(--section-padding-top);
+      }
+    }
+
+    &--padding-bottom {
+      &:not(:empty) {
+        padding-bottom: var(--section-padding-bottom);
+      }
+    }
+
+    .about__container & {
+      --about-border-radius: #{$border-radius-block};
+
+      @include media-up(md) {
+        --about-col-gap: 0;
+      }
+    }
+
+    &[style*="--about-highlight-content-direction: row"] {
+      --about-highlight-content-border-radius: #{$border-radius-block};
+      --about-highlight-content-background: #{$color-border};
+      --about-highlight-content-padding: 16px;
+      --about-highlight-wrapper-columns: repeat(2, 1fr);
+
+      @include media-up(md) {
+        --about-highlight-content-padding: 24px;
+      }
+    }
+  }
+
+  &__heading {
+    margin: var(--about-heading-margin-top) 0 0;
+
+    &:first-child {
+      --about-heading-margin-top: 0;
+    }
+  }
+
+  &__tagline {
+    margin: var(--about-tagline-margin-top) 0 0;
+
+    &:first-child {
+      --about-tagline-margin-top: 0;
+    }
+  }
+
+  &__description {
+    &:not(:first-child) {
+      margin-top: var(--about-description-margin-top);
+    }
+
+    * {
+      &:last-child {
+        margin-bottom: 0;
+        padding-bottom: 0;
+      }
+    }
+
+    .about__heading + & {
+      --about-description-margin-top: 24px;
+    }
+  }
+
+  &__buttons {
+    --about-btn-margin-top: 16px;
+
+    @include flexbox(
+      $align: center,
+      $direction: var(--about-buttons-direction),
+      $gap: var(--about-btn-gap),
+      $justify: var(--about-content-justify),
+      $wrap: wrap
+    );
+
+    &:not(:first-child) {
+      margin-top: var(--about-buttons-margin-top);
+    }
+  }
+
+  &__btn {
+    &-wrapper {
+      margin-top: var(--about-btn-margin-top);
+
+      & + .about__info {
+        @include flexbox(
+          $align: var(--about-content-justify),
+          $direction: column
+        );
+      }
+    }
+  }
+
+  &__highlight {
+    display: inline-block;
+    vertical-align: top;
+    margin-top: var(--about-highlight-margin-top);
+
+    &-content {
+      border-radius: var(--about-highlight-content-border-radius);
+      background: var(--about-highlight-content-background);
+      padding: var(--about-highlight-content-padding);
+      height: 100%;
+      width: 100%;
+    }
+
+    &-heading {
+      margin-bottom: 12px;
+    }
+
+    &-text {
+      line-height: $font-height-md;
+
+      p {
+        &:last-child {
+          margin: 0;
+        }
+      }
+    }
+
+    &-wrapper {
+      --about-highlight-margin-top: 0;
+
+      @include grid(
+        $columns: var(--about-highlight-wrapper-columns),
+        $gap: var(--about-highlight-wrapper-gap)
+      );
+
+      margin-top: 40px;
+      width: 100%;
+    }
+
+    &:first-child {
+      .about__col > & {
+        --about-highlight-margin-top: 0;
+      }
+    }
+  }
+
+  &__col {
+    @include flexbox(
+      $align: var(--about-content-justify),
+      $direction: column
+    );
+
+    padding: 0 var(--about-col-padding-right) 0 var(--about-col-padding-left);
+
+    .about__container > .about__wrapper & {
+      --about-col-padding-left: var(--about-col-indent-x-mobile);
+      --about-col-padding-right: var(--about-col-indent-x-mobile);
+
+      @include media-up(md) {
+        --about-col-padding-left: var(--about-col-indent-x-desktop);
+        --about-col-padding-right: var(--about-col-indent-x-desktop);
+      }
+    }
+
+    &:first-child {
+      &:not(:only-child) {
+        .about__container > .about__wrapper & {
+          @include media-up(lg) {
+            margin: 0 var(--about-col-indent-x-desktop);
+          }
+        }
+      }
+    }
+  }
+
+  &__columns {
+    @include flexbox(
+      $align: center,
+      $direction: var(--about-col-direction),
+      $gap: var(--about-col-gap)
+    );
+  }
+
+  &__image {
+    &-holder {
+      border-radius: $border-radius-block;
+      overflow: clip;
+    }
+  }
+}

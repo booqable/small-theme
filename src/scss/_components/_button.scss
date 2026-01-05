@@ -4,13 +4,22 @@
 // Import mixins
 @use '../_helpers/mixins' as *;
 
+:root {
+  --btn-wrapper-display: flex;
+  --button-width: #{$button-width-fw};
+
+  @include media-up(xs) {
+    --btn-wrapper-display: inline-flex;
+    --button-width: auto;
+  }
+}
+
 .btn {
   --button-animation-delay: 5s;
   --button-background: none;
   --button-border-color: transparent;
   --button-indent: 0;
   --button-margin: #{$button-padding-y} 0;
-  --button-width: #{$button-width-fw};
 
   font-family: $font-family-body;
   font-size: $font-size-button;
@@ -100,12 +109,11 @@
 }
 
 [class*="__btn-wrapper"] {
-  --btn-wrapper-display: flex;
-
+  width: var(--button-width);
   display: var(--btn-wrapper-display);
   vertical-align: top;
+}
 
-  @include media-up(xs) {
-    --btn-wrapper-display: inline-flex;
-  }
+[class*="__buttons"] {
+  width: var(--button-width);
 }
