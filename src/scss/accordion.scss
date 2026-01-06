@@ -1,0 +1,166 @@
+// Import variables
+@use 'variables' as *;
+
+// Import mixins
+@use '_helpers/mixins' as *;
+
+// Import components
+@use '_components/accordion' as *;
+
+.accordion {
+  --accordion-border-radius: 0;
+  --accordion-col-width: 100%;
+  --accordion-columns-direction: column;
+  --accordion-columns-gap: 0;
+  --accordion-item-indent: 20px;
+  --accordion-list-margin-top: 0;
+
+  @include media-up(md) {
+    --accordion-columns-direction: row;
+    --accordion-columns-gap: 32px;
+  }
+
+  &__wrapper {
+    --accordion-btn-margin-top: 16px;
+    --accordion-content-justify: var(--accordion-content-alignment, flex-start);
+    --accordion-content-text-justify: var(--accordion-content-text-alignment, left);
+    --accordion-padding-left: 0;
+    --accordion-padding-right: 0;
+    --section-padding-bottom: var(--padding-bottom-mobile, 16px);
+    --section-padding-top: var(--padding-top-mobile, 16px);
+
+    color: $color-primary;
+    background: $background-primary;
+    border-radius: var(--accordion-border-radius);
+    padding-left: var(--accordion-padding-left);
+    padding-right: var(--accordion-padding-right);
+    text-align: var(--accordion-content-text-justify);
+
+    @include media-up(md) {
+      --accordion-btn-margin-top: 32px;
+      --section-padding-bottom: var(--padding-bottom-desktop, 40px);
+      --section-padding-top: var(--padding-top-desktop, 40px);
+    }
+
+    &--padding-top {
+      &:not(:empty) {
+        padding-top: var(--section-padding-top);
+      }
+    }
+
+    &--padding-bottom {
+      &:not(:empty) {
+        padding-bottom: var(--section-padding-bottom);
+      }
+    }
+
+    .accordion__container & {
+      --accordion-border-radius: #{$border-radius-block};
+      --accordion-padding-left: 16px;
+      --accordion-padding-right: 16px;
+
+      @include media-up(md) {
+        --accordion-padding-left: 32px;
+        --accordion-padding-right: 32px;
+      }
+    }
+  }
+
+  &__content {
+    @include flexbox(
+      $direction: column,
+      $align: var(--accordion-content-justify)
+    );
+  }
+
+  &__heading {
+    margin: var(--accordion-item-indent) 0 0;
+
+    &:first-child {
+      --accordion-item-indent: 0;
+    }
+  }
+
+  &__tagline {
+    margin: var(--accordion-item-indent) 0 0;
+
+    &:first-child {
+      --accordion-item-indent: 0;
+    }
+  }
+
+  &__description {
+    &:not(:first-child) {
+      margin-top: calc(var(--accordion-item-indent) + 4px);
+    }
+
+    * {
+      &:last-child {
+        margin-bottom: 0;
+        padding-bottom: 0;
+      }
+    }
+  }
+
+  &__btn {
+    &-wrapper {
+      &:not(:first-child) {
+        margin-top: var(--accordion-btn-margin-top);
+      }
+    }
+  }
+
+  &__columns {
+    width: 100%;
+
+    @include flexbox(
+      $direction: var(--accordion-columns-direction),
+      $gap: var(--accordion-columns-gap)
+    );
+  }
+
+  &__col {
+    width: var(--accordion-col-width);
+
+    &:first-child {
+      @include flexbox(
+        $align: var(--accordion-content-justify),
+        $direction: column
+      );
+    };
+
+    &:not(:only-child) {
+      @include media-up(md) {
+        --accordion-col-width: 42%;
+      }
+    }
+
+    &:last-child:not(:only-child) {
+      @include media-up(md) {
+        --accordion-col-width: 58%;
+      }
+    }
+  }
+
+  &__list {
+    width: 100%;
+    margin-top: var(--accordion-list-margin-top);
+
+    &:not(:first-child) {
+      --accordion-list-margin-top: 26px;
+
+      @include media-up(md) {
+        --accordion-list-margin-top: 42px;
+      }
+    }
+
+    .accordion__col & {
+      --accordion-list-margin-top: 26px;
+
+      @include media-up(md) {
+        --accordion-list-margin-top: calc(-1 * var(--accordion-item-indent));
+      }
+    }
+  }
+}
+

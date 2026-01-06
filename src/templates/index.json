@@ -92,6 +92,133 @@
       },
       "disabled": null
     },
+    "accordion": {
+      "type": "accordion",
+      "blocks": {
+        "button": {
+          "type": "button",
+          "settings": {
+            "button_icon": "minimal",
+            "button_label": "Contact",
+            "button_type": "outlined",
+            "button_url": "booqable://pages/contact/"
+          },
+          "disabled": null
+        },
+        "description": {
+          "type": "description",
+          "settings": {
+            "description": "<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse varius enim in eros elementum tristique.</p>"
+          },
+          "disabled": null
+        },
+        "heading": {
+          "type": "heading",
+          "settings": {
+            "heading": "Everything you wondered, and more"
+          },
+          "disabled": null
+        },
+        "item": {
+          "type": "item",
+          "settings": {
+            "accordion_text": "<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse varius enim in eros elementum tristique. Duis cursus, mi quis viverra ornare, eros dolor interdum nulla, ut commodo diam libero vitae erat.</p>",
+            "accordion_title": "Question text goes here"
+          },
+          "disabled": null
+        },
+        "item_564321": {
+          "type": "item",
+          "settings": {
+            "accordion_text": "<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse varius enim in eros elementum tristique.</p>",
+            "accordion_title": "Question text goes here"
+          },
+          "disabled": null
+        },
+        "item_564322": {
+          "type": "item",
+          "settings": {
+            "accordion_text": "<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse varius enim in eros elementum tristique. Duis cursus, mi quis viverra ornare, eros dolor interdum nulla, ut commodo diam libero vitae erat.</p>",
+            "accordion_title": "Question text goes here"
+          },
+          "disabled": null
+        },
+        "item_564323": {
+          "type": "item",
+          "settings": {
+            "accordion_text": "<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse varius enim in eros elementum tristique.</p>",
+            "accordion_title": "Question text goes here"
+          },
+          "disabled": null
+        },
+        "item_564324": {
+          "type": "item",
+          "settings": {
+            "accordion_text": "<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse varius enim in eros elementum tristique. Duis cursus, mi quis viverra ornare, eros dolor interdum nulla, ut commodo diam libero vitae erat.</p>",
+            "accordion_title": "Question text goes here"
+          },
+          "disabled": null
+        },
+        "item_564325": {
+          "type": "item",
+          "settings": {
+            "accordion_text": "<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse varius enim in eros elementum tristique.</p>",
+            "accordion_title": "Question text goes here"
+          },
+          "disabled": null
+        },
+        "item_564326": {
+          "type": "item",
+          "settings": {
+            "accordion_text": "<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse varius enim in eros elementum tristique. Duis cursus, mi quis viverra ornare, eros dolor interdum nulla, ut commodo diam libero vitae erat.</p>",
+            "accordion_title": "Question text goes here"
+          },
+          "disabled": null
+        },
+        "item_564327": {
+          "type": "item",
+          "settings": {
+            "accordion_text": "<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse varius enim in eros elementum tristique.</p>",
+            "accordion_title": "Question text goes here"
+          },
+          "disabled": null
+        },
+        "tagline": {
+          "type": "tagline",
+          "settings": {
+            "tagline": "FAQ"
+          },
+          "disabled": null
+        }
+      },
+      "block_order": [
+        "tagline",
+        "heading",
+        "description",
+        "button",
+        "item",
+        "item_564321",
+        "item_564322",
+        "item_564323",
+        "item_564324",
+        "item_564325",
+        "item_564326",
+        "item_564327"
+      ],
+      "settings": {
+        "accordion_behavior": "multiple",
+        "accordion_direction_desktop": "row",
+        "accordion_icon_position": "left",
+        "accordion_layout": "wide",
+        "color_scheme": "set-1",
+        "content_horizontal": "left",
+        "padding_bottom_desktop": "lg",
+        "padding_bottom_mobile": "md",
+        "padding_top_desktop": "lg",
+        "padding_top_mobile": "md"
+      },
+      "disabled": null
+    },
     "hero": {
       "type": "hero",
       "blocks": {
@@ -308,6 +435,7 @@
     "hero",
     "steps",
     "about",
-    "products"
+    "products",
+    "accordion"
   ]
 }
