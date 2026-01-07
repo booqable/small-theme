@@ -34,28 +34,28 @@
 {%- endif -%}
 
 {%- if label != blank and text != blank -%}
-  <div class="{{ section_type}}__item" id="{{- block_id -}}">
+  <div class="{{- section_type -}}__item" id="{{- block_id -}}">
     <input
-      class="{{ section_type}}__trigger"
+      class="{{- section_type -}}__trigger"
       {% if behavior == "single" %}type="radio"{% else %}type="checkbox"{% endif %}
-      id="{{ section_type}}-{{- block_id -}}"
-      name="{{ section_type}} trigger"
+      id="{{- section_type -}}-{{- block_id -}}"
+      name="{{- section_type -}} trigger"
       aria-hidden="true"
     >
-    <label class="{{ section_type}}__label" for="{{ section_type}}-{{- block_id -}}">
+    <label class="{{- section_type -}}__label" for="{{- section_type -}}-{{- block_id -}}">
       {%- if icon_position == 'right' -%}
         {{- label -}}
       {%- endif -%}
 
-      <span class="{{ section_type}}__icon" aria-hidden="true"></span>
+      <span class="{{- section_type -}}__icon" aria-hidden="true"></span>
 
       {%- if icon_position == 'left' -%}
         {{- label -}}
       {%- endif -%}
     </label>
 
-    <div class="{{ section_type}}__text bq-content rx-content">
-      <div class="{{ section_type}}__text-inner">
+    <div class="{{- section_type -}}__text bq-content rx-content">
+      <div class="{{- section_type -}}__text-inner">
         {{- text -}}
       </div>
     </div>
