@@ -46,6 +46,8 @@
 
     {% comment %} Enhanced performance monitoring {% endcomment %}
     {%- render 'page-performance-monitoring' -%}
+  <script src="https://unpkg.com/embla-carousel@8.0.0/embla-carousel.umd.js" defer></script>
+
   </head>
   <body>
     <header class="header">
@@ -70,7 +72,8 @@
       }
     </script>
 
-    {%- assign section_names = 'header, top-bar, products' | split: ', ' -%}
+    {%- assign section_names = 'header, top-bar, products, images' | split: ', ' -%}
+    {%- assign show_carousel_script = false -%}
     {%- assign show_focal_image_script = false -%}
     {%- assign show_search_script = false -%}
     {%- assign show_top_bar_script = false -%}
@@ -121,6 +124,18 @@
           {%- assign show_focal_image_script = true -%}
         {%- endfor -%}
       {%- endif -%}
+
+      {%- if section_type == 'images' -%}
+        {%- for block in section.blocks -%}
+          {%- assign type = block.type -%}
+
+          {%- unless type == 'image' -%}
+            {%- continue -%}
+          {%- endunless -%}
+
+          {%- assign show_carousel_script = true -%}
+        {%- endfor -%}
+      {%- endif -%}
     {%- endfor -%}
 
     {% comment %} Non-critical JavaScript {% endcomment %}
@@ -132,6 +147,9 @@
     <script type="module" src="{{ 'image-loading.js' | asset_url }}"></script>
     {%- if show_search_script -%}
     <script type="module" src="{{ 'search.js' | asset_url }}"></script>
+    {%- endif -%}
+    {%- if show_carousel_script -%}
+    <script type="module" src="{{ 'images.js' | asset_url }}"></script>
     {%- endif -%}
     {%- if show_focal_image_script -%}
     <script type="module" src="{{ 'focal-image.js' | asset_url }}"></script>

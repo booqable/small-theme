@@ -12,7 +12,7 @@ import {
   cleanupSystem,
   setCssVar,
   getDimensions
-} from 'utils.js'
+} from './utils.js'
 
 const TopBarConfig = {
   selectors: {

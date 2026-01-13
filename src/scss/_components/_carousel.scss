@@ -1,0 +1,112 @@
+// Import variables
+@use '../variables' as *;
+
+// Import mixins
+@use '../_helpers/mixins' as *;
+
+.carousel {
+    position: relative;
+    width: 100%;
+    margin-top: var(--images-item-indent);
+
+  &__container {
+    overflow: hidden;
+    width: 100%;
+  }
+
+  &__list {
+    display: flex;
+    gap: 20px;
+
+    @include media-up(md) {
+      gap: 24px;
+    }
+  }
+
+  &__slide {
+    flex: 0 0 100%;
+    min-width: 0;
+    height: 500px;
+
+    @include media-up(md) {
+      flex: 0 0 calc(50% - 12px);
+    }
+  }
+
+  &__btn {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    z-index: 1;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 48px;
+    height: 48px;
+    padding: 0;
+    border: 2px solid $color-primary;
+    border-radius: 50%;
+    background: $background-primary;
+    color: $color-primary;
+    cursor: pointer;
+    transition: all 0.2s ease;
+
+    &:hover:not(:disabled) {
+      background: $color-primary;
+      color: $background-primary;
+    }
+
+    &:disabled {
+      opacity: 0.3;
+      cursor: not-allowed;
+    }
+
+    svg {
+      width: 24px;
+      height: 24px;
+    }
+  }
+
+  &__prev {
+    left: -24px;
+
+    @include media-up(md) {
+      left: -56px;
+    }
+  }
+
+  &__next {
+    right: -24px;
+
+    @include media-up(md) {
+      right: -56px;
+    }
+  }
+
+  &__dots {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 8px;
+    margin-top: 24px;
+  }
+
+  &__dot {
+    width: 12px;
+    height: 12px;
+    padding: 0;
+    border: 2px solid $color-primary;
+    border-radius: 50%;
+    background: transparent;
+    cursor: pointer;
+    transition: all 0.2s ease;
+
+    &:hover {
+      background: rgba($color-primary, 0.3);
+    }
+
+    &--selected {
+      background: $color-primary;
+    }
+  }
+}

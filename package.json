@@ -5,8 +5,7 @@
   "private": true,
   "scripts": {
     "build:scss": "sass src/scss:assets --style=compressed --no-source-map",
-    "build:js": "npm run minify:js && npm run copy:js:utils",
-    "minify:js": "find src/js -name '*.js' -not -path '*/utils/*' -exec sh -c 'terser \"$1\" --compress passes=3,drop_console=true,pure_funcs=[console.log,console.info] --mangle toplevel --mangle-props regex=/./ --output \"assets/$(basename \"$1\")\"' _ {} \\;",
+    "build:js": "node build-js.mjs && npm run copy:js:utils",
     "copy:js:utils": "cpx 'src/js/utils/**/*' assets/utils",
     "build:images": "imagemin 'src/images/**/*' --out-dir=assets",
     "build:svg": "node src/svg/_utils/optimize-svg.js",
@@ -18,7 +17,7 @@
     "copy:templates": "cpx 'src/templates/**/*' templates",
     "build": "npm run build:scss && npm run build:js && npm run build:images && npm run build:svg && npm run build:liquid",
     "watch:scss": "sass src/scss:assets --watch --style=compressed --no-source-map",
-    "watch:js": "cpx 'src/js/**/*' assets --watch",
+    "watch:js": "node build-js.mjs --watch",
     "watch:images": "cpx 'src/images/**/*' assets --watch",
     "watch:svg": "npm run build:svg",
     "watch:liquid": "npm run watch:config & npm run watch:layout & npm run watch:sections & npm run watch:snippets & npm run watch:templates",
@@ -37,14 +36,19 @@
     "lint:fix": "npm run lint:scss -- --fix && npm run lint:js -- --fix"
   },
   "devDependencies": {
-    "sass": "^1.77.0",
-    "terser": "^5.19.0",
-    "svgo": "^3.0.2",
+    "@eslint/js": "^9.28.0",
     "cpx": "^1.5.0",
+    "embla-carousel": "^8.6.0",
+    "esbuild": "^0.27.2",
+    "eslint": "^9.28.0",
     "imagemin-cli": "^7.0.0",
+    "sass": "^1.77.0",
     "stylelint": "^16.0.0",
     "stylelint-config-standard-scss": "^13.0.0",
-    "eslint": "^9.28.0",
-    "@eslint/js": "^9.28.0"
+    "svgo": "^3.0.2",
+    "terser": "^5.19.0"
+  },
+  "dependencies": {
+    "embla-carousel-fade": "^8.6.0"
   }
 }
