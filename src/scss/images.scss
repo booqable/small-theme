@@ -4,6 +4,9 @@
 // Import mixins
 @use '_helpers/mixins' as *;
 
+// Import components
+@use '_components/carousel' as *;
+
 .images {
   --images-item-indent: 20px;
 
@@ -73,18 +76,8 @@
   }
 
   &__list {
-    @include grid(
-      $gap: 20px
-    );
     margin-top: var(--images-item-indent);
     width: 100%;
-
-    @include media-up(md) {
-      @include grid(
-        $columns: repeat(2, 1fr),
-        $gap: 24px
-      );
-    }
   }
 
   &__image {

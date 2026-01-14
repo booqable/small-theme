@@ -7,10 +7,9 @@
 .carousel {
     position: relative;
     width: 100%;
-    margin-top: var(--images-item-indent);
 
   &__container {
-    overflow: hidden;
+    overflow: clip;
     width: 100%;
   }
 
@@ -27,45 +26,41 @@
     flex: 0 0 100%;
     min-width: 0;
     height: 500px;
-
-    @include media-up(md) {
-      flex: 0 0 calc(50% - 12px);
-    }
   }
 
-  &__btn {
-    position: absolute;
-    top: 50%;
-    transform: translateY(-50%);
-    z-index: 1;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    width: 48px;
-    height: 48px;
-    padding: 0;
-    border: 2px solid $color-primary;
-    border-radius: 50%;
-    background: $background-primary;
-    color: $color-primary;
-    cursor: pointer;
-    transition: all 0.2s ease;
+  // &__btn {
+  //   position: absolute;
+  //   top: 50%;
+  //   transform: translateY(-50%);
+  //   z-index: 1;
+  //   display: flex;
+  //   align-items: center;
+  //   justify-content: center;
+  //   width: 48px;
+  //   height: 48px;
+  //   padding: 0;
+  //   border: 2px solid $color-primary;
+  //   border-radius: 50%;
+  //   background: $background-primary;
+  //   color: $color-primary;
+  //   cursor: pointer;
+  //   transition: all 0.2s ease;
 
-    &:hover:not(:disabled) {
-      background: $color-primary;
-      color: $background-primary;
-    }
+  //   &:hover:not(:disabled) {
+  //     background: $color-primary;
+  //     color: $background-primary;
+  //   }
 
-    &:disabled {
-      opacity: 0.3;
-      cursor: not-allowed;
-    }
+  //   &:disabled {
+  //     opacity: 0.3;
+  //     cursor: not-allowed;
+  //   }
 
-    svg {
-      width: 24px;
-      height: 24px;
-    }
-  }
+  //   svg {
+  //     width: 24px;
+  //     height: 24px;
+  //   }
+  // }
 
   &__prev {
     left: -24px;
