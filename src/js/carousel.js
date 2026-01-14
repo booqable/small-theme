@@ -2,12 +2,16 @@
  * Carousel component
  *
  * Handles carousel functionality:
- * - Initializes Embla carousel
- * - Manages navigation buttons (prev/next)
- * - Handles dot navigation indicators
- * - Autoplay with configurable 'pause on hover' and stop on interaction
- * - Responsive carousel (destroys on desktop when ≤4 slides)
- * - Supports fade and slide transition effects
+ * - Initializes Embla carousel with fade/slide transition effects
+ * - Manages navigation buttons (prev/next) and dot indicators
+ * - Autoplay with configurable pause on hover and stop on interaction
+ * - Visibility-based autoplay (pauses when out of viewport)
+ * - Responsive behavior (destroys on desktop when ≤4 slides)
+ * - Performance optimizations:
+ *   - Debounced media query handling (250ms)
+ *   - frameSequence for DOM read/write batching
+ *   - IntersectionObserver for visibility detection
+ *   - Proper cleanup to prevent memory leaks
  */
 
 import EmblaCarousel from 'embla-carousel'
