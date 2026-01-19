@@ -6,9 +6,8 @@
  * - Manages navigation buttons (prev/next) and dot indicators
  * - Autoplay with configurable pause on hover and stop on interaction
  * - Visibility-based autoplay (pauses when out of viewport)
- * - Responsive behavior (destroys on desktop when ≤4 slides)
+ * - Slide count logic handled by Liquid template (carousel only renders when >4 slides)
  * - Performance optimizations:
- *   - Debounced media query handling (250ms)
  *   - frameSequence for DOM read/write batching
  *   - IntersectionObserver for visibility detection
  *   - Proper cleanup to prevent memory leaks
@@ -19,7 +18,6 @@ import Fade from 'embla-carousel-fade'
 import {
   frameSequence,
   cleanupSystem,
-  debounce,
   intersectionObserver
 } from './utils.js'
 
@@ -49,10 +47,7 @@ const CarouselConfig = {
   },
   autoplay: {
     stopInteraction: true
-  },
-  breakpoint: 992,
-  maxSlidesDesktop: 4,
-  delay: 250
+  }
 }
 
 const CarouselDOM = () => {
@@ -303,24 +298,8 @@ const CarouselInstance = (carousel) => {
   let autoplay = null
   let processor = null
   let eventManager = null
-  let mediaQuery = null
   let initialized = false
   let visibilityObserver = null
-
-  const getSlideCount = () => {
-    const slides = carousel.querySelectorAll(CarouselConfig.selectors.slide)
-    return slides.length
-  }
-
-  const desktop = () => mediaQuery && mediaQuery.matches
-
-  const checkCarousel = () => {
-    const slideCount = getSlideCount()
-
-    if (!desktop()) return true
-
-    return slideCount > CarouselConfig.maxSlidesDesktop
-  }
 
   const initCarousel = () => {
     if (initialized) return
@@ -354,7 +333,7 @@ const CarouselInstance = (carousel) => {
     }
   }
 
-  const destroyCarousel = () => {
+  const destroy = () => {
     if (!initialized) return
 
     visibilityObserver?.destroy()
@@ -372,30 +351,9 @@ const CarouselInstance = (carousel) => {
     initialized = false
   }
 
-  const debounceHandler = () => {
-    checkCarousel() ?
-      initCarousel() :
-      destroyCarousel()
-  }
-
-  const handleMediaQuery = debounce(debounceHandler, CarouselConfig.delay)
-
   const init = () => {
-    mediaQuery = window.matchMedia(`(min-width: ${CarouselConfig.breakpoint}px)`)
-    mediaQuery.addEventListener('change', handleMediaQuery)
-
-    if (checkCarousel()) initCarousel()
-
+    initCarousel()
     return destroy
-  }
-
-  const destroy = () => {
-    if (mediaQuery) {
-      mediaQuery.removeEventListener('change', handleMediaQuery)
-      mediaQuery = null
-    }
-
-    destroyCarousel()
   }
 
   return {

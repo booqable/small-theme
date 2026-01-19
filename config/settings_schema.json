@@ -127,7 +127,7 @@
     "settings": [
       {
         "type": "paragraph",
-        "content": "Carousel automatically disables on desktop if there are 4 or fewer slides"
+        "content": "Carousel automatically disables if there are 4 or fewer slides"
       },
       {
         "type": "header",
