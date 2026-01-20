@@ -8,7 +8,7 @@
 import {
   frameSequence,
   cleanupSystem
-} from './utils.js'
+} from 'utils.js'
 
 const FocalConfig = {
   selectors: {

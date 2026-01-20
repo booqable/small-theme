@@ -9,7 +9,7 @@
 import {
   frameSequence,
   onReady
-} from './utils.js'
+} from 'utils.js'
 
 const MainConfig = {
   selector: {

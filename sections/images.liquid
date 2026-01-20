@@ -1,7 +1,4 @@
 {%- if section.blocks.size > 0 -%}
-  {%- assign carousel_effect          = settings.carousel_effect -%}
-  {%- assign carousel_pause           = settings.carousel_pause -%}
-  {%- assign carousel_timer           = settings.carousel_timer | times: 1000 -%}
   {%- assign color_scheme             = section.settings.color_scheme -%}
   {%- assign content_horizontal       = section.settings.content_horizontal -%}
   {%- assign image_placeholder        = settings.image_placeholder -%}
@@ -12,29 +9,9 @@
   {%- assign padding_bottom_mobile    = section.settings.padding_bottom_mobile -%}
   {%- assign padding_top_desktop      = section.settings.padding_top_desktop -%}
   {%- assign padding_top_mobile       = section.settings.padding_top_mobile -%}
-  {%- assign show_carousel            = false -%}
-  {%- assign show_carousel_navigation = settings.show_carousel_navigation -%}
-  {%- assign show_carousel_pagination = settings.show_carousel_pagination -%}
 
   {%- if section_preview -%}
     {%- assign loading_strategy       = 'eager' -%}
-  {%- endif -%}
-
-  {%- if show_carousel_navigation -%}
-    {%- capture carousel_buttons -%}
-      <div class="carousel__buttons" aria-label="Carousel navigation">
-        <button class="carousel__btn carousel__prev btn btn--primary" aria-label="Previous slide">
-          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-            <path d="M15 18L9 12L15 6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-          </svg>
-        </button>
-        <button class="carousel__btn carousel__next btn btn--primary" aria-label="Next slide">
-          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-            <path d="M9 18L15 12L9 6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-          </svg>
-        </button>
-      </div>
-    {%- endcapture -%}
   {%- endif -%}
 
   {% comment %} CSS variables start {% endcomment %}
@@ -94,13 +71,6 @@
           {%- case block.type -%}
             {%- when 'description' -%}
               {%- if images_group -%}
-                {%- if show_carousel -%}
-                    </div>
-                  </div>
-                  {{- carousel_buttons -}}
-                  {{- carousel_dots -}}
-                {%- endif -%}
-
                 </div>
 
                 {%- assign images_group = false -%}
@@ -116,13 +86,6 @@
 
             {%- when 'heading' -%}
               {%- if images_group -%}
-                {%- if show_carousel -%}
-                    </div>
-                  </div>
-                  {{- carousel_buttons -}}
-                  {{- carousel_dots -}}
-                {%- endif -%}
-
                 </div>
 
                 {%- assign images_group = false -%}
@@ -164,36 +127,13 @@
                   {%- assign show_carousel = true -%}
                 {%- endif -%}
 
-                {%- if show_carousel and show_carousel_pagination -%}
-                  {%- capture carousel_dots -%}
-                    <div class="carousel__dots" role="tablist" aria-label="Carousel pagination">
-                      {%- for i in (1..images_in_group) -%}
-                        <button class="carousel__dot" type="button" role="tab" aria-label="Go to slide {{- forloop.index -}}"></button>
-                      {%- endfor -%}
-                    </div>
-                  {%- endcapture -%}
-                {%- endif -%}
-
-                <div
-                  class="{%- if show_carousel -%}images__carousel carousel{%- else -%}images__list{%- endif -%}"
-                  {% if show_carousel %}
-                    data-timer="{{- carousel_timer -}}"
-                    data-effect="{{- carousel_effect -}}"
-                    data-pause="{{- carousel_pause -}}"
-                    aria-label="Images carousel"
-                  {%- else -%}
-                    style="--images-image-count: {{ images_in_group }}"
-                  {%- endif -%}>
-                {%- if show_carousel -%}
-                  <div class="carousel__container">
-                    <div class="carousel__list">
-                {%- endif -%}
+                <div class="images__list" style="--images-image-count: {{ images_in_group }}">
 
                 {%- assign images_group = true -%}
               {%- endunless -%}
 
                 {%- if image.url != blank -%}
-                  <div class="{%- if show_carousel -%}carousel__slide{%- else -%}images__image-holder{%- endif -%}" id="{{- block_id -}}">
+                  <div class="images__image-holder" id="{{- block_id -}}">
                     {%- render 'image',
                         image: image,
                         image_alt: image_alt,
@@ -205,13 +145,6 @@
 
             {%- when 'tagline' -%}
               {%- if images_group -%}
-                {%- if show_carousel -%}
-                    </div>
-                  </div>
-                  {{- carousel_buttons -}}
-                  {{- carousel_dots -}}
-                {%- endif -%}
-
                 </div>
 
                 {%- assign images_group = false -%}
@@ -229,12 +162,6 @@
         {%- endfor -%}
 
         {%- if images_group -%}
-          {%- if show_carousel -%}
-              </div>
-            </div>
-            {{- carousel_buttons -}}
-            {{- carousel_dots -}}
-          {%- endif -%}
           </div>
         {%- endif -%}
       </div>
@@ -423,10 +350,6 @@
           }
         ],
         "default": "tiles"
-      },
-      {
-        "type": "paragraph",
-        "content": "Images automatically turn into a carousel when more than four image blocks are used in a row"
       },
       {
         "type": "header",

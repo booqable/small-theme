@@ -13,7 +13,7 @@ import {
   inViewport,
   slowConnection,
   hasFetchPriority
-} from './utils.js'
+} from 'utils.js'
 
 const ImageConfig = {
   selectors: {

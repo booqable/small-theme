@@ -9,7 +9,7 @@
 import {
   frameSequence,
   cleanupSystem
-} from './utils.js'
+} from 'utils.js'
 
 const SearchConfig = {
   selectors: {
