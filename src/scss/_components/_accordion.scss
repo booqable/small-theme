@@ -1,0 +1,93 @@
+// Import variables
+@use '../variables' as *;
+
+// Import mixins
+@use '../_helpers/mixins' as *;
+
+.accordion {
+  --accordion-icon-transform: ;
+  --accordion-item-max-width: none;
+  --accordion-label-direction: space-between;
+  --accordion-text-template-rows: 0fr;
+
+  &__item {
+    text-align: left;
+    max-width: var(--accordion-item-max-width);
+    margin: 0 auto 16px;
+    padding: 0 6px;
+    border-bottom: 1px solid $color-border;
+
+    @include media-up(sm) {
+      --accordion-item-max-width: 720px;
+    }
+
+    .accordion__col & {
+      @include media-up(sm) {
+        --accordion-item-max-width: none;
+      }
+    }
+  }
+
+  &__trigger {
+    display: none;
+  }
+
+  &__label {
+    @include flexbox(
+      $align: center,
+      $gap: var(--accordion-item-indent),
+      $justify: var(--accordion-label-direction)
+    );
+
+    color: currentcolor;
+    cursor: pointer;
+    padding: var(--accordion-item-indent) 0;
+    font-weight: $font-weight-bold;
+
+    [style*="--accordion-item-icon-position: left"] & {
+      --accordion-label-direction: flex-start;
+    }
+  }
+
+  &__icon {
+    position: relative;
+    height: var(--accordion-item-indent);
+    width: var(--accordion-item-indent);
+
+    &::after,
+    &::before {
+      content: "";
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      height: 2px;
+      width: var(--accordion-item-indent);
+      background: $color-outline;
+      transform: translate(-50%, -50%) var(--accordion-icon-transform);
+      transition: transform $transition-duration $transition-function;
+    }
+
+    &::after {
+      --accordion-icon-transform: rotate(90deg);
+
+      :checked ~ .accordion__label & {
+        --accordion-icon-transform: rotate(0deg);
+      }
+    }
+  }
+
+  &__text {
+    padding: 0 calc(var(--accordion-item-indent) * 2);
+    display: grid;
+    grid-template-rows: var(--accordion-text-template-rows);
+    transition: grid-template-rows $transition-duration $transition-function;
+
+    &-inner {
+      overflow: hidden;
+    }
+
+    :checked ~ & {
+      --accordion-text-template-rows: 1fr;
+    }
+  }
+}
