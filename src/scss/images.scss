@@ -216,6 +216,7 @@
 
   &__image {
     margin: 0 auto;
+    border-radius: $border-radius-block;
     width: var(--images-image-width);
     height: var(--images-image-height);
     object-fit: var(--images-image-object-fit);
