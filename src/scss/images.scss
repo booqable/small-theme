@@ -4,6 +4,9 @@
 // Import mixins
 @use '_helpers/mixins' as *;
 
+// Import components
+@use '_components/carousel' as *;
+
 .images {
   --images-item-indent: 20px;
   --images-list-margin: 60px;
@@ -263,6 +266,14 @@
         grid-row: var(--images-image-forth-child-grid-row);
         overflow: var(--images-image-overflow);
       }
+    }
+  }
+
+  .carousel {
+    margin-top: 60px;
+
+    @include media-up(md) {
+      margin-top: 80px;
     }
   }
 }

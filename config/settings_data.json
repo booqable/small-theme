@@ -4,6 +4,9 @@
     "button_font_size": 16,
     "button_font_weight": "700",
     "button_size": "md",
+    "carousel_effect": "slide",
+    "carousel_pause": true,
+    "carousel_timer": 5,
     "color_schemes": {
       "set-1": {
         "type": "color_scheme",
@@ -239,6 +242,8 @@
         "disabled": null
       }
     },
+    "show_carousel_navigation": true,
+    "show_carousel_pagination": true,
     "show_product_card_excerpt": false,
     "social_icon_size": "md",
     "social_icon_spacing": "md",
