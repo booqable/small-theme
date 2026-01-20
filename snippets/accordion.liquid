@@ -1,0 +1,63 @@
+{%- comment -%}
+  This snippet renders an accordion component with customizable items.
+
+  Parameters:
+  - behavior: defines whether the accordion allows single or multiple items to be open at once ('single' or 'multiple')
+  - block_id: the unique identifier for each accordion item
+  - label: the title of the accordion item
+  - position: position of the accordion +/- icon ('left' or 'right')
+  - text: the content of the accordion item
+  - section_type: the section type where the accordion is included (e.g. 'faq', 'info')
+
+  Required parameters:
+  - block_id
+  - label
+  - text
+  - section_type
+
+  Usage:
+
+  {%- render 'accordion',
+      behavior: 'multiple',
+      block_id: block.id,
+      label: 'Accordion title',
+      position: 'left',
+      text: 'Accordion content goes here.',
+      section_type: section.type
+  -%}
+{%- endcomment -%}
+
+{%- assign icon_position = 'right' -%}
+
+{%- if position != blank -%}
+  {%- assign icon_position = position -%}
+{%- endif -%}
+
+{%- if label != blank and text != blank -%}
+  <div class="{{- section_type -}}__item" id="{{- block_id -}}">
+    <input
+      class="{{- section_type -}}__trigger"
+      {% if behavior == "single" %}type="radio"{% else %}type="checkbox"{% endif %}
+      id="{{- section_type -}}-{{- block_id -}}"
+      name="{{- section_type -}} trigger"
+      aria-hidden="true"
+    >
+    <label class="{{- section_type -}}__label" for="{{- section_type -}}-{{- block_id -}}">
+      {%- if icon_position == 'right' -%}
+        {{- label -}}
+      {%- endif -%}
+
+      <span class="{{- section_type -}}__icon" aria-hidden="true"></span>
+
+      {%- if icon_position == 'left' -%}
+        {{- label -}}
+      {%- endif -%}
+    </label>
+
+    <div class="{{- section_type -}}__text bq-content rx-content">
+      <div class="{{- section_type -}}__text-inner">
+        {{- text -}}
+      </div>
+    </div>
+  </div>
+{%- endif -%}

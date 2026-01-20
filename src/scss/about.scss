@@ -143,13 +143,8 @@
 
   &__btn {
     &-wrapper {
-      margin-top: var(--about-btn-margin-top);
-
-      & + .about__info {
-        @include flexbox(
-          $align: var(--about-content-justify),
-          $direction: column
-        );
+      &:not(:first-child) {
+        margin-top: var(--about-btn-margin-top);
       }
     }
   }
