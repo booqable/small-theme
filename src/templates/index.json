@@ -219,6 +219,83 @@
       },
       "disabled": null
     },
+    "images": {
+      "type": "images",
+      "blocks": {
+        "description": {
+          "type": "description",
+          "settings": {
+            "description": "<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>"
+          },
+          "disabled": null
+        },
+        "heading": {
+          "type": "heading",
+          "settings": {
+            "heading": "Image Gallery"
+          },
+          "disabled": null
+        },
+        "image": {
+          "type": "image",
+          "settings": {
+            "image": "booqable://assets/image-images-1.jpg",
+            "image_alt": "Image 1"
+          },
+          "disabled": null
+        },
+        "image_678902": {
+          "type": "image",
+          "settings": {
+            "image": "booqable://assets/image-images-2.jpg",
+            "image_alt": "Image 2"
+          },
+          "disabled": null
+        },
+        "image_678903": {
+          "type": "image",
+          "settings": {
+            "image": "booqable://assets/image-images-3.jpg",
+            "image_alt": "Image 3"
+          },
+          "disabled": null
+        },
+        "image_678904": {
+          "type": "image",
+          "settings": {
+            "image": "booqable://assets/image-images-4.jpg",
+            "image_alt": "Image 4"
+          },
+          "disabled": null
+        },
+        "tagline": {
+          "type": "tagline",
+          "settings": {
+            "tagline": "Impressions"
+          },
+          "disabled": null
+        }
+      },
+      "block_order": [
+        "tagline",
+        "heading",
+        "description",
+        "image",
+        "image_678902",
+        "image_678903",
+        "image_678904"
+      ],
+      "settings": {
+        "color_scheme": "set-1",
+        "content_horizontal": "left",
+        "images_layout": "tiles",
+        "padding_bottom_desktop": "lg",
+        "padding_bottom_mobile": "md",
+        "padding_top_desktop": "lg",
+        "padding_top_mobile": "md"
+      },
+      "disabled": null
+    },
     "hero": {
       "type": "hero",
       "blocks": {
@@ -436,6 +513,7 @@
     "steps",
     "about",
     "products",
+    "images",
     "accordion"
   ]
 }

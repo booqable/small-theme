@@ -1,0 +1,400 @@
+{%- if section.blocks.size > 0 -%}
+  {%- assign color_scheme             = section.settings.color_scheme -%}
+  {%- assign content_horizontal       = section.settings.content_horizontal -%}
+  {%- assign image_placeholder        = settings.image_placeholder -%}
+  {%- assign images_group             = false -%}
+  {%- assign images_layout            = section.settings.images_layout -%}
+  {%- assign loading_strategy         = 'lazy' -%}
+  {%- assign padding_bottom_desktop   = section.settings.padding_bottom_desktop -%}
+  {%- assign padding_bottom_mobile    = section.settings.padding_bottom_mobile -%}
+  {%- assign padding_top_desktop      = section.settings.padding_top_desktop -%}
+  {%- assign padding_top_mobile       = section.settings.padding_top_mobile -%}
+
+  {%- if section_preview -%}
+    {%- assign loading_strategy       = 'eager' -%}
+  {%- endif -%}
+
+  {% comment %} CSS variables start {% endcomment %}
+  {%- capture variables -%}
+    {%- case padding_bottom_desktop -%}
+      {%- when 'md' -%}
+        --padding-bottom-desktop: 60px;
+      {%- when 'lg' -%}
+        --padding-bottom-desktop: 80px;
+    {%- endcase -%}
+
+    {%- case padding_bottom_mobile -%}
+      {%- when 'md' -%}
+        --padding-bottom-mobile: 32px;
+      {%- when 'lg' -%}
+        --padding-bottom-mobile: 50px;
+    {%- endcase -%}
+
+    {%- case padding_top_desktop -%}
+      {%- when 'md' -%}
+        --padding-top-desktop: 60px;
+      {%- when 'lg' -%}
+        --padding-top-desktop: 80px;
+    {%- endcase -%}
+
+    {%- case padding_top_mobile -%}
+      {%- when 'md' -%}
+        --padding-top-mobile: 32px;
+      {%- when 'lg' -%}
+        --padding-top-mobile: 50px;
+    {%- endcase -%}
+
+    {%- case content_horizontal -%}
+      {%- when 'center' -%}
+        --images-content-alignment: center;
+        --images-content-text-alignment: center;
+      {%- when 'right' -%}
+        --images-content-alignment: flex-end;
+        --images-content-text-alignment: right;
+    {%- endcase -%}
+
+    {%- case images_layout -%}
+      {%- when 'mosaic' -%}
+        --images-layout-desktop: mosaic;
+    {%- endcase -%}
+  {%- endcapture -%}
+  {% comment %} CSS variables end {% endcomment %}
+
+  <div class="images__wrapper images__wrapper--padding-top images__wrapper--padding-bottom color-{{- color_scheme.id -}}"
+    style="{{- variables | escape -}}"
+  >
+    <div class="images__container container">
+      <div class="images__content">
+        {%- for block in section.blocks -%}
+          {%- assign block_id = block.id -%}
+
+          {%- case block.type -%}
+            {%- when 'description' -%}
+              {%- if images_group -%}
+                </div>
+
+                {%- assign images_group = false -%}
+              {%- endif -%}
+
+              {%- assign description = block.settings.description -%}
+
+              {%- if description != blank -%}
+                <div class="images__description" id="{{- block_id -}}">
+                  {{- description -}}
+                </div>
+              {%- endif -%}
+
+            {%- when 'heading' -%}
+              {%- if images_group -%}
+                </div>
+
+                {%- assign images_group = false -%}
+              {%- endif -%}
+
+              {%- assign heading = block.settings.heading -%}
+
+              {%- if heading != blank -%}
+                <h2 class="images__heading" id="{{- block_id -}}">
+                  {{- heading -}}
+                </h2>
+              {%- endif -%}
+
+            {%- when 'image' -%}
+              {%- assign image     = block.settings.image -%}
+              {%- assign image_alt = block.settings.image_alt -%}
+
+              {%- if image.url != blank -%}
+                {%- assign image = image -%}
+              {%- elsif image_placeholder != blank -%}
+                {%- assign image = image_placeholder -%}
+              {%- else -%}
+                {%- assign image = blank -%}
+              {%- endif -%}
+
+              {%- unless images_group -%}
+                {%- assign images_in_group = 0 -%}
+                {%- assign offset          = forloop.index0 -%}
+
+                {%- for next_block in section.blocks offset: offset -%}
+                  {%- if next_block.type == 'image' -%}
+                    {%- assign images_in_group = images_in_group | plus: 1 -%}
+                  {%- else -%}
+                    {%- break -%}
+                  {%- endif -%}
+                {%- endfor -%}
+
+                {%- if images_in_group > 4 -%}
+                  {%- assign show_carousel = true -%}
+                {%- endif -%}
+
+                <div class="images__list" style="--images-image-count: {{ images_in_group }}">
+
+                {%- assign images_group = true -%}
+              {%- endunless -%}
+
+                {%- if image.url != blank -%}
+                  <div class="images__image-holder" id="{{- block_id -}}">
+                    {%- render 'image',
+                        image: image,
+                        image_alt: image_alt,
+                        image_class: 'images__image',
+                        image_size: 'xxl'
+                    -%}
+                  </div>
+                {%- endif -%}
+
+            {%- when 'tagline' -%}
+              {%- if images_group -%}
+                </div>
+
+                {%- assign images_group = false -%}
+              {%- endif -%}
+
+              {%- assign tagline = block.settings.tagline -%}
+
+              {%- if tagline != blank -%}
+                <p class="images__tagline tagline" id="{{- block_id -}}">
+                  {{- tagline -}}
+                </p>
+              {%- endif -%}
+
+          {%- endcase -%}
+        {%- endfor -%}
+
+        {%- if images_group -%}
+          </div>
+        {%- endif -%}
+      </div>
+    </div>
+  </div>
+{%- endif -%}
+
+{% schema %}
+  {
+    "name": "Images",
+    "tag": "section",
+    "class": "images",
+    "css_assets": [
+      {
+        "file": "images.css"
+      }
+    ],
+    "blocks": [
+      {
+        "type": "description",
+        "name": "Description",
+        "limit": 1,
+        "settings": [
+          {
+            "type": "header",
+            "content": "General settings"
+          },
+          {
+            "type": "contentEditor",
+            "id": "description",
+            "label": "Text",
+            "default": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse varius enim in eros elementum tristique."
+          }
+        ]
+      },
+      {
+        "type": "heading",
+        "name": "Heading",
+        "limit": 1,
+        "settings": [
+          {
+            "type": "header",
+            "content": "General settings"
+          },
+          {
+            "type": "text",
+            "id": "heading",
+            "label": "Heading",
+            "default": "Images"
+          }
+        ]
+      },
+      {
+        "type": "image",
+        "name": "Image",
+        "limit": 10,
+        "settings": [
+          {
+            "type": "header",
+            "content": "General settings"
+          },
+          {
+            "type": "paragraph",
+            "content": "Use WebP, PNG, JPG high-quality image (1920px or larger) for best results on all screen sizes"
+          },
+          {
+            "type": "image_picker",
+            "id": "image",
+            "label": "Image",
+            "default": "booqable://assets/image-placeholder.png"
+          },
+          {
+            "type": "text",
+            "id": "image_alt",
+            "label": "Alternative text (optional)",
+            "default": "Image description",
+            "info": "For SEO and Accessibility purposes"
+          }
+        ]
+      },
+      {
+        "type": "tagline",
+        "name": "Tagline",
+        "limit": 1,
+        "settings": [
+          {
+            "type": "header",
+            "content": "General settings"
+          },
+          {
+            "type": "text",
+            "id": "tagline",
+            "label": "Text",
+            "default": "Tagline"
+          }
+        ]
+      }
+    ],
+    "settings": [
+      {
+        "type": "header",
+        "content": "General settings"
+      },
+      {
+        "type": "color_scheme",
+        "id": "color_scheme",
+        "label": "Color scheme",
+        "default": "set-1"
+      },
+      {
+        "type": "select",
+        "id": "content_horizontal",
+        "label": "Horizontal positioning",
+        "options": [
+          {
+            "value": "left",
+            "label": "Left"
+          },
+          {
+            "value": "center",
+            "label": "Center"
+          },
+          {
+            "value": "right",
+            "label": "Right"
+          }
+        ],
+        "default": "left"
+      },
+      {
+        "type": "header",
+        "content": "Desktop settings"
+      },
+      {
+        "type": "select",
+        "id": "padding_top_desktop",
+        "label": "Padding top",
+        "options": [
+          {
+            "value": "sm",
+            "label": "Small"
+          },
+          {
+            "value": "md",
+            "label": "Medium"
+          },
+          {
+            "value": "lg",
+            "label": "Large"
+          }
+        ],
+        "default": "lg"
+      },
+      {
+        "type": "select",
+        "id": "padding_bottom_desktop",
+        "label": "Padding bottom",
+        "options": [
+          {
+            "value": "sm",
+            "label": "Small"
+          },
+          {
+            "value": "md",
+            "label": "Medium"
+          },
+          {
+            "value": "lg",
+            "label": "Large"
+          }
+        ],
+        "default": "lg"
+      },
+      {
+        "type": "select",
+        "id": "images_layout",
+        "label": "Layout",
+        "options": [
+          {
+            "value": "tiles",
+            "label": "Tiles"
+          },
+          {
+            "value": "mosaic",
+            "label": "Mosaic"
+          }
+        ],
+        "default": "tiles"
+      },
+      {
+        "type": "header",
+        "content": "Mobile settings"
+      },
+      {
+        "type": "select",
+        "id": "padding_top_mobile",
+        "label": "Padding top",
+        "options": [
+          {
+            "value": "sm",
+            "label": "Small"
+          },
+          {
+            "value": "md",
+            "label": "Medium"
+          },
+          {
+            "value": "lg",
+            "label": "Large"
+          }
+        ],
+        "default": "md"
+      },
+      {
+        "type": "select",
+        "id": "padding_bottom_mobile",
+        "label": "Padding bottom",
+        "options": [
+          {
+            "value": "sm",
+            "label": "Small"
+          },
+          {
+            "value": "md",
+            "label": "Medium"
+          },
+          {
+            "value": "lg",
+            "label": "Large"
+          }
+        ],
+        "default": "md"
+      }
+    ]
+  }
+{% endschema %}
