@@ -6,14 +6,13 @@
 
 .carousel {
   --carousel-buttons-indent: #{$horizontal-padding-sm};
-  --carousel-container-padding: 0;
+  --carousel-container-padding: 60px 0 var(--carousel-dots-indent, 0);
   --carousel-dot-opacity: 0.3;
   --carousel-dot-size: 16px;
   --carousel-image-height: auto;
   --carousel-image-shadow: none;
   --carousel-image-transform: scale(1);
   --carousel-image-transition: none;
-  --carousel-slide-indent: 0;
   --carousel-slide-height: auto;
   --carousel-slide-margin: 0;
   --carousel-slide-width: 100vw;
@@ -26,7 +25,7 @@
   margin-right: -50vw;
 
   @include media-up(md) {
-    --carousel-container-padding: 0;
+    --carousel-container-padding: 80px 0 var(--carousel-dots-indent, 0);
     --carousel-slide-height: auto;
     --carousel-slide-width: none;
   }
@@ -37,14 +36,17 @@
 
   &[data-effect="slide"] {
     @include media-up(md) {
-      --carousel-container-padding: 2.8% 0;
+      --carousel-container-padding: 144px 0 calc(80px + var(--carousel-dots-indent, 0));
       --carousel-image-height: 100%;
       --carousel-image-shadow: 12px 10px 29px 0 #{$color-border};
-      --carousel-slide-height: 566px;
-      --carousel-slide-indent: 70px 0;
+      --carousel-slide-height: 426px;
       --carousel-slide-width: 27vw;
       --carousel-slide-margin-left: 0;
     }
+  }
+
+  &:has(&__dots) {
+    --carousel-dots-indent: 32px;
   }
 
   &__container {
@@ -65,7 +67,6 @@
     max-width: var(--carousel-slide-width);
     max-height: var(--carousel-slide-height);
     margin: var(--carousel-slide-margin);
-    padding: var(--carousel-slide-indent);
 
     img {
       height: var(--carousel-image-height);
@@ -147,7 +148,6 @@
       $justify: center
     );
 
-    margin-top: 32px;
     z-index: 1;
   }
 

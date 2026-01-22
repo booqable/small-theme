@@ -268,12 +268,4 @@
       }
     }
   }
-
-  .carousel {
-    margin-top: 60px;
-
-    @include media-up(md) {
-      margin-top: 80px;
-    }
-  }
 }
