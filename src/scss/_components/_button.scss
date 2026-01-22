@@ -15,7 +15,10 @@
 }
 
 .btn {
-  --button-animation-delay: 5s;
+  --button-arrow-animation: bounce 5.6s var(--button-arrow-animation-delay) #{$transition-function} infinite;
+  --button-arrow-animation-delay: 5s;
+  --button-arrow-indent: 0 0 0 10px;
+  --button-arrow-transform: translateX(0);
   --button-background: none;
   --button-border-color: transparent;
   --button-indent: 0;
@@ -70,41 +73,41 @@
   }
 
   svg {
-    margin-left: 10px;
-    transform: translateX(0) rotate(-90deg);
-    animation: bounce 5.6s var(--button-animation-delay) $transition-function infinite;
+    animation: var(--button-arrow-animation);
+    margin: var(--button-arrow-indent);
+    transform: var(--button-arrow-transform);
   }
 
   path {
-    stroke: currentcolor;
+    fill: currentcolor;
   }
 
   &:hover {
     svg {
-      --button-animation-delay: 1s;
+      --button-arrow-animation-delay: 1s;
     }
   }
 }
 
 @keyframes bounce {
   0% {
-    transform: translateX(0) rotate(-90deg);
+    transform: translateX(0);
   }
 
   3.2% {
-    transform: translateX(8px) rotate(-90deg);
+    transform: translateX(8px);
   }
 
   5.36% {
-    transform: translateX(3px) rotate(-90deg);
+    transform: translateX(3px);
   }
 
   7.5% {
-    transform: translateX(8px) rotate(-90deg);
+    transform: translateX(8px);
   }
 
   11%, 100% {
-    transform: translateX(0) rotate(-90deg);
+    transform: translateX(0);
   }
 }
 

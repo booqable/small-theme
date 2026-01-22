@@ -32,7 +32,8 @@ const CarouselConfig = {
     viewport: '.carousel__container'
   },
   classes: {
-    selected: 'carousel__dot--selected'
+    initialized: 'initialized',
+    selected: 'active'
   },
   attr: {
     current: 'aria-current',
@@ -41,8 +42,13 @@ const CarouselConfig = {
     timer: 'data-timer'
   },
   options: {
-    align: 'start',
+    align: 'center',
+    containScroll: false,
+    dragFree: false,
+    duration: 30,
+    inViewThreshold: 0,
     loop: true,
+    skipSnaps: false,
     slidesToScroll: 1
   },
   autoplay: {
@@ -87,24 +93,28 @@ const CarouselButtonsRenderer = (carousel) => {
   }
 }
 
-const CarouselDotsRenderer = (embla, carousel) => {
-  const dots = Array.from(carousel.querySelectorAll(CarouselConfig.selectors.dot))
-  if (!dots.length) return null
+const CarouselElementsRenderer = (embla, carousel, selector, useAriaAttr = false) => {
+  const elements = Array.from(carousel.querySelectorAll(selector))
+  if (!elements.length) return null
 
-  const updateDots = () => {
+  const update = () => {
     const read = () => ({
       index: embla['selectedScrollSnap'](),
-      dots
+      elements
     })
 
     const write = (data) => {
-      data.dots.forEach((dot, i) => {
+      data.elements.forEach((element, i) => {
         if (i === data.index) {
-          dot.classList.add(CarouselConfig.classes.selected)
-          dot.setAttribute(CarouselConfig.attr.current, 'true')
+          element.classList.add(CarouselConfig.classes.selected)
+          if (useAriaAttr) {
+            element.setAttribute(CarouselConfig.attr.current, 'true')
+          }
         } else {
-          dot.classList.remove(CarouselConfig.classes.selected)
-          dot.removeAttribute(CarouselConfig.attr.current)
+          element.classList.remove(CarouselConfig.classes.selected)
+          if (useAriaAttr) {
+            element.removeAttribute(CarouselConfig.attr.current)
+          }
         }
       })
     }
@@ -112,11 +122,11 @@ const CarouselDotsRenderer = (embla, carousel) => {
     frameSequence(read, write)
   }
 
-  const getDots = () => dots
+  const get = () => elements
 
   return {
-    updateDots,
-    getDots
+    update,
+    get
   }
 }
 
@@ -220,7 +230,7 @@ const CarouselProcessor = (embla, autoplay) => {
   }
 }
 
-const CarouselEvents = (embla, carousel, buttonsHandler, dotsHandler, autoplay, processor, pauseOnHover) => {
+const CarouselEvents = (embla, carousel, buttonsHandler, slidesHandler, dotsHandler, autoplay, processor, pauseOnHover) => {
   const eventListeners = []
 
   const addEventListener = (element, event, handler, options = {}) => {
@@ -235,14 +245,15 @@ const CarouselEvents = (embla, carousel, buttonsHandler, dotsHandler, autoplay, 
     }
 
     if (dotsHandler) {
-      const dots = dotsHandler.getDots()
+      const dots = dotsHandler.get()
       dots.forEach((dot, index) => {
         addEventListener(dot, 'click', () => processor.handleDot(index))
       })
     }
 
     const updateAll = () => {
-      dotsHandler?.updateDots()
+      slidesHandler?.update()
+      dotsHandler?.update()
     }
 
     embla['on']('select', updateAll)
@@ -294,6 +305,7 @@ const CarouselInstance = (carousel) => {
 
   let embla = null
   let buttonsHandler = null
+  let slidesHandler = null
   let dotsHandler = null
   let autoplay = null
   let processor = null
@@ -311,10 +323,15 @@ const CarouselInstance = (carousel) => {
 
     embla = EmblaCarousel(viewport, CarouselConfig.options, plugins)
     buttonsHandler = CarouselButtonsRenderer(carousel)
-    dotsHandler = CarouselDotsRenderer(embla, carousel)
+    slidesHandler = CarouselElementsRenderer(embla, carousel, CarouselConfig.selectors.slide)
+    dotsHandler = CarouselElementsRenderer(embla, carousel, CarouselConfig.selectors.dot, true)
     autoplay = timer > 0 ? CarouselAutoplay(embla, timer) : null
     processor = CarouselProcessor(embla, autoplay)
-    eventManager = CarouselEvents(embla, carousel, buttonsHandler, dotsHandler, autoplay, processor, pause)
+    eventManager = CarouselEvents(embla, carousel, buttonsHandler, slidesHandler, dotsHandler, autoplay, processor, pause)
+
+    embla['on']('init', () => {
+      carousel.classList.add(CarouselConfig.classes.initialized)
+    })
 
     eventManager.init()
     initialized = true
@@ -343,6 +360,7 @@ const CarouselInstance = (carousel) => {
 
     embla = null
     buttonsHandler = null
+    slidesHandler = null
     dotsHandler = null
     autoplay = null
     processor = null

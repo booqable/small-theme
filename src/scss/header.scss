@@ -31,7 +31,7 @@
   --header-menu-dropdown-link-indent: 0;
   --header-menu-dropdown-opener-display: flex;
   --header-menu-dropdown-opener-position: center;
-  --header-menu-dropdown-opener-transform: rotate(90deg);
+  --header-menu-dropdown-opener-transform: rotate(180deg);
   --header-menu-dropdown-position: fixed;
   --header-menu-dropdown-right: 0;
   --header-menu-dropdown-top: 0;
@@ -652,7 +652,7 @@
 
             &-opener {
               @include media-up(md) {
-                --header-menu-dropdown-opener-transform: rotate(270deg);
+                --header-menu-dropdown-opener-transform: rotate(0deg);
               }
             }
           }
