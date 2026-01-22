@@ -10,8 +10,10 @@
   --carousel-dot-opacity: 0.3;
   --carousel-dot-size: 16px;
   --carousel-image-height: auto;
+  --carousel-image-shadow: none;
   --carousel-image-transform: scale(1);
   --carousel-image-transition: none;
+  --carousel-slide-indent: 0;
   --carousel-slide-height: auto;
   --carousel-slide-margin: 0;
   --carousel-slide-width: 100vw;
@@ -37,7 +39,9 @@
     @include media-up(md) {
       --carousel-container-padding: 2.8% 0;
       --carousel-image-height: 100%;
-      --carousel-slide-height: 426px;
+      --carousel-image-shadow: 12px 10px 29px 0 #{$color-border};
+      --carousel-slide-height: 566px;
+      --carousel-slide-indent: 70px 0;
       --carousel-slide-width: 27vw;
       --carousel-slide-margin-left: 0;
     }
@@ -61,6 +65,13 @@
     max-width: var(--carousel-slide-width);
     max-height: var(--carousel-slide-height);
     margin: var(--carousel-slide-margin);
+    padding: var(--carousel-slide-indent);
+
+    img {
+      height: var(--carousel-image-height);
+      transition: var(--carousel-image-transition);
+      transform: var(--carousel-image-transform);
+    }
 
     .initialized & {
       --carousel-image-transition: transform #{$transition-duration} #{$transition-function};
@@ -74,6 +85,10 @@
 
     &.active {
       z-index: 1;
+
+      img {
+        box-shadow: var(--carousel-image-shadow);
+      }
 
       .carousel[data-effect="slide"] & {
         @include media-up(md) {
@@ -93,12 +108,6 @@
           --carousel-slide-margin: 0 4.9vw;
         }
       }
-    }
-
-    img {
-      height: var(--carousel-image-height);
-      transition: var(--carousel-image-transition);
-      transform: var(--carousel-image-transform);
     }
   }
 
