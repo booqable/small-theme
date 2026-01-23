@@ -32,8 +32,8 @@ const CarouselConfig = {
     viewport: '.carousel__container'
   },
   classes: {
-    initialized: 'initialized',
-    selected: 'active'
+    active: 'active',
+    initialized: 'initialized'
   },
   attr: {
     current: 'aria-current',
@@ -93,7 +93,7 @@ const CarouselButtonsRenderer = (carousel) => {
   }
 }
 
-const CarouselElementsRenderer = (embla, carousel, selector, useAriaAttr = false) => {
+const CarouselItemsRenderer = (embla, carousel, selector, useAttr = false) => {
   const elements = Array.from(carousel.querySelectorAll(selector))
   if (!elements.length) return null
 
@@ -104,17 +104,13 @@ const CarouselElementsRenderer = (embla, carousel, selector, useAriaAttr = false
     })
 
     const write = (data) => {
-      data.elements.forEach((element, i) => {
+      data.elements.forEach((el, i) => {
         if (i === data.index) {
-          element.classList.add(CarouselConfig.classes.selected)
-          if (useAriaAttr) {
-            element.setAttribute(CarouselConfig.attr.current, 'true')
-          }
+          el.classList.add(CarouselConfig.classes.active)
+          if (useAttr) el.setAttribute(CarouselConfig.attr.current, 'true')
         } else {
-          element.classList.remove(CarouselConfig.classes.selected)
-          if (useAriaAttr) {
-            element.removeAttribute(CarouselConfig.attr.current)
-          }
+          el.classList.remove(CarouselConfig.classes.active)
+          if (useAttr) el.removeAttribute(CarouselConfig.attr.current)
         }
       })
     }
@@ -287,7 +283,7 @@ const CarouselEvents = (embla, carousel, buttonsHandler, slidesHandler, dotsHand
 
   const destroy = () => {
     eventListeners.forEach(({ element, event, handler }) => {
-      if (element === embla) return // Embla handles its own cleanup
+      if (element === embla) return
       element.removeEventListener(event, handler)
     })
     eventListeners.length = 0
@@ -323,8 +319,8 @@ const CarouselInstance = (carousel) => {
 
     embla = EmblaCarousel(viewport, CarouselConfig.options, plugins)
     buttonsHandler = CarouselButtonsRenderer(carousel)
-    slidesHandler = CarouselElementsRenderer(embla, carousel, CarouselConfig.selectors.slide)
-    dotsHandler = CarouselElementsRenderer(embla, carousel, CarouselConfig.selectors.dot, true)
+    slidesHandler = CarouselItemsRenderer(embla, carousel, CarouselConfig.selectors.slide)
+    dotsHandler = CarouselItemsRenderer(embla, carousel, CarouselConfig.selectors.dot, true)
     autoplay = timer > 0 ? CarouselAutoplay(embla, timer) : null
     processor = CarouselProcessor(embla, autoplay)
     eventManager = CarouselEvents(embla, carousel, buttonsHandler, slidesHandler, dotsHandler, autoplay, processor, pause)
