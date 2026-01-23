@@ -21,9 +21,8 @@
   }
 
   path {
-    stroke: var(--menu-opener-color);
-    stroke-width: 1;
-    transition: stroke $transition-duration $transition-function;
+    fill: var(--menu-opener-color);
+    transition: fill $transition-duration $transition-function;
   }
 
   &__opener {
