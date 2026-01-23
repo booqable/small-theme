@@ -123,6 +123,67 @@
     ]
   },
   {
+    "name": "Carousel",
+    "settings": [
+      {
+        "type": "paragraph",
+        "content": "Carousel automatically disables if there are 4 or fewer slides"
+      },
+      {
+        "type": "header",
+        "content": "Functionality"
+      },
+      {
+        "type": "select",
+        "id": "carousel_effect",
+        "label": "Animation effect",
+        "options": [
+          {
+            "value": "slide",
+            "label": "Slide"
+          },
+          {
+            "value": "fade",
+            "label": "Fade"
+          }
+        ],
+        "default": "slide"
+      },
+      {
+        "type": "number",
+        "id": "carousel_timer",
+        "label": "Rotation time (seconds)",
+        "min": 0,
+        "max": 100,
+        "default": 5,
+        "info": "In seconds. Set to 0 to disable auto rotation. If using background video, set to at least 10"
+      },
+      {
+        "type": "checkbox",
+        "id": "carousel_pause",
+        "label": "Pause on hover",
+        "default": true,
+        "info": "Pause autoplay when hovering over"
+      },
+      {
+        "type": "header",
+        "content": "Appearance"
+      },
+      {
+        "type": "checkbox",
+        "id": "show_carousel_navigation",
+        "label": "Show navigation arrows",
+        "default": true
+      },
+      {
+        "type": "checkbox",
+        "id": "show_carousel_pagination",
+        "label": "Show pagination dots",
+        "default": true
+      }
+    ]
+  },
+  {
     "name": "Color Schemes",
     "type": "color_scheme_group",
     "settings": [

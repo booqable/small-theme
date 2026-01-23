@@ -4,6 +4,9 @@
 // Import mixins
 @use '_helpers/mixins' as *;
 
+// Import components
+@use '_components/carousel' as *;
+
 .images {
   --images-item-indent: 20px;
   --images-list-margin: 60px;

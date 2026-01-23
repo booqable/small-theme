@@ -1,0 +1,191 @@
+// Import variables
+@use '../variables' as *;
+
+// Import mixins
+@use '../_helpers/mixins' as *;
+
+.carousel {
+  --carousel-buttons-indent: #{$horizontal-padding-sm};
+  --carousel-container-padding: 60px 0 var(--carousel-dots-indent, 0);
+  --carousel-dot-opacity: 0.3;
+  --carousel-dot-size: 16px;
+  --carousel-image-height: auto;
+  --carousel-image-shadow: none;
+  --carousel-image-transform: scale(1);
+  --carousel-image-transition: none;
+  --carousel-slide-height: auto;
+  --carousel-slide-margin: 0;
+  --carousel-slide-width: 100vw;
+
+  position: relative;
+  width: 100vw;
+  left: 50%;
+  right: 50%;
+  margin-left: -50vw;
+  margin-right: -50vw;
+
+  @include media-up(md) {
+    --carousel-container-padding: 80px 0 var(--carousel-dots-indent, 0);
+    --carousel-slide-height: auto;
+    --carousel-slide-width: none;
+  }
+
+  @include media-up(xl) {
+    --carousel-buttons-indent: #{$horizontal-padding-lg};
+  }
+
+  &[data-effect="slide"] {
+    @include media-up(md) {
+      --carousel-container-padding: 144px 0 calc(80px + var(--carousel-dots-indent, 0));
+      --carousel-image-height: 100%;
+      --carousel-image-shadow: 12px 10px 29px 0 #{$color-border};
+      --carousel-slide-height: 426px;
+      --carousel-slide-width: 27vw;
+      --carousel-slide-margin-left: 0;
+    }
+  }
+
+  &:has(&__dots) {
+    --carousel-dots-indent: 32px;
+  }
+
+  &__container {
+    overflow: clip;
+    width: 100%;
+    padding: var(--carousel-container-padding);
+  }
+
+  &__list {
+    @include flexbox;
+
+    backface-visibility: hidden;
+    touch-action: pan-y pinch-zoom;
+  }
+
+  &__slide {
+    flex: 0 0 auto;
+    max-width: var(--carousel-slide-width);
+    max-height: var(--carousel-slide-height);
+    margin: var(--carousel-slide-margin);
+
+    img {
+      height: var(--carousel-image-height);
+      transition: var(--carousel-image-transition);
+      transform: var(--carousel-image-transform);
+    }
+
+    .initialized & {
+      --carousel-image-transition: transform #{$transition-duration} #{$transition-function};
+    }
+
+    .carousel[data-effect="slide"] & {
+      @include media-up(md) {
+        --carousel-slide-margin: 0 16px;
+      }
+    }
+
+    &.active {
+      z-index: 1;
+
+      img {
+        box-shadow: var(--carousel-image-shadow);
+      }
+
+      .carousel[data-effect="slide"] & {
+        @include media-up(md) {
+          --carousel-image-transform: scale(1.3);
+          --carousel-slide-margin: 0 5.8vw;
+        }
+
+        @include media-up(lg) {
+          --carousel-slide-margin: 0 5.31vw;
+        }
+
+        @include media-up(xl) {
+          --carousel-slide-margin: 0 5.21vw;
+        }
+
+        @include media-up(xxl) {
+          --carousel-slide-margin: 0 4.9vw;
+        }
+      }
+    }
+  }
+
+  &__navigation {
+    @include flexbox(
+      $align: center,
+      $justify: space-between
+    );
+
+    position: absolute;
+    z-index: 1;
+    inset: 50% 0 auto;
+    transform: translateY(-50%);
+    padding: 0 var(--carousel-buttons-indent);
+  }
+
+  &__btn {
+    --button-arrow-animation: none;
+    --button-arrow-indent: 0;
+    --button-indent: 21px 22px;
+    --button-width: auto;
+  }
+
+  &__prev {
+    --button-arrow-indent: -1px 2px 0 0;
+    --button-arrow-transform: rotate(180deg);
+  }
+
+  &__next {
+    --button-arrow-indent: 0 0 0 2px;
+  }
+
+  &__dots {
+    @include flexbox(
+      $align: center,
+      $gap: 8px,
+      $justify: center
+    );
+
+    z-index: 1;
+  }
+
+  &__dot {
+    @include flexbox(
+      $align: center,
+      $justify: center
+    );
+
+    width: var(--carousel-dot-size);
+    height: var(--carousel-dot-size);
+    padding: 0;
+    border: none;
+    background: transparent;
+    cursor: pointer;
+    transition: all $transition-duration $transition-function;
+
+    &::after {
+      content: "";
+      width: calc(var(--carousel-dot-size) / 2);
+      height: calc(var(--carousel-dot-size) / 2);
+      border-radius: 50%;
+      pointer-events: none;
+      background: $color-primary;
+      opacity: var(--carousel-dot-opacity);
+      transition: all $transition-duration $transition-function;
+    }
+
+    &:hover {
+      &::after {
+        --carousel-dot-opacity: 1;
+      }
+    }
+
+    &.active {
+      &::after {
+        --carousel-dot-opacity: 1;
+      }
+    }
+  }
+}
