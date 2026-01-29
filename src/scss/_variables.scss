@@ -16,6 +16,7 @@ $background-primary-transparent: color-mix(in srgb, #{$background-primary} 0%, t
 $background-shadow: color-mix(in srgb, var(--color-primary) 55%, transparent);
 $color-accent: var(--color-accent);
 $color-border: color-mix(in srgb, var(--color-primary) 15%, transparent);
+$color-gold: #eba928;
 $color-outline: var(--color-outline);
 $color-placeholder: color-mix(in srgb, var(--color-primary) 50%, transparent);
 $color-primary: var(--color-primary, #000);

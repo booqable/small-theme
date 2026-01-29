@@ -1,0 +1,107 @@
+// Import variables
+@use 'variables' as *;
+
+// Import mixins
+@use '_helpers/mixins' as *;
+
+.testimonials {
+  &__wrapper {
+    --section-padding-bottom: var(--padding-bottom-mobile, 20px);
+    --section-padding-top: var(--padding-top-mobile, 20px);
+    --testimonials-content-text-justify: var(--testimonials-content-text-alignment, left);
+    --testimonials-block-indent: 20px;
+    --testimonials-item-indent: 16px;
+    --testimonials-item-width: 280px;
+    --testimonials-list-gap: 16px;
+
+    position: relative;
+    color: $color-primary;
+    background: $background-primary;
+    text-align: var(--testimonials-content-text-justify);
+
+    @include media-up(md) {
+      --section-padding-bottom: var(--padding-bottom-desktop, 40px);
+      --section-padding-top: var(--padding-top-desktop, 40px);
+      --testimonials-item-indent: 30px;
+      --testimonials-item-width: 350px;
+      --testimonials-list-gap: 32px;
+    }
+
+    &--padding-top {
+      &:not(:empty) {
+        padding-top: var(--section-padding-top);
+      }
+    }
+
+    &--padding-bottom {
+      &:not(:empty) {
+        padding-bottom: var(--section-padding-bottom);
+      }
+    }
+  }
+
+  &__heading {
+    margin: var(--testimonials-block-indent) 0 0;
+
+    &:first-child {
+      --testimonials-block-indent: 0;
+    }
+  }
+
+  &__tagline {
+    margin: var(--testimonials-block-indent) 0 0;
+
+    &:first-child {
+      --testimonials-block-indent: 0;
+    }
+  }
+
+  &__description {
+    &:not(:first-child) {
+      margin-top: var(--testimonials-block-indent);
+    }
+
+    * {
+      &:last-child {
+        margin-bottom: 0;
+        padding-bottom: 0;
+      }
+    }
+  }
+
+  &__list {
+    @include grid(
+      $align: stretch,
+      $columns: repeat(auto-fit, minmax(var(--testimonials-item-width), 1fr)),
+      $gap: var(--testimonials-list-gap)
+    );
+
+    padding: 80px 0 0;
+    max-width: 1360px;
+    margin: 0 auto;
+  }
+
+  &__item {
+    text-align: left;
+    border: 1px solid $color-border;
+    border-radius: $border-radius-block;
+    padding: var(--testimonials-item-indent);
+  }
+
+  &__blockquote {
+    padding: 28px 0 0;
+  }
+
+  &__cite {
+    @include flexbox(
+      $direction: column,
+      $justify: flex-start
+    );
+
+    padding: 36px 0 0;
+  }
+
+  &__position {
+    padding-top: 4px;
+  }
+}
