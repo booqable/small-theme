@@ -1,6 +1,4 @@
 {%- if section.blocks.size > 0 -%}
-  {%- assign carousel_pause           = settings.carousel_pause -%}
-  {%- assign carousel_timer           = settings.carousel_timer | times: 1000 -%}
   {%- assign color_scheme             = section.settings.color_scheme -%}
   {%- assign content_horizontal       = section.settings.content_horizontal -%}
   {%- assign padding_bottom_desktop   = section.settings.padding_bottom_desktop -%}
@@ -8,16 +6,8 @@
   {%- assign padding_top_desktop      = section.settings.padding_top_desktop -%}
   {%- assign padding_top_mobile       = section.settings.padding_top_mobile -%}
   {%- assign show_carousel            = false -%}
-  {%- assign show_carousel_navigation = settings.show_carousel_navigation -%}
-  {%- assign show_carousel_pagination = settings.show_carousel_pagination -%}
   {%- assign testimonials_group       = false -%}
   {%- assign testimonials_layout      = section.settings.testimonials_layout -%}
-
-  {%- if show_carousel_navigation -%}
-    {%- capture carousel_buttons -%}
-      {%- render 'carousel-navigation' -%}
-    {%- endcapture -%}
-  {%- endif -%}
 
   {% comment %} CSS variables start {% endcomment %}
   {%- capture variables -%}
@@ -55,13 +45,6 @@
       {%- when 'right' -%}
         --testimonials-content-text-alignment: right;
     {%- endcase -%}
-
-    {%- case testimonials_layout -%}
-      {%- when 'carousel' -%}
-        --testimonials-layout-type: carousel;
-      {%- when 'grid' -%}
-        --testimonials-layout-type: grid;
-    {%- endcase -%}
   {%- endcapture -%}
   {% comment %} CSS variables end {% endcomment %}
 
@@ -76,13 +59,6 @@
           {%- case block.type -%}
             {%- when 'description' -%}
               {%- if testimonials_group -%}
-                {%- if show_carousel -%}
-                    </div>
-                  </div>
-                  {{- carousel_dots -}}
-                  {{- carousel_buttons -}}
-                {%- endif -%}
-
                 </div>
 
                 {%- assign testimonials_group = false -%}
@@ -98,13 +74,6 @@
 
             {%- when 'heading' -%}
               {%- if testimonials_group -%}
-                {%- if show_carousel -%}
-                    </div>
-                  </div>
-                  {{- carousel_dots -}}
-                  {{- carousel_buttons -}}
-                {%- endif -%}
-
                 </div>
 
                 {%- assign testimonials_group = false -%}
@@ -125,46 +94,13 @@
               {%- assign stars      = block.settings.stars -%}
 
               {%- unless testimonials_group -%}
-                {%- assign testimonials_in_group = 0 -%}
-                {%- assign offset                = forloop.index0 -%}
-
-                {%- for next_block in section.blocks offset: offset -%}
-                  {%- if next_block.type == 'testimonial' -%}
-                    {%- assign testimonials_in_group = testimonials_in_group | plus: 1 -%}
-                  {%- else -%}
-                    {%- break -%}
-                  {%- endif -%}
-                {%- endfor -%}
-
-                {%- if testimonials_layout == 'carousel' -%}
-                  {%- assign show_carousel = true -%}
-                {%- endif -%}
-
-                {%- if show_carousel and show_carousel_pagination -%}
-                  {%- capture carousel_dots -%}
-                    {%- render 'carousel-dots',
-                        amount: testimonials_in_group
-                    -%}
-                  {%- endcapture -%}
-                {%- endif -%}
-
-                <div
-                  class="{%- if show_carousel -%}testimonials__carousel carousel{%- else -%}testimonials__list{%- endif -%}"
-                  {% if show_carousel %}
-                    data-timer="{{- carousel_timer -}}"
-                    data-pause="{{- carousel_pause -}}"
-                    aria-label="Testimonials carousel"
-                  {%- endif -%}>
-                {%- if show_carousel -%}
-                  <div class="carousel__container">
-                    <div class="carousel__list">
-                {%- endif -%}
+                <div class="testimonials__list">
 
                 {%- assign testimonials_group = true -%}
               {%- endunless -%}
 
                 {%- if blockquote != blank -%}
-                  <div class="{%- if show_carousel -%}carousel__slide{%- else -%}testimonials__item{%- endif -%}" id="{{- block_id -}}">
+                  <div class="testimonials__item" id="{{- block_id -}}">
                     {%- if stars -%}
                       {%- assign stars_full  = stars -%}
                       {%- assign stars_empty = stars | plus: 1 -%}
@@ -206,13 +142,6 @@
 
             {%- when 'tagline' -%}
               {%- if testimonials_group -%}
-                {%- if show_carousel -%}
-                    </div>
-                  </div>
-                  {{- carousel_dots -}}
-                  {{- carousel_buttons -}}
-                {%- endif -%}
-
                 </div>
 
                 {%- assign testimonials_group = false -%}
@@ -230,13 +159,6 @@
         {%- endfor -%}
 
         {%- if testimonials_group -%}
-          {%- if show_carousel -%}
-              </div>
-            </div>
-            {{- carousel_dots -}}
-            {{- carousel_buttons -}}
-          {%- endif -%}
-
           </div>
         {%- endif -%}
       </div>
