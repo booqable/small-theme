@@ -1,0 +1,331 @@
+{%- if section.blocks.size > 0 -%}
+  {%- assign color_scheme           = section.settings.color_scheme -%}
+  {%- assign content_horizontal     = section.settings.content_horizontal -%}
+  {%- assign image_placeholder      = settings.image_placeholder -%}
+  {%- assign loading_strategy       = 'lazy' -%}
+  {%- assign logos_group            = false -%}
+  {%- assign logos_layout           = section.settings.logos_layout -%}
+  {%- assign narrowed               = false -%}
+  {%- assign padding_bottom_desktop = section.settings.padding_bottom_desktop -%}
+  {%- assign padding_bottom_mobile  = section.settings.padding_bottom_mobile -%}
+  {%- assign padding_top_desktop    = section.settings.padding_top_desktop -%}
+  {%- assign padding_top_mobile     = section.settings.padding_top_mobile -%}
+
+  {%- if section_preview -%}
+    {%- assign loading_strategy    = 'eager' -%}
+  {%- endif -%}
+
+  {%- if logos_layout == 'narrow' -%}
+    {%- assign narrowed = true -%}
+  {%- endif -%}
+
+  {% comment %} CSS variables start {% endcomment %}
+  {%- capture variables -%}
+    {%- case padding_bottom_desktop -%}
+      {%- when 'md' -%}
+        --padding-bottom-desktop: 60px;
+      {%- when 'lg' -%}
+        --padding-bottom-desktop: 80px;
+    {%- endcase -%}
+
+    {%- case padding_bottom_mobile -%}
+      {%- when 'md' -%}
+        --padding-bottom-mobile: 32px;
+      {%- when 'lg' -%}
+        --padding-bottom-mobile: 50px;
+    {%- endcase -%}
+
+    {%- case padding_top_desktop -%}
+      {%- when 'md' -%}
+        --padding-top-desktop: 60px;
+      {%- when 'lg' -%}
+        --padding-top-desktop: 80px;
+    {%- endcase -%}
+
+    {%- case padding_top_mobile -%}
+      {%- when 'md' -%}
+        --padding-top-mobile: 32px;
+      {%- when 'lg' -%}
+        --padding-top-mobile: 50px;
+    {%- endcase -%}
+
+    {%- case content_horizontal -%}
+      {%- when 'center' -%}
+        --logos-content-text-alignment: center;
+      {%- when 'right' -%}
+        --logos-content-text-alignment: right;
+    {%- endcase -%}
+  {%- endcapture -%}
+  {% comment %} CSS variables end {% endcomment %}
+
+  {%- if narrowed -%}
+    <div class="logos__container container">
+  {%- endif -%}
+    <div class="logos__wrapper logos__wrapper--padding-top logos__wrapper--padding-bottom color-{{- color_scheme.id -}}"
+      style="{{- variables | escape -}}"
+    >
+      {%- unless narrowed -%}
+        <div class="logos__container container">
+      {%- endunless -%}
+        {%- for block in section.blocks -%}
+          {%- assign block_id = block.id -%}
+
+          {%- case block.type -%}
+            {%- when 'heading' -%}
+              {%- if logos_group -%}
+                </div>
+
+                {%- assign logos_group = false -%}
+              {%- endif -%}
+
+              {%- assign heading = block.settings.heading -%}
+
+              {%- if heading != blank -%}
+                <h2 class="logos__heading" id="{{- block_id -}}">
+                  {{- heading -}}
+                </h2>
+              {%- endif -%}
+
+            {%- when 'logo' -%}
+              {%- assign image     = block.settings.image -%}
+              {%- assign image_alt = block.settings.alt -%}
+
+              {%- if image.url != blank -%}
+                {%- assign image = image -%}
+              {%- elsif image_placeholder != blank -%}
+                {%- assign image = image_placeholder -%}
+              {%- else -%}
+                {%- assign image = blank -%}
+              {%- endif -%}
+
+              {%- if image.url != blank -%}
+                {%- unless logos_group -%}
+                  <div class="logos__columns">
+
+                  {%- assign logos_group = true -%}
+                {%- endunless -%}
+
+                <div class="logos__col" id="{{- block_id -}}">
+                  {%- render 'image',
+                    image: image,
+                    image_alt: image_alt,
+                    image_class: 'logos__image',
+                    custom_width: '450',
+                    custom_size: '450px',
+                    loading: loading_strategy
+                  -%}
+                </div>
+              {%- endif -%}
+
+          {%- endcase -%}
+        {%- endfor -%}
+
+        {%- if logos_group -%}
+          </div>
+        {%- endif -%}
+
+      {%- unless narrowed -%}
+        </div>
+      {%- endunless -%}
+    </div>
+  {%- if narrowed -%}
+    </div>
+  {%- endif -%}
+{%- endif -%}
+
+
+{% schema %}
+  {
+    "name": "Logos",
+    "tag": "section",
+    "class": "logos",
+    "css_assets": [
+      {
+        "file": "logos.css"
+      }
+    ],
+    "blocks": [
+      {
+        "type": "heading",
+        "name": "Heading",
+        "limit": 1,
+        "settings": [
+          {
+            "type": "header",
+            "content": "General settings"
+          },
+          {
+            "type": "text",
+            "id": "heading",
+            "label": "Heading",
+            "default": "Our partners"
+          }
+        ]
+      },
+      {
+        "type": "logo",
+        "name": "Logo",
+        "limit": 16,
+        "settings":[
+          {
+            "type": "header",
+            "content": "General settings"
+          },
+          {
+            "type": "paragraph",
+            "content": "Use WebP, PNG, JPG high-quality image (800px or larger) for best results on all screen sizes"
+          },
+          {
+            "type": "image_picker",
+            "id": "image",
+            "label": "Image",
+            "default": "booqable://assets/image-placeholder.png"
+          },
+          {
+            "type": "text",
+            "id": "image_alt",
+            "label": "Alternative text (optional)",
+            "default": "Image description",
+            "info": "For SEO and Accessibility purposes"
+          }
+        ]
+      }
+    ],
+    "settings": [
+      {
+        "type": "header",
+        "content": "General settings"
+      },
+      {
+        "type": "color_scheme",
+        "id": "color_scheme",
+        "label": "Color scheme",
+        "default": "set-1"
+      },
+      {
+        "type": "select",
+        "id": "logos_layout",
+        "label": "Layout",
+        "options": [
+          {
+            "value": "wide",
+            "label": "Wide"
+          },
+          {
+            "value": "narrow",
+            "label": "Narrow"
+          }
+        ],
+        "default": "wide"
+      },
+      {
+        "type": "select",
+        "id": "content_horizontal",
+        "label": "Horizontal positioning",
+        "options": [
+          {
+            "value": "left",
+            "label": "Left"
+          },
+          {
+            "value": "center",
+            "label": "Center"
+          },
+          {
+            "value": "right",
+            "label": "Right"
+          }
+        ],
+        "default": "left"
+      },
+      {
+        "type": "header",
+        "content": "Desktop settings"
+      },
+      {
+        "type": "select",
+        "id": "padding_top_desktop",
+        "label": "Padding top",
+        "options": [
+          {
+            "value": "sm",
+            "label": "Small"
+          },
+          {
+            "value": "md",
+            "label": "Medium"
+          },
+          {
+            "value": "lg",
+            "label": "Large"
+          }
+        ],
+        "default": "lg"
+      },
+      {
+        "type": "select",
+        "id": "padding_bottom_desktop",
+        "label": "Padding bottom",
+        "options": [
+          {
+            "value": "sm",
+            "label": "Small"
+          },
+          {
+            "value": "md",
+            "label": "Medium"
+          },
+          {
+            "value": "lg",
+            "label": "Large"
+          }
+        ],
+        "default": "lg"
+      },
+      {
+        "type": "header",
+        "content": "Mobile settings"
+      },
+      {
+        "type": "select",
+        "id": "padding_top_mobile",
+        "label": "Padding top",
+        "options": [
+          {
+            "value": "sm",
+            "label": "Small"
+          },
+          {
+            "value": "md",
+            "label": "Medium"
+          },
+          {
+            "value": "lg",
+            "label": "Large"
+          }
+        ],
+        "default": "md"
+      },
+      {
+        "type": "select",
+        "id": "padding_bottom_mobile",
+        "label": "Padding bottom",
+        "options": [
+          {
+            "value": "sm",
+            "label": "Small"
+          },
+          {
+            "value": "md",
+            "label": "Medium"
+          },
+          {
+            "value": "lg",
+            "label": "Large"
+          }
+        ],
+        "default": "md"
+      }
+    ]
+  }
+{% endschema %}

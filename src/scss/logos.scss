@@ -1,0 +1,103 @@
+// Import variables
+@use 'variables' as *;
+
+// Import mixins
+@use '_helpers/mixins' as *;
+
+.logos {
+  --logos-border-radius: 0;
+  --logos-columns-gap: 16px;
+  --logos-columns-padding-x: 0;
+  --logos-margin-top: 32px;
+  --logos-wrapper-indent: 0;
+
+  @include media-up(md) {
+    --logos-columns-gap: 32px;
+  }
+
+  &__wrapper {
+    --logos-content-text-justify: var(--logos-content-text-alignment, left);
+    --section-padding-bottom: var(--padding-bottom-mobile, 16px);
+    --section-padding-top: var(--padding-top-mobile, 16px);
+
+    position: relative;
+    color: $color-primary;
+    background: $background-primary;
+    border-radius: var(--logos-border-radius);
+    text-align: var(--logos-content-text-justify);
+    padding: 0 var(--logos-wrapper-indent);
+
+    @include media-up(md) {
+      --section-padding-bottom: var(--padding-bottom-desktop, 40px);
+      --section-padding-top: var(--padding-top-desktop, 40px);
+    }
+
+    &--padding-top {
+      &:not(:empty) {
+        padding-top: var(--section-padding-top);
+      }
+    }
+
+    &--padding-bottom {
+      &:not(:empty) {
+        padding-bottom: var(--section-padding-bottom);
+      }
+    }
+
+    .logos__container & {
+      --logos-border-radius: #{$border-radius-block};
+      --logos-wrapper-indent: 16px;
+
+      @include media-up(md) {
+        --logos-wrapper-indent: 32px;
+      }
+
+      @include media-up(xl) {
+        --logos-columns-padding-x: 30px;
+      }
+    }
+  }
+
+  &__heading {
+    margin: var(--logos-margin-top) 0 0;
+
+    &:first-child {
+      --logos-margin-top: 0;
+    }
+  }
+
+  &__columns {
+    @include flexbox(
+      $wrap: wrap,
+      $justify: center,
+      $align: center,
+      $gap: var(--logos-columns-gap)
+    );
+
+    padding: 0 var(--logos-columns-padding-x);
+
+    &:not(:first-child) {
+      margin-top: var(--logos-margin-top);
+    }
+  }
+
+  &__col {
+    @include flexbox(
+      $justify: center
+    );
+
+    max-width: 240px;
+    min-width: 220px;
+    width: 100%;
+  }
+
+  &__image {
+    max-height: 64px;
+    width: auto;
+
+    &-holder {
+      border-radius: $border-radius-block;
+      overflow: clip;
+    }
+  }
+}
