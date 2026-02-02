@@ -121,11 +121,25 @@ cite {
 
 q {
   font-size: $font-size-base;
-  font-weight: $font-weight-semibold;
+  font-weight: $font-weight-regular;
+
+  p {
+    display: inline-block;
+    vertical-align: top;
+
+    &:last-child {
+      margin-bottom: 0;
+    }
+  }
 }
 
 cite {
-  font-size: $font-size-base;
+  font-size: calc($font-size-base - 2px);
+  font-weight: $font-weight-bold;
+
+  span {
+    font-weight: $font-weight-regular;
+  }
 }
 
 pre {
@@ -159,4 +173,8 @@ hr {
 [class*='fa-'] {
   color: currentcolor;
   transition: all $transition-duration $transition-function;
+}
+
+.fa-star {
+  color: $color-gold;
 }

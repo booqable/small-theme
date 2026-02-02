@@ -1,0 +1,403 @@
+{%- if section.blocks.size > 0 -%}
+  {%- assign color_scheme             = section.settings.color_scheme -%}
+  {%- assign content_horizontal       = section.settings.content_horizontal -%}
+  {%- assign padding_bottom_desktop   = section.settings.padding_bottom_desktop -%}
+  {%- assign padding_bottom_mobile    = section.settings.padding_bottom_mobile -%}
+  {%- assign padding_top_desktop      = section.settings.padding_top_desktop -%}
+  {%- assign padding_top_mobile       = section.settings.padding_top_mobile -%}
+  {%- assign testimonials_group       = false -%}
+  {%- assign testimonials_layout      = section.settings.testimonials_layout -%}
+
+  {% comment %} CSS variables start {% endcomment %}
+  {%- capture variables -%}
+    {%- case padding_bottom_desktop -%}
+      {%- when 'md' -%}
+        --padding-bottom-desktop: 60px;
+      {%- when 'lg' -%}
+        --padding-bottom-desktop: 80px;
+    {%- endcase -%}
+
+    {%- case padding_bottom_mobile -%}
+      {%- when 'md' -%}
+        --padding-bottom-mobile: 32px;
+      {%- when 'lg' -%}
+        --padding-bottom-mobile: 50px;
+    {%- endcase -%}
+
+    {%- case padding_top_desktop -%}
+      {%- when 'md' -%}
+        --padding-top-desktop: 60px;
+      {%- when 'lg' -%}
+        --padding-top-desktop: 80px;
+    {%- endcase -%}
+
+    {%- case padding_top_mobile -%}
+      {%- when 'md' -%}
+        --padding-top-mobile: 32px;
+      {%- when 'lg' -%}
+        --padding-top-mobile: 50px;
+    {%- endcase -%}
+
+    {%- case content_horizontal -%}
+      {%- when 'center' -%}
+        --testimonials-content-text-alignment: center;
+      {%- when 'right' -%}
+        --testimonials-content-text-alignment: right;
+    {%- endcase -%}
+  {%- endcapture -%}
+  {% comment %} CSS variables end {% endcomment %}
+
+  <div class="testimonials__wrapper testimonials__wrapper--padding-top testimonials__wrapper--padding-bottom color-{{- color_scheme.id -}}"
+    style="{{- variables | escape -}}"
+  >
+    <div class="testimonials__container container">
+      <div class="testimonials__content">
+        {%- for block in section.blocks -%}
+          {%- assign block_id = block.id -%}
+
+          {%- case block.type -%}
+            {%- when 'description' -%}
+              {%- if testimonials_group -%}
+                </div>
+
+                {%- assign testimonials_group = false -%}
+              {%- endif -%}
+
+              {%- assign description = block.settings.description -%}
+
+              {%- if description != blank -%}
+                <div class="testimonials__description" id="{{- block_id -}}">
+                  {{- description -}}
+                </div>
+              {%- endif -%}
+
+            {%- when 'heading' -%}
+              {%- if testimonials_group -%}
+                </div>
+
+                {%- assign testimonials_group = false -%}
+              {%- endif -%}
+
+              {%- assign heading = block.settings.heading -%}
+
+              {%- if heading != blank -%}
+                <h2 class="testimonials__heading" id="{{- block_id -}}">
+                  {{- heading -}}
+                </h2>
+              {%- endif -%}
+
+            {%- when 'testimonial' -%}
+              {%- assign blockquote = block.settings.blockquote -%}
+              {%- assign name       = block.settings.name -%}
+              {%- assign position   = block.settings.position -%}
+              {%- assign stars      = block.settings.stars -%}
+
+              {%- unless testimonials_group -%}
+                <div class="testimonials__list">
+
+                {%- assign testimonials_group = true -%}
+              {%- endunless -%}
+
+                {%- if blockquote != blank -%}
+                  <div class="testimonials__item" id="{{- block_id -}}">
+                    {%- if stars -%}
+                      {%- assign stars_full  = stars -%}
+                      {%- assign stars_empty = stars | plus: 1 -%}
+
+                      <div class="testimonials__stars">
+                        {%- for i in (1..stars_full) -%}
+                          <span class="testimonials__star">
+                            <i class="fa-solid fa-star" aria-hidden="true"></i>
+                          </span>
+                        {%- endfor -%}
+                        {%- for i in (stars_empty..5) -%}
+                          <span class="testimonials__star">
+                            <i class="fa-regular fa-star" aria-hidden="true"></i>
+                          </span>
+                        {%- endfor -%}
+                      </div>
+                    {%- endif -%}
+
+                    <blockquote class="testimonials__blockquote bq-content rx-content">
+                      <q class="testimonials__quote">
+                        {{- blockquote -}}
+                      </q>
+
+                      {%- if name != blank or position != blank -%}
+                        <cite class="testimonials__cite">
+                          {%- if name != blank -%}
+                            {{- name -}}
+                          {%- endif -%}
+                          {%- if position != blank -%}
+                            <span class="testimonials__position">
+                              {{- position -}}
+                            </span>
+                          {%- endif -%}
+                        </cite>
+                      {%- endif -%}
+                    </blockquote>
+                  </div>
+                {%- endif -%}
+
+            {%- when 'tagline' -%}
+              {%- if testimonials_group -%}
+                </div>
+
+                {%- assign testimonials_group = false -%}
+              {%- endif -%}
+
+              {%- assign tagline = block.settings.tagline -%}
+
+              {%- if tagline != blank -%}
+                <p class="testimonials__tagline tagline" id="{{- block_id -}}">
+                  {{- tagline -}}
+                </p>
+              {%- endif -%}
+
+          {%- endcase -%}
+        {%- endfor -%}
+
+        {%- if testimonials_group -%}
+          </div>
+        {%- endif -%}
+      </div>
+    </div>
+  </div>
+{%- endif -%}
+
+{% schema %}
+  {
+    "name": "Testimonials",
+    "tag": "section",
+    "class": "testimonials",
+    "css_assets": [
+      {
+        "file": "testimonials.css"
+      }
+    ],
+    "blocks": [
+      {
+        "type": "description",
+        "name": "Description",
+        "limit": 1,
+        "settings": [
+          {
+            "type": "header",
+            "content": "General settings"
+          },
+          {
+            "type": "contentEditor",
+            "id": "description",
+            "label": "Text",
+            "default": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse varius enim in eros elementum tristique."
+          }
+        ]
+      },
+      {
+        "type": "heading",
+        "name": "Heading",
+        "limit": 1,
+        "settings": [
+          {
+            "type": "header",
+            "content": "General settings"
+          },
+          {
+            "type": "text",
+            "id": "heading",
+            "label": "Heading",
+            "default": "What our customers say"
+          }
+        ]
+      },
+      {
+        "type": "testimonial",
+        "name": "Testimonial",
+        "limit": 6,
+        "settings": [
+          {
+            "type": "contentEditor",
+            "id": "blockquote",
+            "label": "Description",
+            "default": "Description"
+          },
+          {
+            "type": "text",
+            "id": "name",
+            "label": "Name",
+            "default": "Customer name"
+          },
+          {
+            "type": "text",
+            "id": "position",
+            "label": "Position",
+            "default": "Company, City"
+          },
+          {
+            "type": "range",
+            "id": "stars",
+            "label": "Stars",
+            "min": 1,
+            "max": 5,
+            "step": 1,
+            "unit": "",
+            "default": 5
+          }
+        ]
+      },
+      {
+        "type": "tagline",
+        "name": "Tagline",
+        "limit": 1,
+        "settings": [
+          {
+            "type": "header",
+            "content": "General settings"
+          },
+          {
+            "type": "text",
+            "id": "tagline",
+            "label": "Text",
+            "default": "Tagline"
+          }
+        ]
+      }
+    ],
+    "settings": [
+      {
+        "type": "header",
+        "content": "General settings"
+      },
+      {
+        "type": "color_scheme",
+        "id": "color_scheme",
+        "label": "Color scheme",
+        "default": "set-1"
+      },
+      {
+        "type": "select",
+        "id": "content_horizontal",
+        "label": "Horizontal positioning",
+        "options": [
+          {
+            "value": "left",
+            "label": "Left"
+          },
+          {
+            "value": "center",
+            "label": "Center"
+          },
+          {
+            "value": "right",
+            "label": "Right"
+          }
+        ],
+        "default": "left"
+      },
+      {
+        "type": "select",
+        "id": "testimonials_layout",
+        "label": "Layout",
+        "options": [
+          {
+            "value": "grid",
+            "label": "Grid"
+          },
+          {
+            "value": "carousel",
+            "label": "Carousel"
+          }
+        ],
+        "default": "grid"
+      },
+      {
+        "type": "header",
+        "content": "Desktop settings"
+      },
+      {
+        "type": "select",
+        "id": "padding_top_desktop",
+        "label": "Padding top",
+        "options": [
+          {
+            "value": "sm",
+            "label": "Small"
+          },
+          {
+            "value": "md",
+            "label": "Medium"
+          },
+          {
+            "value": "lg",
+            "label": "Large"
+          }
+        ],
+        "default": "lg"
+      },
+      {
+        "type": "select",
+        "id": "padding_bottom_desktop",
+        "label": "Padding bottom",
+        "options": [
+          {
+            "value": "sm",
+            "label": "Small"
+          },
+          {
+            "value": "md",
+            "label": "Medium"
+          },
+          {
+            "value": "lg",
+            "label": "Large"
+          }
+        ],
+        "default": "lg"
+      },
+      {
+        "type": "header",
+        "content": "Mobile settings"
+      },
+      {
+        "type": "select",
+        "id": "padding_top_mobile",
+        "label": "Padding top",
+        "options": [
+          {
+            "value": "sm",
+            "label": "Small"
+          },
+          {
+            "value": "md",
+            "label": "Medium"
+          },
+          {
+            "value": "lg",
+            "label": "Large"
+          }
+        ],
+        "default": "md"
+      },
+      {
+        "type": "select",
+        "id": "padding_bottom_mobile",
+        "label": "Padding bottom",
+        "options": [
+          {
+            "value": "sm",
+            "label": "Small"
+          },
+          {
+            "value": "md",
+            "label": "Medium"
+          },
+          {
+            "value": "lg",
+            "label": "Large"
+          }
+        ],
+        "default": "md"
+      }
+    ]
+  }
+{% endschema %}

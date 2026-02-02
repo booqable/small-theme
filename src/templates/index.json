@@ -506,6 +506,102 @@
         "steps_layout_blocks": "simple"
       },
       "disabled": null
+    },
+    "testimonials": {
+      "type": "testimonials",
+      "blocks": {
+        "description": {
+          "type": "description",
+          "settings": {
+            "description": "<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>"
+          },
+          "disabled": null
+        },
+        "heading": {
+          "type": "heading",
+          "settings": {
+            "heading": "What our customers say"
+          },
+          "disabled": null
+        },
+        "tagline": {
+          "type": "tagline",
+          "settings": {
+            "tagline": "Reviews"
+          },
+          "disabled": null
+        },
+        "testimonial": {
+          "type": "testimonial",
+          "settings": {
+            "blockquote": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse varius enim in eros elementum tristique. Duis cursus, mi quis viverra ornare.",
+            "position": "Position, Company name",
+            "name": "Name Surname",
+            "stars": 5
+          },
+          "disabled": null
+        },
+        "testimonial_987654": {
+          "type": "testimonial",
+          "settings": {
+            "blockquote": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse varius enim in eros elementum tristique. Duis cursus, mi quis viverra ornare.",
+            "position": "Position, Company name",
+            "name": "Name Surname",
+            "stars": 5
+          },
+          "disabled": null
+        },
+        "testimonial_123456": {
+          "type": "testimonial",
+          "settings": {
+            "blockquote": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse varius enim in eros elementum tristique. Duis cursus, mi quis viverra ornare.",
+            "position": "Position, Company name",
+            "name": "Name Surname",
+            "stars": 5
+          },
+          "disabled": null
+        },
+        "testimonial_625433": {
+          "type": "testimonial",
+          "settings": {
+            "blockquote": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse varius enim in eros elementum tristique. Duis cursus, mi quis viverra ornare.",
+            "position": "Position, Company name",
+            "name": "Name Surname",
+            "stars": 5
+          },
+          "disabled": null
+        },
+        "testimonial_625431": {
+          "type": "testimonial",
+          "settings": {
+            "blockquote": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse varius enim in eros elementum tristique. Duis cursus, mi quis viverra ornare.",
+            "position": "Position, Company name",
+            "name": "Name Surname",
+            "stars": 5
+          },
+          "disabled": null
+        }
+      },
+      "block_order": [
+        "tagline",
+        "heading",
+        "description",
+        "testimonial",
+        "testimonial_987654",
+        "testimonial_123456",
+        "testimonial_625433",
+        "testimonial_625431"
+      ],
+      "settings": {
+        "color_scheme": "set-1",
+        "content_horizontal": "center",
+        "padding_bottom_desktop": "lg",
+        "padding_bottom_mobile": "md",
+        "padding_top_desktop": "lg",
+        "padding_top_mobile": "md",
+        "testimonials_layout": "carousel"
+      },
+      "disabled": null
     }
   },
   "order": [
@@ -514,6 +610,7 @@
     "about",
     "products",
     "images",
-    "accordion"
+    "accordion",
+    "testimonials"
   ]
 }
