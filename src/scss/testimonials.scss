@@ -104,4 +104,14 @@
   &__position {
     padding-top: 4px;
   }
+
+  &__carousel {
+    --carousel-slide-margin: 0 8px;
+    --carousel-slide-width: 342px;
+
+    @include media-up(md) {
+      --carousel-slide-margin: 0 16px;
+      --carousel-slide-width: 432px;
+    }
+  }
 }

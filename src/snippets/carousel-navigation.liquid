@@ -1,0 +1,16 @@
+{%- comment -%}
+  This snippet renders a carousel navigation component.
+
+  Usage:
+
+  {%- render 'carousel-navigation'-%}
+{%- endcomment -%}
+
+<div class="carousel__navigation" aria-label="Carousel navigation">
+  <button class="carousel__btn carousel__prev btn btn--primary" aria-label="Previous slide">
+    {%- render 'icon-arrow' -%}
+  </button>
+  <button class="carousel__btn carousel__next btn btn--primary" aria-label="Next slide">
+    {%- render 'icon-arrow' -%}
+  </button>
+</div>

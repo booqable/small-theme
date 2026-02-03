@@ -1,0 +1,206 @@
+// Import variables
+@use 'variables' as *;
+
+// Import mixins
+@use '_helpers/mixins' as *;
+
+.carousel {
+  --carousel-buttons-indent: #{$horizontal-padding-sm};
+  --carousel-container-padding: 60px 0 var(--carousel-navigation-indent, 0);
+  --carousel-dot-opacity: 0.3;
+  --carousel-dot-size: 16px;
+  --carousel-dots-display: inline-flex;
+  --carousel-image-shadow: none;
+  --carousel-image-transform: scale(1);
+  --carousel-image-transition: none;
+  --carousel-navigation-display: inline-flex;
+  --carousel-navigation-left: 0;
+  --carousel-navigation-max-width: none;
+  --carousel-navigation-padding-y: 0;
+  --carousel-navigation-position: static;
+  --carousel-navigation-transform: none;
+  --carousel-slide-margin: 0;
+  --carousel-slide-padding: 0;
+
+  position: relative;
+  width: 100vw;
+  left: 50%;
+  transform: translate(-50%);
+  align-self: flex-start;
+
+  @include media-up(md) {
+    --carousel-container-padding: 80px 0 var(--carousel-navigation-indent, 0);
+    --carousel-image-shadow: 12px 10px 29px 0 #{$color-border};
+    --carousel-slide-margin: 0 16px;
+    --carousel-slide-padding: 30px 0;
+  }
+
+  @include media-up(xl) {
+    --carousel-buttons-indent: #{$horizontal-padding-lg};
+  }
+
+  @include media-up(xxl) {
+    --carousel-dots-display: flex;
+    --carousel-navigation-display: flex;
+    --carousel-navigation-left: 50%;
+    --carousel-navigation-max-width: calc(#{$max-width} / 2);
+    --carousel-navigation-position: relative;
+  }
+
+  @include media-down(xxl) {
+    @include flexbox(
+      $justify: space-between,
+      $wrap: wrap
+    );
+  }
+
+  @include media-down(xxs) {
+    --carousel-navigation-padding-y: 16px;
+  }
+
+  &:has(&__navigation) {
+    --carousel-navigation-indent: 32px;
+  }
+
+  &:has(&__dots) {
+    --carousel-navigation-indent: 32px;
+  }
+
+  &__container {
+    overflow: clip;
+    width: 100%;
+    padding: var(--carousel-container-padding);
+  }
+
+  &__list {
+    @include flexbox;
+
+    backface-visibility: hidden;
+    touch-action: pan-y pinch-zoom;
+  }
+
+  &__slide {
+    flex: 0 0 var(--carousel-slide-width);
+    max-width: var(--carousel-slide-width);
+    margin: var(--carousel-slide-margin);
+
+    img {
+      transition: var(--carousel-image-transition);
+      transform: var(--carousel-image-transform);
+    }
+
+    .initialized & {
+      --carousel-image-transition: transform #{$transition-duration} #{$transition-function};
+    }
+
+    &.active {
+      z-index: 1;
+
+      @include media-up(md) {
+        --carousel-image-transform: scale(1.2);
+        --carousel-slide-padding: 0;
+      }
+
+      img {
+        box-shadow: var(--carousel-image-shadow);
+      }
+    }
+  }
+
+  &__navigation {
+    @include flexbox(
+      $display: var(--carousel-navigation-display),
+      $align: center,
+      $gap: 8px,
+      $justify: flex-end
+    );
+
+    padding: var(--carousel-navigation-padding-y) var(--carousel-buttons-indent);
+    max-width: var(--carousel-navigation-max-width);
+    position: var(--carousel-navigation-position);
+    left: var(--carousel-navigation-left);
+    transform: var(--carousel-navigation-transform);
+    text-align: right;
+
+    @include media-up(xxl) {
+      --carousel-navigation-transform: translateY(calc(-50% - var(--carousel-dot-size) / 2));
+    }
+
+    .carousel__dots + & {
+      --carousel-navigation-padding-y: 0;
+    }
+  }
+
+  &__btn {
+    --button-arrow-animation: none;
+    --button-arrow-indent: 0;
+    --button-indent: 0;
+    --button-height: 56px;
+    --button-width: 56px;
+  }
+
+  &__prev {
+    --button-arrow-indent: 0 2px 0 0;
+    --button-arrow-transform: rotate(180deg);
+  }
+
+  &__next {
+    --button-arrow-indent: 0 0 0 2px;
+  }
+
+  &__dots {
+    @include flexbox(
+      $display: var(--carousel-dots-display),
+      $align: center,
+      $gap: 8px
+    );
+
+    max-width: var(--carousel-navigation-max-width);
+    padding: var(--carousel-navigation-padding-y) var(--carousel-buttons-indent);
+    position: var(--carousel-navigation-position);
+    left: var(--carousel-navigation-left);
+    transform: var(--carousel-navigation-transform);
+
+    @include media-up(xxl) {
+      --carousel-navigation-transform: translateX(-100%);
+    }
+  }
+
+  &__dot {
+    @include flexbox(
+      $align: center,
+      $justify: center
+    );
+
+    width: var(--carousel-dot-size);
+    height: var(--carousel-dot-size);
+    padding: 0;
+    border: none;
+    background: transparent;
+    cursor: pointer;
+    transition: all $transition-duration $transition-function;
+
+    &::after {
+      content: "";
+      width: calc(var(--carousel-dot-size) / 2);
+      height: calc(var(--carousel-dot-size) / 2);
+      border-radius: 50%;
+      pointer-events: none;
+      background: $color-primary;
+      opacity: var(--carousel-dot-opacity);
+      transition: all $transition-duration $transition-function;
+    }
+
+    &:hover {
+      &::after {
+        --carousel-dot-opacity: 1;
+      }
+    }
+
+    &.active {
+      &::after {
+        --carousel-dot-opacity: 1;
+      }
+    }
+  }
+}

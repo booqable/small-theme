@@ -1,5 +1,4 @@
 {%- if section.blocks.size > 0 -%}
-  {%- assign carousel_effect          = settings.carousel_effect -%}
   {%- assign carousel_pause           = settings.carousel_pause -%}
   {%- assign carousel_timer           = settings.carousel_timer | times: 1000 -%}
   {%- assign color_scheme             = section.settings.color_scheme -%}
@@ -22,14 +21,7 @@
 
   {%- if show_carousel_navigation -%}
     {%- capture carousel_buttons -%}
-      <div class="carousel__navigation" aria-label="Carousel navigation">
-        <button class="carousel__btn carousel__prev btn btn--primary" aria-label="Previous slide">
-          {%- render 'icon-arrow' -%}
-        </button>
-        <button class="carousel__btn carousel__next btn btn--primary" aria-label="Next slide">
-          {%- render 'icon-arrow' -%}
-        </button>
-      </div>
+      {%- render 'carousel-navigation' -%}
     {%- endcapture -%}
   {%- endif -%}
 
@@ -93,8 +85,8 @@
                 {%- if show_carousel -%}
                     </div>
                   </div>
-                  {{- carousel_buttons -}}
                   {{- carousel_dots -}}
+                  {{- carousel_buttons -}}
                 {%- endif -%}
 
                 </div>
@@ -115,8 +107,8 @@
                 {%- if show_carousel -%}
                     </div>
                   </div>
-                  {{- carousel_buttons -}}
                   {{- carousel_dots -}}
+                  {{- carousel_buttons -}}
                 {%- endif -%}
 
                 </div>
@@ -147,6 +139,7 @@
               {%- unless images_group -%}
                 {%- assign images_in_group = 0 -%}
                 {%- assign offset          = forloop.index0 -%}
+                {%- assign slide_index     = 0 -%}
 
                 {%- for next_block in section.blocks offset: offset -%}
                   {%- if next_block.type == 'image' -%}
@@ -162,11 +155,9 @@
 
                 {%- if show_carousel and show_carousel_pagination -%}
                   {%- capture carousel_dots -%}
-                    <div class="carousel__dots" role="tablist" aria-label="Carousel pagination">
-                      {%- for i in (1..images_in_group) -%}
-                        <button class="carousel__dot" type="button" role="tab" aria-label="Go to slide {{- forloop.index -}}"></button>
-                      {%- endfor -%}
-                    </div>
+                    {%- render 'carousel-dots',
+                        quantity: images_in_group
+                    -%}
                   {%- endcapture -%}
                 {%- endif -%}
 
@@ -174,7 +165,6 @@
                   class="{%- if show_carousel -%}images__carousel carousel{%- else -%}images__list{%- endif -%}"
                   {% if show_carousel %}
                     data-timer="{{- carousel_timer -}}"
-                    data-effect="{{- carousel_effect -}}"
                     data-pause="{{- carousel_pause -}}"
                     aria-label="Images carousel"
                   {%- else -%}
@@ -189,7 +179,7 @@
               {%- endunless -%}
 
                 {%- if image.url != blank -%}
-                  <div class="{%- if show_carousel -%}carousel__slide{%- else -%}images__image-holder{%- endif -%}" id="{{- block_id -}}">
+                  <div class="{%- if show_carousel -%}carousel__slide{% if slide_index == 0 %} active{% endif %}{%- else -%}images__image-holder{%- endif -%}" id="{{- block_id -}}">
                     {%- render 'image',
                         image: image,
                         image_alt: image_alt,
@@ -197,6 +187,8 @@
                         image_size: 'xxl'
                     -%}
                   </div>
+
+                  {%- assign slide_index = slide_index | plus: 1 -%}
                 {%- endif -%}
 
             {%- when 'tagline' -%}
@@ -204,8 +196,8 @@
                 {%- if show_carousel -%}
                     </div>
                   </div>
-                  {{- carousel_buttons -}}
                   {{- carousel_dots -}}
+                  {{- carousel_buttons -}}
                 {%- endif -%}
 
                 </div>
@@ -228,8 +220,8 @@
           {%- if show_carousel -%}
               </div>
             </div>
-            {{- carousel_buttons -}}
             {{- carousel_dots -}}
+            {{- carousel_buttons -}}
           {%- endif -%}
 
           </div>

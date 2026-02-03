@@ -1,0 +1,31 @@
+{%- comment -%}
+  This snippet renders a carousel dots component.
+
+  Parameters:
+  - quantity: the number of dots to render in the carousel pagination
+
+  Required parameters:
+  - quantity
+
+  Usage:
+
+  {%- render 'carousel-dots',
+      quantity: number
+  -%}
+{%- endcomment -%}
+
+{%- if quantity > 0 -%}
+  <div class="carousel__dots" role="tablist" aria-label="Carousel pagination">
+    {%- for i in (1..quantity) -%}
+      {%- assign first = forloop.first -%}
+
+      <button
+        class="carousel__dot{% if first %} active{% endif %}"
+        type="button"
+        role="tab"
+        aria-label="Go to slide {{- forloop.index -}}"
+        {% if first %} aria-current="true"{%- endif -%}>
+      </button>
+    {%- endfor -%}
+  </div>
+{%- endif -%}

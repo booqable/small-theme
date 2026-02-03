@@ -4,7 +4,6 @@
     "button_font_size": 16,
     "button_font_weight": "700",
     "button_size": "md",
-    "carousel_effect": "slide",
     "carousel_pause": true,
     "carousel_timer": 5,
     "color_schemes": {

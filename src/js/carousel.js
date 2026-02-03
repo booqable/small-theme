@@ -2,7 +2,7 @@
  * Carousel component
  *
  * Handles carousel functionality:
- * - Initializes Embla carousel with fade/slide transition effects
+ * - Initializes Embla carousel
  * - Manages navigation buttons (prev/next) and dot indicators
  * - Autoplay with configurable pause on hover and stop on interaction
  * - Visibility-based autoplay (pauses when out of viewport)
@@ -14,7 +14,6 @@
  */
 
 import EmblaCarousel from 'embla-carousel'
-import Fade from 'embla-carousel-fade'
 import {
   frameSequence,
   cleanupSystem,
@@ -37,7 +36,6 @@ const CarouselConfig = {
   },
   attr: {
     current: 'aria-current',
-    effect: 'data-effect',
     pause: 'data-pause',
     timer: 'data-timer'
   },
@@ -313,11 +311,9 @@ const CarouselInstance = (carousel) => {
     if (initialized) return
 
     const timer = parseInt(carousel.getAttribute(CarouselConfig.attr.timer)) || 0
-    const effect = carousel.getAttribute(CarouselConfig.attr.effect) || 'slide'
     const pause = carousel.getAttribute(CarouselConfig.attr.pause) === 'true'
-    const plugins = effect === 'fade' ? [Fade()] : []
 
-    embla = EmblaCarousel(viewport, CarouselConfig.options, plugins)
+    embla = EmblaCarousel(viewport, CarouselConfig.options)
     buttonsHandler = CarouselButtonsRenderer(carousel)
     slidesHandler = CarouselItemsRenderer(embla, carousel, CarouselConfig.selectors.slide)
     dotsHandler = CarouselItemsRenderer(embla, carousel, CarouselConfig.selectors.dot, true)
