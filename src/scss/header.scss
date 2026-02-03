@@ -365,7 +365,7 @@
 
       .scrolled & {
         @include media-down(md) {
-          --header-menu-nav-height: calc(100vh - #{$header-height} + var(--top-bar-height, 0));
+          --header-menu-nav-height: calc(100vh - #{$header-height} + var(--top-bar-height, 0px));
         }
       }
 
@@ -438,7 +438,7 @@
 
       .scrolled & {
         @include media-down(md) {
-          --header-menu-dropdown-height: calc(100vh - #{$header-height} + var(--top-bar-height, 0));
+          --header-menu-dropdown-height: calc(100vh - #{$header-height} + var(--top-bar-height, 0px));
         }
       }
 
@@ -535,7 +535,7 @@
 
         .scrolled & {
           @include media-up(md) {
-            --header-menu-dropdown-wrapper-max-height: calc(100vh - #{$header-height} + var(--top-bar-height, 0));
+            --header-menu-dropdown-wrapper-max-height: calc(100vh - #{$header-height} + var(--top-bar-height, 0px));
           }
         }
       }
@@ -763,7 +763,7 @@
     --header-position: sticky;
 
     .scrolled & {
-      --header-position-top: calc(-1 * var(--top-bar-height, 0)) !important;
+      --header-position-top: calc(-1 * var(--top-bar-height, 0px)) !important;
     }
   }
 
