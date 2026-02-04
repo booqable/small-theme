@@ -1,0 +1,74 @@
+{%- comment -%}
+  This snippet helps to load CSS files dynamically, depending on element existing.
+
+  Parameters:
+  - all_sections: the sections global object
+
+  Required parameters:
+  - all_sections
+
+  Usage:
+
+  {%- render 'css-files-loader', all_sections: sections.all -%}
+{%- endcomment -%}
+
+{%- assign carousel_css_url = 'carousel.css' -%}
+{%- assign css_files_array = '' -%}
+{%- assign show_carousel = false -%}
+
+{%- for section in all_sections -%}
+  {%- assign section_type = section.type -%}
+
+  {%- if section_type == 'images' -%}
+    {%- if show_carousel -%}
+      {%- break -%}
+    {%- endif -%}
+
+    {%- assign block_count = 0 -%}
+
+    {%- for block in section.blocks -%}
+      {%- if block.type == 'image' -%}
+        {%- assign block_count = block_count | plus: 1 -%}
+
+        {%- if block_count > 4 -%}
+          {%- assign show_carousel = true -%}
+          {%- break -%}
+        {%- endif -%}
+      {%- endif -%}
+    {%- endfor -%}
+  {%- endif -%}
+
+  {%- if section_type == 'testimonials' -%}
+    {%- if show_carousel -%}
+      {%- break -%}
+    {%- endif -%}
+
+    {%- assign block_count    = 0 -%}
+    {%- assign section_layout = section.settings.testimonials_layout -%}
+
+    {%- for block in section.blocks -%}
+      {%- if block.type == 'testimonial' -%}
+        {%- assign block_count = block_count | plus: 1 -%}
+
+        {%- if block_count > 4 and section_layout == 'carousel' -%}
+          {%- assign show_carousel = true -%}
+          {%- break -%}
+        {%- endif -%}
+      {%- endif -%}
+    {%- endfor -%}
+  {%- endif -%}
+{%- endfor -%}
+
+{%- if show_carousel -%}
+  {%- assign css_files_array = css_files_array | append: carousel_css_url | append: ', ' -%}
+{%- endif -%}
+
+{%- if css_files_array.size > 0 -%}
+  {%- assign css_files = css_files_array | split: ', ' -%}
+
+  {%- for css_file in css_files -%}
+    {%- if css_file != blank -%}
+      {{ css_file | asset_url | stylesheet_tag }}
+    {%- endif -%}
+  {%- endfor -%}
+{%- endif -%}

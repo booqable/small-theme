@@ -6,6 +6,7 @@
 
 :root {
   --btn-wrapper-display: flex;
+  --button-height: auto;
   --button-width: #{$button-width-fw};
 
   @include media-up(xs) {
@@ -28,6 +29,7 @@
   font-size: $font-size-button;
   font-weight: $font-weight-button;
   white-space: nowrap;
+  height: var(--button-height);
   width: var(--button-width);
   margin: var(--button-margin);
   padding: var(--button-indent);

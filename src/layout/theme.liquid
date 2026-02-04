@@ -22,13 +22,10 @@
     {%- render 'css-root-variables', settings: settings -%}
 
     {% comment %} Async CSS loading with resource hints {% endcomment %}
-    {%- assign css_files = 'critical.css, general.css, header.css, app.css' | split: ', ' -%}
+    {%- render 'css-files-async-loader' -%}
 
-    {%- for css_file in css_files -%}
-      {%- assign css_url = css_file | asset_url -%}
-      <link rel="preload" href="{{ css_url }}" as="style" onload="this.onload=null;this.rel='stylesheet'" >
-      <link rel="stylesheet" href="{{ css_url }}"{% if css_file == 'critical.css' %} data-optimize="critical"{% endif %} media="all" onload="this.media='all'">
-    {%- endfor -%}
+    {% comment %} Dynamic loading CSS files {% endcomment %}
+    {%- render 'css-files-loader', all_sections: sections.all -%}
 
     {{ sections_assets }}
     {{ content_for_header }}
@@ -47,6 +44,7 @@
     {% comment %} Enhanced performance monitoring {% endcomment %}
     {%- render 'page-performance-monitoring' -%}
 
+    {% comment %} Load Embla carousel library {% endcomment %}
     <script src="https://unpkg.com/embla-carousel@8.0.0/embla-carousel.umd.js" defer></script>
   </head>
   <body>
@@ -72,7 +70,7 @@
       }
     </script>
 
-    {%- assign section_names = 'header, top-bar, products, images' | split: ', ' -%}
+    {%- assign section_names = 'header, top-bar, products, images, testimonials' | split: ', ' -%}
     {%- assign show_carousel_script = false -%}
     {%- assign show_focal_image_script = false -%}
     {%- assign show_search_script = false -%}
@@ -130,6 +128,18 @@
           {%- assign type = block.type -%}
 
           {%- unless type == 'image' -%}
+            {%- continue -%}
+          {%- endunless -%}
+
+          {%- assign show_carousel_script = true -%}
+        {%- endfor -%}
+      {%- endif -%}
+
+      {%- if section_type == 'testimonials' -%}
+        {%- for block in section.blocks -%}
+          {%- assign type = block.type -%}
+
+          {%- unless type == 'testimonial' -%}
             {%- continue -%}
           {%- endunless -%}
 
