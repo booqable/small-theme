@@ -3,6 +3,7 @@
   {%- assign marquee_instances      = 8 -%}
   {%- assign marquee_speed_desktop  = section.settings.marquee_speed_desktop -%}
   {%- assign marquee_speed_mobile   = section.settings.marquee_speed_mobile -%}
+  {%- assign marquee_text_color     = section.settings.marquee_text_color -%}
   {%- assign padding_bottom_desktop = section.settings.padding_bottom_desktop -%}
   {%- assign padding_bottom_mobile  = section.settings.padding_bottom_mobile -%}
   {%- assign padding_top_desktop    = section.settings.padding_top_desktop -%}
@@ -12,34 +13,40 @@
   {%- capture variables -%}
     {%- case padding_bottom_desktop -%}
       {%- when 'md' -%}
-        --padding-bottom-desktop: 60px;
+        --padding-bottom-desktop: 26px;
       {%- when 'lg' -%}
-        --padding-bottom-desktop: 80px;
+        --padding-bottom-desktop: 40px;
     {%- endcase -%}
 
     {%- case padding_bottom_mobile -%}
       {%- when 'md' -%}
-        --padding-bottom-mobile: 32px;
+        --padding-bottom-mobile: 26px;
       {%- when 'lg' -%}
-        --padding-bottom-mobile: 50px;
+        --padding-bottom-mobile: 40px;
     {%- endcase -%}
 
     {%- case padding_top_desktop -%}
       {%- when 'md' -%}
-        --padding-top-desktop: 60px;
+        --padding-top-desktop: 26px;
       {%- when 'lg' -%}
-        --padding-top-desktop: 80px;
+        --padding-top-desktop: 40px;
     {%- endcase -%}
 
     {%- case padding_top_mobile -%}
       {%- when 'md' -%}
-        --padding-top-mobile: 32px;
+        --padding-top-mobile: 26px;
       {%- when 'lg' -%}
-        --padding-top-mobile: 50px;
+        --padding-top-mobile: 40px;
     {%- endcase -%}
 
     --animation-speed-desktop: {{- marquee_speed_desktop -}}s;
     --animation-speed-mobile: {{- marquee_speed_mobile -}}s;
+  {%- endcapture -%}
+
+  {%- capture extra_variables -%}
+    {%- if marquee_text_color != blank -%}
+      --text-color: {{- marquee_text_color -}};
+    {%- endif -%}
   {%- endcapture -%}
   {% comment %} CSS variables end {% endcomment %}
 
@@ -49,9 +56,9 @@
       {%- assign marquee  = block.settings.marquee -%}
 
       {%- if marquee != blank -%}
-        <div class="marquee__text" id="{{- block_id -}}">
+        <span class="marquee__text h3" id="{{- block_id -}}">
           {{- marquee -}}
-        </div>
+        </span>
       {%- endif -%}
     {%- endfor -%}
   {%- endcapture -%}
@@ -59,7 +66,7 @@
   <div class="marquee__wrapper marquee__wrapper--padding-top marquee__wrapper--padding-bottom color-{{- color_scheme.id -}}"
     style="{{- variables | escape -}}"
   >
-    <div class="marquee__track">
+    <div class="marquee__track" style="{{- extra_variables | escape -}}">
       {%- for i in (1..marquee_instances) -%}
         {%- assign first = forloop.first -%}
 
@@ -112,6 +119,15 @@
         "default": "set-1"
       },
       {
+        "type": "color",
+        "id": "marquee_text_color",
+        "label": "Text color"
+      },
+      {
+        "type": "paragraph",
+        "content": "Use to highlight message text"
+      },
+      {
         "type": "header",
         "content": "Desktop settings"
       },
@@ -133,7 +149,7 @@
             "label": "Large"
           }
         ],
-        "default": "lg"
+        "default": "md"
       },
       {
         "type": "select",
@@ -153,7 +169,7 @@
             "label": "Large"
           }
         ],
-        "default": "lg"
+        "default": "md"
       },
       {
         "type": "number",

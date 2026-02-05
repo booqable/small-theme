@@ -5,24 +5,25 @@
 @use '_helpers/mixins' as *;
 
 .marquee {
-  --marquee-animation-speed: var(--animation-speed-mobile, 20s);
-
-  @include media-up(md) {
-    --marquee-animation-speed: var(--animation-speed-desktop, 10s);
-  }
-
   &__wrapper {
+    --marquee-animation-speed: var(--animation-speed-mobile, 20s);
+    --marquee-elements-gap: 60px;
     --section-padding-bottom: var(--padding-bottom-mobile, 16px);
     --section-padding-top: var(--padding-top-mobile, 16px);
 
     position: relative;
-    color: $color-primary;
     background: $background-primary;
     overflow: hidden;
 
     @include media-up(md) {
-      --section-padding-bottom: var(--padding-bottom-desktop, 40px);
-      --section-padding-top: var(--padding-top-desktop, 40px);
+      --marquee-elements-gap: 90px;
+      --section-padding-bottom: var(--padding-bottom-desktop, 16px);
+      --section-padding-top: var(--padding-top-desktop, 16px);
+    }
+
+    @include media-up(lg) {
+      --marquee-animation-speed: var(--animation-speed-desktop, 10s);
+      --marquee-elements-gap: 140px;
     }
 
     &--padding-top {
@@ -44,19 +45,21 @@
     width: max-content;
     animation: marquee var(--marquee-animation-speed) linear infinite;
     will-change: transform;
+    color: var(--text-color, #{$color-primary});
   }
 
   &__content {
     @include flexbox(
       $align: center,
-      $gap: 48px
+      $gap: var(--marquee-elements-gap)
     );
 
-    margin-right: 48px;
+    margin-right: var(--marquee-elements-gap);
   }
 
   &__text {
     white-space: nowrap;
+    margin: 0;
   }
 }
 
