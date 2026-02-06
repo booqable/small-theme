@@ -1,6 +1,7 @@
 {%- if section.blocks.size > 0 -%}
   {%- assign about_layout            = section.settings.about_layout -%}
   {%- assign about_layout_blocks     = section.settings.about_layout_blocks -%}
+  {%- assign accordion_group         = false -%}
   {%- assign button_group            = false -%}
   {%- assign color_scheme            = section.settings.color_scheme -%}
   {%- assign content_horizontal      = section.settings.content_horizontal -%}
@@ -88,6 +89,34 @@
               {%- endunless -%}
 
               {%- case block.type -%}
+                {%- when 'accordion' -%}
+                  {%- assign icon_text = block.settings.accordion_icon_text -%}
+                  {%- assign title     = block.settings.accordion_title -%}
+                  {%- assign text      = block.settings.accordion_text -%}
+
+                  {%- if title != blank -%}
+                    {%- if accordion_group == false and next_block_type == 'accordion' -%}
+                      <div class="about__accordion about-accordion">
+                      {%- assign accordion_group = true -%}
+                    {%- endif -%}
+
+                        {%- render 'accordion',
+                            behavior: 'single',
+                            block_id: block_id,
+                            icon_text: icon_text,
+                            label: title,
+                            position: 'left',
+                            text: text,
+                            section_type: 'about-accordion'
+                        -%}
+
+                    {%- if accordion_group and next_block_type != 'accordion' -%}
+                      </div>
+
+                      {%- assign accordion_group = false -%}
+                    {%- endif -%}
+                  {%- endif -%}
+
                 {%- when 'button' -%}
                   {%- assign button_icon  = block.settings.button_icon -%}
                   {%- assign button_label = block.settings.button_label -%}
@@ -229,6 +258,35 @@
       }
     ],
     "blocks": [
+      {
+        "type": "accordion",
+        "name": "Accordion",
+        "limit": 4,
+        "settings": [
+          {
+            "type": "header",
+            "content": "General settings"
+          },
+          {
+            "type": "text",
+            "id": "accordion_title",
+            "label": "Title",
+            "default": "Accordion title"
+          },
+          {
+            "type": "contentEditor",
+            "id": "accordion_text",
+            "label": "Text",
+            "default": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse varius enim in eros elementum tristique."
+          },
+          {
+            "type": "text",
+            "id": "accordion_icon_text",
+            "label": "Icon Text",
+            "default": "Read more"
+          }
+        ]
+      },
       {
         "type": "button",
         "name": "Button",
