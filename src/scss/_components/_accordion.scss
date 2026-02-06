@@ -77,9 +77,11 @@
   }
 
   &__text {
+    @include grid(
+      $rows: var(--accordion-text-template-rows)
+    );
+
     padding: 0 calc(var(--accordion-item-indent) * 2);
-    display: grid;
-    grid-template-rows: var(--accordion-text-template-rows);
     transition: grid-template-rows $transition-duration $transition-function;
 
     &-inner {

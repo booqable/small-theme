@@ -20,6 +20,7 @@
   {%- render 'accordion',
       behavior: 'multiple',
       block_id: block.id,
+      icon_text: 'Read more',
       label: 'Accordion title',
       position: 'left',
       text: 'Accordion content goes here.',
@@ -33,24 +34,34 @@
   {%- assign icon_position = position -%}
 {%- endif -%}
 
+{%- capture icon -%}
+  <span class="{{- section_type -}}__icon" aria-hidden="true">
+    {%- if icon_text != blank -%}
+      <span class="{{- section_type -}}__icon-text">
+        {{- icon_text | default: 'Read more' -}}
+      </span>
+    {%- endif -%}
+  </span>
+{%- endcapture -%}
+
 {%- if label != blank and text != blank -%}
   <div class="{{- section_type -}}__item" id="{{- block_id -}}">
     <input
       class="{{- section_type -}}__trigger"
-      {% if behavior == "single" %}type="radio"{% else %}type="checkbox"{% endif %}
+      {% if behavior == 'single' %}type="radio"{% else %}type="checkbox"{% endif %}
       id="{{- section_type -}}-{{- block_id -}}"
-      name="{{- section_type -}} trigger"
+      name="{{ section_type }} trigger"
       aria-hidden="true"
     >
     <label class="{{- section_type -}}__label" for="{{- section_type -}}-{{- block_id -}}">
-      {%- if icon_position == 'right' -%}
-        {{- label -}}
+      {%- if icon_position == 'left' -%}
+        {{- icon -}}
       {%- endif -%}
 
-      <span class="{{- section_type -}}__icon" aria-hidden="true"></span>
+      {{- label -}}
 
-      {%- if icon_position == 'left' -%}
-        {{- label -}}
+      {%- if icon_position == 'right' -%}
+        {{- icon -}}
       {%- endif -%}
     </label>
 

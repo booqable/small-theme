@@ -4,16 +4,32 @@
 // Import mixins
 @use '_helpers/mixins' as *;
 
+// Import components
+@use '_components/accordion' as *;
+
 .about {
+  --about-accordion-icon-opacity: 1;
+  --about-accordion-icon-size: 14px;
+  --about-accordion-icon-transform: ;
+  --about-accordion-item-indent: 32px;
+  --about-accordion-item-line-bottom: 50%;
+  --about-accordion-item-line-top: 50%;
+  --about-accordion-item-margin-right: 0;
+  --about-accordion-item-margin-top: 16px;
+  --about-accordion-text-indent: 16px;
+  --about-accordion-text-template-rows: 0fr;
   --about-border-radius: 0;
   --about-btn-gap: 0;
   --about-btn-margin-top: 16px;
   --about-buttons-direction: column;
   --about-buttons-margin-top: 32px;
+  --about-col-display: flex;
   --about-col-direction: column;
+  --about-col-first-width: 100%;
   --about-col-gap: 46px;
   --about-col-indent-x-mobile: 16px;
   --about-col-indent-x-desktop: 40px;
+  --about-col-last-width: 100%;
   --about-col-padding-left: 0;
   --about-col-padding-right: 0;
   --about-description-margin-top: 40px;
@@ -21,9 +37,9 @@
   --about-highlight-content-background: transparent;
   --about-highlight-content-border-radius: 0;
   --about-highlight-content-padding: 0;
+  --about-highlight-margin-top: 24px;
   --about-highlight-wrapper-columns: 1fr;
   --about-highlight-wrapper-gap: 16px;
-  --about-highlight-margin-top: 24px;
   --about-tagline-margin-top: 20px;
 
   @include media-up(xs) {
@@ -203,6 +219,37 @@
 
     padding: 0 var(--about-col-padding-right) 0 var(--about-col-padding-left);
 
+    &:first-child {
+      width: var(--about-col-first-width);
+
+      &:not(:empty) {
+        @include media-up(md) {
+          --about-col-first-width: 43%;
+        }
+      }
+
+      &:not(:only-child) {
+        .about__container > .about__wrapper & {
+          @include media-up(lg) {
+            margin: 0 var(--about-col-indent-x-desktop);
+          }
+        }
+      }
+    }
+
+    /* stylelint-disable-next-line */
+    &:last-child {
+      width: var(--about-col-last-width);
+
+      /* stylelint-disable-next-line */
+      &:not(:empty) {
+        @include media-up(md) {
+          --about-col-last-width: 57%;
+        }
+      }
+    }
+
+    /* stylelint-disable-next-line */
     .about__container > .about__wrapper & {
       --about-col-padding-left: var(--about-col-indent-x-mobile);
       --about-col-padding-right: var(--about-col-indent-x-mobile);
@@ -212,30 +259,179 @@
         --about-col-padding-right: var(--about-col-indent-x-desktop);
       }
     }
-
-    &:first-child {
-      &:not(:only-child) {
-        .about__container > .about__wrapper & {
-          @include media-up(lg) {
-            margin: 0 var(--about-col-indent-x-desktop);
-          }
-        }
-      }
-    }
   }
 
   &__columns {
     @include flexbox(
       $align: center,
+      $display: var(--about-col-display),
       $direction: var(--about-col-direction),
       $gap: var(--about-col-gap)
     );
+
+    &:has(.about__col + .about__col:empty) {
+      --about-col-display: block;
+
+      .about__col:first-child:not(:empty) {
+        @include media-up(md) {
+          --about-col-first-width: 100%;
+        }
+      }
+
+      .about__col:last-child:not(:empty) {
+        @include media-up(md) {
+          --about-col-last-width: 0;
+        }
+      }
+    }
+
+    &:has(.about__col:first-child:empty + .about__col) {
+      --about-col-display: block;
+
+      .about__col:first-child:not(:empty) {
+        @include media-up(md) {
+          --about-col-first-width: 0;
+        }
+      }
+
+      .about__col:last-child:not(:empty) {
+        @include media-up(md) {
+          --about-col-last-width: 100%;
+        }
+      }
+    }
   }
 
   &__image {
     &-holder {
       border-radius: $border-radius-block;
       overflow: clip;
+    }
+  }
+
+  &-accordion {
+    &__item {
+      padding: var(--about-accordion-item-indent);
+      margin: var(--about-accordion-item-margin-top) var(--about-accordion-item-margin-right) 0 0;
+      border-bottom: 1px solid $color-border;
+      position: relative;
+
+      @include media-up(xl) {
+        --about-accordion-item-margin-right: clamp(30px, 3.5vw, 80px);
+      }
+
+      &::before {
+        content: "";
+        position: absolute;
+        top: var(--about-accordion-item-line-top);
+        bottom: var(--about-accordion-item-line-bottom);
+        left: 0;
+        width: 2px;
+        background: $background-accent;
+        transition: all $transition-duration $transition-function;
+      }
+
+      &:has(:checked) {
+        &::before {
+          --about-accordion-item-line-top: var(--about-accordion-item-indent);
+          --about-accordion-item-line-bottom: var(--about-accordion-item-indent);
+        }
+      }
+
+      &:first-child {
+        --about-accordion-item-margin-top: 0;
+      }
+
+      .about-accordion & {
+        --about-accordion-item-margin-top: 0;
+      }
+    }
+
+    &__trigger {
+      display: none;
+    }
+
+    &__label {
+      @include flexbox(
+        $align: center
+      );
+
+      position: relative;
+      color: currentcolor;
+      cursor: pointer;
+      font-weight: $font-weight-bold;
+      font-size: $font-size-h4;
+      padding: 0 0 var(--about-accordion-text-indent);
+    }
+
+    &__text {
+      @include grid(
+        $rows: var(--about-accordion-text-template-rows)
+      );
+
+      padding: var(--about-accordion-text-indent) 0 0;
+      font-size: clamp(14px, calc(#{$font-size-base} - 2px), 20px);
+      transition: grid-template-rows $transition-duration $transition-function,
+        padding $transition-duration $transition-function;
+
+      &-inner {
+        overflow: hidden;
+      }
+
+      :checked ~ & {
+        --about-accordion-text-template-rows: 1fr;
+        --about-accordion-text-indent: 0;
+      }
+    }
+
+    &__icon {
+      position: absolute;
+      top: 100%;
+      left: 0;
+      height: var(--about-accordion-icon-size);
+      width: var(--about-accordion-icon-size);
+
+      &-text {
+        font-size: clamp(14px, calc(#{$font-size-base} - 2px), 18px);
+        white-space: nowrap;
+        position: absolute;
+        left: 27px;
+        top: 50%;
+        opacity: var(--about-accordion-icon-opacity);
+        transform: translate(0, -50%);
+        transition: all $transition-duration $transition-function;
+
+        :checked ~ [class*="__label"] & {
+          --about-accordion-icon-opacity: 0;
+        }
+      }
+
+      &::after,
+      &::before {
+        content: "";
+        position: absolute;
+        top: 50%;
+        left: 0;
+        height: 2px;
+        width: var(--about-accordion-icon-size);
+        opacity: var(--about-accordion-icon-opacity);
+        background: $color-outline;
+        transform: translate(0, -50%) var(--about-accordion-icon-transform);
+        transition: all $transition-duration $transition-function;
+
+        :checked ~ [class*="__label"] & {
+          --about-accordion-icon-opacity: 0;
+        }
+      }
+
+      /* stylelint-disable-next-line */
+      &::after {
+        --about-accordion-icon-transform: rotate(90deg);
+      }
+    }
+
+    &:not(:first-child) {
+      margin-top: var(--about-accordion-item-margin-top);
     }
   }
 }
