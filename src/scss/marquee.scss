@@ -1,0 +1,75 @@
+// Import variables
+@use 'variables' as *;
+
+// Import mixins
+@use '_helpers/mixins' as *;
+
+.marquee {
+  &__wrapper {
+    --marquee-animation-speed: var(--animation-speed-mobile, 20s);
+    --marquee-animation-steps: calc(100% / var(--animation-steps, 8) * -1);
+    --marquee-elements-gap: 60px;
+    --section-padding-bottom: var(--padding-bottom-mobile, 16px);
+    --section-padding-top: var(--padding-top-mobile, 16px);
+
+    position: relative;
+    background: $background-primary;
+    overflow: hidden;
+
+    @include media-up(md) {
+      --marquee-elements-gap: 90px;
+      --section-padding-bottom: var(--padding-bottom-desktop, 16px);
+      --section-padding-top: var(--padding-top-desktop, 16px);
+    }
+
+    @include media-up(lg) {
+      --marquee-animation-speed: var(--animation-speed-desktop, 10s);
+      --marquee-elements-gap: 140px;
+    }
+
+    &--padding-top {
+      &:not(:empty) {
+        padding-top: var(--section-padding-top);
+      }
+    }
+
+    &--padding-bottom {
+      &:not(:empty) {
+        padding-bottom: var(--section-padding-bottom);
+      }
+    }
+  }
+
+  &__track {
+    @include flexbox;
+
+    width: max-content;
+    animation: marquee var(--marquee-animation-speed) linear infinite;
+    will-change: transform;
+    color: var(--text-color, #{$color-primary});
+  }
+
+  &__content {
+    @include flexbox(
+      $align: center,
+      $gap: var(--marquee-elements-gap)
+    );
+
+    margin-right: var(--marquee-elements-gap);
+  }
+
+  &__text {
+    white-space: nowrap;
+    margin: 0;
+  }
+}
+
+@keyframes marquee {
+  from {
+    transform: translate3d(0, 0, 0);
+  }
+
+  to {
+    transform: translate3d(var(--marquee-animation-steps), 0, 0);
+  }
+}

@@ -1,0 +1,233 @@
+{%- if section.blocks.size > 0 -%}
+  {%- assign color_scheme           = section.settings.color_scheme -%}
+  {%- assign marquee_instances      = 8 -%}
+  {%- assign marquee_speed_desktop  = section.settings.marquee_speed_desktop -%}
+  {%- assign marquee_speed_mobile   = section.settings.marquee_speed_mobile -%}
+  {%- assign marquee_text_color     = section.settings.marquee_text_color -%}
+  {%- assign padding_bottom_desktop = section.settings.padding_bottom_desktop -%}
+  {%- assign padding_bottom_mobile  = section.settings.padding_bottom_mobile -%}
+  {%- assign padding_top_desktop    = section.settings.padding_top_desktop -%}
+  {%- assign padding_top_mobile     = section.settings.padding_top_mobile -%}
+
+  {% comment %} CSS variables start {% endcomment %}
+  {%- capture variables -%}
+    {%- case padding_bottom_desktop -%}
+      {%- when 'md' -%}
+        --padding-bottom-desktop: 26px;
+      {%- when 'lg' -%}
+        --padding-bottom-desktop: 40px;
+    {%- endcase -%}
+
+    {%- case padding_bottom_mobile -%}
+      {%- when 'md' -%}
+        --padding-bottom-mobile: 26px;
+      {%- when 'lg' -%}
+        --padding-bottom-mobile: 40px;
+    {%- endcase -%}
+
+    {%- case padding_top_desktop -%}
+      {%- when 'md' -%}
+        --padding-top-desktop: 26px;
+      {%- when 'lg' -%}
+        --padding-top-desktop: 40px;
+    {%- endcase -%}
+
+    {%- case padding_top_mobile -%}
+      {%- when 'md' -%}
+        --padding-top-mobile: 26px;
+      {%- when 'lg' -%}
+        --padding-top-mobile: 40px;
+    {%- endcase -%}
+
+    --animation-speed-desktop: {{- marquee_speed_desktop -}}s;
+    --animation-speed-mobile: {{- marquee_speed_mobile -}}s;
+    --animation-steps: {{- marquee_instances -}};
+  {%- endcapture -%}
+
+  {%- capture extra_variables -%}
+    {%- if marquee_text_color != blank -%}
+      --text-color: {{- marquee_text_color -}};
+    {%- endif -%}
+  {%- endcapture -%}
+  {% comment %} CSS variables end {% endcomment %}
+
+  {%- capture marquee_text -%}
+    {%- for block in section.blocks -%}
+      {%- assign block_id = block.id -%}
+      {%- assign marquee  = block.settings.marquee -%}
+
+      {%- if marquee != blank -%}
+        <span class="marquee__text h3" id="{{- block_id -}}">
+          {{- marquee -}}
+        </span>
+      {%- endif -%}
+    {%- endfor -%}
+  {%- endcapture -%}
+
+  <div class="marquee__wrapper marquee__wrapper--padding-top marquee__wrapper--padding-bottom color-{{- color_scheme.id -}}"
+    style="{{- variables | escape -}}"
+  >
+    <div class="marquee__track" style="{{- extra_variables | escape -}}">
+      {%- for i in (1..marquee_instances) -%}
+        {%- assign first = forloop.first -%}
+
+        <div class="marquee__content"{% unless first %} aria-hidden="true"{%- endunless -%}>
+          {{- marquee_text -}}
+        </div>
+      {%- endfor -%}
+    </div>
+  </div>
+{%- endif -%}
+
+{% schema %}
+  {
+    "name": "Marquee",
+    "tag": "section",
+    "class": "marquee",
+    "css_assets": [
+      {
+        "file": "marquee.css"
+      }
+    ],
+    "blocks": [
+      {
+        "type": "marquee",
+        "name": "Marquee",
+        "limit": 16,
+        "settings":[
+          {
+            "type": "header",
+            "content": "General settings"
+          },
+          {
+            "type": "text",
+            "id": "marquee",
+            "label": "Message",
+            "default": "Get ready for your adventure"
+          }
+        ]
+      }
+    ],
+    "settings": [
+      {
+        "type": "header",
+        "content": "General settings"
+      },
+      {
+        "type": "color_scheme",
+        "id": "color_scheme",
+        "label": "Color scheme",
+        "default": "set-1"
+      },
+      {
+        "type": "color",
+        "id": "marquee_text_color",
+        "label": "Text color"
+      },
+      {
+        "type": "paragraph",
+        "content": "Use to highlight message text"
+      },
+      {
+        "type": "header",
+        "content": "Desktop settings"
+      },
+      {
+        "type": "select",
+        "id": "padding_top_desktop",
+        "label": "Padding top",
+        "options": [
+          {
+            "value": "sm",
+            "label": "Small"
+          },
+          {
+            "value": "md",
+            "label": "Medium"
+          },
+          {
+            "value": "lg",
+            "label": "Large"
+          }
+        ],
+        "default": "md"
+      },
+      {
+        "type": "select",
+        "id": "padding_bottom_desktop",
+        "label": "Padding bottom",
+        "options": [
+          {
+            "value": "sm",
+            "label": "Small"
+          },
+          {
+            "value": "md",
+            "label": "Medium"
+          },
+          {
+            "value": "lg",
+            "label": "Large"
+          }
+        ],
+        "default": "md"
+      },
+      {
+        "type": "number",
+        "id": "marquee_speed_desktop",
+        "label": "Scrolling speed (seconds)",
+        "default": 10
+      },
+      {
+        "type": "header",
+        "content": "Mobile settings"
+      },
+      {
+        "type": "select",
+        "id": "padding_top_mobile",
+        "label": "Padding top",
+        "options": [
+          {
+            "value": "sm",
+            "label": "Small"
+          },
+          {
+            "value": "md",
+            "label": "Medium"
+          },
+          {
+            "value": "lg",
+            "label": "Large"
+          }
+        ],
+        "default": "md"
+      },
+      {
+        "type": "select",
+        "id": "padding_bottom_mobile",
+        "label": "Padding bottom",
+        "options": [
+          {
+            "value": "sm",
+            "label": "Small"
+          },
+          {
+            "value": "md",
+            "label": "Medium"
+          },
+          {
+            "value": "lg",
+            "label": "Large"
+          }
+        ],
+        "default": "md"
+      },
+      {
+        "type": "number",
+        "id": "marquee_speed_mobile",
+        "label": "Scrolling speed (seconds)",
+        "default": 20
+      }
+    ]
+  }
+{% endschema %}
