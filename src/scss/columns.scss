@@ -1,0 +1,60 @@
+// Import variables
+@use 'variables' as *;
+
+// Import mixins
+@use '_helpers/mixins' as *;
+
+.columns {
+  &__wrapper {
+    --columns-content-justify: var(--columns-content-alignment, flex-start);
+    --section-padding-bottom: var(--padding-bottom-mobile, 16px);
+    --section-padding-top: var(--padding-top-mobile, 16px);
+
+    color: $color-primary;
+    background: $background-primary;
+
+    @include media-up(md) {
+      --section-padding-bottom: var(--padding-bottom-desktop, 40px);
+      --section-padding-top: var(--padding-top-desktop, 40px);
+    }
+
+    &--padding-top {
+      &:not(:empty) {
+        padding-top: var(--section-padding-top);
+      }
+    }
+
+    &--padding-bottom {
+      &:not(:empty) {
+        padding-bottom: var(--section-padding-bottom);
+      }
+    }
+  }
+
+  &__grid {
+    @include grid(
+      $columns: repeat(auto-fit, minmax(240px, 1fr)),
+      $gap: 40px
+    );
+  }
+
+   &__item {
+    @include flexbox(
+      $align: center,
+      $justify: var(--columns-content-justify),
+      $gap: 30px
+    );
+   }
+
+   &__icon-wrapper {
+    font-size: clamp(30px, 3vw, 48px);
+   }
+
+   &__title {
+    margin: 0;
+
+    & + .columns__text {
+      margin-bottom: 2px;
+    }
+   }
+  }
