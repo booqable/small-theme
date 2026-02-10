@@ -1,0 +1,319 @@
+{%- if section.blocks.size > 0 -%}
+  {%- assign color_scheme           = section.settings.color_scheme -%}
+  {%- assign content_horizontal     = section.settings.content_horizontal -%}
+  {%- assign icon_style             = settings.icon_style -%}
+  {%- assign padding_bottom_desktop = section.settings.padding_bottom_desktop -%}
+  {%- assign padding_bottom_mobile  = section.settings.padding_bottom_mobile -%}
+  {%- assign padding_top_desktop    = section.settings.padding_top_desktop -%}
+  {%- assign padding_top_mobile     = section.settings.padding_top_mobile -%}
+
+  {% comment %} CSS variables start {% endcomment %}
+  {%- capture variables -%}
+    {%- case padding_bottom_desktop -%}
+      {%- when 'md' -%}
+        --padding-bottom-desktop: 60px;
+      {%- when 'lg' -%}
+        --padding-bottom-desktop: 80px;
+    {%- endcase -%}
+
+    {%- case padding_bottom_mobile -%}
+      {%- when 'md' -%}
+        --padding-bottom-mobile: 32px;
+      {%- when 'lg' -%}
+        --padding-bottom-mobile: 50px;
+    {%- endcase -%}
+
+    {%- case padding_top_desktop -%}
+      {%- when 'md' -%}
+        --padding-top-desktop: 60px;
+      {%- when 'lg' -%}
+        --padding-top-desktop: 80px;
+    {%- endcase -%}
+
+    {%- case padding_top_mobile -%}
+      {%- when 'md' -%}
+        --padding-top-mobile: 32px;
+      {%- when 'lg' -%}
+        --padding-top-mobile: 50px;
+    {%- endcase -%}
+
+    {%- case content_horizontal -%}
+      {%- when 'center' -%}
+        --columns-content-alignment: center;
+      {%- when 'right' -%}
+        --columns-content-alignment: flex-end;
+    {%- endcase -%}
+  {%- endcapture -%}
+  {% comment %} CSS variables end {% endcomment %}
+
+  <div class="columns__wrapper columns__wrapper--padding-top columns__wrapper--padding-bottom color-{{- color_scheme.id -}}" style="{{- variables | escape -}}">
+    <div class="columns__container container">
+      <div class="columns__grid">
+        {%- for block in section.blocks -%}
+          {%- assign block_id = block.id -%}
+          {%- assign icon     = block.settings.columns_icon -%}
+          {%- assign text     = block.settings.columns_text -%}
+          {%- assign title    = block.settings.columns_title -%}
+
+          {%- if title != blank or text != blank -%}
+            <div class="columns__item" id="{{ block_id }}">
+              {%- if icon != 'empty' -%}
+                <div class="columns__icon-wrapper">
+                  {%- render 'icon', icon: icon, style: icon_style -%}
+                </div>
+              {%- endif -%}
+
+              <div class="columns__textarea">
+                {%- if title != blank -%}
+                  <h5 class="columns__title">
+                    {{- title -}}
+                  </h5>
+                {%- endif -%}
+
+                {%- if text != blank -%}
+                  <div class="columns__text bq-content rx-content">
+                    {{- text -}}
+                  </div>
+                {%- endif -%}
+              </div>
+            </div>
+          {%- endif -%}
+        {%- endfor -%}
+      </div>
+    </div>
+  </div>
+{%- endif -%}
+
+{% schema %}
+  {
+    "name": "Columns",
+    "tag": "section",
+    "class": "columns",
+    "css_assets": [
+      {
+        "file": "columns.css"
+      }
+    ],
+    "blocks": [
+      {
+        "type": "column",
+        "name": "Column",
+        "limit": 3,
+        "settings": [
+          {
+            "type": "select",
+            "id": "columns_icon",
+            "label": "Icon",
+            "options": [
+              {
+                "value": "empty",
+                "label": "No icon"
+              },
+              {
+                "value": "address-card",
+                "label": "Address card"
+              },
+              {
+                "value": "calendar",
+                "label": "Calendar"
+              },
+              {
+                "value": "clock",
+                "label": "Clock"
+              },
+              {
+                "value": "comment",
+                "label": "Comment"
+              },
+              {
+                "value": "credit-card-alt",
+                "label": "Credit card"
+              },
+              {
+                "value": "envelope",
+                "label": "Envelope"
+              },
+              {
+                "value": "exclamation",
+                "label": "Exclamation"
+              },
+              {
+                "value": "fax",
+                "label": "Fax"
+              },
+              {
+                "value": "globe",
+                "label": "Globe"
+              },
+              {
+                "value": "handshake",
+                "label": "Handshake"
+              },
+              {
+                "value": "heart",
+                "label": "Heart"
+              },
+              {
+                "value": "info",
+                "label": "Info"
+              },
+              {
+                "value": "phone",
+                "label": "Phone"
+              },
+              {
+                "value": "shop",
+                "label": "Shop"
+              },
+              {
+                "value": "tag",
+                "label": "Tag"
+              },
+              {
+                "value": "truck-fast",
+                "label": "Truck"
+              },
+              {
+                "value": "warning",
+                "label": "Warning"
+              }
+            ],
+            "default": "tag"
+          },
+          {
+            "type": "text",
+            "id": "columns_title",
+            "label": "Title",
+            "default": "Medium size title here"
+          },
+          {
+            "type": "text",
+            "id": "columns_text",
+            "label": "Description",
+            "default": "Lorem ipsum dolor sit amet"
+          }
+        ]
+      }
+    ],
+    "settings": [
+      {
+        "type": "header",
+        "content": "General settings"
+      },
+      {
+        "type": "color_scheme",
+        "id": "color_scheme",
+        "label": "Color scheme",
+        "default": "set-1"
+      },
+      {
+        "type": "select",
+        "id": "content_horizontal",
+        "label": "Horizontal positioning",
+        "options": [
+          {
+            "value": "left",
+            "label": "Left"
+          },
+          {
+            "value": "center",
+            "label": "Center"
+          },
+          {
+            "value": "right",
+            "label": "Right"
+          }
+        ],
+        "default": "center"
+      },
+      {
+        "type": "header",
+        "content": "Desktop settings"
+      },
+      {
+        "type": "select",
+        "id": "padding_top_desktop",
+        "label": "Padding top",
+        "options": [
+          {
+            "value": "sm",
+            "label": "Small"
+          },
+          {
+            "value": "md",
+            "label": "Medium"
+          },
+          {
+            "value": "lg",
+            "label": "Large"
+          }
+        ],
+        "default": "md"
+      },
+      {
+        "type": "select",
+        "id": "padding_bottom_desktop",
+        "label": "Padding bottom",
+        "options": [
+          {
+            "value": "sm",
+            "label": "Small"
+          },
+          {
+            "value": "md",
+            "label": "Medium"
+          },
+          {
+            "value": "lg",
+            "label": "Large"
+          }
+        ],
+        "default": "md"
+      },
+      {
+        "type": "header",
+        "content": "Mobile settings"
+      },
+      {
+        "type": "select",
+        "id": "padding_top_mobile",
+        "label": "Padding top",
+        "options": [
+          {
+            "value": "sm",
+            "label": "Small"
+          },
+          {
+            "value": "md",
+            "label": "Medium"
+          },
+          {
+            "value": "lg",
+            "label": "Large"
+          }
+        ],
+        "default": "md"
+      },
+      {
+        "type": "select",
+        "id": "padding_bottom_mobile",
+        "label": "Padding bottom",
+        "options": [
+          {
+            "value": "sm",
+            "label": "Small"
+          },
+          {
+            "value": "md",
+            "label": "Medium"
+          },
+          {
+            "value": "lg",
+            "label": "Large"
+          }
+        ],
+        "default": "md"
+      }
+    ]
+  }
+{% endschema %}
