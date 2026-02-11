@@ -34,7 +34,7 @@
         "heading": {
           "type": "heading",
           "settings": {
-            "heading": "Your local <br>golf cart expert"
+            "heading": "Your local trailer expert"
           },
           "disabled": null
         },
@@ -42,7 +42,7 @@
           "type": "highlight",
           "settings": {
             "heading": "10+",
-            "text": "Years of experience with drones and cameras. to capture your best moments."
+            "text": "Years of experience with trailers and equipment. to capture your best moments."
           },
           "disabled": null
         },
@@ -50,14 +50,14 @@
           "type": "highlight",
           "settings": {
             "heading": "556+",
-            "text": "Satisfied customers who have rented products from us "
+            "text": "Satisfied customers who have rented products from us"
           },
           "disabled": null
         },
         "image": {
           "type": "image",
           "settings": {
-            "image": "booqable://assets/image-about.jpg",
+            "image": "booqable://assets/image-about-1.jpg",
             "image_alt": "About image description"
           },
           "disabled": null
@@ -78,6 +78,63 @@
         "highlight_987654",
         "button",
         "button_625433",
+        "image"
+      ],
+      "settings": {
+        "about_layout": "wide",
+        "about_layout_blocks": "simple",
+        "color_scheme": "set-1",
+        "content_horizontal": "left",
+        "padding_bottom_desktop": "lg",
+        "padding_bottom_mobile": "md",
+        "padding_top_desktop": "lg",
+        "padding_top_mobile": "md"
+      },
+      "disabled": null
+    },
+    "about_123456": {
+      "type": "about",
+      "blocks": {
+        "accordion": {
+          "type": "accordion",
+          "settings": {
+            "accordion_icon_text": "Read more",
+            "accordion_title": "Easy to control",
+            "accordion_text": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse varius enim in eros elementum tristique. Duis cursus, mi quis viverra ornare, eros dolor interdum nulla, ut commodo diam libero vitae erat."
+          },
+          "disabled": null
+        },
+        "accordion_123456": {
+          "type": "accordion",
+          "settings": {
+            "accordion_icon_text": "Read more",
+            "accordion_title": "Capture what you want",
+            "accordion_text": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse varius enim in eros elementum tristique. Duis cursus, mi quis viverra ornare, eros dolor interdum nulla, ut commodo diam libero vitae erat."
+          },
+          "disabled": null
+        },
+        "accordion_123457": {
+          "type": "accordion",
+          "settings": {
+            "accordion_icon_text": "Read more",
+            "accordion_title": "See thing like you’ve never seen before",
+            "accordion_text": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse varius enim in eros elementum tristique. Duis cursus, mi quis viverra ornare, eros dolor interdum nulla, ut commodo diam libero vitae erat."
+          },
+          "disabled": null
+        },
+        "image": {
+          "type": "image",
+          "settings": {
+            "image": "booqable://assets/image-about-2.jpg",
+            "image_alt": "About image description"
+          },
+          "disabled": null
+        }
+      },
+      "block_order": [
+        "accordion",
+        "accordion_123456",
+        "accordion_123457",
         "image"
       ],
       "settings": {
@@ -210,7 +267,7 @@
         "accordion_direction_desktop": "row",
         "accordion_icon_position": "left",
         "accordion_layout": "wide",
-        "color_scheme": "set-1",
+        "color_scheme": "set-4",
         "content_horizontal": "left",
         "padding_bottom_desktop": "lg",
         "padding_bottom_mobile": "md",
@@ -239,7 +296,7 @@
         "image": {
           "type": "image",
           "settings": {
-            "image": "booqable://assets/image-images-1.jpg",
+            "image": "booqable://assets/image-about-1.jpg",
             "image_alt": "Image 1"
           },
           "disabled": null
@@ -247,7 +304,7 @@
         "image_678902": {
           "type": "image",
           "settings": {
-            "image": "booqable://assets/image-images-2.jpg",
+            "image": "booqable://assets/image-about-2.jpg",
             "image_alt": "Image 2"
           },
           "disabled": null
@@ -255,7 +312,7 @@
         "image_678903": {
           "type": "image",
           "settings": {
-            "image": "booqable://assets/image-images-3.jpg",
+            "image": "booqable://assets/image-hero-3.jpg",
             "image_alt": "Image 3"
           },
           "disabled": null
@@ -263,7 +320,7 @@
         "image_678904": {
           "type": "image",
           "settings": {
-            "image": "booqable://assets/image-images-4.jpg",
+            "image": "booqable://assets/image-hero-1.jpg",
             "image_alt": "Image 4"
           },
           "disabled": null
@@ -322,24 +379,24 @@
         "description": {
           "type": "description",
           "settings": {
-            "description": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse varius <br> enim in eros elementum tristique. Duis cursus, mi quis viverra ornare, eros <br> dolor interdum nulla, ut commodo diam libero vitae erat."
+            "description": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse varius enim in eros elementum tristique. Duis cursus, mi quis viverra ornare, eros dolor interdum nulla, ut commodo diam libero vitae erat."
           },
           "disabled": null
         },
         "heading": {
           "type": "heading",
           "settings": {
-            "heading": "Explore the golf <br> course the best way"
+            "heading": "Trailer rentals <br>for every occasion"
           },
           "disabled": null
         },
         "image": {
           "type": "image",
           "settings": {
-            "image": "booqable://assets/image-hero.jpg",
+            "image": "booqable://assets/image-hero-1.jpg",
             "image_alt": "Hero image description",
             "image_mobile": "",
-            "image_overlay": 10,
+            "image_overlay": 35,
             "image_overlay_style": "gradient"
           },
           "disabled": null
@@ -370,20 +427,123 @@
       },
       "disabled": null
     },
-    "products": {
-      "type": "products",
+    "hero_123456": {
+      "type": "hero",
       "blocks": {
-        "description": {
-          "type": "description",
+        "button": {
+          "type": "button",
           "settings": {
-            "description": "<p>We got products for all your adventures</p>"
+            "button_icon": "minimal",
+            "button_label": "Check all products",
+            "button_type": "primary",
+            "button_url": "booqable://product/"
           },
           "disabled": null
         },
         "heading": {
           "type": "heading",
           "settings": {
-            "heading": "Our products"
+            "heading": "Use one of our trailers <br>free for a day"
+          },
+          "disabled": null
+        },
+        "image": {
+          "type": "image",
+          "settings": {
+            "image": "booqable://assets/image-hero-2.jpg",
+            "image_alt": "Hero image description",
+            "image_mobile": "",
+            "image_overlay": 0,
+            "image_overlay_style": "solid"
+          },
+          "disabled": null
+        }
+      },
+      "block_order": [
+        "heading",
+        "button",
+        "image"
+      ],
+      "settings": {
+        "color_scheme": "set-1",
+        "content_horizontal_desktop": "center",
+        "content_horizontal_mobile": "center",
+        "content_vertical_desktop": "bottom",
+        "content_vertical_mobile": "bottom",
+        "height_desktop": "full",
+        "height_mobile": "full",
+        "hero_direction": "row",
+        "hero_layout": "wide",
+        "hero_split": "overlay",
+        "padding_bottom_desktop": "lg",
+        "padding_bottom_mobile": "md",
+        "padding_top_desktop": "lg",
+        "padding_top_mobile": "md"
+      },
+      "disabled": null
+    },
+    "hero_123457": {
+      "type": "hero",
+      "blocks": {
+        "button": {
+          "type": "button",
+          "settings": {
+            "button_icon": "arrow",
+            "button_label": "Check all products",
+            "button_type": "simple",
+            "button_url": "booqable://product/"
+          },
+          "disabled": null
+        },
+        "heading": {
+          "type": "heading",
+          "settings": {
+            "heading": "How to make sure <br>to drive safe with a trailery"
+          },
+          "disabled": null
+        },
+        "image": {
+          "type": "image",
+          "settings": {
+            "image": "booqable://assets/image-hero-3.jpg",
+            "image_alt": "Hero image description",
+            "image_mobile": "",
+            "image_overlay": 25,
+            "image_overlay_style": "gradient"
+          },
+          "disabled": null
+        }
+      },
+      "block_order": [
+        "heading",
+        "button",
+        "image"
+      ],
+      "settings": {
+        "color_scheme": "set-2",
+        "content_horizontal_desktop": "top",
+        "content_horizontal_mobile": "top",
+        "content_vertical_desktop": "left",
+        "content_vertical_mobile": "left",
+        "height_desktop": "full",
+        "height_mobile": "full",
+        "hero_direction": "row",
+        "hero_layout": "wide",
+        "hero_split": "overlay",
+        "padding_bottom_desktop": "lg",
+        "padding_bottom_mobile": "md",
+        "padding_top_desktop": "lg",
+        "padding_top_mobile": "md"
+      },
+      "disabled": null
+    },
+    "products": {
+      "type": "products",
+      "blocks": {
+        "heading": {
+          "type": "heading",
+          "settings": {
+            "heading": "Our most frequently <br>rented products"
           },
           "disabled": null
         },
@@ -391,7 +551,7 @@
           "type": "product",
           "settings": {
             "product": "",
-            "product_badge": "PRODUCT ACTION LABEL"
+            "product_badge": ""
           },
           "disabled": null
         },
@@ -399,7 +559,15 @@
           "type": "product",
           "settings": {
             "product": "",
-            "product_badge": "PRODUCT ACTION LABEL"
+            "product_badge": ""
+          },
+          "disabled": null
+        },
+        "product_564322": {
+          "type": "product",
+          "settings": {
+            "product": "",
+            "product_badge": ""
           },
           "disabled": null
         },
@@ -414,18 +582,18 @@
       "block_order": [
         "tagline",
         "heading",
-        "description",
         "product",
-        "product_564321"
+        "product_564321",
+        "product_564322"
       ],
       "settings": {
         "color_scheme": "set-1",
-        "content_horizontal": "left",
+        "content_horizontal": "center",
         "padding_bottom_desktop": "lg",
         "padding_bottom_mobile": "md",
         "padding_top_desktop": "lg",
         "padding_top_mobile": "md",
-        "products_layout": "two"
+        "products_layout": "three"
       },
       "disabled": null
     },
@@ -442,7 +610,7 @@
         "step_543421": {
           "type": "step",
           "settings": {
-            "description": "<h3>Choose your <br>golf cart</h3><p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse varius enim in eros elementum tristique.</p>",
+            "description": "<h3>Choose your <br>equipment</h3><p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse varius enim in eros elementum tristique.</p>",
             "image": "",
             "image_alt": "",
             "number_prefix": "0"
@@ -606,9 +774,12 @@
   },
   "order": [
     "hero",
+    "hero_123456",
     "steps",
     "about",
+    "hero_123457",
     "products",
+    "about_123456",
     "images",
     "accordion",
     "testimonials"
