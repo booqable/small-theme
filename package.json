@@ -7,7 +7,7 @@
     "build:scss": "sass src/scss:assets --style=compressed --no-source-map",
     "build:js": "node build-js.mjs && npm run copy:js:utils",
     "copy:js:utils": "cpx 'src/js/utils/**/*' assets/utils",
-    "build:images": "imagemin 'src/images/**/*' --out-dir=assets",
+    "build:images": "for dir in src/images/*/; do imagemin \"$dir*\" --out-dir=\"assets/$(basename \"$dir\")\"; done",
     "build:svg": "node src/svg/_utils/optimize-svg.js",
     "build:liquid": "npm run copy:config && npm run copy:layout && npm run copy:sections && npm run copy:snippets && npm run copy:templates",
     "copy:config": "cpx 'src/config/**/*' config",
