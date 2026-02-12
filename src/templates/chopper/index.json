@@ -1,0 +1,716 @@
+{
+  "name": "Home",
+  "sections": {
+    "about": {
+      "type": "about",
+      "blocks": {
+        "button": {
+          "type": "button",
+          "settings": {
+            "button_icon": "minimal",
+            "button_label": "About us",
+            "button_type": "primary",
+            "button_url": "booqable://root"
+          },
+          "disabled": null
+        },
+        "button_625433": {
+          "type": "button",
+          "settings": {
+            "button_icon": "arrow",
+            "button_label": "Contact",
+            "button_type": "simple",
+            "button_url": "booqable://pages/contact/"
+          },
+          "disabled": null
+        },
+        "description": {
+          "type": "description",
+          "settings": {
+            "description": "<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse varius enim in eros elementum tristique. Duis cursus, mi quis viverra ornare, eros dolor interdum nulla, ut commodo diam libero vitae erat.</p>"
+          },
+          "disabled": null
+        },
+        "heading": {
+          "type": "heading",
+          "settings": {
+            "heading": "About the E-chopper"
+          },
+          "disabled": null
+        },
+        "highlight": {
+          "type": "highlight",
+          "settings": {
+            "heading": "10+",
+            "text": "Years of experience with drones and cameras. to capture your best moments."
+          },
+          "disabled": null
+        },
+        "highlight_987654": {
+          "type": "highlight",
+          "settings": {
+            "heading": "556+",
+            "text": "Satisfied customers who have rented products from us "
+          },
+          "disabled": null
+        },
+        "highlight_987655": {
+          "type": "highlight",
+          "settings": {
+            "heading": "556+",
+            "text": "Satisfied customers who have rented products from us "
+          },
+          "disabled": null
+        },
+        "highlight_987656": {
+          "type": "highlight",
+          "settings": {
+            "heading": "556+",
+            "text": "Satisfied customers who have rented products from us "
+          },
+          "disabled": null
+        },
+        "image": {
+          "type": "image",
+          "settings": {
+            "image": "booqable://assets/image-about-1.png",
+            "image_alt": "About image description"
+          },
+          "disabled": null
+        }
+      },
+      "block_order": [
+        "heading",
+        "description",
+        "highlight",
+        "highlight_987654",
+        "highlight_987655",
+        "highlight_987656",
+        "button",
+        "button_625433",
+        "image"
+      ],
+      "settings": {
+        "about_layout": "narrow",
+        "about_layout_blocks": "card",
+        "color_scheme": "set-4",
+        "content_horizontal": "left",
+        "padding_bottom_desktop": "lg",
+        "padding_bottom_mobile": "md",
+        "padding_top_desktop": "lg",
+        "padding_top_mobile": "md"
+      },
+      "disabled": null
+    },
+    "accordion": {
+      "type": "accordion",
+      "blocks": {
+        "button": {
+          "type": "button",
+          "settings": {
+            "button_icon": "minimal",
+            "button_label": "Get in touch",
+            "button_type": "primary",
+            "button_url": "booqable://pages/contact/"
+          },
+          "disabled": null
+        },
+        "description": {
+          "type": "description",
+          "settings": {
+            "description": "<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse varius enim in eros elementum tristique.</p>"
+          },
+          "disabled": null
+        },
+        "heading": {
+          "type": "heading",
+          "settings": {
+            "heading": "Everything you wondered, and more"
+          },
+          "disabled": null
+        },
+        "item": {
+          "type": "item",
+          "settings": {
+            "accordion_text": "<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse varius enim in eros elementum tristique. Duis cursus, mi quis viverra ornare, eros dolor interdum nulla, ut commodo diam libero vitae erat.</p>",
+            "accordion_title": "Question text goes here"
+          },
+          "disabled": null
+        },
+        "item_564321": {
+          "type": "item",
+          "settings": {
+            "accordion_text": "<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse varius enim in eros elementum tristique.</p>",
+            "accordion_title": "Question text goes here"
+          },
+          "disabled": null
+        },
+        "item_564322": {
+          "type": "item",
+          "settings": {
+            "accordion_text": "<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse varius enim in eros elementum tristique. Duis cursus, mi quis viverra ornare, eros dolor interdum nulla, ut commodo diam libero vitae erat.</p>",
+            "accordion_title": "Question text goes here"
+          },
+          "disabled": null
+        },
+        "item_564323": {
+          "type": "item",
+          "settings": {
+            "accordion_text": "<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse varius enim in eros elementum tristique.</p>",
+            "accordion_title": "Question text goes here"
+          },
+          "disabled": null
+        },
+        "item_564324": {
+          "type": "item",
+          "settings": {
+            "accordion_text": "<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse varius enim in eros elementum tristique. Duis cursus, mi quis viverra ornare, eros dolor interdum nulla, ut commodo diam libero vitae erat.</p>",
+            "accordion_title": "Question text goes here"
+          },
+          "disabled": null
+        },
+        "item_564325": {
+          "type": "item",
+          "settings": {
+            "accordion_text": "<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse varius enim in eros elementum tristique.</p>",
+            "accordion_title": "Question text goes here"
+          },
+          "disabled": null
+        },
+        "item_564326": {
+          "type": "item",
+          "settings": {
+            "accordion_text": "<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse varius enim in eros elementum tristique. Duis cursus, mi quis viverra ornare, eros dolor interdum nulla, ut commodo diam libero vitae erat.</p>",
+            "accordion_title": "Question text goes here"
+          },
+          "disabled": null
+        },
+        "item_564327": {
+          "type": "item",
+          "settings": {
+            "accordion_text": "<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse varius enim in eros elementum tristique.</p>",
+            "accordion_title": "Question text goes here"
+          },
+          "disabled": null
+        },
+        "tagline": {
+          "type": "tagline",
+          "settings": {
+            "tagline": "FAQ"
+          },
+          "disabled": null
+        }
+      },
+      "block_order": [
+        "tagline",
+        "heading",
+        "description",
+        "button",
+        "item",
+        "item_564321",
+        "item_564322",
+        "item_564323",
+        "item_564324",
+        "item_564325",
+        "item_564326",
+        "item_564327"
+      ],
+      "settings": {
+        "accordion_behavior": "multiple",
+        "accordion_direction_desktop": "row",
+        "accordion_icon_position": "right",
+        "accordion_layout": "wide",
+        "color_scheme": "set-1",
+        "content_horizontal": "left",
+        "padding_bottom_desktop": "lg",
+        "padding_bottom_mobile": "md",
+        "padding_top_desktop": "lg",
+        "padding_top_mobile": "md"
+      },
+      "disabled": null
+    },
+    "columns": {
+      "type": "columns",
+      "blocks": {
+        "column": {
+          "type": "column",
+          "settings": {
+            "columns_icon": "truck-fast",
+            "columns_title": "Free delivery",
+            "columns_text": "Free delivery for all orders above $100"
+          },
+          "disabled": null
+        },
+        "column_123456": {
+          "type": "column",
+          "settings": {
+            "columns_icon": "comment",
+            "columns_title": "Top-Notch support",
+            "columns_text": "Chat with us if you’ve any questions"
+          },
+          "disabled": null
+        },
+        "column_123457": {
+          "type": "column",
+          "settings": {
+            "columns_icon": "exclamation",
+            "columns_title": "20 years of experience",
+            "columns_text": "We know how to do it"
+          },
+          "disabled": null
+        }
+      },
+      "block_order": [
+        "column",
+        "column_123456",
+        "column_123457"
+      ],
+      "settings": {
+        "color_scheme": "set-1",
+        "content_horizontal": "center",
+        "padding_bottom_desktop": "lg",
+        "padding_bottom_mobile": "md",
+        "padding_top_desktop": "lg",
+        "padding_top_mobile": "md"
+      },
+      "disabled": null
+    },
+    "images": {
+      "type": "images",
+      "blocks": {
+        "description": {
+          "type": "description",
+          "settings": {
+            "description": "<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>"
+          },
+          "disabled": null
+        },
+        "heading": {
+          "type": "heading",
+          "settings": {
+            "heading": "Image Gallery"
+          },
+          "disabled": null
+        },
+        "image": {
+          "type": "image",
+          "settings": {
+            "image": "booqable://assets/image-images-1.jpg",
+            "image_alt": "Image 1"
+          },
+          "disabled": null
+        },
+        "image_678902": {
+          "type": "image",
+          "settings": {
+            "image": "booqable://assets/image-images-2.jpg",
+            "image_alt": "Image 2"
+          },
+          "disabled": null
+        },
+        "image_678903": {
+          "type": "image",
+          "settings": {
+            "image": "booqable://assets/image-images-3.jpg",
+            "image_alt": "Image 3"
+          },
+          "disabled": null
+        },
+        "image_678904": {
+          "type": "image",
+          "settings": {
+            "image": "booqable://assets/image-images-4.jpg",
+            "image_alt": "Image 4"
+          },
+          "disabled": null
+        },
+        "tagline": {
+          "type": "tagline",
+          "settings": {
+            "tagline": "Impressions"
+          },
+          "disabled": null
+        }
+      },
+      "block_order": [
+        "tagline",
+        "heading",
+        "description",
+        "image",
+        "image_678902",
+        "image_678903",
+        "image_678904"
+      ],
+      "settings": {
+        "color_scheme": "set-1",
+        "content_horizontal": "left",
+        "images_layout": "tiles",
+        "padding_bottom_desktop": "lg",
+        "padding_bottom_mobile": "md",
+        "padding_top_desktop": "lg",
+        "padding_top_mobile": "md"
+      },
+      "disabled": null
+    },
+    "hero": {
+      "type": "hero",
+      "blocks": {
+        "button": {
+          "type": "button",
+          "settings": {
+            "button_icon": "minimal",
+            "button_label": "Get in touch",
+            "button_type": "outlined",
+            "button_url": "booqable://pages/contact"
+          },
+          "disabled": null
+        },
+        "date-picker": {
+          "type": "date-picker",
+          "settings": {},
+          "disabled": null
+        },
+        "description": {
+          "type": "description",
+          "settings": {
+            "description": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse varius <br> enim in eros elementum tristique. Duis cursus, mi quis viverra ornare, eros <br> dolor interdum nulla, ut commodo diam libero vitae erat."
+          },
+          "disabled": null
+        },
+        "heading": {
+          "type": "heading",
+          "settings": {
+            "heading": "Explore the nature <br>with an E-Chopper"
+          },
+          "disabled": null
+        },
+        "image": {
+          "type": "image",
+          "settings": {
+            "image": "booqable://assets/image-hero-1.jpg",
+            "image_alt": "Hero image description",
+            "image_mobile": "",
+            "image_overlay": 0,
+            "image_overlay_style": "gradient"
+          },
+          "disabled": null
+        }
+      },
+      "block_order": [
+        "heading",
+        "description",
+        "date-picker",
+        "button",
+        "image"
+      ],
+      "settings": {
+        "color_scheme": "set-1",
+        "content_horizontal_desktop": "center",
+        "content_horizontal_mobile": "center",
+        "content_vertical_desktop": "center",
+        "content_vertical_mobile": "center",
+        "height_desktop": "full",
+        "height_mobile": "full",
+        "hero_direction": "column",
+        "hero_layout": "narrow",
+        "hero_split": "split",
+        "padding_bottom_desktop": "lg",
+        "padding_bottom_mobile": "md",
+        "padding_top_desktop": "lg",
+        "padding_top_mobile": "md"
+      },
+      "disabled": null
+    },
+    "hero_123457": {
+      "type": "hero",
+      "blocks": {
+        "image": {
+          "type": "image",
+          "settings": {
+            "image": "booqable://assets/image-hero-3.jpg",
+            "image_alt": "Hero image description",
+            "image_mobile": "",
+            "image_overlay": 0,
+            "image_overlay_style": "gradient"
+          },
+          "disabled": null
+        }
+      },
+      "block_order": [
+        "image"
+      ],
+      "settings": {
+        "color_scheme": "set-1",
+        "content_horizontal_desktop": "left",
+        "content_horizontal_mobile": "left",
+        "content_vertical_desktop": "top",
+        "content_vertical_mobile": "top",
+        "height_desktop": "full",
+        "height_mobile": "full",
+        "hero_direction": "row",
+        "hero_layout": "wide",
+        "hero_split": "overlay",
+        "padding_bottom_desktop": "lg",
+        "padding_bottom_mobile": "md",
+        "padding_top_desktop": "lg",
+        "padding_top_mobile": "md"
+      },
+      "disabled": null
+    },
+    "products": {
+      "type": "products",
+      "blocks": {
+        "description": {
+          "type": "description",
+          "settings": {
+            "description": "<p>We got products for all your adventures</p>"
+          },
+          "disabled": null
+        },
+        "heading": {
+          "type": "heading",
+          "settings": {
+            "heading": "Our products"
+          },
+          "disabled": null
+        },
+        "product": {
+          "type": "product",
+          "settings": {
+            "product": "",
+            "product_badge": "PRODUCT ACTION LABEL"
+          },
+          "disabled": null
+        },
+        "product_564321": {
+          "type": "product",
+          "settings": {
+            "product": "",
+            "product_badge": ""
+          },
+          "disabled": null
+        },
+        "tagline": {
+          "type": "tagline",
+          "settings": {
+            "tagline": "Shop"
+          },
+          "disabled": null
+        }
+      },
+      "block_order": [
+        "tagline",
+        "heading",
+        "description",
+        "product",
+        "product_564321"
+      ],
+      "settings": {
+        "color_scheme": "set-1",
+        "content_horizontal": "center",
+        "padding_bottom_desktop": "lg",
+        "padding_bottom_mobile": "md",
+        "padding_top_desktop": "lg",
+        "padding_top_mobile": "md",
+        "products_layout": "two"
+      },
+      "disabled": null
+    },
+    "steps": {
+      "type": "steps",
+      "blocks": {
+        "heading": {
+          "type": "heading",
+          "settings": {
+            "heading": "How it works"
+          },
+          "disabled": null
+        },
+        "step_543421": {
+          "type": "step",
+          "settings": {
+            "description": "<h3>Choose your <br>equipment</h3><p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse varius enim in eros elementum tristique.</p>",
+            "image": "",
+            "image_alt": "",
+            "number_prefix": ""
+          },
+          "disabled": null
+        },
+        "step_543422": {
+          "type": "step",
+          "settings": {
+            "description": "<h3>Select your <br>rental period</h3><p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse varius enim in eros elementum tristique.</p>",
+            "image": "",
+            "image_alt": "",
+            "number_prefix": ""
+          },
+          "disabled": null
+        },
+        "step_543423": {
+          "type": "step",
+          "settings": {
+            "description": "<h3>Checkout <br>your order</h3><p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse varius enim in eros elementum tristique.</p>",
+            "image": "",
+            "image_alt": "",
+            "number_prefix": ""
+          },
+          "disabled": null
+        },
+        "step_543424": {
+          "type": "step",
+          "settings": {
+            "description": "<h3>Get ready!</h3><p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse varius enim in eros elementum tristique.</p>",
+            "image": "",
+            "image_alt": "",
+            "number_prefix": ""
+          },
+          "disabled": null
+        },
+        "tagline": {
+          "type": "tagline",
+          "settings": {
+            "tagline": "Steps"
+          },
+          "disabled": null
+        }
+      },
+      "block_order": [
+        "tagline",
+        "heading",
+        "step_543421",
+        "step_543422",
+        "step_543423",
+        "step_543424"
+      ],
+      "settings": {
+        "color_scheme": "set-1",
+        "content_horizontal": "center",
+        "padding_bottom_desktop": "lg",
+        "padding_bottom_mobile": "md",
+        "padding_top_desktop": "lg",
+        "padding_top_mobile": "md",
+        "steps_layout": "wide",
+        "steps_layout_blocks": "card"
+      },
+      "disabled": null
+    },
+    "testimonials": {
+      "type": "testimonials",
+      "blocks": {
+        "description": {
+          "type": "description",
+          "settings": {
+            "description": "<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>"
+          },
+          "disabled": null
+        },
+        "heading": {
+          "type": "heading",
+          "settings": {
+            "heading": "What our customers say"
+          },
+          "disabled": null
+        },
+        "tagline": {
+          "type": "tagline",
+          "settings": {
+            "tagline": "Reviews"
+          },
+          "disabled": null
+        },
+        "testimonial": {
+          "type": "testimonial",
+          "settings": {
+            "blockquote": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse varius enim in eros elementum tristique. Duis cursus, mi quis viverra ornare.",
+            "position": "Position, Company name",
+            "name": "Name Surname",
+            "stars": 5
+          },
+          "disabled": null
+        },
+        "testimonial_987654": {
+          "type": "testimonial",
+          "settings": {
+            "blockquote": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse varius enim in eros elementum tristique. Duis cursus, mi quis viverra ornare.",
+            "position": "Position, Company name",
+            "name": "Name Surname",
+            "stars": 5
+          },
+          "disabled": null
+        },
+        "testimonial_123456": {
+          "type": "testimonial",
+          "settings": {
+            "blockquote": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse varius enim in eros elementum tristique. Duis cursus, mi quis viverra ornare.",
+            "position": "Position, Company name",
+            "name": "Name Surname",
+            "stars": 5
+          },
+          "disabled": null
+        },
+        "testimonial_625433": {
+          "type": "testimonial",
+          "settings": {
+            "blockquote": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse varius enim in eros elementum tristique. Duis cursus, mi quis viverra ornare.",
+            "position": "Position, Company name",
+            "name": "Name Surname",
+            "stars": 5
+          },
+          "disabled": null
+        },
+        "testimonial_625431": {
+          "type": "testimonial",
+          "settings": {
+            "blockquote": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse varius enim in eros elementum tristique. Duis cursus, mi quis viverra ornare.",
+            "position": "Position, Company name",
+            "name": "Name Surname",
+            "stars": 5
+          },
+          "disabled": null
+        },
+        "testimonial_625432": {
+          "type": "testimonial",
+          "settings": {
+            "blockquote": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse varius enim in eros elementum tristique. Duis cursus, mi quis viverra ornare.",
+            "position": "Position, Company name",
+            "name": "Name Surname",
+            "stars": 5
+          },
+          "disabled": null
+        }
+      },
+      "block_order": [
+        "tagline",
+        "heading",
+        "description",
+        "testimonial",
+        "testimonial_987654",
+        "testimonial_123456",
+        "testimonial_625433",
+        "testimonial_625431",
+        "testimonial_625432"
+      ],
+      "settings": {
+        "color_scheme": "set-3",
+        "content_horizontal": "center",
+        "padding_bottom_desktop": "lg",
+        "padding_bottom_mobile": "md",
+        "padding_top_desktop": "lg",
+        "padding_top_mobile": "md",
+        "testimonials_layout": "grid"
+      },
+      "disabled": null
+    }
+  },
+  "order": [
+    "hero",
+    "columns",
+    "steps",
+    "about",
+    "hero_123457",
+    "products",
+    "accordion",
+    "images",
+    "testimonials"
+  ]
+}
