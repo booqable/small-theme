@@ -506,13 +506,24 @@
         "product_564321"
       ],
       "settings": {
-        "color_scheme": "set-1",
+        "color_scheme": "set-3",
         "content_horizontal": "center",
         "padding_bottom_desktop": "lg",
         "padding_bottom_mobile": "md",
         "padding_top_desktop": "lg",
         "padding_top_mobile": "md",
         "products_layout": "two"
+      },
+      "disabled": null
+    },
+    "spacer": {
+      "type": "spacer",
+      "blocks": {},
+      "block_order": [],
+      "settings": {
+        "color_scheme": "set-1",
+        "size_desktop": "lg",
+        "size_mobile": "md"
       },
       "disabled": null
     },
@@ -707,6 +718,7 @@
     "columns",
     "steps",
     "about",
+    "spacer",
     "hero_123457",
     "products",
     "accordion",
