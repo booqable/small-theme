@@ -1,0 +1,100 @@
+{%- assign color_scheme = section.settings.color_scheme -%}
+{%- assign size_desktop = section.settings.size_desktop -%}
+{%- assign size_mobile  = section.settings.size_mobile -%}
+
+{% comment %} CSS variables start {% endcomment %}
+{%- capture variables -%}
+  {%- case size_desktop -%}
+    {%- when 'medium' -%}
+      --spacer-height-desktop: 64px;
+    {%- when 'large' -%}
+      --spacer-height-desktop: 128px;
+  {%- endcase -%}
+
+  {%- case size_mobile -%}
+    {%- when 'medium' -%}
+      --spacer-height-mobile: 64px;
+    {%- when 'large' -%}
+      --spacer-height-mobile: 128px;
+  {%- endcase -%}
+{%- endcapture -%}
+{% comment %} CSS variables end {% endcomment %}
+
+<div class="spacer__wrapper{% if section_preview %} spacer__wrapper--preview{% endif %} color-{{- color_scheme.id -}}" style="{{- variables | escape -}}">
+  {% if section_preview %}
+    <span>This section will render an empty space</span>
+  {% endif %}
+</div>
+
+{% schema %}
+  {
+    "name": "Spacer",
+    "tag": "section",
+    "class": "spacer",
+    "css_assets": [
+      {
+        "file": "spacer.css"
+      }
+    ],
+    "settings": [
+      {
+        "type": "header",
+        "content": "General settings"
+      },
+      {
+        "type": "color_scheme",
+        "id": "color_scheme",
+        "label": "Color scheme",
+        "default": "set-1"
+      },
+      {
+        "type": "header",
+        "content": "Desktop settings"
+      },
+      {
+        "type": "select",
+        "id": "size_desktop",
+        "label": "Size",
+        "options": [
+          {
+            "value": "small",
+            "label": "Small"
+          },
+          {
+            "value": "medium",
+            "label": "Medium"
+          },
+          {
+            "value": "large",
+            "label": "Large"
+          }
+        ],
+        "default": "medium"
+      },
+      {
+        "type": "header",
+        "content": "Mobile settings"
+      },
+      {
+        "type": "select",
+        "id": "size_mobile",
+        "label": "Size",
+        "options": [
+          {
+            "value": "small",
+            "label": "Small"
+          },
+          {
+            "value": "medium",
+            "label": "Medium"
+          },
+          {
+            "value": "large",
+            "label": "Large"
+          }
+        ],
+        "default": "medium"
+      }
+    ]
+  }
+{% endschema %}
