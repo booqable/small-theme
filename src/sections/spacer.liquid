@@ -5,16 +5,16 @@
 {% comment %} CSS variables start {% endcomment %}
 {%- capture variables -%}
   {%- case size_desktop -%}
-    {%- when 'medium' -%}
+    {%- when 'md' -%}
       --spacer-height-desktop: 64px;
-    {%- when 'large' -%}
+    {%- when 'lg' -%}
       --spacer-height-desktop: 128px;
   {%- endcase -%}
 
   {%- case size_mobile -%}
-    {%- when 'medium' -%}
+    {%- when 'md' -%}
       --spacer-height-mobile: 64px;
-    {%- when 'large' -%}
+    {%- when 'lg' -%}
       --spacer-height-mobile: 128px;
   {%- endcase -%}
 {%- endcapture -%}
@@ -57,19 +57,19 @@
         "label": "Size",
         "options": [
           {
-            "value": "small",
+            "value": "sm",
             "label": "Small"
           },
           {
-            "value": "medium",
+            "value": "md",
             "label": "Medium"
           },
           {
-            "value": "large",
+            "value": "lg",
             "label": "Large"
           }
         ],
-        "default": "medium"
+        "default": "md"
       },
       {
         "type": "header",
@@ -81,19 +81,19 @@
         "label": "Size",
         "options": [
           {
-            "value": "small",
+            "value": "sm",
             "label": "Small"
           },
           {
-            "value": "medium",
+            "value": "md",
             "label": "Medium"
           },
           {
-            "value": "large",
+            "value": "lg",
             "label": "Large"
           }
         ],
-        "default": "medium"
+        "default": "md"
       }
     ]
   }
