@@ -60,7 +60,7 @@ body {
     #main {
       > section {
         &:first-child {
-          > [class*="__wrapper"] {
+          > [class*="--padding-top"] {
             --section-padding-top: calc(var(--padding-top-mobile, 20px) + #{$header-height} - var(--top-bar-height, 0px));
 
             @include media-up(md) {
