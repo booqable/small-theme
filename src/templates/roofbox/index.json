@@ -360,8 +360,8 @@
         "content_horizontal_mobile": "left",
         "content_vertical_desktop": "top",
         "content_vertical_mobile": "top",
-        "height_desktop": "full",
-        "height_mobile": "full",
+        "height_desktop": "md",
+        "height_mobile": "auto",
         "hero_direction": "row",
         "hero_layout": "narrow",
         "hero_split": "split",
@@ -398,7 +398,7 @@
             "image": "booqable://assets/image-hero-2.jpg",
             "image_alt": "Hero image description",
             "image_mobile": "",
-            "image_overlay": 0,
+            "image_overlay": 40,
             "image_overlay_style": "gradient"
           },
           "disabled": null
