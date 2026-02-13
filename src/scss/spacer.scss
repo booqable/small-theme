@@ -1,0 +1,42 @@
+// Import variables
+@use 'variables' as *;
+
+// Import mixins
+@use '_helpers/mixins' as *;
+
+.spacer {
+  &__wrapper {
+    --spacer-height: var(--spacer-height-mobile, 32px);
+
+    height: var(--spacer-height);
+    background: $background-primary;
+
+    @include media-up(md) {
+      --spacer-height: var(--spacer-height-desktop, 32px);
+    }
+
+    &--preview {
+      position: relative;
+      margin: 16px;
+      border-radius: $border-radius-block;
+      background-image: repeating-linear-gradient(
+        315deg,
+        $background-primary,
+        $background-primary 6px,
+        $color-border 6px,
+        $color-border 7px
+      ) !important;
+
+      span {
+        display: inline-block;
+        position: absolute;
+        top: 50%;
+        left: 6px;
+        transform: translateY(-50%);
+        padding: 4px 6px;
+        background-color: $background-primary;
+        color: $color-primary;
+      }
+    }
+  }
+}
